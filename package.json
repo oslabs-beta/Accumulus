@@ -5,8 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "NODE_ENV=production webpack",
-    "start": "NODE_ENV=production node server/server.js & NODE_ENV=production webpack serve --open",
-    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open",
+    "start": "NODE_ENV=production node server/server.ts & NODE_ENV=production webpack serve --open",
+    "dev": "NODE_ENV=development nodemon server/server.ts & NODE_ENV=development webpack serve --open",
     "test": "jest --verbose"
   },
   "keywords": [],
@@ -21,6 +21,14 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.1",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^17.0.27",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/regenerator-runtime": "^0.13.1",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
