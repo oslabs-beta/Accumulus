@@ -24,7 +24,7 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
     ],
     // what module system to use.
     // We will use esnext but commonJS is also an option.
@@ -44,7 +44,7 @@
     // We will set this to false.
     // If set to true, it will fail to compile based on strict type checking rules.
     // There are a few granular options like no null or any types.
-    "strict": false,
+    "strict": true,
     // Third Section - Module Resolution
     "allowSyntheticDefaultImports": true,
     // Option that helps solve import edge case
@@ -58,5 +58,6 @@
     "skipLibCheck": true,
     // TypeScript follows the case-sensitivity rules of the file system it's running on.
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }
