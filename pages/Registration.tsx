@@ -29,8 +29,18 @@ const Registration: React.FunctionComponent = () => {
     console.log('sign up button clicked from registration page');
     console.log(nameReg, emailReg, passwordReg, arnReg, regionReg);
     const button: HTMLButtonElement = event.currentTarget;
-    
-    Axios.post('http://locahost:4000/user/signup', {
+
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+      }
+    };
+  
+
+    Axios.post('http://localhost:3000/api/user/signup',
+    // config, 
+    {
       name: nameReg,
       email: emailReg,
       password: passwordReg,

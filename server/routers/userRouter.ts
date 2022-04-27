@@ -7,6 +7,7 @@ router.post(
   '/signup',
   userController.createUser,
   (req: Request, res: Response): void => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4000');
     res.status(200).json(res.locals.confirmation);
   }
 );

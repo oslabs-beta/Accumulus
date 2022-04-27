@@ -9,6 +9,7 @@ import express, {
 import mongoose from 'mongoose';
 import path from 'path';
 import 'dotenv/config';
+import cors from 'cors';
 import { fileURLToPath } from 'url';
 
 // Router imports
@@ -28,6 +29,7 @@ mongoose.connect(`${process.env.MONGO_URI!}`);
 
 // Parse request bodies
 app.use(express.json());
+app.use(cors());
 
 // Serve all static files in dist directory
 app.use(express.static(path.join(__dirname, '../dist')));

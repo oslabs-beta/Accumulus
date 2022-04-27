@@ -28,7 +28,9 @@
     "incremental": true
   },
   "include": [
-    "./server"
+    "./server",
+    "./pages",
+    "./components"
   ],
   "exclude": [
     "node_modules",
