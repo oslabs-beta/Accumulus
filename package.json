@@ -12,7 +12,10 @@
     "build-prod": "webpack --mode production",
     "start": "nodemon --es-module-specifier-resolution=node dist/server.js",
     "dev": "webpack serve --hot --mode development & nodemon --es-module-specifier-resolution=node dist/server.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --verbose --no-cache"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --verbose --no-cache",
+    "next-dev": "next dev",
+    "next-buid": "next build",
+    "next-lint": "next lint"
   },
   "keywords": [],
   "license": "ISC",
@@ -20,8 +23,9 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "next": "^12.1.5",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "webpack": "^5.72.0"
   },
   "devDependencies": {

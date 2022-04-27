@@ -9,14 +9,30 @@
     "moduleResolution": "node",
     "target": "es6",
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "types": ["node", "jest"],
-    "lib": ["es6", "dom"],
+    "types": [
+      "node",
+      "jest"
+    ],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true
   },
-  "include": ["./server"],
-  "exclude": ["node_modules", "./src/__tests__", "./dist"]
+  "include": [
+    "./server"
+  ],
+  "exclude": [
+    "node_modules",
+    "./src/__tests__",
+    "./dist"
+  ]
 }
