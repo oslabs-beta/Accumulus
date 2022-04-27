@@ -37,25 +37,26 @@ userController.verifyUser = async (req, res, next) => {
     // DB read query
     const user = await User.findOne({ email });
     console.log('userController.verifyUser finding user');
-    const { arn, externalId, region } = user;
     // Verify password
-    if (await user.comparePassword(req.body.password)) {
-      // Correct password
-      console.log('userController.verifyUser correct password');
-      res.locals.confirmation = {
-        success: true,
-        arn,
-        externalId,
-        region,
-      };
-    } else {
-      // Incorrect password
-      console.log('userController.verifyUser ERROR: wrong password');
-      res.locals.confirmation = {
-        success: false,
-      };
+    if (user !== null) {
+      if (await user.validatePassword(password)) {
+        // Correct password
+        console.log('userController.verifyUser correct password');
+        res.locals.confirmation = {
+          success: true,
+          arn: user.arn,
+          externalId: user.externalId,
+          region: user.region,
+        };
+      } else {
+        // Incorrect password
+        console.log('userController.verifyUser ERROR: wrong password');
+        res.locals.confirmation = {
+          success: false,
+        };
+      }
+      return next();
     }
-    return next();
   } catch (err) {
     // Email not found
     console.log('userController.verifyUser ERROR: email is not registered');
