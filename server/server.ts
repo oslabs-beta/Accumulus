@@ -20,8 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Connect to MongoDB for authentication
-const MONGO_URI: string = process.env.MONGO_URI;
-mongoose.connect(MONGO_URI);
+mongoose.connect(`${process.env.MONGO_URI!}`);
 
 // Parse request bodies
 app.use(express.json());
