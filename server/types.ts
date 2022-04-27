@@ -6,3 +6,8 @@ export type middlewareFunction = (
   res: express.Response,
   next: express.NextFunction
 ) => void;
+
+// Types for Lambda API Response
+// export type lambdaFunctionResponse = (
+
+// ) => 

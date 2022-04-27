@@ -1,7 +1,19 @@
-node_modules
+# OS
+.DS_Store
 
+# Dependencies
+node_modules
+package-lock.json
+
+# Environments
 .env
 
+# Builds
 dist
-
 build
+
+# AWS Configs
+cloudformation.yml
+
+# AWS request & response data
+aws/graph
