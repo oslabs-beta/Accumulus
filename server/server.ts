@@ -6,9 +6,14 @@ import express, {
   Router,
   NextFunction,
 } from 'express';
+import mongoose from 'mongoose';
 import path from 'path';
 import 'dotenv/config';
 import { fileURLToPath } from 'url';
+
+// Router imports
+import userRouter from './routers/userRouter.js';
+import awsRouter from './routers/awsRouter.js';
 
 // Declare Express server and port constant
 const app: Express = express();
@@ -18,17 +23,18 @@ const PORT: number = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Connect to MongoDB for authentication
+mongoose.connect(`${process.env.MONGO_URI!}`);
+
 // Parse request bodies
 app.use(express.json());
 
 // Serve all static files in dist directory
 app.use(express.static(path.join(__dirname, '../dist')));
 
-// Router imports
-import userRouter from './routers/userRouter.js';
-
 // Router endpoints
-app.use('/user', userRouter);
+app.use('/api/user', userRouter);
+app.use('/api/aws', awsRouter);
 
 // Catch-all route handler for Express requests to an unknown route
 app.use((req: Request, res: Response): void => {
