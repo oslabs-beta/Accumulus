@@ -1,5 +1,3 @@
-import { Response, Request, NextFunction } from 'express';
-import { useImperativeHandle } from 'react';
 import User from '../database/db.js';
 import * as types from '../types';
 
@@ -8,13 +6,14 @@ const userController: Record<string, types.middlewareFunction> = {};
 // Create a new user in database
 userController.createUser = async (req, res, next) => {
   try {
-    const { email, password, arn, externalId } = req.body;
+    const { email, password, arn, externalId, region } = req.body;
     // DB create query
     const newUser = await User.create({
       email,
       password,
       arn,
       externalId,
+      region,
     });
     console.log('userController.createUser user created');
     res.locals.confirmation = {
