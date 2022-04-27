@@ -6,6 +6,7 @@ const { Schema } = mongoose;
 interface IUser {
   email: string;
   password: string;
+  name: string;
   arn: string;
   externalId: string;
   region: string;
@@ -17,6 +18,7 @@ interface IUser {
 const userSchema = new Schema<IUser>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  name: { type: String, required: true },
   arn: { type: String, required: true },
   externalId: { type: String, required: true },
   region: { type: String, required: true },
