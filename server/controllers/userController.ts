@@ -24,7 +24,9 @@ userController.createUser = async (req, res, next) => {
     next();
   } catch (err) {
     // Entry field missing or Non-unique email
-    console.log('userController.createUser ERROR: sign up failed');
+    console.log(
+      'userController.createUser ERROR: sign up failed, missing field or non-unique email'
+    );
     return next(err);
   }
 };
