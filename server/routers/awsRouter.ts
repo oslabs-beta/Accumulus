@@ -14,12 +14,15 @@ router.post('/lambda', lambdaController.getFunctions, (req, res) => {
   res.status(200).json(res.locals.lambdaFunctions);
 });
 
-router.get(
-  '/metrics/:metricName',
-  cwController.getLambdaMetricsAll,
-  (req, res) => {
+router.get('/metrics', cwController.getLambdaMetricsAll, (req, res) => {
     res.status(200).json(res.locals.lambdaMetricsAllFuncs);
   }
 );
+
+//Make a post request to metrics with "TypeOfMetric" in the body
+// router.post('/metrics', cwController.getLambdaMetricsAll, (req, res) => {
+//   res.status(200).json(res.locals.lambdaMetricsAllFuncs);
+// }
+// );
 
 export default router;
