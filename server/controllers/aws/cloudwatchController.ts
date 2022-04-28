@@ -26,19 +26,19 @@ const cwController: any = {};
 //   days: number;
 // }
 
-const timeRangePeriod: any = {
+const timeRangePeriod: {[key: string]: string | number} = {
   minutes: 60, //60 seconds
   hours: 300, //300 secs
   days: 3600, // 1 hour
 };
 
-const timeRoundMultiplier: any = {
+const timeRoundMultiplier: {[key: string]: string | number} = {
   minutes: 5, //the EndTime time stamps will be rounded to nearest 5 minutes
   hours: 15, //rounded to nearest 15 minutes
   days: 60, // rounded to nearest hour
 };
 
-const timeRangeMultiplier: any = {
+const timeRangeMultiplier: {[key: string]: string | number} = {
   minutes: 60, //the EndTime time stamps will be rounded to nearest 5 minutes
   hours: 3600, //rounded to nearest 15 minutes
   days: 86400, // rounded to nearest hour
@@ -46,17 +46,17 @@ const timeRangeMultiplier: any = {
 
 cwController.formatCWLambdaMetricAll = (
   timeRangeNum: number,
-  timeRangeUnits: number,
-  metricName: number,
-  metricStat: number
+  timeRangeUnits: string,
+  metricName: string,
+  metricStat: string
 ) => {
   // Format start and end time for sdk query func
-  const timeRound = timeRoundMultiplier[timeRangeUnits];
+  const timeRound = timeRoundMultiplier[timeRangeUnits.toString()];
   const EndTime =
-    Math.round(new Date().getTime() / 1000 / 60 / timeRound) * 60 * timeRound; //current time in Unix TimeStamp
+    Math.round(new Date().getTime() / 1000 / 60 / +timeRound) * 60 * +timeRound; //current time in Unix TimeStamp
   const StartTime =
-    EndTime - timeRangeNum * timeRangeMultiplier[timeRangeUnits];
-  const period = timeRangePeriod[timeRangeUnits];
+    EndTime - timeRangeNum * +timeRangeMultiplier[timeRangeUnits.toString()];
+  const period = timeRangePeriod[timeRangeUnits.toString()];
 
   // Format Query
   return {
@@ -93,9 +93,9 @@ cwController.formatCWLambdaMetricByFunc = (
   //define the End and Start times in UNIX time Stamp format for getMetricsData method
   //Rounded off to nearest timeRoundMultiplier
   const endTime =
-    Math.round(new Date().getTime() / 1000 / 60 / timeRound) * 60 * timeRound; //current time in Unix TimeStamp
+    Math.round(new Date().getTime() / 1000 / 60 / +timeRound) * 60 * +timeRound; //current time in Unix TimeStamp
   const startTime =
-    endTime - timeRangeNum * timeRangeMultiplier[timeRangeUnits];
+    endTime - timeRangeNum * +timeRangeMultiplier[timeRangeUnits];
 
   const period = timeRangePeriod[timeRangeUnits];
 
