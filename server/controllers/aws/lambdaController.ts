@@ -15,7 +15,8 @@ interface LambdaFunctionResponse {
 }
 
 lambdaController.getFunctions = (req, res, next) => {
-  const { region, credentials } = req.body;
+  const { credentials } = res.locals;
+  const { region } = req.body;
   const client = new lambda.LambdaClient({
     region,
     credentials,
