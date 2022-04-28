@@ -1,4 +1,4 @@
-import Link from 'next/Link'
+import Link from 'next/link';
 
 export default function SignupBtn() {
   return (
@@ -9,5 +9,5 @@ export default function SignupBtn() {
         </Link>
       </div>
     </>
-  )
+  );
 }
