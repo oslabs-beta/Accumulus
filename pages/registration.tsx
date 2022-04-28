@@ -13,13 +13,13 @@ const Registration: React.FunctionComponent = () => {
   const [emailReg, setEmailReg] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
   const [arnReg, setArnReg] = useState('');
-  const [regionReg, setRegionReg] = useState('');
+  const [regionReg, setRegionReg] = useState('us-east-2');
 
   const EXTERNAL_ID = uuidv4();
   const YML = `https://accumulus.s3.us-east-2.amazonaws.com/cloudformation.yml`;
   const link = `https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`;
 
-  const regBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const regBtnHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (!nameReg) console.log('enter a name dumb boi');
 
@@ -42,19 +42,14 @@ const Registration: React.FunctionComponent = () => {
       externalId: EXTERNAL_ID,
     });
 
-    console.log(body);
-
-    fetch('http://localhost:3000/api/user/signup', {
-      mode: 'no-cors',
+    const register = await fetch('http://localhost:3000/api/user/signup', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       method: 'POST',
       body,
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
+    console.log(register);
   };
 
   return (

@@ -5,10 +5,6 @@ import userController from '../controllers/userController';
 // Sign up requests
 router.post(
   '/signup',
-  (req: Request, res: Response, next: NextFunction): void => {
-    console.log('/signup');
-    next();
-  },
   userController.createUser,
   (req: Request, res: Response): void => {
     res.status(200).json(res.locals.confirmation);

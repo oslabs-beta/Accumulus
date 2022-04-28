@@ -5,7 +5,6 @@ const userController: Record<string, types.middlewareFunction> = {};
 
 // Create a new user in database
 userController.createUser = async (req, res, next) => {
-  console.log(req.body);
   try {
     const { name, email, password, arn, externalId, region } = req.body;
     // DB create query

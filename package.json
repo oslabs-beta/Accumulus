@@ -11,7 +11,7 @@
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
     "start": "nodemon --es-module-specifier-resolution=node dist/server.js",
-    "dev": "next dev -p 4000 & webpack serve --hot --mode development & nodemon --es-module-specifier-resolution=node dist/server.js",
+    "dev": "next dev -p 4000 & webpack serve --hot --mode development & nodemon --es-module-specifier-resolution=node dist/server/server.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --verbose --no-cache",
     "next-dev": "next dev -p 4000",
     "next-build": "next build",
