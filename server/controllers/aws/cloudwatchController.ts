@@ -26,19 +26,19 @@ const cwController: any = {};
 //   days: number;
 // }
 
-const timeRangePeriod: {[key: string]: string | number} = {
+const timeRangePeriod: { [key: string]: string | number } = {
   minutes: 60, //60 seconds
   hours: 300, //300 secs
   days: 3600, // 1 hour
 };
 
-const timeRoundMultiplier: {[key: string]: string | number} = {
+const timeRoundMultiplier: { [key: string]: string | number } = {
   minutes: 5, //the EndTime time stamps will be rounded to nearest 5 minutes
   hours: 15, //rounded to nearest 15 minutes
   days: 60, // rounded to nearest hour
 };
 
-const timeRangeMultiplier: {[key: string]: string | number} = {
+const timeRangeMultiplier: { [key: string]: string | number } = {
   minutes: 60, //the EndTime time stamps will be rounded to nearest 5 minutes
   hours: 3600, //rounded to nearest 15 minutes
   days: 86400, // rounded to nearest hour
@@ -155,18 +155,21 @@ cwController.getLambdaMetricsAll = async (
   next: express.NextFunction
 ) => {
   // Get AWS creds for client
-  const account = utilController.getAwsCreds();
+  // const account = utilController.getAwsCreds();
+  const { credentials } = res.locals;
+  const { region } = req.body;
+  const graphMetricName = req.body.metricName;
+  let graphPeriod, graphUnits, graphMetricStat;
+
   const cwClient = new CloudWatchClient({
-    region: account.region,
-    credentials: account.credentials,
+    region,
+    credentials,
   });
 
   // Init input vars for graph
-  let graphPeriod, graphUnits, graphMetricName, graphMetricStat;
 
   // TODO:
   // PULL THIS FROM FRONTEND ONCE IMPLEMENTED -- CURRENTLY HARDCODED
-  graphMetricName = req.params.metricName;
 
   // TODO:
   // Refactor this
@@ -204,7 +207,10 @@ cwController.getLambdaMetricsAll = async (
     const metricAllFuncResult = await cwClient.send(
       new GetMetricDataCommand(metricAllFuncInputParams)
     );
-    console.log('METRIC ALL FUNC DATA: ', metricAllFuncResult);
+    console.log(
+      'cwController.getLambdaMetricsAll METRIC ALL FUNC DATA: ',
+      metricAllFuncResult
+    );
 
     let metricAllFuncData =
       metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
@@ -234,8 +240,15 @@ cwController.getLambdaMetricsAll = async (
     };
 
     res.locals.lambdaMetricsAllFuncs = metricAllFuncOutput;
-    console.log('FORMATTED METRIC ALL FUNC DATA', metricAllFuncOutput);
+    console.log(
+      'cwController.getLambdaMetricsAll FORMATTED METRIC ALL FUNC DATA',
+      metricAllFuncOutput
+    );
+    next();
   } catch (err) {
+    console.log(
+      'cwController.getLambdaMetricsAll failed to GetMetricDataCommand'
+    );
     return next(err);
   }
 };

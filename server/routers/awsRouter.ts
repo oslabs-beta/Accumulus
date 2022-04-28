@@ -6,15 +6,20 @@ import cwController from '../controllers/aws/cloudwatchController';
 
 const router = express.Router();
 
-router.post('/getCreds', credController.getCreds, (req, res) => {
-  res.status(200).json(res.locals.credentials);
-});
+router.post(
+  '/lambda',
+  credController.getCreds, // credentials go into res.locals.credentials
+  lambdaController.getFunctions, // function details go into res.locals.lambdaFunctions
+  (req, res) => {
+    res.status(200).json(res.locals.lambdaFunctions);
+  }
+);
 
-router.post('/lambda', lambdaController.getFunctions, (req, res) => {
-  res.status(200).json(res.locals.lambdaFunctions);
-});
-
-router.get('/metrics', cwController.getLambdaMetricsAll, (req, res) => {
+router.post(
+  '/metrics',
+  credController.getCreds, // credentials go into res.locals.credentials,
+  cwController.getLambdaMetricsAll,
+  (req, res) => {
     res.status(200).json(res.locals.lambdaMetricsAllFuncs);
   }
 );
