@@ -16,7 +16,7 @@ router.post(
 );
 
 router.post(
-  '/metrics',
+  '/metricsAllFuncs/:metric/:period/:stat',
   credController.getCreds, // credentials go into res.locals.credentials,
   cwController.getLambdaMetricsAll,
   (req, res) => {
