@@ -158,8 +158,31 @@ cwController.getLambdaMetricsAll = async (
   // const account = utilController.getAwsCreds();
   const { credentials } = res.locals;
   const { region } = req.body;
-  const graphMetricName = req.body.metricName;
-  let graphPeriod, graphUnits, graphMetricStat;
+  const graphMetricName = req.params.metric;
+  const graphMetricStat = req.params.stat;
+  const periodSelection = req.params.period;
+  let graphPeriod;
+  let graphUnits;
+
+  if (periodSelection === '30min') {
+    [graphPeriod, graphUnits] = [30, 'minutes'];
+  } else if (periodSelection === '1hr') {
+    [graphPeriod, graphUnits] = [60, 'minutes'];
+  } else if (periodSelection === '24hr') {
+    [graphPeriod, graphUnits] = [24, 'hours'];
+  } else if (periodSelection === '7d') {
+    [graphPeriod, graphUnits] = [7, 'days'];
+  } else if (periodSelection === '14d') {
+    [graphPeriod, graphUnits] = [14, 'days'];
+  } else if (periodSelection === '30d') {
+    [graphPeriod, graphUnits] = [30, 'days'];
+  } else if (periodSelection === '3mon') {
+    [graphPeriod, graphUnits] = [90, 'days'];
+  } else if (periodSelection === '6mon') {
+    [graphPeriod, graphUnits] = [180, 'days'];
+  } else if (periodSelection === '1y') {
+    [graphPeriod, graphUnits] = [30, 'days'];
+  }
 
   const cwClient = new CloudWatchClient({
     region,
@@ -171,27 +194,8 @@ cwController.getLambdaMetricsAll = async (
   // TODO:
   // PULL THIS FROM FRONTEND ONCE IMPLEMENTED -- CURRENTLY HARDCODED
 
-  // TODO:
-  // Refactor this
-
-  // if (req.body.timePeriod === '30min') {
-  //   [graphPeriod, graphUnits] = [30, 'minutes'];
-  // } else if (req.body.timePeriod === '1hr') {
-  //   [graphPeriod, graphUnits] = [60, 'minutes'];
-  // } else if (req.body.timePeriod === '24hr') {
-  // } else if (req.body.timePeriod === '7d') {
-  //   [graphPeriod, graphUnits] = [7, 'days'];
-  // } else if (req.body.timePeriod === '14d') {
-  //   [graphPeriod, graphUnits] = [14, 'days'];
-  // } else if (req.body.timePeriod === '30d') {
-  //   [graphPeriod, graphUnits] = [30, 'days'];
-  // }
-
-  [graphPeriod, graphUnits] = [7, 'days']; // hardcoded
-
   //function to switch graphMetricStat based on query params
 
-  graphMetricStat = 'Sum'; // hardcoded
   // else graphMetricStat = req.body.metricStat;
 
   // Metrics for all lambda functions
