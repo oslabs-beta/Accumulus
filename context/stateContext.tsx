@@ -58,3 +58,16 @@ export function useDataContext(){
 //     duration: { ... }
 //   }
 // }
+
+/*{ 
+  functionNames: [name1, name2, …], 
+  data: { 
+    invocations: [{ 
+      ‘month’: ‘Jan’, 
+      ‘day’: 0, … ,
+      name1: value,
+      name2: value
+    }],
+    duration: { ... }
+  }
+}*/
