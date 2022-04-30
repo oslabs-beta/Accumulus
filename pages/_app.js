@@ -6,8 +6,8 @@ function MyApp({ Component, pageProps }) {
   return (
   <>
     <Component {...pageProps} />
-    <h1>Splash Menu rendered from the _app file</h1>
-    <Menu />
+    {/* <h1>Splash Menu rendered from the _app file</h1>
+    <Menu /> */}
   </>
 
   )
