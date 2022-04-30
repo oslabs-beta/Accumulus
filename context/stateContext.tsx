@@ -1,27 +1,43 @@
-import React, { createContext, useContext } from 'react';
+import React, { useState, FC } from 'react';
 
 
 interface IData {
-  functionNames: string[];
-  data: {[key:string]: object[{[key:string]: string | number}]}
+  functionNames?: string[];
+  data?: {
+    [key:string]: {[key:string]: string | number}[]
+  };
+  receivedData?: () => any;
+  children?: React.ReactNode;
 }
 
 const defaultState = {
   functionNames: ['name1', 'name2', 'name3', 'name4', 'name5'],
-  data: [invocations:[{month:'Jan'}]]
+  data: {
+    invocations:[{
+      month:'Jan',
+      day: 0,
+      name1: 'testName',
+    }]
+  }
 }
 
-const DataContext = createContext<Partial<IData>>({});
+const DataContext = React.createContext<IData>(defaultState);
 
-export function AppWrapper(){
-  const sharedState: {[key:string]: string| number } = {
-    //datafetched goes in here;
+export const AppWrapper:FC<IData> = ({children}) => {
+  const [data, setData] = useState(defaultState.data)
+
+
+  //Do we need to put in parameter so when receivedData is called, 
+  //it puts in the fetch request data and set that to data state?
+  const receivedData = () => {
+    setData(data);
+    console.log(`Data inside setData: ${data}`);
   }
 
   return(
     <>
-      <DataContext.Provider value={ sharedState }>
-        
+      <DataContext.Provider value={ {data, receivedData} }>
+        {children}
       </DataContext.Provider>
     </>
   );
@@ -29,7 +45,7 @@ export function AppWrapper(){
 }
 
 export function useDataContext(){
-  return useContext(DataContext);
+  return React.useContext(DataContext);
 }
 
 
@@ -58,16 +74,3 @@ export function useDataContext(){
 //     duration: { ... }
 //   }
 // }
-
-/*{ 
-  functionNames: [name1, name2, …], 
-  data: { 
-    invocations: [{ 
-      ‘month’: ‘Jan’, 
-      ‘day’: 0, … ,
-      name1: value,
-      name2: value
-    }],
-    duration: { ... }
-  }
-}*/
