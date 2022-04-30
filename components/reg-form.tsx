@@ -62,6 +62,7 @@ const RegForm: React.FunctionComponent = () => {
         <a
           href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}
           target="_blank"
+          rel="noreferrer"
         >
           Please visit this link to get your ARN
         </a>
