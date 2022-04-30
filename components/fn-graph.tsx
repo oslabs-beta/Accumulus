@@ -11,16 +11,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const colours = [
-  "green",
-  "red",
-  "blue",
-  "brown",
-  "orange",
-  "pink",
-  "purple",
-  "cyan",
-];
 
 interface GraphProps {
   data: any;
@@ -29,24 +19,23 @@ interface GraphProps {
 
 interface Data {
   Time: string;
-  Success: number;
-  Fail: number;
+  Invocations: number;
+ 
 }
 
-export const FuncGraph = ({ data }: GraphProps) => {
+const FuncGraph = ({ data }: GraphProps) => {
   const [time, setTime] = useState<object | null>(null);
   const createObj = () => {
     //const arr: Array<object> = [];
     const arr: Array<object> = []!;
     for (let i in data) {
-      const obj: Data = { Time: "", Success: 0, Fail: 0};
+      const obj: Data = { Time: "", Invocations: 0};
       const mnt = moment(data[i].timeStamp);
       obj["Time"] = mnt.format("LT");
-      obj["Success"] = data[i].successCount
+      obj["Invocations"] = data[i].successCount
         ? data[i].successCount : 0;
 
-      obj["Fail"] = data[i].failCount ?
-      data[i].failCount : 0;
+     
       arr.push(obj);
     }
     setTime(arr);
@@ -56,7 +45,7 @@ export const FuncGraph = ({ data }: GraphProps) => {
 
   return (
     <>
-    <h1 className='flex items-center justify-center'>Successful Requests (200) v. Failed Requests</h1>
+    <h1 className='flex items-center justify-center'>Invocations over time</h1>
     <div className='chart' style={{ width: "100%", height: 300 }}>
       <ResponsiveContainer>
         <LineChart
@@ -82,7 +71,7 @@ export const FuncGraph = ({ data }: GraphProps) => {
           <Legend />
           <Line
             type="monotone"
-            dataKey="Success"
+            dataKey="Invocations"
             stroke="blue"
             fillOpacity={1}
             fill="url(#colorUv)"
@@ -90,7 +79,7 @@ export const FuncGraph = ({ data }: GraphProps) => {
           />
           <Line
             type="monotone"
-            dataKey="Fail"
+            dataKey=""
             stroke="red"
             fill="red"
             activeDot={{ r: 6 }}
@@ -101,3 +90,5 @@ export const FuncGraph = ({ data }: GraphProps) => {
     </>
   );
 };
+
+export default FuncGraph;
