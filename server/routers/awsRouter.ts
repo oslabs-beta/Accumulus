@@ -2,6 +2,7 @@ import express from 'express';
 import lambdaController from '../controllers/aws/lambdaController';
 import credController from '../controllers/aws/credController';
 import cwController from '../controllers/aws/cloudwatchController';
+import stepController from '../controllers/aws/stepFuncs/stepController';
 // import * as types from '../types';
 
 const router = express.Router();
@@ -19,6 +20,15 @@ router.post(
   '/metricsAllFuncs/:metric/:period/:stat',
   credController.getCreds, // credentials go into res.locals.credentials,
   cwController.getLambdaMetricsAll,
+  (req, res) => {
+    res.status(200).json(res.locals.lambdaMetricsAllFuncs);
+  }
+);
+
+router.post(
+  '/stateMetricsByFunc/:metric/:period/:stat',
+  credController.getCreds, // credentials go into res.locals.credentials,
+  stepController.getStateMetricByFunc,
   (req, res) => {
     res.status(200).json(res.locals.lambdaMetricsAllFuncs);
   }
