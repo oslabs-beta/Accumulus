@@ -8,7 +8,7 @@ credController.getCreds = async (req, res, next) => {
   const { arn, externalId } = req.body;
   const roleParams = {
     RoleArn: arn,
-    RoleSessionName: 'AccumulusDelegationRole',
+    RoleSessionName: 'DashbirdDelegationRole',
     ExternalId: externalId,
   };
 

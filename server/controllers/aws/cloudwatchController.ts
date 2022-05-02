@@ -44,19 +44,29 @@ const timeRangeMultiplier: { [key: string]: string | number } = {
   days: 86400, // rounded to nearest hour
 };
 
+// const metricAllFuncInputParams = cwController.formatCWLambdaMetricAll(
+//   graphPeriod,
+//   graphUnits,
+//   graphMetricName,
+//   graphMetricStat
+// );
+
 cwController.formatCWLambdaMetricAll = (
   timeRangeNum: number,
   timeRangeUnits: string,
   metricName: string,
   metricStat: string
 ) => {
+  console.log(timeRangeNum, timeRangeUnits, metricName, metricStat);
   // Format start and end time for sdk query func
-  const timeRound = timeRoundMultiplier[timeRangeUnits.toString()];
+  const timeRound = timeRoundMultiplier[timeRangeUnits.toString()]; // 60
   const EndTime =
     Math.round(new Date().getTime() / 1000 / 60 / +timeRound) * 60 * +timeRound; //current time in Unix TimeStamp
+  console.log('EndTime', EndTime);
   const StartTime =
-    EndTime - timeRangeNum * +timeRangeMultiplier[timeRangeUnits.toString()];
-  const period = timeRangePeriod[timeRangeUnits.toString()];
+    EndTime - timeRangeNum * +timeRangeMultiplier[timeRangeUnits.toString()]; // 7 * 86400
+  console.log('StartTime', StartTime);
+  const period = timeRangePeriod[timeRangeUnits.toString()]; // period = 3600
 
   // Format Query
   return {
@@ -81,6 +91,13 @@ cwController.formatCWLambdaMetricAll = (
     ],
   };
 };
+
+// Id: 'mInvocations_AllLambdaFunc',
+// Label: 'Lambda Invocations All Functions',
+// Timestamps: [Array],
+// Values: [Array],
+// StatusCode: 'Complete',
+// Messages: undefined
 
 cwController.formatCWLambdaMetricByFunc = (
   timeRangeNum: number,
@@ -205,6 +222,8 @@ cwController.getLambdaMetricsAll = async (
     graphMetricName,
     graphMetricStat
   );
+
+  // console.log('metricAllFuncInputParams', metricAllFuncInputParams);
 
   // Send API req
   try {
