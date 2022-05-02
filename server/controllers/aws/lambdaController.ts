@@ -29,7 +29,7 @@ lambdaController.getFunctions = (req, res, next) => {
       .send(new lambda.ListFunctionsCommand(iam))
       .then((data) => {
         if (typeof data.Functions === 'object') {
-          const funcNames = data.Functions.map((el) => el.FunctionName);
+          res.locals.funcNames = data.Functions.map((el) => el.FunctionName);
           let funcData = [];
           for (let i = 0; i < data.Functions.length; i++) {
             const formattedResponse: LambdaFunctionResponse = {

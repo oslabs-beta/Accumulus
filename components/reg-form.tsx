@@ -6,9 +6,6 @@ import Router from 'next/router';
 import { useEffect } from 'react';
 
 const RegForm: React.FunctionComponent = () => {
-  const router = useRouter();
-
-const RegForm: React.FunctionComponent = () => {
   const [nameReg, setNameReg] = useState('');
   const [emailReg, setEmailReg] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
@@ -50,7 +47,7 @@ const RegForm: React.FunctionComponent = () => {
 
     if (register.status === 200) {
       console.log('redirecting...');
-      router.push('/dashboard');
+      Router.push('/dashboard');
     } else {
       console.log('unsuccessful');
     }

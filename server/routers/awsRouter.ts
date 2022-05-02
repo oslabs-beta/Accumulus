@@ -24,6 +24,16 @@ router.post(
   }
 );
 
+router.post(
+  '/metricsByFunc/:metric/:period/:stat',
+  credController.getCreds, // credentials go into res.locals.credentials,
+  lambdaController.getFunctions,
+  cwController.getMetricsByFunc,
+  (req, res) => {
+    res.status(200).json(res.locals.metricByFuncData);
+  }
+);
+
 //Make a post request to metrics with "TypeOfMetric" in the body
 // router.post('/metrics', cwController.getLambdaMetricsAll, (req, res) => {
 //   res.status(200).json(res.locals.lambdaMetricsAllFuncs);
