@@ -4,7 +4,7 @@ export default function SignupBtn() {
   return (
     <>
       <div id="signup">
-        <Link href="/registration">
+        <Link href="/registration" passHref>
           <button>Sign Up</button>
         </Link>
       </div>

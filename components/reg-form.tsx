@@ -1,9 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Router from 'next/router';
-import { useEffect } from 'react';
 
 const RegForm: React.FunctionComponent = () => {
   const router = useRouter();
@@ -61,6 +59,7 @@ const RegForm: React.FunctionComponent = () => {
         <a
           href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}
           target="_blank"
+          rel="noreferrer"
         >
           Please visit this link to get your ARN
         </a>
