@@ -1,5 +1,13 @@
-.container {
+/* .container {
   padding: 0 2rem;
+}
+
+.nav {
+  display: flex;
+  position: fixed;
+  top: 0;
+  justify-content: center;
+  background-color: rgb(186, 186, 186);
 }
 
 .main {
@@ -19,6 +27,7 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  background-color: rgb(186, 186, 186);
 }
 
 .footer a {
@@ -113,4 +122,12 @@
     width: 100%;
     flex-direction: column;
   }
-}
+} */
+
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

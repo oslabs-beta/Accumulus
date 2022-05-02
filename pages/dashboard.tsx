@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import {AppWrapper} from '../context/stateContext';
+import { AppWrapper } from '../context/dataContext';
 
 import DashboardMenu from '../components/dashboardMenu';
 
-
 const Dashboard: React.FunctionComponent = () => {
-
-  return(
+  return (
     <>
-    <AppWrapper>
-      <DashboardMenu />
-    </AppWrapper>
+      <AppWrapper>
+        <DashboardMenu />
+      </AppWrapper>
     </>
-  )
+  );
 };
 
 export default Dashboard;

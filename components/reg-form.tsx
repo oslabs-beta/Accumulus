@@ -2,8 +2,15 @@ import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Router from 'next/router';
+import { useUserContext } from '../context/userContext';
 
 const RegForm: React.FunctionComponent = () => {
+  const { user, setUser } = useUserContext();
+  const USERRESULT = JSON.stringify(user);
+  //Uncomment to setUser data
+  // const testUser = 'Test User Context: arn: 12345, externalId: 12345';
+  // setUser?.(testUser);
+
   const router = useRouter();
   const [nameReg, setNameReg] = useState('');
   const [emailReg, setEmailReg] = useState('');
@@ -55,6 +62,7 @@ const RegForm: React.FunctionComponent = () => {
   return (
     <>
       <div id="registration">
+        <h4>{USERRESULT}</h4>
         <h3>Welcome to the Registration Page</h3>
         <a
           href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}

@@ -1,6 +1,6 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
 // I don't think we need this --> import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import { GetServerSideProps } from 'next';
 // do we need to install this (for getServerSideProps) --> import { getSession } from 'next-auth/react';
 import Menu from '../components/splash-menu';
@@ -11,7 +11,6 @@ import Menu from '../components/splash-menu';
 // import Footer from '../components/footer'
 // import Body from '../components/body'
 // import './global.css'
-
 
 //---------We will need this soon-------
 //---------FETCH DATA HERE, pass down as needed---------
@@ -34,16 +33,27 @@ export default function Home() {
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
-      <main className={styles.main}>
-        <h3> Menu component rendered from index.tsx file </h3>
+      <nav className={styles.nav}>
         <Menu />
+      </nav>
+
+      <main>
+        <h3 className="text-3xl font-bold underline">Landing Page Body Content</h3>
+        <p className="text-3xl font-bold underline">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo dolorem
+          sint placeat, veritatis quo enim architecto fugit deserunt excepturi
+          quaerat nemo et reiciendis earum tenetur! Eum, nobis explicabo.
+          Officia neque commodi libero quibusdam nostrum aliquam fuga quia
+          deserunt tenetur facilis suscipit blanditiis cupiditate, similique hic
+          dignissimos cumque omnis tempore? Illum.
+        </p>
       </main>
 
       <footer className={styles.footer}>
         <p>Accumulus 2022</p>
       </footer>
     </div>
-  )
+  );
 }
 //// //ACCUMULUS VERSION 1
 // export default function Index() {
@@ -59,30 +69,9 @@ export default function Home() {
 //   )
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //ORIGINAL MAIN CONTENT
-        {/* <h1 className={styles.title}>
+{
+  /* <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
@@ -119,11 +108,12 @@ export default function Home() {
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
-        </div> */}
+        </div> */
+}
 
-
-        //ORIGINAL FOOTER CONTENT
-                {/* <a
+//ORIGINAL FOOTER CONTENT
+{
+  /* <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
@@ -132,4 +122,5 @@ export default function Home() {
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
-        </a> */}
+        </a> */
+}
