@@ -53,7 +53,7 @@ const RegForm: React.FunctionComponent = () => {
 
     if (register.status === 200) {
       console.log('redirecting...');
-      router.push('/dashboard');
+      Router.push('/dashboard');
     } else {
       console.log('unsuccessful');
     }
