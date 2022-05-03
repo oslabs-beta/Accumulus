@@ -175,7 +175,7 @@ cwController.getMetricsByFunc = async (
         funcNames: funcNames,
       },
     };
-    console.log('FINAL DATA: ', res.locals.metricByFuncData.series[0].data)
+    console.log('FINAL DATA: ', res.locals.metricByFuncData)
 
     return next();
   } catch (err) {
@@ -183,4 +183,74 @@ cwController.getMetricsByFunc = async (
   }
 };
 
+cwController.rankFuncsByMetric = async(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  const { credentials } = res.locals;
+  const { region } = req.body;
+  const graphMetricName = req.params.metric;
+  const graphMetricStat = req.params.stat;
+  const periodSelection = req.params.period;
+  const [ graphPeriod, graphUnits ] = formatController.periodDefinitions[periodSelection];
+  let funcNames = res.locals.funcNames;
+
+  const cwClient = new CloudWatchClient({
+    region,
+    credentials,
+  });
+
+  //Metrics for By Lambda Function
+  const metricByFuncInputParams = formatController.formatCWLambdaMetricByFunc(
+    graphPeriod,
+    graphUnits,
+    graphMetricName,
+    graphMetricStat,
+    funcNames
+  );
+
+  try {
+    const metricByFuncResult = await cwClient.send(
+      new GetMetricDataCommand(metricByFuncInputParams)
+    );
+
+    const metricByFuncData = metricByFuncResult!.MetricDataResults!.map(
+      (metricDataResult) => {
+        const functionName = metricDataResult.Label;
+        const values = metricDataResult!.Values!.reverse();
+        const value = values.reduce((accum, curr) => accum + curr, 0);
+
+        return {
+          name: functionName,
+          value: value,
+        };
+
+      }
+    );
+    
+    // Sort based on metric value for each function
+    metricByFuncData.sort((a, b) => a.value - b.value);
+
+    // Request response JSON Object send to the FrontEnd
+    res.locals.functionRankings = {
+      title: `Lambda-${graphMetricName}`,
+      ranking: metricByFuncData,
+      // functions: funcNames // ** Use if we need easy access to func names for graph axis
+    };
+    // console.log('FINAL DATA: ', res.locals.functionRankings)
+
+    return next();
+  } catch (err) {
+    console.error('Error in CW getMetricsData By Functions', err);
+  }
+}
+
+cwController.getLambdaLogs = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  
+}
 export default cwController;

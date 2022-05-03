@@ -24,6 +24,7 @@
     "-": "^0.0.1",
     "@aws-sdk/client-cloudwatch": "^3.78.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.81.0",
+    "@aws-sdk/client-cost-explorer": "^3.82.0",
     "@aws-sdk/client-lambda": "^3.78.0",
     "@aws-sdk/client-sts": "^3.78.0",
     "@types/bcryptjs": "^2.4.2",

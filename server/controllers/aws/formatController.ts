@@ -159,7 +159,16 @@ formatController.monthConversion = {
     11: 'December'
 };
 
+formatController.logPeriodConversion = {
+  '30min': new Date(new Date().setMinutes(new Date().getMinutes() - 30)).valueOf(),
+  '1hr': new Date(new Date().setMinutes(new Date().getMinutes() - 60)).valueOf(),
+  '24hr': new Date(new Date().setDate(new Date().getDate() - 1)).valueOf(),
+  '7d': new Date(new Date().setDate(new Date().getDate() - 7)).valueOf(),
+  '14d': new Date(new Date().setDate(new Date().getDate() - 14)).valueOf(),
+	'30d': new Date(new Date().setDate(new Date().getDate() - 30)).valueOf(),
+}
 export default formatController;
+
 // const timeRangePeriod: { [key: string]: string | number } = {
 //   minutes: 60, //60 seconds
 //   hours: 300, //300 secs
