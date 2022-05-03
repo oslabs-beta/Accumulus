@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
-import utilController from './utilController';
+import formatController from './formatController';
 import {
   CloudWatchClient,
   GetMetricDataCommand,
@@ -8,215 +8,27 @@ import {
 
 const cwController: any = {};
 
-// type RangeFormat = {
-//   minutes: number;
-//   hours: number;
-//   days: number;
-// }
-// let timeRangePeriod: Record<string, RangeFormat> = {};
-// let timeRoundMultiplier: Record<string, RangeFormat> = {};
-// let timeRangeMultiplier: Record<string, RangeFormat> = {};
-/* Handle metric range for API req and frontend visuals */
-// TODO:
-// Refactor or abstract out
-
-// interface ITime{
-//   minutes: number;
-//   hours: number;
-//   days: number;
-// }
-
-const timeRangePeriod: { [key: string]: string | number } = {
-  minutes: 60, //60 seconds
-  hours: 300, //300 secs
-  days: 3600, // 1 hour
-};
-
-const timeRoundMultiplier: { [key: string]: string | number } = {
-  minutes: 5, //the EndTime time stamps will be rounded to nearest 5 minutes
-  hours: 15, //rounded to nearest 15 minutes
-  days: 60, // rounded to nearest hour
-};
-
-const timeRangeMultiplier: { [key: string]: string | number } = {
-  minutes: 60, //the EndTime time stamps will be rounded to nearest 5 minutes
-  hours: 3600, //rounded to nearest 15 minutes
-  days: 86400, // rounded to nearest hour
-};
-
-// const metricAllFuncInputParams = cwController.formatCWLambdaMetricAll(
-//   graphPeriod,
-//   graphUnits,
-//   graphMetricName,
-//   graphMetricStat
-// );
-
-cwController.formatCWLambdaMetricAll = (
-  timeRangeNum: number,
-  timeRangeUnits: string,
-  metricName: string,
-  metricStat: string
-) => {
-  console.log(timeRangeNum, timeRangeUnits, metricName, metricStat);
-  // Format start and end time for sdk query func
-  const timeRound = timeRoundMultiplier[timeRangeUnits.toString()]; // 60
-  const EndTime =
-    Math.round(new Date().getTime() / 1000 / 60 / +timeRound) * 60 * +timeRound; //current time in Unix TimeStamp
-  console.log('EndTime', EndTime);
-  const StartTime =
-    EndTime - timeRangeNum * +timeRangeMultiplier[timeRangeUnits.toString()]; // 7 * 86400
-  console.log('StartTime', StartTime);
-  const period = timeRangePeriod[timeRangeUnits.toString()]; // period = 3600
-
-  // Format Query
-  return {
-    StartTime: new Date(StartTime * 1000),
-    EndTime: new Date(EndTime * 1000),
-    LabelOptions: {
-      Timezone: '-0400',
-    },
-    MetricDataQueries: [
-      {
-        Id: `m${metricName}_AllLambdaFunc`,
-        Label: `Lambda ${metricName} All Functions`,
-        MetricStat: {
-          Metric: {
-            Namespace: 'AWS/Lambda',
-            MetricName: `${metricName}`,
-          },
-          Period: period,
-          Stat: metricStat,
-        },
-      },
-    ],
-  };
-};
-
-// Id: 'mInvocations_AllLambdaFunc',
-// Label: 'Lambda Invocations All Functions',
-// Timestamps: [Array],
-// Values: [Array],
-// StatusCode: 'Complete',
-// Messages: undefined
-
-cwController.formatCWLambdaMetricByFunc = (
-  timeRangeNum: number,
-  timeRangeUnits: string,
-  metricName: string,
-  metricStat: string,
-  funcNames: []
-) => {
-  const timeRound = timeRoundMultiplier[timeRangeUnits];
-  //define the End and Start times in UNIX time Stamp format for getMetricsData method
-  //Rounded off to nearest timeRoundMultiplier
-  const endTime =
-    Math.round(new Date().getTime() / 1000 / 60 / +timeRound) * 60 * +timeRound; //current time in Unix TimeStamp
-  const startTime =
-    endTime - timeRangeNum * +timeRangeMultiplier[timeRangeUnits];
-
-  const period = timeRangePeriod[timeRangeUnits];
-
-  // Init the baseline object params
-  const lambdaMetricQueryParamsBase = {
-    startTime: new Date(startTime * 1000),
-    endTime: new Date(endTime * 1000),
-    LabelOptions: {
-      Timezone: '-0400',
-    },
-    //    MetricDataQueries: [],
-  };
-
-  const metricDataQueryByFunc: object[] = [];
-
-  // Iterate over lambda funcs and format
-  funcNames.forEach((func, index) => {
-    let metricDataQuery = {
-      Id: `m${index}`,
-      Label: `Lambda ${metricName} ${func}`,
-      MetricStat: {
-        Metric: {
-          Namespace: 'AWS/Lambda',
-          MetricName: `${metricName}`,
-          Dimensions: [
-            {
-              Name: 'FunctionName',
-              Value: `${func}`,
-            },
-          ],
-        },
-        Period: period,
-        Stat: metricStat,
-      },
-    };
-    metricDataQueryByFunc.push(metricDataQuery);
-  });
-
-  const metricParamsByFunc = {
-    ...lambdaMetricQueryParamsBase,
-    MetricDataQueries: metricDataQueryByFunc,
-  };
-
-  return metricParamsByFunc;
-};
-
-const lambdaMetrics = {
-  invocations: 'Invocations',
-  duration: 'Duration',
-  errors: 'Errors',
-  throttles: 'Throttles',
-};
-
 cwController.getLambdaMetricsAll = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
-  // Get AWS creds for client
-  // const account = utilController.getAwsCreds();
+  
+  // Get AWS creds for client and destructure params
   const { credentials } = res.locals;
   const { region } = req.body;
   const graphMetricName = req.params.metric;
   const graphMetricStat = req.params.stat;
   const periodSelection = req.params.period;
-  let graphPeriod;
-  let graphUnits;
-
-  if (periodSelection === '30min') {
-    [graphPeriod, graphUnits] = [30, 'minutes'];
-  } else if (periodSelection === '1hr') {
-    [graphPeriod, graphUnits] = [60, 'minutes'];
-  } else if (periodSelection === '24hr') {
-    [graphPeriod, graphUnits] = [24, 'hours'];
-  } else if (periodSelection === '7d') {
-    [graphPeriod, graphUnits] = [7, 'days'];
-  } else if (periodSelection === '14d') {
-    [graphPeriod, graphUnits] = [14, 'days'];
-  } else if (periodSelection === '30d') {
-    [graphPeriod, graphUnits] = [30, 'days'];
-  } else if (periodSelection === '3mon') {
-    [graphPeriod, graphUnits] = [90, 'days'];
-  } else if (periodSelection === '6mon') {
-    [graphPeriod, graphUnits] = [180, 'days'];
-  } else if (periodSelection === '1y') {
-    [graphPeriod, graphUnits] = [30, 'days'];
-  }
+  const [ graphPeriod, graphUnits ] = formatController.periodDefinitions[periodSelection];
 
   const cwClient = new CloudWatchClient({
     region,
     credentials,
   });
 
-  // Init input vars for graph
-
-  // TODO:
-  // PULL THIS FROM FRONTEND ONCE IMPLEMENTED -- CURRENTLY HARDCODED
-
-  //function to switch graphMetricStat based on query params
-
-  // else graphMetricStat = req.body.metricStat;
-
   // Metrics for all lambda functions
-  const metricAllFuncInputParams = cwController.formatCWLambdaMetricAll(
+  const metricAllFuncInputParams = formatController.formatCWLambdaMetricAll(
     graphPeriod,
     graphUnits,
     graphMetricName,
@@ -230,17 +42,22 @@ cwController.getLambdaMetricsAll = async (
     const metricAllFuncResult = await cwClient.send(
       new GetMetricDataCommand(metricAllFuncInputParams)
     );
-    console.log(
-      'cwController.getLambdaMetricsAll METRIC ALL FUNC DATA: ',
-      metricAllFuncResult
-    );
+    // console.log(
+    //   'cwController.getLambdaMetricsAll METRIC ALL FUNC DATA: ',
+    //   metricAllFuncResult
+    // );
 
     let metricAllFuncData =
       metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
         (timeStamp, index) => {
           return {
-            x: timeStamp,
-            y: metricAllFuncResult.MetricDataResults![0].Values![index],
+            month: formatController.monthConversion[timeStamp.getMonth()],
+            day: timeStamp.getDay(),
+            hour: timeStamp.getHours(),
+            minute: timeStamp.getMinutes(),
+            value: metricAllFuncResult.MetricDataResults![0].Values![index],
+            // x: timeStamp,
+            // y: metricAllFuncResult.MetricDataResults![0].Values![index],
           };
         }
       );
@@ -276,4 +93,166 @@ cwController.getLambdaMetricsAll = async (
   }
 };
 
+cwController.getMetricsByFunc = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  const { credentials } = res.locals;
+  const { region } = req.body;
+  const graphMetricName = req.params.metric;
+  const graphMetricStat = req.params.stat;
+  const periodSelection = req.params.period;
+  const [ graphPeriod, graphUnits ] = formatController.periodDefinitions[periodSelection];
+  let funcNames = res.locals.funcNames;
+
+  const cwClient = new CloudWatchClient({
+    region,
+    credentials,
+  });
+
+  //Metrics for By Lambda Function
+  const metricByFuncInputParams = formatController.formatCWLambdaMetricByFunc(
+    graphPeriod,
+    graphUnits,
+    graphMetricName,
+    graphMetricStat,
+    funcNames
+  );
+
+  console.log(metricByFuncInputParams)
+
+  try {
+    const metricByFuncResult = await cwClient.send(
+      new GetMetricDataCommand(metricByFuncInputParams)
+    );
+    console.log('RESULT: ', metricByFuncResult)
+
+    const metricByFuncData = metricByFuncResult!.MetricDataResults!.map(
+      (metricDataResult) => {
+        const metricName = metricDataResult.Label;
+        const timeStamps = metricDataResult!.Timestamps!.reverse();
+        const values = metricDataResult!.Values!.reverse();
+        const metricData = timeStamps.map((timeStamp, index) => {
+          
+          return {
+            month: formatController.monthConversion[timeStamp.getMonth()],
+            day: timeStamp.getDay(),
+            hour: timeStamp.getHours(),
+            minute: timeStamp.getMinutes(),
+            [`${metricName}`]: values[index],
+          };
+        });
+
+        const maxValue = Math.max(0, Math.max(...values));
+        const total = values.reduce((accum, curr) => accum + curr, 0);
+
+        return {
+          name: metricName,
+          data: metricData,
+          maxValue: maxValue,
+          total: total,
+        };
+      }
+    );
+      console.log('METRIC FUNC DATA: ', metricByFuncData[0].data)
+    const metricMaxValueAllFunc = metricByFuncData.reduce(
+      (maxValue, dataByFunc) => {
+        return Math.max(maxValue, dataByFunc.maxValue);
+      },
+      0
+    );
+
+    //Request response JSON Object send to the FrontEnd
+
+    res.locals.metricByFuncData = {
+      title: `Lambda ${graphMetricName}`,
+      series: metricByFuncData,
+      options: {
+        startTime: metricByFuncInputParams.StartTime,
+        endTime: metricByFuncInputParams.EndTime,
+        graphPeriod,
+        graphUnits,
+        metricMaxValueAllFunc,
+        funcNames: funcNames,
+      },
+    };
+    console.log('FINAL DATA: ', res.locals.metricByFuncData)
+
+    return next();
+  } catch (err) {
+    console.error('Error in CW getMetricsData By Functions', err);
+  }
+};
+
+cwController.rankFuncsByMetric = async(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  const { credentials } = res.locals;
+  const { region } = req.body;
+  const graphMetricName = req.params.metric;
+  const graphMetricStat = req.params.stat;
+  const periodSelection = req.params.period;
+  const [ graphPeriod, graphUnits ] = formatController.periodDefinitions[periodSelection];
+  let funcNames = res.locals.funcNames;
+
+  const cwClient = new CloudWatchClient({
+    region,
+    credentials,
+  });
+
+  //Metrics for By Lambda Function
+  const metricByFuncInputParams = formatController.formatCWLambdaMetricByFunc(
+    graphPeriod,
+    graphUnits,
+    graphMetricName,
+    graphMetricStat,
+    funcNames
+  );
+
+  try {
+    const metricByFuncResult = await cwClient.send(
+      new GetMetricDataCommand(metricByFuncInputParams)
+    );
+
+    const metricByFuncData = metricByFuncResult!.MetricDataResults!.map(
+      (metricDataResult) => {
+        const functionName = metricDataResult.Label;
+        const values = metricDataResult!.Values!.reverse();
+        const value = values.reduce((accum, curr) => accum + curr, 0);
+
+        return {
+          name: functionName,
+          value: value,
+        };
+
+      }
+    );
+    
+    // Sort based on metric value for each function
+    metricByFuncData.sort((a, b) => a.value - b.value);
+
+    // Request response JSON Object send to the FrontEnd
+    res.locals.functionRankings = {
+      title: `Lambda-${graphMetricName}`,
+      ranking: metricByFuncData,
+      // functions: funcNames // ** Use if we need easy access to func names for graph axis
+    };
+    // console.log('FINAL DATA: ', res.locals.functionRankings)
+
+    return next();
+  } catch (err) {
+    console.error('Error in CW getMetricsData By Functions', err);
+  }
+}
+
+cwController.getLambdaLogs = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  
+}
 export default cwController;

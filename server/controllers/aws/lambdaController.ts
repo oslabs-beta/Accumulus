@@ -1,8 +1,10 @@
 import 'dotenv/config';
+import express from 'express';
 import lambda from '@aws-sdk/client-lambda';
 import * as types from '../../types';
 
-const lambdaController: Record<string, types.middlewareFunction> = {};
+const lambdaController: any = {};
+// const lambdaController: Record<string, types.middlewareFunction> = {};
 
 interface LambdaFunctionResponse {
   name: string;
@@ -14,7 +16,11 @@ interface LambdaFunctionResponse {
   lastModified: string;
 }
 
-lambdaController.getFunctions = (req, res, next) => {
+lambdaController.getFunctions = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
   const { credentials } = res.locals;
   const { region } = req.body;
   const client = new lambda.LambdaClient({
@@ -29,7 +35,7 @@ lambdaController.getFunctions = (req, res, next) => {
       .send(new lambda.ListFunctionsCommand(iam))
       .then((data) => {
         if (typeof data.Functions === 'object') {
-          const funcNames = data.Functions.map((el) => el.FunctionName);
+          res.locals.funcNames = data.Functions.map((el) => el.FunctionName);
           let funcData = [];
           for (let i = 0; i < data.Functions.length; i++) {
             const formattedResponse: LambdaFunctionResponse = {
@@ -50,6 +56,13 @@ lambdaController.getFunctions = (req, res, next) => {
   } catch (err) {
     return next(err);
   }
+};
+
+lambdaController.metrics = {
+  invocations: 'Invocations',
+  duration: 'Duration',
+  errors: 'Errors',
+  throttles: 'Throttles',
 };
 
 export default lambdaController;
