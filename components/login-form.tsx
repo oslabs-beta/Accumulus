@@ -3,15 +3,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Router from 'next/router';
 import { useEffect } from 'react';
-import { useUserContext } from '../context/userContext';
 
 const LoginForm: React.FunctionComponent = () => {
-  const { user, setUser } = useUserContext();
-  const USERRESULT = JSON.stringify(user);
-  //Uncomment to setUser data
-  const testUser = 'Test User Context: arn: 12345, externalId: 12345';
-  setUser?.(testUser);
-  
+
   // useEffect(() => {
   //   receivedData?.(something);
   // }, [receivedData]);
@@ -48,15 +42,9 @@ const LoginForm: React.FunctionComponent = () => {
 
     if (response.success === true) {
       setloginState(true);
-      setUser?.(arn);
-      setUserArn(arn);
-      console.log(USERRESULT);
-      console.log(userArn);
-
       console.log('redirecting...');
       router.push('/dashboard');
     } else {
-      //render a component for unsucessful login -> look at state
       console.log('unsucessful');
     }
   };
@@ -64,7 +52,6 @@ const LoginForm: React.FunctionComponent = () => {
   return (
     <>
       <div id="login">
-        <h4>{USERRESULT}</h4>
         <h3>Welcome to the Log In Page</h3>
         <form className="registration-form">
           <input

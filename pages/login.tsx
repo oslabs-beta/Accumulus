@@ -1,6 +1,4 @@
-
 import LoginForm from '../components/login-form';
-
 
 const Login: React.FunctionComponent = () => {
   return (
