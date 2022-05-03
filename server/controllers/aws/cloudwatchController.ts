@@ -35,6 +35,8 @@ cwController.getLambdaMetricsAll = async (
     graphMetricStat
   );
 
+  // console.log('metricAllFuncInputParams', metricAllFuncInputParams);
+
   // Send API req
   try {
     const metricAllFuncResult = await cwClient.send(

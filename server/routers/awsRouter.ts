@@ -4,6 +4,7 @@ import credController from '../controllers/aws/credController';
 import cwController from '../controllers/aws/cloudwatchController';
 import costController from '../controllers/aws/costController';
 import logController from '../controllers/aws/logController';
+import stepController from '../controllers/aws/stepFuncs/stepController';
 // import * as types from '../types';
 
 const router = express.Router();
@@ -83,5 +84,19 @@ router.post(
   }
 )
 
+router.post(
+  '/stateMetricsByFunc/:metric/:period/:stat',
+  credController.getCreds, // credentials go into res.locals.credentials,
+  stepController.getStateMetricByFunc,
+  (req, res) => {
+    res.status(200).json(res.locals.lambdaMetricsAllFuncs);
+  }
+);
+
+//Make a post request to metrics with "TypeOfMetric" in the body
+// router.post('/metrics', cwController.getLambdaMetricsAll, (req, res) => {
+//   res.status(200).json(res.locals.lambdaMetricsAllFuncs);
+// }
+// );
 
 export default router;

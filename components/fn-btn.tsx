@@ -10,9 +10,9 @@ const FunctionBtn: React.FunctionComponent = () => {
   const [passwordReg, setPasswordReg] = useState('');
   const [arnReg, setArnReg] = useState('');
   const [regionReg, setRegionReg] = useState('us-east-2');
-  const [metricType, setMetricType] = useState('');
-  const [timePeriod, setTimePeriod] = useState('');
-  const [dataSum, setDataSum] = useState('');
+  const [metricType, setMetricType] = useState('Invocations');
+  const [timePeriod, setTimePeriod] = useState('7d');
+  const [dataSum, setDataSum] = useState('Sum');
   //need externalId state
   //need state to store all function metrics
 
@@ -38,20 +38,22 @@ const FunctionBtn: React.FunctionComponent = () => {
     );
     console.log(funcMetrics);
 
-    if (funcMetrics.status === 200) {
-      //set state with funcMetrics
+    // if (funcMetrics.status === 200) {
+    //   //set state with funcMetrics
 
-      console.log('redirecting from dashboard to functions...');
-      router.push('/functions');
-    } else {
-      console.log('unsuccessful');
-    }
+    //   console.log('redirecting from dashboard to functions...');
+    router.push('/functions');
+    // } else {
+    //   console.log('unsuccessful');
+    // }
   };
 
   return (
     <>
-      <div id='fn-btn'>
-        <button onClick={funcBtnHandler}>Functions</button>
+      <div id="fn-btn">
+        <Link href="/functions" passHref>
+          <button onClick={funcBtnHandler}>Functions</button>
+        </Link>
       </div>
     </>
   );
