@@ -9,19 +9,22 @@ const LoginForm: React.FunctionComponent = () => {
   const { user, setUser } = useUserContext();
   const USERRESULT = JSON.stringify(user);
   //Uncomment to setUser data
-  // const testUser = 'Test User Context: arn: 12345, externalId: 12345';
-  // setUser?.(testUser);
+  const testUser = 'Test User Context: arn: 12345, externalId: 12345';
+  setUser?.(testUser);
+  
+  // useEffect(() => {
+  //   receivedData?.(something);
+  // }, [receivedData]);
 
   const router = useRouter();
   const [emailLog, setEmailLog] = useState('');
   const [passLog, setPassLog] = useState('');
   const [loginState, setloginState] = useState(false);
-  const [userArn, setUserArn] = useState('1');
+  const [userArn, setUserArn] = useState('vsalud');
   const [userExternalId, setUserExternalId] = useState('1');
 
   const logBtnHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
     const button: HTMLButtonElement = event.currentTarget;
 
     const body = JSON.stringify({
@@ -39,14 +42,15 @@ const LoginForm: React.FunctionComponent = () => {
     console.log(register);
     const response = await register.json();
     console.log('login res body: ', response);
-    console.log(response.arn);
+    console.log('RESPONSE ARN HERE:', response.arn);
     const arn = response.arn;
-    console.log(arn);
+    console.log('SAVING ARN IN ANOTHER VAR', arn);
 
     if (response.success === true) {
       setloginState(true);
-
-      setUserArn(`${arn}`);
+      setUser?.(arn);
+      setUserArn(arn);
+      console.log(USERRESULT);
       console.log(userArn);
 
       console.log('redirecting...');

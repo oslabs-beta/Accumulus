@@ -1,60 +1,41 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-// I don't think we need this --> import Image from 'next/image'
-import { GetServerSideProps } from 'next';
-// do we need to install this (for getServerSideProps) --> import { getSession } from 'next-auth/react';
 import Menu from '../components/splash-menu';
-
-// //ACCUMULUS VERSION 1
-// import Head from 'next/head'
-// import Menu from '../components/splash-menu'
-// import Footer from '../components/footer'
-// import Body from '../components/body'
-// import './global.css'
-
-//---------We will need this soon-------
-//---------FETCH DATA HERE, pass down as needed---------
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const session = await getSession(context);
-
-//   return {
-//     props: {
-//       session,
-//     },
-//   };
-// };
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div >
       <Head>
         <title>Accumulus</title>
         <meta name="description" content="Lambda baby" />
-        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
-      <nav className={styles.nav}>
-        <Menu />
-      </nav>
-
-      <main>
-        <h3 className="text-3xl font-bold underline">Landing Page Body Content</h3>
-        <p className="text-3xl font-bold underline">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo dolorem
-          sint placeat, veritatis quo enim architecto fugit deserunt excepturi
-          quaerat nemo et reiciendis earum tenetur! Eum, nobis explicabo.
-          Officia neque commodi libero quibusdam nostrum aliquam fuga quia
-          deserunt tenetur facilis suscipit blanditiis cupiditate, similique hic
-          dignissimos cumque omnis tempore? Illum.
-        </p>
-      </main>
-
-      <footer className={styles.footer}>
-        <p>Accumulus 2022</p>
-      </footer>
+      <h1>Main Page from the _app file</h1>
+      <Menu />
+      <h3>Pretend this is the splash page main body content</h3>
+      <p>Pretend this is the footer</p>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-------------GRAVEYARD---------------------------------------
+
+
 //// //ACCUMULUS VERSION 1
 // export default function Index() {
 //   return (
@@ -124,3 +105,49 @@ export default function Home() {
           </span>
         </a> */
 }
+
+
+//ORIGINAL?
+// I don't think we need this --> import Image from 'next/image'
+//import { GetServerSideProps } from 'next';
+// do we need to install this (for getServerSideProps) --> import { getSession } from 'next-auth/react';
+// import Menu from '../components/splash-menu';
+
+// //ACCUMULUS VERSION 1
+// import Head from 'next/head'
+// import Menu from '../components/splash-menu'
+// import Footer from '../components/footer'
+// import Body from '../components/body'
+// import './global.css'
+
+//---------We will need this soon-------
+//---------FETCH DATA HERE, pass down as needed---------
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context);
+
+//   return {
+//     props: {
+//       session,
+//     },
+//   };
+// };
+
+      {/* <nav className={styles.nav}>
+        {/* <Menu /> */}
+      {/* </nav> */}
+
+      {/* <main>
+        <h3 className="text-3xl font-bold underline">Landing Page Body Content</h3>
+        <p className="text-3xl font-bold underline">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo dolorem
+          sint placeat, veritatis quo enim architecto fugit deserunt excepturi
+          quaerat nemo et reiciendis earum tenetur! Eum, nobis explicabo.
+          Officia neque commodi libero quibusdam nostrum aliquam fuga quia
+          deserunt tenetur facilis suscipit blanditiis cupiditate, similique hic
+          dignissimos cumque omnis tempore? Illum.
+        </p>
+      </main>
+
+      <footer className={styles.footer}>
+        <p>Accumulus 2022</p> */}
+      {/* </footer>  */}
