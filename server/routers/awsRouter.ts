@@ -5,6 +5,7 @@ import cwController from '../controllers/aws/cloudwatchController';
 import costController from '../controllers/aws/costController';
 import logController from '../controllers/aws/logController';
 import stepController from '../controllers/aws/stepFuncs/stepController';
+import cookieController from '../controllers/cookieController';
 // import * as types from '../types';
 
 const router = express.Router();
@@ -75,10 +76,28 @@ router.post(
 )
 
 router.post(
-  '/getLambdaLogs/:function/:period',
+  '/lambdaLogs/:function/:period',
   credController.getCreds, // credentials go into res.locals.credentials
-  // lambdaController.getFunctions,
   logController.getLambdaLogs,
+  (req, res) => {
+    res.status(200).json(res.locals.logs);
+  }
+)
+
+router.post(
+  '/lambdaErrorLogsByFunc/:function/:period',
+  credController.getCreds, 
+  logController.getLambdaErrorsByFunc,
+  (req, res) => {
+    res.status(200).json(res.locals.logs);
+  }
+)
+
+router.post(
+  '/lambdaErrorLogsEachFunc/:period',
+  credController.getCreds, 
+  lambdaController.getFunctions,
+  logController.getLambdaErrorsEachFunc,
   (req, res) => {
     res.status(200).json(res.locals.logs);
   }
