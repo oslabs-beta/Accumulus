@@ -6,13 +6,13 @@ import Functions from './components/Functions';
 import Register from './components/Register';
 import Sidebar from './components/Sidebar';
 import Menu from './components/splash-menu';
-import styled from "styled-components"
+import styled from 'styled-components';
 // import {
-//   Container, 
-//   Logo, 
-//   Flag, 
-//   Text, 
-//   Wrapper, 
+//   Container,
+//   Logo,
+//   Flag,
+//   Text,
+//   Wrapper,
 //   Searchbox,
 //   Select,
 //   SearchIconWrapper
@@ -45,11 +45,11 @@ const App = () => {
   // SETTING MENU & VIEWS
   // const [menuOpen, setMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState('login');
-  
+
   const Wrapper = styled.section`
-  padding: 4em;
-  background: papayawhip;
-`;
+    padding: 4em;
+    background: papayawhip;
+  `;
   return (
     // <h1>Hello World</h1>
     <HashRouter>

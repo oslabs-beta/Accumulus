@@ -14,6 +14,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
 
   const [userArn, setUserArn] = useState('1');
   const [userExternalId, setUserExternalId] = useState('1');
+  const [loginOrRegister, setLoginOrRegister] = useState('login');
   let history = useHistory();
 
   const logBtnHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -48,31 +49,43 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
     }
   };
 
+  const regBtnHandler = () => {
+    setLoginOrRegister('register');
+  };
+
   return (
     <>
-      <div id="login">
-        <h3>Log In</h3>
-        <form className="registration-form">
-          <input
-            type="text"
-            placeholder="Email"
-            required
-            onChange={(e) => {
-              setEmailLog(e.target.value);
-            }}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            onChange={(e) => {
-              setPassLog(e.target.value);
-            }}
-          />
-        </form>
+      {loginOrRegister === 'login' ? (
+        <div id="login">
+          <h3>Log In</h3>
+          <form className="registration-form">
+            <input
+              type="text"
+              placeholder="Email"
+              required
+              onChange={(e) => {
+                setEmailLog(e.target.value);
+              }}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              onChange={(e) => {
+                setPassLog(e.target.value);
+              }}
+            />
+          </form>
 
-        <button onClick={logBtnHandler}>Log IN!</button>
-      </div>
+          <button onClick={logBtnHandler}>Log IN!</button>
+          <button onClick={regBtnHandler}>Register</button>
+        </div>
+      ) : (
+        <Register
+          setLoginOrRegister={setLoginOrRegister}
+          setCurrentView={setCurrentView}
+        />
+      )}
     </>
   );
 };
