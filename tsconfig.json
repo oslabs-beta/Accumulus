@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "target": "es6",
     "allowJs": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "types": ["node", "jest"],
@@ -21,6 +21,6 @@
     "incremental": true,
     "noEmit": false
   },
-  "include": ["./server", "./pages", "./components"],
+  "include": ["./server", "./src"],
   "exclude": ["node_modules", "./src/__tests__", "./dist"]
 }

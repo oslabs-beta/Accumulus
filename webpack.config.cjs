@@ -2,15 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './pages/index.tsx',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
-  plugins: [new HtmlWebpackPlugin({ template: '/pages/index.html' })],
+  plugins: [new HtmlWebpackPlugin({ template: '/src/index.html' })],
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'pages'),
+      directory: path.resolve(__dirname, '/src'),
       publicPath: '/',
     },
     compress: true,
@@ -39,18 +39,9 @@ module.exports = {
       //   use: 'ts-loader',
       // },
       {
-        test: /\.(ts|js)x?$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react',
-              '@babel/preset-typescript',
-            ],
-          },
-        },
+        use: ['ts-loader'],
       },
     ],
   },

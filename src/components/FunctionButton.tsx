@@ -1,12 +1,16 @@
-import Link from 'next/link';
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import Router from 'next/router';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-const FunctionBtn: React.FunctionComponent = () => {
-  const router = useRouter();
+interface props {
+  userData: {
+    arn: string;
+    externalId: string;
+    region: string;
+  };
+}
 
+const FunctionBtn = (userData: props) => {
   const [passwordReg, setPasswordReg] = useState('');
   const [arnReg, setArnReg] = useState('');
   const [regionReg, setRegionReg] = useState('us-east-2');
@@ -15,15 +19,16 @@ const FunctionBtn: React.FunctionComponent = () => {
   const [dataSum, setDataSum] = useState('Sum');
   //need externalId state
   //need state to store all function metrics
+  let history = useHistory();
 
   const funcBtnHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
 
     const body = JSON.stringify({
-      arn: arnReg,
-      region: regionReg,
-      // externalId: EXTERNAL_ID,
+      arn: userData.userData.arn,
+      externalId: userData.userData.externalId,
+      region: userData.userData.region,
     });
 
     const funcMetrics = await fetch(
@@ -38,22 +43,20 @@ const FunctionBtn: React.FunctionComponent = () => {
     );
     console.log(funcMetrics);
 
-    // if (funcMetrics.status === 200) {
-    //   //set state with funcMetrics
+    if (funcMetrics.status === 200) {
+      //set state with funcMetrics
 
-    //   console.log('redirecting from dashboard to functions...');
-    router.push('/functions');
-    // } else {
-    //   console.log('unsuccessful');
-    // }
+      console.log('redirecting from dashboard to functions...');
+      history.push('/functions');
+    } else {
+      console.log('unsuccessful');
+    }
   };
 
   return (
     <>
       <div id="fn-btn">
-        <Link href="/functions" passHref>
-          <button onClick={funcBtnHandler}>Functions</button>
-        </Link>
+        <button onClick={funcBtnHandler}>Functions</button>
       </div>
     </>
   );
