@@ -1,25 +1,32 @@
+import type { NextPage } from 'next'
 import Head from 'next/head';
 import Menu from '../components/splash-menu';
+import styles from '../styles/Home.module.css'
+import Counter from '../features/counter/Counter'
 
-export default function Home() {
+const IndexPage: NextPage = () => {
   return (
-    <div >
+    <div className="bg red">
       <Head>
         <title>Accumulus</title>
         <meta name="description" content="Lambda baby" />
       </Head>
 
-      <h1>Main Page from the _app file</h1>
+      <header>
+        <Counter />
+      </header>
+      
       <Menu />
+      <hr></hr>
       <h3>Pretend this is the splash page main body content</h3>
+     
+      <hr></hr>
       <p>Pretend this is the footer</p>
     </div>
   );
 }
 
-
-
-
+export default IndexPage;
 
 
 
