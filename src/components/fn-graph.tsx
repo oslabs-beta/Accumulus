@@ -20,10 +20,24 @@ interface Invocation {
 
 interface InvoProps {
   invocations?: Invocation[];
+  onFunctions: String[];
 }
 
-const FuncGraph: React.FC<InvoProps> = ({ invocations }) => {
+const FuncGraph = (props: any) => {
   const arr: Array<object> = [];
+  const lines = [];
+  for (const func in props.onFunctions) {
+    lines.push(
+      <Line
+        type="monotone"
+        dataKey={func}
+        stroke={props.onFunctions[func]}
+        fillOpacity={1}
+        fill="url(#colorUv)"
+        activeDot={{ r: 6 }}
+      />
+    );
+  }
 
   return (
     <>
@@ -57,30 +71,7 @@ const FuncGraph: React.FC<InvoProps> = ({ invocations }) => {
             <YAxis dataKey="" />
             <Tooltip />
             <Legend />
-            <Line
-              type="monotone"
-              dataKey="AccumulusFunc1"
-              stroke="blue"
-              fillOpacity={1}
-              fill="url(#colorUv)"
-              activeDot={{ r: 6 }}
-            />
-            <Line
-              type="monotone"
-              dataKey="AccumulusFunc2"
-              stroke="red"
-              fillOpacity={1}
-              fill="url(#colorUv)"
-              activeDot={{ r: 6 }}
-            />
-            <Line
-              type="monotone"
-              dataKey="AccumulusFunc3"
-              stroke="orange"
-              fillOpacity={1}
-              fill="url(#colorUv)"
-              activeDot={{ r: 6 }}
-            />
+            {lines}
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -89,4 +80,3 @@ const FuncGraph: React.FC<InvoProps> = ({ invocations }) => {
 };
 
 export default FuncGraph;
-// export default BarFuncGraph;
