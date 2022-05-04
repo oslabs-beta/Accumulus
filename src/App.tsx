@@ -5,6 +5,17 @@ import Dashboard from './components/Dashboard';
 import Functions from './components/Functions';
 import Register from './components/Register';
 import Menu from './components/splash-menu';
+import styled from "styled-components"
+// import {
+//   Container, 
+//   Logo, 
+//   Flag, 
+//   Text, 
+//   Wrapper, 
+//   Searchbox,
+//   Select,
+//   SearchIconWrapper
+// } from "./../styles/globals"
 
 interface IuserData {
   arn: string;
@@ -36,12 +47,18 @@ const App = () => {
   // SETTING MENU & VIEWS
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState('login');
-
+  
+  const Wrapper = styled.section`
+  padding: 4em;
+  background: papayawhip;
+`;
   return (
     // <h1>Hello World</h1>
     <HashRouter>
       <div>
-        <h1>Welcome to Accumulus!</h1>
+        <Wrapper>
+          <h1>Welcome to Accumulus!</h1>
+        </Wrapper>
         {/* <Register /> */}
         {currentView === 'login' ? (
           <Login setCurrentView={setCurrentView} setUserData={setUserData} />
