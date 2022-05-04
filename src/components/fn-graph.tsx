@@ -1,32 +1,43 @@
-import * as React from "react";
-import moment from "moment";
-import { useDataContext } from '../context/dataContext';
-import { dummyData } from '../Data/dummyData';
+import * as React from 'react';
+import moment from 'moment';
+import { dummyData } from '../../Data/dummyData';
 
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from "recharts";
-
+} from 'recharts';
 
 interface Invocation {
   day: number;
-  function: number
-
+  function: number;
 }
 
 interface InvoProps {
-  invocations: Invocation[];
+  invocations?: Invocation[];
+  onFunctions: String[];
 }
 
-const BarFuncGraph: React.FC<InvoProps> = ({ invocations }) => {
+const FuncGraph = (props: any) => {
   const arr: Array<object> = [];
+  const lines = [];
+  for (const func in props.onFunctions) {
+    lines.push(
+      <Line
+        type="monotone"
+        dataKey={func}
+        stroke={props.onFunctions[func]}
+        fillOpacity={1}
+        fill="url(#colorUv)"
+        activeDot={{ r: 6 }}
+      />
+    );
+  }
 
   return (
     <>
@@ -35,7 +46,7 @@ const BarFuncGraph: React.FC<InvoProps> = ({ invocations }) => {
       </h1>
       <div className="chart" style={{ width: '100%', height: 300 }}>
         <ResponsiveContainer>
-          <BarChart
+          <LineChart
             // @ts-ignore
             data={dummyData}
             margin={{
@@ -46,41 +57,26 @@ const BarFuncGraph: React.FC<InvoProps> = ({ invocations }) => {
             }}
           >
             <defs>
-              {/* <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
                   stopColor="rgb(14 165 233)"
                   stopOpacity={0.8}
                 />
                 <stop offset="95%" stopColor="#fff" stopOpacity={0.3} />
-              </linearGradient> */}
+              </linearGradient>
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis dataKey="day" />
             <YAxis dataKey="" />
             <Tooltip />
             <Legend />
-            <Bar
-              type="monotone"
-              dataKey="AccumulusFunc1"
-              fill="blue"
-            />
-            <Bar
-              type="monotone"
-              dataKey="AccumulusFunc2"
-             
-              fill="red"
-            />
-            <Bar
-              type="monotone"
-              dataKey="AccumulusFunc3"
-              fill="green"
-            />
-          </BarChart>
+            {lines}
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </>
   );
 };
 
-export default BarFuncGraph;
+export default FuncGraph;

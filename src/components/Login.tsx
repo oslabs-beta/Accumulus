@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Router from 'next/router';
 import { useEffect } from 'react';
-import { useUserContext } from '../context/userContext';
+import Register from './Register';
+import { useHistory } from 'react-router-dom';
 
-const LoginForm: React.FunctionComponent = () => {
-  const { user, setUser } = useUserContext();
-  const USERRESULT = JSON.stringify(user);
-  //Uncomment to setUser data
-  // const testUser = 'Test User Context: arn: 12345, externalId: 12345';
-  // setUser?.(testUser);
+type Props = {
+  setCurrentView: Function;
+  setUserData: Function;
+};
 
-  const router = useRouter();
+const Login = ({ setCurrentView, setUserData }: Props) => {
   const [emailLog, setEmailLog] = useState('');
   const [passLog, setPassLog] = useState('');
-  const [loginState, setloginState] = useState(false);
+
   const [userArn, setUserArn] = useState('1');
   const [userExternalId, setUserExternalId] = useState('1');
+  let history = useHistory();
 
   const logBtnHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -36,23 +33,17 @@ const LoginForm: React.FunctionComponent = () => {
       method: 'POST',
       body,
     });
-    console.log(register);
     const response = await register.json();
-    console.log('login res body: ', response);
-    console.log(response.arn);
     const arn = response.arn;
-    console.log(arn);
+    const externalId = response.externalId;
+    const region = response.region;
 
     if (response.success === true) {
-      setloginState(true);
-
-      setUserArn(`${arn}`);
-      console.log(userArn);
-
+      setUserData({ arn, externalId, region });
       console.log('redirecting...');
-      router.push('/dashboard');
+      setCurrentView('dashboard');
+      history.push('/home');
     } else {
-      //render a component for unsucessful login -> look at state
       console.log('unsucessful');
     }
   };
@@ -60,8 +51,7 @@ const LoginForm: React.FunctionComponent = () => {
   return (
     <>
       <div id="login">
-        <h4>{USERRESULT}</h4>
-        <h3>Welcome to the Log In Page</h3>
+        <h3>Log In</h3>
         <form className="registration-form">
           <input
             type="text"
@@ -87,4 +77,4 @@ const LoginForm: React.FunctionComponent = () => {
   );
 };
 
-export default LoginForm;
+export default Login;

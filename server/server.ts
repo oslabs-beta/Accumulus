@@ -34,7 +34,7 @@ app.use(cors());
 app.use(cookieParser())
 
 // Serve all static files in dist directory
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../')));
 
 // Router endpoints
 app.use('/api/user', userRouter);
