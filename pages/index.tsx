@@ -3,6 +3,8 @@ import Head from 'next/head';
 import Menu from '../components/splash-menu';
 import styles from '../styles/Home.module.css'
 import Counter from '../features/counter/Counter'
+import DataDisplay from '../features/featureData/Data';
+
 
 const IndexPage: NextPage = () => {
   return (
@@ -19,7 +21,8 @@ const IndexPage: NextPage = () => {
       <Menu />
       <hr></hr>
       <h3>Pretend this is the splash page main body content</h3>
-     
+      <DataDisplay />
+      
       <hr></hr>
       <p>Pretend this is the footer</p>
     </div>
