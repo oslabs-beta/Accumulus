@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Functions from './components/Functions';
 import Register from './components/Register';
+import Sidebar from './components/Sidebar';
 import Menu from './components/splash-menu';
 import styled from "styled-components"
 // import {
@@ -31,7 +32,6 @@ const App = () => {
     region: '',
   });
   const [timePeriod, setTimePeriod] = useState('30d');
-  const [credentials, setCredentials] = useState(null);
   const [functionList, setFunctionList] = useState([]);
   const [totalInvocations, setTotalInvocations] = useState(0);
   const [chartData, setChartData] = useState();
@@ -42,10 +42,8 @@ const App = () => {
   const [allFuncLogs, setAllFuncLogs] = useState([]);
   const [funcViewData, setFuncViewData] = useState([]);
 
-  console.log('ALL FUNC LOGS', allFuncLogs);
-
   // SETTING MENU & VIEWS
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState('login');
   
   const Wrapper = styled.section`
@@ -65,6 +63,12 @@ const App = () => {
         ) : (
           <React.Fragment>
             <div>
+              <Sidebar
+              // menuOpen={menuOpen}
+              // setMenuOpen={setMenuOpen}
+              // currentView={currentView}
+              // setCurrentView={setCurrentView}
+              />
               <Switch>
                 {/* DASHBOARD ROUTE */}
                 <Route
@@ -98,9 +102,10 @@ const App = () => {
                   path="/functions"
                   render={(props) => (
                     <Functions
-                    // setMenuOpen={setMenuOpen}
-                    // funcViewData={funcViewData}
-                    // allFuncLogs={allFuncLogs}
+                      {...userData}
+                      // setMenuOpen={setMenuOpen}
+                      // funcViewData={funcViewData}
+                      // allFuncLogs={allFuncLogs}
                     />
                   )}
                 />
@@ -112,34 +117,5 @@ const App = () => {
     </HashRouter>
   );
 };
-
-//   <div className={styles.container}>
-//     <Head>
-//       <title>Accumulus</title>
-//       <meta name="description" content="Lambda baby" />
-//       {/* <link rel="icon" href="/favicon.ico" /> */}
-//     </Head>
-
-//     <nav className={styles.nav}>
-//       <Menu />
-//     </nav>
-
-//     <main>
-//       <h3 className="text-3xl font-bold underline">Landing Page Body Content</h3>
-//       <p className="text-3xl font-bold underline">
-//         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo dolorem
-//         sint placeat, veritatis quo enim architecto fugit deserunt excepturi
-//         quaerat nemo et reiciendis earum tenetur! Eum, nobis explicabo.
-//         Officia neque commodi libero quibusdam nostrum aliquam fuga quia
-//         deserunt tenetur facilis suscipit blanditiis cupiditate, similique hic
-//         dignissimos cumque omnis tempore? Illum.
-//       </p>
-//     </main>
-
-//     <footer className={styles.footer}>
-//       <p>Accumulus 2022</p>
-//     </footer>
-//   </div>
-// );
 
 export default App;
