@@ -283,7 +283,7 @@ export const SelectContainer = styled.div`
 `
 
 export const FnSelectButton = styled.button`
-  backgroundColor: 'white';
+  background-color: 'white';
   margin: 5px;
 `
 // HOVER??? HOW
@@ -304,7 +304,6 @@ export const BasicBtn = styled.button`
   font-size: 20px;
   outline: none;
   background: #232323;
-  text-color: white;
   color: white;
   border: 1px solid #232323;
   cursor: pointer;
