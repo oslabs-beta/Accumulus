@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { BasicBtn } from './../styles';
 
 type Props = {};
 
@@ -24,9 +25,9 @@ const Sidebar = () => {
 
   return (
     <>
-      <button onClick={dashBtnHandler}>Dashboard</button>
-      <button onClick={funcBtnHandler}>Functions</button>
-      <button onClick={alloBtnHandler}>Allocation Improvements</button>
+      <BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn>
+      <BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn>
+      <BasicBtn onClick={alloBtnHandler}>Allocation Improvements</BasicBtn>
     </>
   );
 };

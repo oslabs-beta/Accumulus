@@ -22,7 +22,15 @@ interface FnGraphProps {
 const FnGraph = (props: FnGraphProps) => {
   return (
     <>
-      <h1 className="flex items-center justify-center">{props.name}</h1>
+      <h1
+        style={{
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '300',
+          color: 'black',
+        }}
+      >
+        {props.name}
+      </h1>
       <div
         className="chart"
         style={{ width: props.width, height: props.height }}
@@ -52,11 +60,10 @@ const FnGraph = (props: FnGraphProps) => {
             <XAxis dataKey="day" />
             <YAxis dataKey="" />
             <Tooltip />
-            <Legend />
             <Line
               type="monotone"
               dataKey={'value'}
-              stroke={'blue'}
+              stroke={'#613659'}
               fillOpacity={1}
               fill="url(#colorUv)"
               activeDot={{ r: 6 }}

@@ -28,7 +28,15 @@ const BarFuncGraph = (props: BarFnGraphProps) => {
 
   return (
     <>
-      <h1 className="flex items-center justify-center">{props.name}</h1>
+      <h1
+        style={{
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '300',
+          color: 'black',
+        }}
+      >
+        {props.name}
+      </h1>
       <div
         className="chart"
         style={{ width: props.width, height: props.height }}
@@ -49,8 +57,7 @@ const BarFuncGraph = (props: BarFnGraphProps) => {
             <XAxis dataKey="name" />
             <YAxis dataKey="" />
             <Tooltip />
-            <Legend />
-            <Bar type="monotone" dataKey="value" fill="#8884d8" />
+            <Bar type="monotone" dataKey="value" fill="#613659" />
           </BarChart>
         </ResponsiveContainer>
       </div>

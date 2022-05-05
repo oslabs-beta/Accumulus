@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import FnGraphCompare from './FnGraphCompare';
-import FunctionSelector from './FunctionSelector';
+import FnGraphCompare from '../components/FnGraphCompare';
+import FunctionSelector from '../components/FunctionSelector';
 
 type Props = {
   arn: string;

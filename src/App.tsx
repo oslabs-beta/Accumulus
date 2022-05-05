@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Component } from 'react';
 import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
-import Functions from './components/Functions';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Functions from './pages/Functions';
 import Allocations from './components/Allocations';
-import Register from './components/Register';
-import Sidebar from './components/Sidebar';
+import Register from './pages/Register';
 import Menu from './components/splash-menu';
 import styled from 'styled-components';
+import {DashSideBar} from './styles'
 import * as fetchHelper from './fetchHelper';
 
 interface IuserData {
@@ -44,27 +44,27 @@ const App = () => {
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
-  const [currentView, setCurrentView] = useState('login');
+  const [currentView, setCurrentView] = useState('dashboard');
 
   useEffect(() => {
-    if (userData.arn !== '') {
-      console.log('running fetchMetricAllFunctions');
-      fetchHelper.fetchMetricAllFunctions(
-        setTotalInvocations,
-        setTotalErrors,
-        setTotalCost,
-        setSlowestFuncs,
-        setErrorMsgs,
-        setMostErroredFuncs,
-        setMemUsedVsAllo,
-        setInvocations,
-        setDuration,
-        setErrors,
-        setMemUsage,
-        setCost,
-        setThrottles
-      );
-    }
+    // if (userData.arn !== '') {
+    console.log('running fetchMetricAllFunctions');
+    fetchHelper.fetchMetricAllFunctions(
+      setTotalInvocations,
+      setTotalErrors,
+      setTotalCost,
+      setSlowestFuncs,
+      setErrorMsgs,
+      setMostErroredFuncs,
+      setMemUsedVsAllo,
+      setInvocations,
+      setDuration,
+      setErrors,
+      setMemUsage,
+      setCost,
+      setThrottles
+    );
+    // }
   }, [userData]);
 
   useEffect(() => {
@@ -82,16 +82,12 @@ const App = () => {
   `;
   return (
     <HashRouter>
-      <div>
-        <Wrapper>
-          <h1>Welcome to Accumulus!</h1>
-        </Wrapper>
+      <div>   
         {currentView === 'login' ? (
           <Login setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
-              <Sidebar />
               <Switch>
                 {/* DASHBOARD ROUTE */}
                 <Route

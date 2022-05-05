@@ -69,7 +69,6 @@ const StackedBarFuncGraph = (props: StackedBarFnGraphProps) => {
             <XAxis dataKey="name" />
             <YAxis dataKey="" />
             <Tooltip />
-            <Legend />
             {bars}
           </BarChart>
         </ResponsiveContainer>
