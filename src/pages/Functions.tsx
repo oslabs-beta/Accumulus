@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import FuncGraph from './fn-graph';
-import BarFuncGraph from './bar-func-graph';
-import FunctionSelector from './FunctionSelector';
+import FnGraphCompare from '../components/FnGraphCompare';
+import FunctionSelector from '../components/FunctionSelector';
 
 type Props = {
   arn: string;
   externalId: string;
   region: string;
+  invocations: object[];
+  duration: object[];
+  errors: object[];
+  memUsage: object[];
+  cost: object[];
+  throttles: object[];
 };
 
-const Functions = ({ arn, externalId, region }: Props) => {
+const Functions = (props: Props) => {
   const [metricType, setMetricType] = useState('Invocations');
   const [timePeriod, setTimePeriod] = useState('7d');
   const [dataSum, setDataSum] = useState('Sum');
@@ -25,7 +30,7 @@ const Functions = ({ arn, externalId, region }: Props) => {
       'AccumulusFunc5',
     ],
   };
-
+  const { arn, externalId, region } = props;
   const body = JSON.stringify({
     arn,
     externalId,
@@ -54,8 +59,36 @@ const Functions = ({ arn, externalId, region }: Props) => {
         onFunctions={onFunctions}
         setOnFunctions={setOnFunctions}
       ></FunctionSelector>
-      <FuncGraph onFunctions={onFunctions}/>
-      <BarFuncGraph />
+      <FnGraphCompare
+        onFunctions={onFunctions}
+        name={'Invocations'}
+        data={props.invocations}
+      />
+      <FnGraphCompare
+        onFunctions={onFunctions}
+        name={'Duration'}
+        data={props.duration}
+      />
+      <FnGraphCompare
+        onFunctions={onFunctions}
+        name={'Errors'}
+        data={props.errors}
+      />
+      <FnGraphCompare
+        onFunctions={onFunctions}
+        name={'Memory Usage'}
+        data={props.memUsage}
+      />
+      <FnGraphCompare
+        onFunctions={onFunctions}
+        name={'Cost'}
+        data={props.cost}
+      />
+      <FnGraphCompare
+        onFunctions={onFunctions}
+        name={'Throttles'}
+        data={props.throttles}
+      />
     </>
   );
 };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import moment from 'moment';
-import { dummyData } from '../../Data/dummyData';
 
 import {
   LineChart,
@@ -13,42 +12,33 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-interface Invocation {
-  day: number;
-  function: number;
+interface FnGraphProps {
+  data: object[];
+  name: string;
+  width: string | number;
+  height: string | number;
 }
 
-interface InvoProps {
-  invocations?: Invocation[];
-  onFunctions: String[];
-}
-
-const FuncGraph = (props: any) => {
-  const arr: Array<object> = [];
-  const lines = [];
-  for (const func in props.onFunctions) {
-    lines.push(
-      <Line
-        type="monotone"
-        dataKey={func}
-        stroke={props.onFunctions[func]}
-        fillOpacity={1}
-        fill="url(#colorUv)"
-        activeDot={{ r: 6 }}
-      />
-    );
-  }
-
+const FnGraph = (props: FnGraphProps) => {
   return (
     <>
-      <h1 className="flex items-center justify-center">
-        Invocations over time
+      <h1
+        style={{
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '300',
+          color: 'black',
+        }}
+      >
+        {props.name}
       </h1>
-      <div className="chart" style={{ width: '100%', height: 300 }}>
+      <div
+        className="chart"
+        style={{ width: props.width, height: props.height }}
+      >
         <ResponsiveContainer>
           <LineChart
             // @ts-ignore
-            data={dummyData}
+            data={props.data}
             margin={{
               top: 10,
               right: 30,
@@ -70,8 +60,14 @@ const FuncGraph = (props: any) => {
             <XAxis dataKey="day" />
             <YAxis dataKey="" />
             <Tooltip />
-            <Legend />
-            {lines}
+            <Line
+              type="monotone"
+              dataKey={'value'}
+              stroke={'#613659'}
+              fillOpacity={1}
+              fill="url(#colorUv)"
+              activeDot={{ r: 6 }}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -79,4 +75,4 @@ const FuncGraph = (props: any) => {
   );
 };
 
-export default FuncGraph;
+export default FnGraph;

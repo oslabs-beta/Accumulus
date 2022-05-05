@@ -1,22 +1,14 @@
 import React, { useState, useEffect, Component } from 'react';
 import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
-import Functions from './components/Functions';
-import Register from './components/Register';
-import Sidebar from './components/Sidebar';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Functions from './pages/Functions';
+import Allocations from './components/Allocations';
+import Register from './pages/Register';
 import Menu from './components/splash-menu';
-import styled from "styled-components"
-// import {
-//   Container, 
-//   Logo, 
-//   Flag, 
-//   Text, 
-//   Wrapper, 
-//   Searchbox,
-//   Select,
-//   SearchIconWrapper
-// } from "./../styles/globals"
+import styled from 'styled-components';
+import {DashSideBar} from './styles'
+import * as fetchHelper from './fetchHelper';
 
 interface IuserData {
   arn: string;
@@ -25,50 +17,77 @@ interface IuserData {
 }
 
 const App = () => {
-  const [arn, setArn] = useState('');
   const [userData, setUserData] = useState<IuserData>({
     arn: '',
     externalId: '',
     region: '',
   });
-  const [timePeriod, setTimePeriod] = useState('30d');
-  const [functionList, setFunctionList] = useState([]);
-  const [totalInvocations, setTotalInvocations] = useState(0);
-  const [chartData, setChartData] = useState();
-  const [totalErrors, setTotalErrors] = useState(0);
-  const [totalThrottles, setTotalThrottles] = useState(0);
-  const [mostActiveFunc, setMostActiveFunc] = useState();
-  const [mostErrorFunc, setMostErrorFunc] = useState();
-  const [allFuncLogs, setAllFuncLogs] = useState([]);
-  const [funcViewData, setFuncViewData] = useState([]);
 
-  // SETTING MENU & VIEWS
-  // const [menuOpen, setMenuOpen] = useState(false);
-  const [currentView, setCurrentView] = useState('login');
-  
+  // --------- ALL FUNCS HOOKS
+  // Dashboard
+  const [totalInvocations, setTotalInvocations] = useState([]);
+  const [totalErrors, setTotalErrors] = useState([]);
+  const [totalCost, setTotalCost] = useState([]);
+
+  // --------- BY FUNC HOOKS
+  // Dashboard
+  const [slowestFuncs, setSlowestFuncs] = useState([]);
+  const [mostErroredFuncs, setMostErroredFuncs] = useState([]);
+  const [errorMsgs, setErrorMsgs] = useState([]); // unused currently
+  // Allocation
+  const [memUsedVsAllo, setMemUsedVsAllo] = useState([]);
+  // Functions
+  const [invocations, setInvocations] = useState([]);
+  const [duration, setDuration] = useState([]);
+  const [errors, setErrors] = useState([]);
+  const [memUsage, setMemUsage] = useState([]);
+  const [cost, setCost] = useState([]);
+  const [throttles, setThrottles] = useState([]);
+
+  const [currentView, setCurrentView] = useState('dashboard');
+
+  useEffect(() => {
+    // if (userData.arn !== '') {
+    console.log('running fetchMetricAllFunctions');
+    fetchHelper.fetchMetricAllFunctions(
+      setTotalInvocations,
+      setTotalErrors,
+      setTotalCost,
+      setSlowestFuncs,
+      setErrorMsgs,
+      setMostErroredFuncs,
+      setMemUsedVsAllo,
+      setInvocations,
+      setDuration,
+      setErrors,
+      setMemUsage,
+      setCost,
+      setThrottles
+    );
+    // }
+  }, [userData]);
+
+  useEffect(() => {
+    console.log(invocations);
+    console.log(duration);
+    console.log(errors);
+    console.log(memUsage);
+    console.log(cost);
+    console.log(throttles);
+  }, [invocations, duration, errors, memUsage, cost, throttles]);
+
   const Wrapper = styled.section`
-  padding: 4em;
-  background: papayawhip;
-`;
+    padding: 4em;
+    background: papayawhip;
+  `;
   return (
-    // <h1>Hello World</h1>
     <HashRouter>
-      <div>
-        <Wrapper>
-          <h1>Welcome to Accumulus!</h1>
-        </Wrapper>
-        {/* <Register /> */}
+      <div>   
         {currentView === 'login' ? (
           <Login setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
-              <Sidebar
-              // menuOpen={menuOpen}
-              // setMenuOpen={setMenuOpen}
-              // currentView={currentView}
-              // setCurrentView={setCurrentView}
-              />
               <Switch>
                 {/* DASHBOARD ROUTE */}
                 <Route
@@ -76,25 +95,15 @@ const App = () => {
                   path="/home"
                   render={(props) => (
                     <Dashboard
-                      userData={userData}
-                      // {...props}
-                      // setMenuOpen={setMenuOpen}
-                      // totalInvocations={totalInvocations}
-                      // chartData={chartData}
-                      // totalErrors={totalErrors}
-                      // totalThrottles={totalThrottles}
-                      // mostActiveFunc={mostActiveFunc}
-                      // allFuncLogs={allFuncLogs}
-                      // mostErrorFunc={mostErrorFunc}
-                      // timePeriod={timePeriod}
-                      // setTimePeriod={setTimePeriod}
+                      totalInvocations={totalInvocations}
+                      totalErrors={totalErrors}
+                      totalCost={totalCost}
+                      slowestFuncs={slowestFuncs}
+                      errorMsgs={errorMsgs}
+                      mostErroredFuncs={mostErroredFuncs}
                     />
-                    // <h1>Dashboard</h1>
                   )}
                 />
-                {/* </Switch>
-            </div>
-          </React.Fragment> */}
 
                 {/* FUNCTIONS ROUTE */}
                 <Route
@@ -103,10 +112,22 @@ const App = () => {
                   render={(props) => (
                     <Functions
                       {...userData}
-                      // setMenuOpen={setMenuOpen}
-                      // funcViewData={funcViewData}
-                      // allFuncLogs={allFuncLogs}
+                      invocations={invocations}
+                      duration={duration}
+                      errors={errors}
+                      memUsage={memUsage}
+                      cost={cost}
+                      throttles={throttles}
                     />
+                  )}
+                />
+
+                {/* ALLOCATIONS ROUTE */}
+                <Route
+                  exact
+                  path="/allocations"
+                  render={(props) => (
+                    <Allocations {...userData} memUsedVsAllo={memUsedVsAllo} />
                   )}
                 />
               </Switch>

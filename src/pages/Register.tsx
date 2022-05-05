@@ -1,14 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-const Register = () => {
+const Register = (props: any) => {
   const [nameReg, setNameReg] = useState('');
   const [emailReg, setEmailReg] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
   const [arnReg, setArnReg] = useState('');
   const [regionReg, setRegionReg] = useState('us-east-2');
-
   const [EXTERNAL_ID, setexternelid] = useState(uuidv4());
+
+  let history = useHistory();
 
   useEffect(() => {
     setexternelid(uuidv4());
@@ -30,7 +32,7 @@ const Register = () => {
       externalId: EXTERNAL_ID,
     });
 
-    console.log(EXTERNAL_ID);
+    console.log(body);
 
     const register = await fetch('http://localhost:3000/api/user/signup', {
       headers: {
@@ -43,6 +45,8 @@ const Register = () => {
 
     if (register.status === 200) {
       console.log('redirecting...');
+      props.setCurrentView('dashboard');
+      history.push('/home');
     } else {
       console.log('unsuccessful');
     }
@@ -114,6 +118,7 @@ const Register = () => {
           </select>
         </form>
         <button onClick={regBtnHandler}>Sign me up NOW!</button>
+        <button onClick={() => props.setLoginOrRegister('login')}>Login</button>
       </div>
     </>
   );
