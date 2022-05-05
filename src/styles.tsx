@@ -12,12 +12,42 @@ export const HeaderLabel = styled.h1`
   color: '#232323';
 `
 
+export const StartedButton = styled.button`
+position: fixed;
+top: 0;
+right: 0;
+margin: 60px;
+width: 120px;
+height: 40px;
+border-radius: 7px;
+background-color: #eae6f0;
+color: white;
+font-weight: 500;
+
+
+&:hover {
+  background-color: #00E6FF;
+}
+
+`;
+
+
 //---------------------LOGIN PAGE------
 export const LogInWrapper = styled.section`
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
+  border: 1px solid black;
+  width: 400px;
+  height: 450px;
+  border-radius: 7px;
+  margin: auto;
+  margin-top: 130px;
+  display: flex;
+  flex-direction: column;
+  background-color: #C7FAFF;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  
 `;
 export const LogInHeader = styled.section`
   width: 100vw;
@@ -28,7 +58,7 @@ export const LogInHeader = styled.section`
 `;
 export const LogInBody = styled.section`
   width: 100vw;
-  height: 70vh;
+  height: 80vh;
   left: 0;
 `;
 export const H1 = styled.h1`
@@ -46,12 +76,12 @@ export const Text = styled.section`
 
 export const LogInFooter = styled.section`
   width: 100vw;
+  height: auto;
+  padding-left: 20px;
+  padding-bottom:  100px;
   bottom: 0;
   left: 0;
-  background-color: #0FE3FA;
-`;
-
-export const LogInLeft = styled.section`
+  background-color: #eae6f0;
   align-self: flex-start; 
 `;
 
@@ -59,7 +89,7 @@ export const LogInButton = styled.button`
 width: auto;
 height: 30px;
 border-radius: 7px;
-background-color: #0091FF;
+background-color: #eae6f0;
 color: white;
 font-weight: 500;
 
@@ -70,7 +100,7 @@ font-weight: 500;
 `;
 
 export const ButtonContainer = styled.section`
-position: absolute;
+position: relative;
 right: 0;
 top: 5;
 `;
@@ -86,6 +116,19 @@ top: 5;
 //   height: 50px;
 //   background-color: ${(props) => props.backgroundColor ? props.backgroundColor : '#ffffff'};
 // `;
+
+//------------------Registration-----------------------------
+export const RegistrationWrapper = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  text-align: center;
+
+
+
+`;
 
 //------------------DASHBOARD-----------------------------
 export const DashboardWrapper = styled.section`

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component } from 'react';
 import GlobalStyle from './globals';
 import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
+import Splash from './pages/Splash';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
@@ -45,7 +46,7 @@ const App = () => {
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
-  const [currentView, setCurrentView] = useState('dashboard');
+  const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
     // if (userData.arn !== '') {
@@ -86,14 +87,35 @@ const App = () => {
   `;
   return (
     <HashRouter>
+     
       <div>   
       <GlobalStyle />
-        {currentView === 'login' ? (
-          <Login setCurrentView={setCurrentView} setUserData={setUserData} />
+        {currentView === 'splash' ? (
+          <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
               <Switch>
+                <Route 
+                  exact
+                  path="/login"
+                  render={(props) => (
+                    <Login 
+                    setCurrentView={setCurrentView}
+                    setUserData={setUserData}/>
+                  )}
+                />
+                {/* <Route 
+                  exact
+                  path="/register"
+                  render={(props) => (
+                    <Register
+                    setCurrentView={setCurrentView}
+                    setUserData={setUserData}/>
+                  )}
+                /> */}
+
+
                 {/* DASHBOARD ROUTE */}
                 <Route
                   exact
@@ -140,6 +162,7 @@ const App = () => {
           </React.Fragment>
         )}
       </div>
+      
     </HashRouter>
   );
 };
