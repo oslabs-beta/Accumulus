@@ -53,7 +53,6 @@ const Dashboard = (props: Props) => {
               width={'100%'}
               height={300}
             />
-            
           </GraphContainer>
         </EvenDashGraphBox>
         <LongDashBox>
