@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LogInButton, ButtonContainer } from '../styles';
+import { LogInButton, ButtonContainer, RegistrationWrapper } from '../styles';
 
 const Register = (props: any) => {
   const [nameReg, setNameReg] = useState('');
@@ -55,41 +55,54 @@ const Register = (props: any) => {
 
   return (
     <>
+    <RegistrationWrapper>
       <div id="registration">
         <h3>Sign Up for Accumulus!</h3>
-        <a
+        <form className="registration-form">
+          <div id='regInfo'>
+            <div>
+            <input
+              type="text"
+              placeholder="Name"
+              onChange={(e) => {
+                setNameReg(e.target.value);
+              }}
+              required
+            />
+            </div>
+            <br></br>
+            <div>
+            <input
+              type="text"
+              placeholder="Email"
+              onChange={(e) => {
+                setEmailReg(e.target.value);
+              }}
+              required
+            />
+            </div>
+            <br></br>
+            <div>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => {
+                setPasswordReg(e.target.value);
+              }}
+              required
+            />
+            </div>
+            <br />
+          </div>
+          <a
           href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}
           target="_blank"
           rel="noreferrer"
-        >
+          >
           Please visit this link to get your ARN
-        </a>
-
-        <form className="registration-form">
-          <input
-            type="text"
-            placeholder="Name"
-            onChange={(e) => {
-              setNameReg(e.target.value);
-            }}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Email"
-            onChange={(e) => {
-              setEmailReg(e.target.value);
-            }}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(e) => {
-              setPasswordReg(e.target.value);
-            }}
-            required
-          />
+          </a>
+          <br/>
+          <div>
           <input
             type="text"
             placeholder="ARN"
@@ -98,12 +111,15 @@ const Register = (props: any) => {
             }}
             required
           />
+          </div>
           {/* <input type="text" placeholder="Region"
             onChange={(e) => {
               setRegionReg(e.target.value)
             }}
           /> */}
-          <label htmlFor="region">Choose a region:</label>
+          <br></br>
+          <label htmlFor="region">Choose your region:</label>
+          <br></br>
           <select
             required
             id="region"
@@ -117,12 +133,17 @@ const Register = (props: any) => {
             <option value="us-west-1">US West (N. California)</option>
             <option value="us-west-2">US West (Oregon)</option>
           </select>
+          <br/>
         </form>
+        <div>
+          <br/>
         <ButtonContainer>
           <LogInButton onClick={regBtnHandler}>Sign me up!</LogInButton>
           <button onClick={() => props.setLoginOrRegister('login')}>Login</button>
         </ButtonContainer>
+        </div>
       </div>
+      </RegistrationWrapper>
     </>
   );
 };
