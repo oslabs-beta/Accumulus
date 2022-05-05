@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import FnGraphCompare from '../components/FnGraphCompare';
 import FunctionSelector from '../components/FunctionSelector';
+import Sidebar from '../components/Sidebar';
+import { DashSideBar, DashboardGrid } from '../styles';
 
 type Props = {
   arn: string;
@@ -53,12 +55,17 @@ const Functions = (props: Props) => {
 
   return (
     <>
+    <DashboardGrid>
       <h2>Functions Page</h2>
+      <DashSideBar>
+          <Sidebar />
+      
       <FunctionSelector
         {...functions}
         onFunctions={onFunctions}
         setOnFunctions={setOnFunctions}
       ></FunctionSelector>
+      </DashSideBar>
       <FnGraphCompare
         onFunctions={onFunctions}
         name={'Invocations'}
@@ -89,7 +96,9 @@ const Functions = (props: Props) => {
         name={'Throttles'}
         data={props.throttles}
       />
+      </DashboardGrid>
     </>
+
   );
 };
 

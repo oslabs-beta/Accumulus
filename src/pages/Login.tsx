@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Register from './Register';
 import { useHistory } from 'react-router-dom';
+import { LogInWrapper, LogInHeader, LogInFooter, LogInLeft, LogInBody } from '../styles';
 
 type Props = {
   setCurrentView: Function;
@@ -55,37 +56,62 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
 
   return (
     <>
-      {loginOrRegister === 'login' ? (
-        <div id="login">
-          <h3>Log In</h3>
-          <form className="registration-form">
-            <input
-              type="text"
-              placeholder="Email"
-              required
-              onChange={(e) => {
-                setEmailLog(e.target.value);
-              }}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              onChange={(e) => {
-                setPassLog(e.target.value);
-              }}
-            />
-          </form>
+      <LogInWrapper>
+        <LogInHeader>
+          <header>
+              <h1>Accumulus</h1>
 
-          <button onClick={logBtnHandler}>Log IN!</button>
-          <button onClick={regBtnHandler}>Register</button>
-        </div>
-      ) : (
-        <Register
-          setLoginOrRegister={setLoginOrRegister}
-          setCurrentView={setCurrentView}
-        />
-      )}
+          
+
+          {loginOrRegister === 'login' ? (
+            <div id="login">
+              
+              <form className="registration-form">
+                <input
+                  type="text"
+                  placeholder="Email"
+                  required
+                  onChange={(e) => {
+                    setEmailLog(e.target.value);
+                  }}
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  required
+                  onChange={(e) => {
+                    setPassLog(e.target.value);
+                  }}
+                />
+              </form>
+
+              <button onClick={logBtnHandler}>Log In!</button>
+              <button onClick={regBtnHandler}>Register</button>
+            </div>
+          ) : (
+            <Register
+              setLoginOrRegister={setLoginOrRegister}
+              setCurrentView={setCurrentView}
+            />
+          )}
+          <hr></hr>
+          </header>
+        </LogInHeader>
+        <LogInBody>
+          <h1>Lambda Monitoring Made Easy</h1>
+          <p>Explain why Accumulus is amazing</p>
+        </LogInBody>
+        <LogInFooter>
+          <footer>
+            <hr></hr>
+            <LogInLeft>
+             <a href="www.github.com">Github</a>
+            </LogInLeft>
+            <p>Copyright 2022</p>
+  
+          </footer>
+        </LogInFooter>
+      </LogInWrapper>
     </>
   );
 };

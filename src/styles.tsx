@@ -1,6 +1,41 @@
 import react from 'react';
 import styled, { createGlobalStyle, css } from 'styled-components';
-import myTheme from '../styles/globals';
+import myTheme from '../styles/globals'
+
+
+
+export const LogInWrapper = styled.section`
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+`;
+
+export const LogInHeader = styled.section`
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: #0FE3FA;
+  
+`;
+export const LogInBody = styled.section`
+  width: 100vw;
+  height: 75vh;
+  left: 0;
+
+`;
+
+export const LogInFooter = styled.section`
+  width: 100vw;
+  bottom: 0;
+  left: 0;
+  background-color: #0FE3FA;
+
+`;
+
+export const LogInLeft = styled.section`
+  align-self: flex-start; 
+`;
 
 // const {
 //   default: styled,

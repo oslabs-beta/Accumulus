@@ -77,12 +77,14 @@ const App = () => {
   }, [invocations, duration, errors, memUsage, cost, throttles]);
 
   const Wrapper = styled.section`
-    padding: 4em;
-    background: papayawhip;
+    margin: 0;
+    top: 0;
+    left: 0;
   `;
   return (
     <HashRouter>
       <div>   
+      <Wrapper>
         {currentView === 'login' ? (
           <Login setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
@@ -134,6 +136,7 @@ const App = () => {
             </div>
           </React.Fragment>
         )}
+      </Wrapper>
       </div>
     </HashRouter>
   );
