@@ -7,7 +7,7 @@ import Allocations from './components/Allocations';
 import Register from './pages/Register';
 import Menu from './components/splash-menu';
 import styled from 'styled-components';
-import {DashSideBar} from './styles'
+import { DashSideBar } from './styles';
 import * as fetchHelper from './fetchHelper';
 
 interface IuserData {
@@ -44,7 +44,7 @@ const App = () => {
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
-  const [currentView, setCurrentView] = useState('dashboard');
+  const [currentView, setCurrentView] = useState('login');
 
   useEffect(() => {
     // if (userData.arn !== '') {
@@ -82,7 +82,7 @@ const App = () => {
   `;
   return (
     <HashRouter>
-      <div>   
+      <div>
         {currentView === 'login' ? (
           <Login setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
