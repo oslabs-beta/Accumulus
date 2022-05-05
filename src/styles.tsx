@@ -4,6 +4,7 @@ import myTheme from './globals'
 
 // PALETTE
 // DARK GREY: #232323
+// LIGHT LILAC: #eae6f0
 
 //---------------------EVERY WHERE ----
 export const HeaderLabel = styled.h1`
@@ -17,38 +18,50 @@ position: fixed;
 top: 0;
 right: 0;
 margin: 60px;
-width: 120px;
-height: 40px;
+width: 170px;
+height: 70px;
 border-radius: 7px;
-background-color: #eae6f0;
+border: none;
+background-color: #a48fc5;
 color: white;
 font-weight: 500;
+font-size: 27px;
 
 
 &:hover {
-  background-color: #00E6FF;
+  background-color: #7a6899;
 }
 
 `;
 
 
 //---------------------LOGIN PAGE------
+export const LogRegCont = styled.section`
+  background-image: linear-gradient(to bottom right, white, rgb(208, 177, 228), rgba(190, 146, 212, 0.964), rgb(198, 145, 200), rgb(219, 149, 195));
+
+`;
 export const LogInWrapper = styled.section`
   border: 1px solid black;
-  width: 400px;
-  height: 450px;
+  width: 70%;
+  height: 70%;
   border-radius: 7px;
   margin: auto;
   margin-top: 130px;
   display: flex;
   flex-direction: column;
-  background-color: #C7FAFF;
+  background-color: #eae6f0;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 10px;
 
   
 `;
+
+export const LogInLeft = styled.section`
+  align-self: flex-start; 
+`;
+
 export const LogInHeader = styled.section`
   width: 100vw;
   top: 0;
@@ -57,46 +70,56 @@ export const LogInHeader = styled.section`
   text-align: center;
 `;
 export const LogInBody = styled.section`
+  background-image: linear-gradient(to bottom right, white, rgb(208, 177, 228), rgba(190, 146, 212, 0.964), rgb(198, 145, 200), rgb(219, 149, 195));
+  /* background: linear-gradient(
+    120deg,
+    rgb(228, 215, 248) 0%,
+    rgba(94, 193, 211, 0.904) 99%
+  ); */
   width: 100vw;
-  height: 80vh;
-  left: 0;
+  height: 90vh;
+  left: 0; 
 `;
 export const H1 = styled.h1`
 font-size: 4em;
 width: 600px;
-padding-left: 30px;
+padding-left: 50px;
+padding-top: 50px;
 `;
 export const Text = styled.section`
   width: 400px;
-  border: 1px solid white;
-  padding: 20px;
-  margin: 20px;
+  /* border: 1px solid white; */
+  /* padding: 20px; */
+  margin: 50px;
   font-size: 1.4em;
 `;
 
 export const LogInFooter = styled.section`
   width: 100vw;
-  height: auto;
+  height: 10vh;
   padding-left: 20px;
   padding-bottom:  100px;
   bottom: 0;
   left: 0;
-  background-color: #eae6f0;
+  background-color: #c1b2d8;
   align-self: flex-start; 
 `;
 
 export const LogInButton = styled.button`
-width: auto;
-height: 30px;
+margin: 30px;
+width: 170px;
+height: 70px;
 border-radius: 7px;
-background-color: #eae6f0;
+border: none;
+background-color: #a48fc5;
 color: white;
 font-weight: 500;
+font-size: 27px;
+
 
 &:hover {
-  background-color: #00E6FF;
+  background-color: #7a6899;
 }
-
 `;
 
 export const ButtonContainer = styled.section`
@@ -119,13 +142,14 @@ top: 5;
 
 //------------------Registration-----------------------------
 export const RegistrationWrapper = styled.section`
+  /* background-image: linear-gradient(to bottom right, white, rgb(208, 177, 228), rgba(190, 146, 212, 0.964), rgb(198, 145, 200), rgb(219, 149, 195)); */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 
   text-align: center;
-
+  padding: 10px;
 
 
 `;
@@ -155,7 +179,7 @@ export const GraphContainer = styled.section`
 
   &:hover {
     box-shadow: 3px 3px 7px #828282;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.5s ease;
   }
 `;
 
