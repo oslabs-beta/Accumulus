@@ -1,9 +1,11 @@
 import React, { useState, useEffect, Component } from 'react';
+import GlobalStyle from './globals';
 import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
+import Splash from './pages/Splash';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
-import Allocations from './components/Allocations';
+import Allocations from './pages/Allocations';
 import Register from './pages/Register';
 import Menu from './components/splash-menu';
 import styled from 'styled-components';
@@ -44,7 +46,7 @@ const App = () => {
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
-  const [currentView, setCurrentView] = useState('login');
+  const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
     // if (userData.arn !== '') {
@@ -77,18 +79,43 @@ const App = () => {
   }, [invocations, duration, errors, memUsage, cost, throttles]);
 
   const Wrapper = styled.section`
-    padding: 4em;
-    background: papayawhip;
+    margin: 0;
+    padding: 0;
+    outline:0;
+    box-sizing:border-box;
+    font-family: 'Open Sans', sans-serif; 
   `;
   return (
     <HashRouter>
-      <div>
-        {currentView === 'login' ? (
-          <Login setCurrentView={setCurrentView} setUserData={setUserData} />
+     
+      <div>   
+      <GlobalStyle />
+        {currentView === 'splash' ? (
+          <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
               <Switch>
+                <Route 
+                  exact
+                  path="/login"
+                  render={(props) => (
+                    <Login 
+                    setCurrentView={setCurrentView}
+                    setUserData={setUserData}/>
+                  )}
+                />
+                {/* <Route 
+                  exact
+                  path="/register"
+                  render={(props) => (
+                    <Register
+                    setCurrentView={setCurrentView}
+                    setUserData={setUserData}/>
+                  )}
+                /> */}
+
+
                 {/* DASHBOARD ROUTE */}
                 <Route
                   exact
@@ -135,6 +162,7 @@ const App = () => {
           </React.Fragment>
         )}
       </div>
+      
     </HashRouter>
   );
 };

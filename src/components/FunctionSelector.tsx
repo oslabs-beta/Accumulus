@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+import { SelectContainer, FnSelectButton
+} from '../styles';
+
 interface Props {
   names: string[];
 }
@@ -36,18 +39,24 @@ const FunctionSelector = (props: any) => {
   const functionButtons = [];
   for (let i = 0; i < props.names.length; i++) {
     functionButtons.push(
-      <button
+      <FnSelectButton
         key={props.names[i]}
-        style={{ backgroundColor: 'white' }}
         id={props.names[i]}
         onClick={handleClick}
       >
         {props.names[i]}
-      </button>
+      </FnSelectButton>
     );
   }
 
-  return <div>{functionButtons}</div>;
+  return (
+    <>
+      <h3>Select Functions:</h3>
+      <SelectContainer>
+        <div>{functionButtons}</div>
+      </SelectContainer>
+    </>
+  );
 };
 
 export default FunctionSelector;

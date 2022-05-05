@@ -1,22 +1,22 @@
 export const slowestFuncsMock = [
   {
-    name: 'AccumulusFunc3',
+    name: 'CreateUser',
     value: 500,
   },
   {
-    name: 'AccumulusFunc4',
-    value: 400,
+    name: 'Login',
+    value: 450,
   },
   {
-    name: 'AccumulusFunc1',
+    name: 'Signup',
+    value: 375,
+  },
+  {
+    name: 'AnalyzeData',
+    value: 350,
+  },
+  {
+    name: 'GetMetrics',
     value: 300,
-  },
-  {
-    name: 'AccumulusFunc5',
-    value: 200,
-  },
-  {
-    name: 'AccumulusFunc2',
-    value: 100,
   },
 ];

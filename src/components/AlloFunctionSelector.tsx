@@ -93,7 +93,12 @@ const AlloFunctionSelector = (props: any) => {
     );
   }
 
-  return <div>{functionButtons}</div>;
+  return (
+    <>
+      <h3>Select Functions:</h3>
+      <div>{functionButtons}</div>
+    </>
+  );
 };
 
 export default AlloFunctionSelector;
