@@ -1,7 +1,16 @@
 import react from 'react';
 import styled, { createGlobalStyle, css } from 'styled-components';
-import myTheme from '../styles/globals'
+import myTheme from './globals'
 
+// PALETTE
+// DARK GREY: #232323
+
+//---------------------EVERY WHERE ----
+export const HeaderLabel = styled.h1`
+  font-family: 'Roboto, sans-serif';
+  font-weight: '300';
+  color: '#232323';
+`
 
 //---------------------LOGIN PAGE------
 export const LogInWrapper = styled.section`
@@ -10,14 +19,12 @@ export const LogInWrapper = styled.section`
   top: 0;
   left: 0;
 `;
-
 export const LogInHeader = styled.section`
   width: 100vw;
   top: 0;
   left: 0;
   background-color: white;
   text-align: center;
-  
 `;
 export const LogInBody = styled.section`
   width: 100vw;
@@ -42,9 +49,6 @@ export const LogInFooter = styled.section`
   bottom: 0;
   left: 0;
   background-color: #0FE3FA;
-
-
-
 `;
 
 export const LogInLeft = styled.section`
@@ -101,8 +105,15 @@ export const DashboardWrapper = styled.section`
 export const GraphContainer = styled.section`
   background: #eae6f0;
   /* padding: 0.25rem; */
+  padding-top: 10px;
   width: 100%;
-  height: 85%;
+  height: 350px;
+  box-shadow: 2px 2px 2px #d8d8d8;
+
+  &:hover {
+    box-shadow: 3px 3px 7px #828282;
+    transition: box-shadow 0.3s ease;
+  }
 `;
 
 // grid-column: ${props => props.gridColumn};
@@ -114,17 +125,19 @@ export const GraphContainer = styled.section`
 export const DashboardGrid = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-columns: 0.3fr 0.75fr 0.75fr 0.75fr;
-  grid-template-rows: 0.2fr 0.75fr 0.75fr 0.1fr;
+  grid-template-columns: 0.1fr 0.75fr 0.75fr 0.75fr;
+  grid-template-rows: 0.02fr 0.75fr 0.75fr 0.1fr;
   grid-template-areas:
     'sidebar nav nav nav'
     'sidebar content content content'
     'sidebar content1 content1 content1'
+    'sidebar content2 content2 content2'
     'footer footer footer footer';
   text-align: center;
   grid-gap: 0.25rem;
   transition: all 0.25s ease-in-out;
   color: white;
+  margin: 0px;
 `;
 export const Header = styled.nav`
   display: flex;
@@ -135,7 +148,7 @@ export const Header = styled.nav`
   padding: 0.25rem;
   font-family: 'Roboto', sans-serif;
   font-size: 38px;
-  padding: 20px;
+  /* padding: 20px; */
 `;
 
 export const DashSideBar = styled.div`
@@ -147,35 +160,38 @@ export const DashSideBar = styled.div`
   padding: 0.25rem;
 `;
 
+export const Row1GraphBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.85rem;
+  padding: 0.25rem;
+  align-items: center;
+  grid-area: content;
+  justify-content: center;
+`;
+
+export const Row2GraphBox = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.85rem;
+  padding: 0.25rem;
+  align-items: center;
+  grid-area: content1;
+  justify-content: center
+`;
+
 export const EvenDashGraphBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.85rem;
   padding: 0.25rem;
   align-items: center;
-  grid-area: content;
-  justify-content: center;
-  @media (max-width: 550px) {
-    flex-direction: column;
-  }
+  grid-area: content2;
+  justify-content: center
 `;
 
-export const LongDashBox = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 0.85rem;
-  padding: 0.25rem;
-  align-items: center;
-  grid-area: content1;
-  justify-content: center;
-  @media (max-width: 550px) {
-    flex-direction: column;
-  }
-`;
-
-export const Content1 = styled.div`
+/* export const Content1 = styled.div`
   background: #a6b8b9;
-  /* padding: 0.25rem; */
   width: 100%;
   height: 100%;
 `;
@@ -185,12 +201,60 @@ const Footer = styled.footer`
   background: #ff9637;
   grid-area: footer;
   padding: 0.25rem;
+`; */
+
+//--------------------FUNCTIONS & ALLOCATIONS-------------------------
+
+export const ResourcesGrid = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 0.1fr 0.75fr 0.75fr;
+  /* grid-template-rows: 0.02fr 0.75fr 0.75fr 0.1fr; */
+  grid-template-areas:
+    'sidebar  nav nav'
+    'sidebar content2 content2 content2';
+  text-align: center;
+  grid-gap: 0.25rem;
+  transition: all 0.25s ease-in-out;
+  color: white;
+  margin: 0px;
 `;
+
+export const Selector = styled.div`
+  align-items: center;
+  padding-top: 1%;
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid blue;
+  overflow-y: scroll;
+`
+
+export const SelectContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 7%;
+  margin-top: 3%;
+  width: 77%;
+  border-radius: 0.6rem;
+  cursor: pointer;
+`
+
+export const FnSelectButton = styled.button`
+  backgroundColor: 'white';
+  margin: 5px;
+`
+// HOVER??? HOW
+
+export const ContainerLabel = styled.div`
+  margin-left: 1.7rem;
+  font-size: 0.9rem;
+  color: colors.$navText;
+`
 
 //--------------------SIDEBAR-------------------------
 export const BasicBtn = styled.button`
   height: 70px;
-  width: 170px;
+  width: 150px;
   margin: 0.5rem;
   border-radius: 5px;
   padding: 12px 26px;

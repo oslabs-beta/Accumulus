@@ -1,9 +1,10 @@
 import React, { useState, useEffect, Component } from 'react';
+import GlobalStyle from './globals';
 import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
-import Allocations from './components/Allocations';
+import Allocations from './pages/Allocations';
 import Register from './pages/Register';
 import Menu from './components/splash-menu';
 import styled from 'styled-components';
@@ -44,7 +45,7 @@ const App = () => {
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
-  const [currentView, setCurrentView] = useState('login');
+  const [currentView, setCurrentView] = useState('dashboard');
 
   useEffect(() => {
     // if (userData.arn !== '') {
@@ -78,13 +79,15 @@ const App = () => {
 
   const Wrapper = styled.section`
     margin: 0;
-    top: 0;
-    left: 0;
+    padding: 0;
+    outline:0;
+    box-sizing:border-box;
+    font-family: 'Open Sans', sans-serif; 
   `;
   return (
     <HashRouter>
       <div>   
-      <Wrapper>
+      <GlobalStyle />
         {currentView === 'login' ? (
           <Login setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
@@ -136,7 +139,6 @@ const App = () => {
             </div>
           </React.Fragment>
         )}
-      </Wrapper>
       </div>
     </HashRouter>
   );

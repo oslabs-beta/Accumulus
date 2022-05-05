@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { DashSideBar, 
   DashboardGrid, 
   EvenDashGraphBox, 
-  GraphContainer, Header } from '../styles';
+  GraphContainer, Header, SelectContainer, Selector } from '../styles';
 
 type Props = {
   arn: string;
@@ -62,13 +62,13 @@ const Functions = (props: Props) => {
       <Header>Functions</Header>
       <DashSideBar>
           <Sidebar />
-          <FunctionSelector
-            {...functions}
-            onFunctions={onFunctions}
-            setOnFunctions={setOnFunctions}
-          ></FunctionSelector>
       </DashSideBar>
       <EvenDashGraphBox>
+            <FunctionSelector
+              {...functions}
+              onFunctions={onFunctions}
+              setOnFunctions={setOnFunctions}
+            />
         <GraphContainer>
           <FnGraphCompare
             onFunctions={onFunctions}

@@ -8,8 +8,9 @@ import {
   GraphContainer,
   DashboardGrid,
   Header,
-  EvenDashGraphBox,
-  LongDashBox,
+  Row1GraphBox,
+  Row2GraphBox,
+  EvenDashGraphBox
 } from '../styles';
 
 type Props = {
@@ -29,7 +30,7 @@ const Dashboard = (props: Props) => {
         <DashSideBar>
           <Sidebar />
         </DashSideBar>
-        <EvenDashGraphBox>
+        <Row1GraphBox>
           <GraphContainer>
             <FnGraph
               data={props.totalInvocations}
@@ -46,8 +47,44 @@ const Dashboard = (props: Props) => {
               height={300}
             />
           </GraphContainer>
+        </Row1GraphBox>
+        <Row2GraphBox>
           <GraphContainer>
-           <BarFnGraph
+            <FnGraph
+              data={props.totalCost}
+              name={'Total Cost'}
+              width={'100%'}
+              height={300}
+              />
+          </GraphContainer>
+          <GraphContainer>
+            <BarFnGraph
+              data={props.slowestFuncs}
+              name={'Slowest Functions'}
+              width={'100%'}
+              height={300}
+              />
+          </GraphContainer>
+        </Row2GraphBox>
+        <EvenDashGraphBox>
+          <GraphContainer>
+            <h1 style={{ 
+              fontFamily: 'Roboto, sans-serif', 
+              fontWeight: '300', 
+              color: '#232323'}}>
+                Errors
+            </h1>
+          </GraphContainer>
+          <GraphContainer>
+            <h1 style={{ 
+              fontFamily: 'Roboto, sans-serif', 
+              fontWeight: '300', 
+              color: '#232323'}}>
+                Logs
+            </h1>
+          </GraphContainer>
+          <GraphContainer>
+          <BarFnGraph
               data={props.mostErroredFuncs}
               name={'Most Errored Functions'}
               width={'100%'}
@@ -55,24 +92,6 @@ const Dashboard = (props: Props) => {
             />
           </GraphContainer>
         </EvenDashGraphBox>
-        <LongDashBox>
-          <GraphContainer>
-            <BarFnGraph
-              data={props.slowestFuncs}
-              name={'Slowest Functions'}
-              width={'100%'}
-              height={300}
-            />
-          </GraphContainer>
-          <GraphContainer>
-            <FnGraph
-              data={props.totalCost}
-              name={'Total Cost'}
-              width={'100%'}
-              height={300}
-            />
-          </GraphContainer>
-        </LongDashBox>
       </DashboardGrid>
     </>
   );

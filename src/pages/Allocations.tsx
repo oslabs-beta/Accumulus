@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import StackedBarFnGraph from './StackedBarFnGraph';
-import AlloFunctionSelector from './AlloFunctionSelector';
+import StackedBarFnGraph from '../components/StackedBarFnGraph';
+import AlloFunctionSelector from '../components/AlloFunctionSelector';
 import Sidebar from '../components/Sidebar';
 import { DashSideBar, 
   DashboardGrid, 
   EvenDashGraphBox, 
-  GraphContainer, Header } from '../styles';
+  GraphContainer, Header,
+  Selector,
+  ResourcesGrid,
+} from '../styles';
 
 
 type Props = {
@@ -77,27 +80,28 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
 
   return (
     <>
-    <DashboardGrid>
-    <Header>Resource Allocation Improvement</Header>
+    <ResourcesGrid>
+    <Header>Excess Memory</Header>
       <DashSideBar>
           <Sidebar/>
-      
-          <AlloFunctionSelector
-            {...functions}
-            onStacked={onStacked}
-            setOnStacked={setOnStacked}
-            data={memUsedVsAllo}
-          />
       </DashSideBar> 
+        <AlloFunctionSelector
+          {...functions}
+          onStacked={onStacked}
+          setOnStacked={setOnStacked}
+          data={memUsedVsAllo}
+          />
+      <EvenDashGraphBox>
+        <GraphContainer>
           <StackedBarFnGraph
             onStacked={onStacked}
-            name={'Resources Allocated & Limits'}
+            name={'Excess Memory Allocated'}
             width={'100%'}
             height={300}
-          />
-  
-  
-      </DashboardGrid>
+            />
+        </GraphContainer>
+      </EvenDashGraphBox>
+    </ResourcesGrid>
     </>
   );
 };

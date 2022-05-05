@@ -31,8 +31,16 @@ const FuncGraphCompare = (props: any) => {
 
   return (
     <>
-      <h1 className="flex items-center justify-center">{props.name}</h1>
-      <div className="chart" style={{ width: '30%', height: 300 }}>
+      <h1
+        style={{
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '300',
+          color: 'black',
+        }}
+      >
+        {props.name}
+      </h1>
+      <div className="chart" style={{ width: props.width, height: 300 }}>
         <ResponsiveContainer>
           <LineChart
             // @ts-ignore
@@ -58,7 +66,6 @@ const FuncGraphCompare = (props: any) => {
             <XAxis dataKey="day" />
             <YAxis dataKey="" />
             <Tooltip />
-            <Legend />
             {lines}
           </LineChart>
         </ResponsiveContainer>
