@@ -3,7 +3,7 @@ import styled, { createGlobalStyle, css } from 'styled-components';
 import myTheme from '../styles/globals'
 
 
-
+//---------------------LOGIN PAGE------
 export const LogInWrapper = styled.section`
   height: 100vh;
   width: 100vw;
@@ -15,14 +15,26 @@ export const LogInHeader = styled.section`
   width: 100vw;
   top: 0;
   left: 0;
-  background-color: #0FE3FA;
+  background-color: white;
+  text-align: center;
   
 `;
 export const LogInBody = styled.section`
   width: 100vw;
-  height: 75vh;
+  height: 70vh;
   left: 0;
-
+`;
+export const H1 = styled.h1`
+font-size: 4em;
+width: 600px;
+padding-left: 30px;
+`;
+export const Text = styled.section`
+  width: 400px;
+  border: 1px solid white;
+  padding: 20px;
+  margin: 20px;
+  font-size: 1.4em;
 `;
 
 export const LogInFooter = styled.section`
@@ -31,10 +43,32 @@ export const LogInFooter = styled.section`
   left: 0;
   background-color: #0FE3FA;
 
+
+
 `;
 
 export const LogInLeft = styled.section`
   align-self: flex-start; 
+`;
+
+export const LogInButton = styled.button`
+width: auto;
+height: 30px;
+border-radius: 7px;
+background-color: #0091FF;
+color: white;
+font-weight: 500;
+
+&:hover {
+  background-color: #00E6FF;
+}
+
+`;
+
+export const ButtonContainer = styled.section`
+position: absolute;
+right: 0;
+top: 5;
 `;
 
 // const {
@@ -49,7 +83,7 @@ export const LogInLeft = styled.section`
 //   background-color: ${(props) => props.backgroundColor ? props.backgroundColor : '#ffffff'};
 // `;
 
-//DASHBOARD
+//------------------DASHBOARD-----------------------------
 export const DashboardWrapper = styled.section`
   margin-left: 12%;
 `;
@@ -153,7 +187,7 @@ const Footer = styled.footer`
   padding: 0.25rem;
 `;
 
-//SIDEBAR
+//--------------------SIDEBAR-------------------------
 export const BasicBtn = styled.button`
   height: 70px;
   width: 170px;

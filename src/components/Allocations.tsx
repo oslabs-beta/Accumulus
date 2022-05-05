@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from './StackedBarFnGraph';
 import AlloFunctionSelector from './AlloFunctionSelector';
+import Sidebar from '../components/Sidebar';
+import { DashSideBar, 
+  DashboardGrid, 
+  EvenDashGraphBox, 
+  GraphContainer, Header } from '../styles';
+
 
 type Props = {
   arn: string;
@@ -71,19 +77,27 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
 
   return (
     <>
-      <h1>Resource Allocation Improvement</h1>
-      <AlloFunctionSelector
-        {...functions}
-        onStacked={onStacked}
-        setOnStacked={setOnStacked}
-        data={memUsedVsAllo}
-      />
-      <StackedBarFnGraph
-        onStacked={onStacked}
-        name={'Resources Allocated & Limits'}
-        width={'100%'}
-        height={300}
-      />
+    <DashboardGrid>
+    <Header>Resource Allocation Improvement</Header>
+      <DashSideBar>
+          <Sidebar/>
+      
+          <AlloFunctionSelector
+            {...functions}
+            onStacked={onStacked}
+            setOnStacked={setOnStacked}
+            data={memUsedVsAllo}
+          />
+      </DashSideBar> 
+          <StackedBarFnGraph
+            onStacked={onStacked}
+            name={'Resources Allocated & Limits'}
+            width={'100%'}
+            height={300}
+          />
+  
+  
+      </DashboardGrid>
     </>
   );
 };

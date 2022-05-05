@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Register from './Register';
 import { useHistory } from 'react-router-dom';
-import { LogInWrapper, LogInHeader, LogInFooter, LogInLeft, LogInBody } from '../styles';
+import { LogInWrapper, 
+  LogInHeader, 
+  LogInFooter, 
+  LogInLeft, 
+  LogInBody, 
+  LogInButton, 
+  H1, Text, ButtonContainer, } from '../styles';
+import Image from 'next/image';
 
 type Props = {
   setCurrentView: Function;
@@ -84,9 +91,10 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
                   }}
                 />
               </form>
-
-              <button onClick={logBtnHandler}>Log In!</button>
-              <button onClick={regBtnHandler}>Register</button>
+              <ButtonContainer>
+                <LogInButton onClick={logBtnHandler}>Log In</LogInButton>
+                <button onClick={regBtnHandler}>Register</button>
+              </ButtonContainer>
             </div>
           ) : (
             <Register
@@ -98,8 +106,9 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
           </header>
         </LogInHeader>
         <LogInBody>
-          <h1>Lambda Monitoring Made Easy</h1>
-          <p>Explain why Accumulus is amazing</p>
+          <H1>Lambda Monitoring Made Easy</H1>      
+          <Text>Accumulus is an open source application for AWS Lambda data visualization and optimization</Text>
+        {/* <Image src={'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftaberextrusions.com%2F2015-marks-six-consecutive-years-of-growth-for-domestic-aluminum-extrusion-market%2Fgraph-up%2F&psig=AOvVaw0okZ_YAp4_2R-S_JS9b6So&ust=1651841042994000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOC2pcixyPcCFQAAAAAdAAAAABAD'} alt={'Image of Graph'}></Image> */}
         </LogInBody>
         <LogInFooter>
           <footer>

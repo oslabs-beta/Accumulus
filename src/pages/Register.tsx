@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { LogInButton, ButtonContainer } from '../styles';
 
 const Register = (props: any) => {
   const [nameReg, setNameReg] = useState('');
@@ -117,8 +118,10 @@ const Register = (props: any) => {
             <option value="us-west-2">US West (Oregon)</option>
           </select>
         </form>
-        <button onClick={regBtnHandler}>Sign me up NOW!</button>
-        <button onClick={() => props.setLoginOrRegister('login')}>Login</button>
+        <ButtonContainer>
+          <LogInButton onClick={regBtnHandler}>Sign me up!</LogInButton>
+          <button onClick={() => props.setLoginOrRegister('login')}>Login</button>
+        </ButtonContainer>
       </div>
     </>
   );
