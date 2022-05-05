@@ -26,7 +26,7 @@ const App = () => {
   const [totalErrors, setTotalErrors] = useState([]);
   const [totalCost, setTotalCost] = useState([]);
   const [slowestFuncs, setSlowestFuncs] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [errorMsgs, setErrorMsgs] = useState([]);
   const [mostErroredFuncs, setMostErroredFuncs] = useState([]);
 
   const [currentView, setCurrentView] = useState('login');
@@ -38,14 +38,10 @@ const App = () => {
       setTotalErrors,
       setTotalCost,
       setSlowestFuncs,
-      setErrors,
+      setErrorMsgs,
       setMostErroredFuncs
     );
   }, [userData]);
-
-  useEffect(() => {
-    console.log(totalInvocations);
-  }, [totalInvocations]);
 
   const Wrapper = styled.section`
     padding: 4em;
@@ -68,7 +64,16 @@ const App = () => {
                 <Route
                   exact
                   path="/home"
-                  render={(props) => <Dashboard userData={userData} />}
+                  render={(props) => (
+                    <Dashboard
+                      totalInvocations={totalInvocations}
+                      totalErrors={totalErrors}
+                      totalCost={totalCost}
+                      slowestFuncs={slowestFuncs}
+                      errorMsgs={errorMsgs}
+                      mostErroredFuncs={mostErroredFuncs}
+                    />
+                  )}
                 />
 
                 {/* FUNCTIONS ROUTE */}

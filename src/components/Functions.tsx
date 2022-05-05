@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import FuncGraph from './fn-graph';
-import BarFuncGraph from './bar-func-graph';
+import FuncGraphCompare from './FnGraphCompare';
+import BarFnGraph from './BarFnGraph';
 import FunctionSelector from './FunctionSelector';
+import { dummyData } from '../../Data/dummyData';
 
 type Props = {
   arn: string;
@@ -54,8 +55,7 @@ const Functions = ({ arn, externalId, region }: Props) => {
         onFunctions={onFunctions}
         setOnFunctions={setOnFunctions}
       ></FunctionSelector>
-      <FuncGraph onFunctions={onFunctions}/>
-      <BarFuncGraph />
+      <FuncGraphCompare onFunctions={onFunctions} />
     </>
   );
 };

@@ -14,7 +14,6 @@ import {
 } from 'recharts';
 
 const FuncGraphCompare = (props: any) => {
-  const arr: Array<object> = [];
   const lines = [];
   for (const func in props.onFunctions) {
     lines.push(
