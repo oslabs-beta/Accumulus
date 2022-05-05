@@ -7,16 +7,7 @@ import Register from './components/Register';
 import Sidebar from './components/Sidebar';
 import Menu from './components/splash-menu';
 import styled from 'styled-components';
-// import {
-//   Container,
-//   Logo,
-//   Flag,
-//   Text,
-//   Wrapper,
-//   Searchbox,
-//   Select,
-//   SearchIconWrapper
-// } from "./../styles/globals"
+import * as fetchHelper from './fetchHelper';
 
 interface IuserData {
   arn: string;
@@ -25,89 +16,66 @@ interface IuserData {
 }
 
 const App = () => {
-  const [arn, setArn] = useState('');
   const [userData, setUserData] = useState<IuserData>({
     arn: '',
     externalId: '',
     region: '',
   });
-  const [timePeriod, setTimePeriod] = useState('30d');
-  const [functionList, setFunctionList] = useState([]);
-  const [totalInvocations, setTotalInvocations] = useState(0);
-  const [chartData, setChartData] = useState();
-  const [totalErrors, setTotalErrors] = useState(0);
-  const [totalThrottles, setTotalThrottles] = useState(0);
-  const [mostActiveFunc, setMostActiveFunc] = useState();
-  const [mostErrorFunc, setMostErrorFunc] = useState();
-  const [allFuncLogs, setAllFuncLogs] = useState([]);
-  const [funcViewData, setFuncViewData] = useState([]);
 
-  // SETTING MENU & VIEWS
-  // const [menuOpen, setMenuOpen] = useState(false);
+  const [totalInvocations, setTotalInvocations] = useState([]);
+  const [totalErrors, setTotalErrors] = useState([]);
+  const [totalCost, setTotalCost] = useState([]);
+  const [slowestFuncs, setSlowestFuncs] = useState([]);
+  const [errors, setErrors] = useState([]);
+  const [mostErroredFuncs, setMostErroredFuncs] = useState([]);
+
   const [currentView, setCurrentView] = useState('login');
+
+  useEffect(() => {
+    console.log('running fetchMetricAllFunctions');
+    fetchHelper.fetchMetricAllFunctions(
+      setTotalInvocations,
+      setTotalErrors,
+      setTotalCost,
+      setSlowestFuncs,
+      setErrors,
+      setMostErroredFuncs
+    );
+  }, [userData]);
+
+  useEffect(() => {
+    console.log(totalInvocations);
+  }, [totalInvocations]);
 
   const Wrapper = styled.section`
     padding: 4em;
     background: papayawhip;
   `;
   return (
-    // <h1>Hello World</h1>
     <HashRouter>
       <div>
         <Wrapper>
           <h1>Welcome to Accumulus!</h1>
         </Wrapper>
-        {/* <Register /> */}
         {currentView === 'login' ? (
           <Login setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
-              <Sidebar
-              // menuOpen={menuOpen}
-              // setMenuOpen={setMenuOpen}
-              // currentView={currentView}
-              // setCurrentView={setCurrentView}
-              />
+              <Sidebar />
               <Switch>
                 {/* DASHBOARD ROUTE */}
                 <Route
                   exact
                   path="/home"
-                  render={(props) => (
-                    <Dashboard
-                      userData={userData}
-                      // {...props}
-                      // setMenuOpen={setMenuOpen}
-                      // totalInvocations={totalInvocations}
-                      // chartData={chartData}
-                      // totalErrors={totalErrors}
-                      // totalThrottles={totalThrottles}
-                      // mostActiveFunc={mostActiveFunc}
-                      // allFuncLogs={allFuncLogs}
-                      // mostErrorFunc={mostErrorFunc}
-                      // timePeriod={timePeriod}
-                      // setTimePeriod={setTimePeriod}
-                    />
-                    // <h1>Dashboard</h1>
-                  )}
+                  render={(props) => <Dashboard userData={userData} />}
                 />
-                {/* </Switch>
-            </div>
-          </React.Fragment> */}
 
                 {/* FUNCTIONS ROUTE */}
                 <Route
                   exact
                   path="/functions"
-                  render={(props) => (
-                    <Functions
-                      {...userData}
-                      // setMenuOpen={setMenuOpen}
-                      // funcViewData={funcViewData}
-                      // allFuncLogs={allFuncLogs}
-                    />
-                  )}
+                  render={(props) => <Functions {...userData} />}
                 />
               </Switch>
             </div>

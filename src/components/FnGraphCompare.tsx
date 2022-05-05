@@ -13,17 +13,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-interface Invocation {
-  day: number;
-  function: number;
-}
-
-interface InvoProps {
-  invocations?: Invocation[];
-  onFunctions: String[];
-}
-
-const FuncGraph = (props: any) => {
+const FuncGraphCompare = (props: any) => {
   const arr: Array<object> = [];
   const lines = [];
   for (const func in props.onFunctions) {
@@ -44,7 +34,7 @@ const FuncGraph = (props: any) => {
       <h1 className="flex items-center justify-center">
         Invocations over time
       </h1>
-      <div className="chart" style={{ width: '100%', height: 300 }}>
+      <div className="chart" style={{ width: '30%', height: 300 }}>
         <ResponsiveContainer>
           <LineChart
             // @ts-ignore
@@ -79,4 +69,4 @@ const FuncGraph = (props: any) => {
   );
 };
 
-export default FuncGraph;
+export default FuncGraphCompare;
