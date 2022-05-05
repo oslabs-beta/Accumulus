@@ -1,14 +1,15 @@
 import React, { useState, useEffect, Component } from 'react';
+import GlobalStyle from './globals';
 import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
 import Splash from './pages/Splash';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
-import Allocations from './components/Allocations';
+import Allocations from './pages/Allocations';
 import Register from './pages/Register';
 import Menu from './components/splash-menu';
 import styled from 'styled-components';
-import {DashSideBar} from './styles'
+import { DashSideBar } from './styles';
 import * as fetchHelper from './fetchHelper';
 
 interface IuserData {
@@ -79,17 +80,18 @@ const App = () => {
 
   const Wrapper = styled.section`
     margin: 0;
-    top: 0;
-    left: 0;
+    padding: 0;
+    outline:0;
+    box-sizing:border-box;
+    font-family: 'Open Sans', sans-serif; 
   `;
   return (
     <HashRouter>
      
       <div>   
-      <Wrapper>
+      <GlobalStyle />
         {currentView === 'splash' ? (
           <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
-          // <Login setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
@@ -159,7 +161,6 @@ const App = () => {
             </div>
           </React.Fragment>
         )}
-      </Wrapper>
       </div>
       
     </HashRouter>

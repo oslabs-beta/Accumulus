@@ -67,6 +67,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
           {loginOrRegister === 'login' ? (
             <div id="login">
               <h1>Sign In to Accumulus</h1>
+              <br/>
               <form className="registration-form">
                 <div>
                 <input

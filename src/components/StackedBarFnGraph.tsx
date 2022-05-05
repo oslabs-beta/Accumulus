@@ -48,7 +48,15 @@ const StackedBarFuncGraph = (props: StackedBarFnGraphProps) => {
 
   return (
     <>
-      <h1 className="flex items-center justify-center">{props.name}</h1>
+      <h1
+        style={{
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '300',
+          color: 'black',
+        }}
+      >
+        {props.name}
+      </h1>
       <div
         className="chart"
         style={{ width: props.width, height: props.height }}

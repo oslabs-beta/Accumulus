@@ -1,22 +1,22 @@
 export const mostErrorsMock = [
   {
-    name: 'AccumulusFunc2',
+    name: 'Login',
     value: 32,
   },
   {
-    name: 'AccumulusFunc3',
+    name: 'Signup',
     value: 25,
   },
   {
-    name: 'AccumulusFunc1',
-    value: 12,
+    name: 'CreateUser',
+    value: 23,
   },
   {
-    name: 'AccumulusFunc5',
-    value: 4,
+    name: 'GetMetrics',
+    value: 21,
   },
   {
-    name: 'AccumulusFunc4',
-    value: 1,
+    name: 'AnalyzeData',
+    value: 19,
   },
 ];

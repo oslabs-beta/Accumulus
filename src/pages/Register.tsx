@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LogInButton, ButtonContainer, RegistrationWrapper } from '../styles';
+import { LogInButton, ButtonContainer, RegistrationWrapper, LogRegCont } from '../styles';
 
 const Register = (props: any) => {
   const [nameReg, setNameReg] = useState('');
@@ -55,9 +55,11 @@ const Register = (props: any) => {
 
   return (
     <>
+    <LogRegCont>
     <RegistrationWrapper>
       <div id="registration">
         <h3>Sign Up for Accumulus!</h3>
+        <br/>
         <form className="registration-form">
           <div id='regInfo'>
             <div>
@@ -94,13 +96,24 @@ const Register = (props: any) => {
             </div>
             <br />
           </div>
-          <a
-          href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}
-          target="_blank"
-          rel="noreferrer"
-          >
-          Please visit this link to get your ARN
-          </a>
+          <div className='arnInstructions'>
+          Connection your AWS account to Accumulus by following the steps below:
+          <br/>
+          <ul style={{ "listStyle": "none"}}> 
+            <li>
+            <a
+              href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}
+              target="_blank"
+              rel="noreferrer"
+              >
+              Add Accumulus CloudFormation stack to AWS.
+              </a>
+            </li>
+            <li>Make sure you check &quot;I acknowledge that AWS CloudFormation might create IAM resource.&quot;</li>
+            <li>Click &quot;Create&quot;</li>
+            <li>Once stack create has completed, head to the &quot;Outputs&quot; tab and look for your &quot;ARN&quot; string. Copy the &quot;ARN&quot; and paste into the field below.</li>
+          </ul> 
+          </div>
           <br/>
           <div>
           <input
@@ -144,6 +157,7 @@ const Register = (props: any) => {
         </div>
       </div>
       </RegistrationWrapper>
+      </LogRegCont>
     </>
   );
 };

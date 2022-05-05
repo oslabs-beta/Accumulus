@@ -70,15 +70,14 @@ const Splash = ({ setCurrentView, setUserData }: Props) => {
     <>
         <LogInBody>
           <H1>Lambda Monitoring Made Easy</H1>      
-          <Text>Accumulus is an open source application for AWS Lambda data visualization and optimization</Text>
+          <Text>Accumulus is an open source application for AWS Lambda data visualization and cost optimization</Text>
         {/* <Image src={'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftaberextrusions.com%2F2015-marks-six-consecutive-years-of-growth-for-domestic-aluminum-extrusion-market%2Fgraph-up%2F&psig=AOvVaw0okZ_YAp4_2R-S_JS9b6So&ust=1651841042994000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOC2pcixyPcCFQAAAAAdAAAAABAD'} alt={'Image of Graph'}></Image> */}
-          <StartedButton onClick={startHandler}>GET STARTED</StartedButton>
+          <StartedButton onClick={startHandler}>Get Started</StartedButton>
         </LogInBody>
         <LogInFooter>
           <footer>
-            
             <LogInLeft>
-             <a href="www.github.com">Github</a>
+              <a href="www.github.com">Github</a>
             </LogInLeft>
             <p>Copyright 2022</p>
   
