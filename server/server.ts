@@ -11,6 +11,7 @@ import path from 'path';
 import 'dotenv/config';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
+// import * as cookieParser from 'cookie-parser';
 import cookieParser from 'cookie-parser'; // Possible typescript error causing this not to work
 
 // Router imports

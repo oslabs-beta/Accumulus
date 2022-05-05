@@ -63,6 +63,7 @@ lambdaController.metrics = {
   duration: 'Duration',
   errors: 'Errors',
   throttles: 'Throttles',
+  concurrency: 'Concurrency'
 };
 
 export default lambdaController;

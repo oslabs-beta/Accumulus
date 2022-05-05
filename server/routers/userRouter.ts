@@ -18,7 +18,7 @@ router.post(
   '/login',
   userController.verifyUser,
   cookieController.setCookieCredentials,
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     res.status(200).json(res.locals.confirmation);
   }
 );

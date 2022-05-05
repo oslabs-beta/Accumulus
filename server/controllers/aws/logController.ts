@@ -5,6 +5,13 @@ import {
   CloudWatchLogsClient,
 	FilterLogEventsCommand,
 } from '@aws-sdk/client-cloudwatch-logs';
+import { 
+	tidy, 
+	sum, 
+	groupBy, 
+	summarize, 
+	distinct, 
+	mean } from "@tidyjs/tidy";
 
 import formatController from './formatController';
 
@@ -12,7 +19,7 @@ const logController: any = {};
 
 interface IEventLog {
 	id: string,
-	date: string,
+	date: Date,
 	message: string
 }
 
@@ -74,8 +81,9 @@ logController.getLambdaLogs = async (
 				poppedEl = helperFuncResults.pop();
 				for (let i = poppedEl.length - 1; i >= 0; i -= 1) {
 					// we don't want to have more than 50 logs at any point in time to reduce operational load and size
-					if (shortenedEvents.length === 50) break;
-					else shortenedEvents.push(poppedEl[i]);
+					// if (shortenedEvents.length === 50) break;
+					// else shortenedEvents.push(poppedEl[i]);
+					shortenedEvents.push(poppedEl[i])
 				}
 			}
 		}
@@ -99,9 +107,10 @@ logController.getLambdaLogs = async (
 		// loop over logs
 		for (let i = 0; i < shortenedEvents.length; i += 1) {
 			const eventObj = shortenedEvents[i];
+			const date = new Date(moment(eventObj.timestamp).format());
 			const singleLog: IEventLog = {
 				id: eventObj.logStreamName,
-				date: moment(eventObj.timestamp).format(),
+				date: date,
 				message: eventObj.message
 			}
 			const formattedLog = logController.formatLogs(singleLog);
@@ -141,8 +150,13 @@ logController.formatLogs = (log: IEventLog) => {
 	const values = splitMessage.map( el => el.split(':')[1] );
 
 	interface IFormattedLog {
-		'Date': Date;
 		'REPORT RequestId': string;
+		'Date': Date;
+		'year': number;
+		'month': number;
+		'day': number;
+		'hour': number;
+		'minute': number;
 		'Duration': number;
 		'Billed Duration': number;
 		'Memory Size': number;
@@ -151,7 +165,15 @@ logController.formatLogs = (log: IEventLog) => {
 	}
 	
 	// Format output - 1st key is date, 2nd is UUID, 3-7 are lambda metrics
-	let object: any = { 'Date': new Date(log.date) }; // Refactor for typescript
+	const date = new Date(log.date);
+	let object: any = { 
+		'Date': date,
+		year: date.getFullYear(),
+		month: date.getMonth(),
+		day: date.getDay(),
+		hour: date.getHours(),
+		minute: date.getMinutes(),
+	}; // Refactor for typescript
 	object[keys[0]] = values[0]; // UUID is string - no type coercion
 	for (let i = 1; i < keys.length; i++) {
 		// lambda metrics convert to number and drop the data labels: ms, MB
@@ -213,6 +235,7 @@ logController.getLambdaErrorLogs = async (
 		This is a generic func to allow error logs to be returned to multiple 
 		functions in logController
 	*/
+	
 		const errorEvents = await cwClient.send(
 			new FilterLogEventsCommand({
 				logGroupName,
@@ -221,7 +244,7 @@ logController.getLambdaErrorLogs = async (
 				filterPattern: 'ERROR',
 			})
 		);
-
+			console.log(errorEvents)
 		interface IErrorLog {
 			id: string,
 			date: string,
@@ -262,6 +285,7 @@ logController.getLambdaErrorsByFunc = async (
 	try {
 		
 		const errorLogs = await logController.getLambdaErrorLogs(cwClient, logGroupName, StartTime);
+		console.log('OUTER ERROR LOGS: ', errorLogs);
 		res.locals.logs = errorLogs;
 		return next();
 
