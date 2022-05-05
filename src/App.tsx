@@ -3,6 +3,7 @@ import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Functions from './components/Functions';
+import Allocations from './components/Allocations';
 import Register from './components/Register';
 import Sidebar from './components/Sidebar';
 import Menu from './components/splash-menu';
@@ -22,26 +23,58 @@ const App = () => {
     region: '',
   });
 
+  // --------- ALL FUNCS HOOKS
+  // Dashboard
   const [totalInvocations, setTotalInvocations] = useState([]);
   const [totalErrors, setTotalErrors] = useState([]);
   const [totalCost, setTotalCost] = useState([]);
+
+  // --------- BY FUNC HOOKS
+  // Dashboard
   const [slowestFuncs, setSlowestFuncs] = useState([]);
-  const [errorMsgs, setErrorMsgs] = useState([]);
   const [mostErroredFuncs, setMostErroredFuncs] = useState([]);
+  const [errorMsgs, setErrorMsgs] = useState([]); // unused currently
+  // Allocation
+  const [memUsedVsAllo, setMemUsedVsAllo] = useState([]);
+  // Functions
+  const [invocations, setInvocations] = useState([]);
+  const [duration, setDuration] = useState([]);
+  const [errors, setErrors] = useState([]);
+  const [memUsage, setMemUsage] = useState([]);
+  const [cost, setCost] = useState([]);
+  const [throttles, setThrottles] = useState([]);
 
   const [currentView, setCurrentView] = useState('login');
 
   useEffect(() => {
-    console.log('running fetchMetricAllFunctions');
-    fetchHelper.fetchMetricAllFunctions(
-      setTotalInvocations,
-      setTotalErrors,
-      setTotalCost,
-      setSlowestFuncs,
-      setErrorMsgs,
-      setMostErroredFuncs
-    );
+    if (userData.arn !== '') {
+      console.log('running fetchMetricAllFunctions');
+      fetchHelper.fetchMetricAllFunctions(
+        setTotalInvocations,
+        setTotalErrors,
+        setTotalCost,
+        setSlowestFuncs,
+        setErrorMsgs,
+        setMostErroredFuncs,
+        setMemUsedVsAllo,
+        setInvocations,
+        setDuration,
+        setErrors,
+        setMemUsage,
+        setCost,
+        setThrottles
+      );
+    }
   }, [userData]);
+
+  useEffect(() => {
+    console.log(invocations);
+    console.log(duration);
+    console.log(errors);
+    console.log(memUsage);
+    console.log(cost);
+    console.log(throttles);
+  }, [invocations, duration, errors, memUsage, cost, throttles]);
 
   const Wrapper = styled.section`
     padding: 4em;
@@ -80,7 +113,26 @@ const App = () => {
                 <Route
                   exact
                   path="/functions"
-                  render={(props) => <Functions {...userData} />}
+                  render={(props) => (
+                    <Functions
+                      {...userData}
+                      invocations={invocations}
+                      duration={duration}
+                      errors={errors}
+                      memUsage={memUsage}
+                      cost={cost}
+                      throttles={throttles}
+                    />
+                  )}
+                />
+
+                {/* ALLOCATIONS ROUTE */}
+                <Route
+                  exact
+                  path="/allocations"
+                  render={(props) => (
+                    <Allocations {...userData} memUsedVsAllo={memUsedVsAllo} />
+                  )}
                 />
               </Switch>
             </div>

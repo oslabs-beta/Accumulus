@@ -1,6 +1,6 @@
 import * as React from 'react';
 import moment from 'moment';
-import { dummyData } from '../../Data/dummyData';
+import { dummyData } from '../../Data/byFunc/dummyData';
 
 import {
   LineChart,
@@ -20,6 +20,7 @@ const FuncGraphCompare = (props: any) => {
       <Line
         type="monotone"
         dataKey={func}
+        key={func}
         stroke={props.onFunctions[func]}
         fillOpacity={1}
         fill="url(#colorUv)"
@@ -30,14 +31,12 @@ const FuncGraphCompare = (props: any) => {
 
   return (
     <>
-      <h1 className="flex items-center justify-center">
-        Invocations over time
-      </h1>
+      <h1 className="flex items-center justify-center">{props.name}</h1>
       <div className="chart" style={{ width: '30%', height: 300 }}>
         <ResponsiveContainer>
           <LineChart
             // @ts-ignore
-            data={dummyData}
+            data={props.data}
             margin={{
               top: 10,
               right: 30,

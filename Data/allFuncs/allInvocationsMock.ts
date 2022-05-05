@@ -1,4 +1,4 @@
-export const costMock = [
+export const allInvocationsMock = [
   {
     month: 'January',
     day: 1,
