@@ -63,6 +63,8 @@ stepController.getStateMetricByFunc = async (
       metricAllFuncResult
     );
 
+    console.log('metricAllFuncInputParams: ', metricAllFuncInputParams)
+    console.log('metricAllFuncResults: ', metricAllFuncResult)
     let metricAllFuncData =
       metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
         (timeStamp, index) => {
