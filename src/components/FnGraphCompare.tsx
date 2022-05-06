@@ -1,6 +1,6 @@
 import * as React from 'react';
 import moment from 'moment';
-import { dummyData } from '../../Data/dummyData';
+import { dummyData } from '../../Data/byFunc/dummyData';
 
 import {
   LineChart,
@@ -13,24 +13,14 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-interface Invocation {
-  day: number;
-  function: number;
-}
-
-interface InvoProps {
-  invocations?: Invocation[];
-  onFunctions: String[];
-}
-
-const FuncGraph = (props: any) => {
-  const arr: Array<object> = [];
+const FuncGraphCompare = (props: any) => {
   const lines = [];
   for (const func in props.onFunctions) {
     lines.push(
       <Line
         type="monotone"
         dataKey={func}
+        key={func}
         stroke={props.onFunctions[func]}
         fillOpacity={1}
         fill="url(#colorUv)"
@@ -41,14 +31,20 @@ const FuncGraph = (props: any) => {
 
   return (
     <>
-      <h1 className="flex items-center justify-center">
-        Invocations over time
+      <h1
+        style={{
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '300',
+          color: 'black',
+        }}
+      >
+        {props.name}
       </h1>
-      <div className="chart" style={{ width: '100%', height: 300 }}>
+      <div className="chart" style={{ width: props.width, height: 300 }}>
         <ResponsiveContainer>
           <LineChart
             // @ts-ignore
-            data={dummyData}
+            data={props.data}
             margin={{
               top: 10,
               right: 30,
@@ -70,7 +66,6 @@ const FuncGraph = (props: any) => {
             <XAxis dataKey="day" />
             <YAxis dataKey="" />
             <Tooltip />
-            <Legend />
             {lines}
           </LineChart>
         </ResponsiveContainer>
@@ -79,4 +74,4 @@ const FuncGraph = (props: any) => {
   );
 };
 
-export default FuncGraph;
+export default FuncGraphCompare;
