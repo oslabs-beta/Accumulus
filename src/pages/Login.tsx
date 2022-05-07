@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Register from './Register';
 import { useHistory } from 'react-router-dom';
 import { LogInWrapper, 
@@ -9,26 +8,43 @@ import { LogInWrapper,
   LogInBody, 
   LogInButton, 
   H1, Text, ButtonContainer, } from '../styles';
-import Image from 'next/image';
+  import { useForm } from "react-hook-form";
+
+type FormData = {
+    email: string;
+    password: string;
+  };
 
 type Props = {
   setCurrentView: Function;
   setUserData: Function;
 };
 
+
 const Login = ({ setCurrentView, setUserData }: Props) => {
+  
+
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
+
   const [emailLog, setEmailLog] = useState('');
   const [passLog, setPassLog] = useState('');
-
   const [userArn, setUserArn] = useState('1');
   const [userExternalId, setUserExternalId] = useState('1');
   const [loginOrRegister, setLoginOrRegister] = useState('login');
+
+
   let history = useHistory();
-
-  const logBtnHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  // const onSubmit = handleSubmit(data => console.log(data, 'this is where the logBtnHandler logic should go'));
+  const onSubmit = handleSubmit( data => {
+    console.log('login button clicked')
+    console.log(data);
+  // const logBtnHandler = 
+  async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
     const button: HTMLButtonElement = event.currentTarget;
+
+    setEmailLog(data.email);
+    setPassLog(data.password);
 
     const body = JSON.stringify({
       email: emailLog,
@@ -55,7 +71,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
     } else {
       console.log('unsucessful');
     }
-  };
+  }});
 
   const regBtnHandler = () => {
     setLoginOrRegister('register');
@@ -68,12 +84,45 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
             <div id="login">
               <h1>Sign In to Accumulus</h1>
               <br/>
-              <form className="registration-form">
+
+          <form onSubmit={onSubmit}>
+            <div>
+              <label htmlFor="email">Email</label>
+              {/* <input ref={register} id="email" name="email" type="email"/> */}
+              <input {...register("email", 
+              {required: true,
+              pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              })} type="text"/>
+              {
+                errors.email && <div className="errors"> Enter a valid email address</div>
+              }
+            </div>
+            <div>
+              <label>Password</label>
+              <input {...register("password", {required: true})} />
+              {
+                errors.password && <div className="errors"> Enter your password</div>
+              }
+            </div>
+            <button
+              type="submit"
+              // onClick={() => {
+              //   setValue("password", "pass"); 
+              // }}
+            >
+              Log In
+            </button>
+            <button onClick={regBtnHandler}>Register</button>
+          </form>
+
+              {/* <form className="registration-form">
                 <div>
                 <input
-                  type="text"
+                  id="email"
+                  name="email"
+                  type="email"
                   placeholder="Email"
-                  required
+                  
                   onChange={(e) => {
                     setEmailLog(e.target.value);
                   }}
@@ -82,21 +131,23 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
                 <br></br>
                 <div>
                 <input
-                  type="password"
+                  type="password" required
                   placeholder="Password"
-                  required
+                  
                   onChange={(e) => {
                     setPassLog(e.target.value);
                   }}
                 />
                 </div>
                 <br></br>
-              </form>
-              <ButtonContainer>
-                <LogInButton onClick={logBtnHandler}>Log In</LogInButton>
+                <ButtonContainer>
+                <LogInButton onClick={logBtnHandler} type="submit">Log In</LogInButton>
                 <br></br><br/>
                 <button onClick={regBtnHandler}>Register</button>
               </ButtonContainer>
+            
+              </form> */}
+
             </div>
           ) : (
             <Register

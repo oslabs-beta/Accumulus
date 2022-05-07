@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { DashSideBar } from './styles';
 import * as fetchHelper from './fetchHelper';
 
+
 interface IuserData {
   arn: string;
   externalId: string;
@@ -100,9 +101,11 @@ const App = () => {
                   exact
                   path="/login"
                   render={(props) => (
+                   
                     <Login 
                     setCurrentView={setCurrentView}
-                    setUserData={setUserData}/>
+                    setUserData={setUserData}
+                    />
                   )}
                 />
                 {/* <Route 
