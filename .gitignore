@@ -18,7 +18,7 @@ build
 cloudformation.yml
 
 # AWS request & response data
-aws/graph
+aws
 
 
 #Ignore from next

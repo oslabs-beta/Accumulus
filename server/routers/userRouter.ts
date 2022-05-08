@@ -11,14 +11,14 @@ router.post(
   (req: Request, res: Response): void => {
     res.status(200).json(res.locals.confirmation);
   }
-  );
-  
+);
+
 // Login requests
 router.post(
   '/login',
   userController.verifyUser,
   cookieController.setCookieCredentials,
-  async (req: Request, res: Response) => {
+  (req: Request, res: Response) => {
     res.status(200).json(res.locals.confirmation);
   }
 );

@@ -81,28 +81,28 @@ const App = () => {
   const Wrapper = styled.section`
     margin: 0;
     padding: 0;
-    outline:0;
-    box-sizing:border-box;
-    font-family: 'Open Sans', sans-serif; 
+    outline: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
   `;
   return (
     <HashRouter>
-     
-      <div>   
-      <GlobalStyle />
+      <div>
+        <GlobalStyle />
         {currentView === 'splash' ? (
           <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
               <Switch>
-                <Route 
+                <Route
                   exact
                   path="/login"
                   render={(props) => (
-                    <Login 
-                    setCurrentView={setCurrentView}
-                    setUserData={setUserData}/>
+                    <Login
+                      setCurrentView={setCurrentView}
+                      setUserData={setUserData}
+                    />
                   )}
                 />
                 {/* <Route 
@@ -114,7 +114,6 @@ const App = () => {
                     setUserData={setUserData}/>
                   )}
                 /> */}
-
 
                 {/* DASHBOARD ROUTE */}
                 <Route
@@ -162,7 +161,6 @@ const App = () => {
           </React.Fragment>
         )}
       </div>
-      
     </HashRouter>
   );
 };
