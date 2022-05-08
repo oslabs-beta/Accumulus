@@ -8,7 +8,7 @@ credController.getCreds = async (req, res, next) => {
   const { arn, externalId } = req.body;
   const roleParams = {
     RoleArn: arn,
-    RoleSessionName: 'DashbirdDelegationRole',
+    RoleSessionName: 'DoesThisNotMatter',
     ExternalId: externalId,
   };
 
@@ -20,6 +20,7 @@ credController.getCreds = async (req, res, next) => {
       const sessionToken = assumedRole.Credentials.SessionToken;
       console.log('credController.getCreds GOT ACCESS KEY: ', accessKeyId);
       res.locals.credentials = { accessKeyId, secretAccessKey, sessionToken };
+      console.log(res.locals.credentials);
       return next();
     } else {
       console.log(

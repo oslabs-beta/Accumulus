@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Register from './Register';
 import { useHistory } from 'react-router-dom';
-import { LogInWrapper, 
-  LogInHeader, 
-  LogInFooter, 
-  LogInLeft, 
-  LogInBody, 
-  LogInButton, 
-  H1, Text, ButtonContainer, } from '../styles';
+import {
+  LogInWrapper,
+  LogInHeader,
+  LogInFooter,
+  LogInLeft,
+  LogInBody,
+  LogInButton,
+  H1,
+  Text,
+  ButtonContainer,
+} from '../styles';
 import Image from 'next/image';
 
 type Props = {
@@ -39,6 +43,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       method: 'POST',
       body,
     });
@@ -64,12 +69,12 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
   return (
     <>
       <LogInWrapper>
-          {loginOrRegister === 'login' ? (
-            <div id="login">
-              <h1>Sign In to Accumulus</h1>
-              <br/>
-              <form className="registration-form">
-                <div>
+        {loginOrRegister === 'login' ? (
+          <div id="login">
+            <h1>Sign In to Accumulus</h1>
+            <br />
+            <form className="registration-form">
+              <div>
                 <input
                   type="text"
                   placeholder="Email"
@@ -78,9 +83,9 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
                     setEmailLog(e.target.value);
                   }}
                 />
-                </div>
-                <br></br>
-                <div>
+              </div>
+              <br></br>
+              <div>
                 <input
                   type="password"
                   placeholder="Password"
@@ -89,21 +94,22 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
                     setPassLog(e.target.value);
                   }}
                 />
-                </div>
-                <br></br>
-              </form>
-              <ButtonContainer>
-                <LogInButton onClick={logBtnHandler}>Log In</LogInButton>
-                <br></br><br/>
-                <button onClick={regBtnHandler}>Register</button>
-              </ButtonContainer>
-            </div>
-          ) : (
-            <Register
-              setLoginOrRegister={setLoginOrRegister}
-              setCurrentView={setCurrentView}
-            />
-          )}
+              </div>
+              <br></br>
+            </form>
+            <ButtonContainer>
+              <LogInButton onClick={logBtnHandler}>Log In</LogInButton>
+              <br></br>
+              <br />
+              <button onClick={regBtnHandler}>Register</button>
+            </ButtonContainer>
+          </div>
+        ) : (
+          <Register
+            setLoginOrRegister={setLoginOrRegister}
+            setCurrentView={setCurrentView}
+          />
+        )}
       </LogInWrapper>
     </>
   );

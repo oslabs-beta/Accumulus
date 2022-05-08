@@ -62,11 +62,6 @@ cwController.getLambdaMetricsAll = async (
         }
       );
 
-    const metricMaxValue = Math.max(
-      ...metricAllFuncResult.MetricDataResults![0].Values!,
-      0
-    );
-
     const metricAllFuncOutput = {
       title: metricAllFuncResult.MetricDataResults![0].Label,
       data: metricAllFuncData.reverse(),
@@ -75,7 +70,6 @@ cwController.getLambdaMetricsAll = async (
         endTime: metricAllFuncInputParams.endTime,
         graphPeriod,
         graphUnits,
-        metricMaxValue,
       },
     };
 
