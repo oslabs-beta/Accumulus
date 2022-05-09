@@ -41,6 +41,7 @@ userController.verifyUser = async (req, res, next) => {
     const user = await User.findOne({ email });
     console.log('userController.verifyUser finding user');
     // Verify password
+    //is there something wrong with this logic, or is the front end handling async incorrectly?
     if (user !== null) {
       if (await user.validatePassword(password)) {
         // Correct password
@@ -58,6 +59,12 @@ userController.verifyUser = async (req, res, next) => {
           success: false,
         };
       }
+      return next();
+    } else {
+      console.log('userController.verifyUser ERROR: email is not registered');
+      res.locals.confirmation = {
+        success: false,
+      };
       return next();
     }
   } catch (err) {

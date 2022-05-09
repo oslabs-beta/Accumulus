@@ -159,6 +159,11 @@ export const RegistrationWrapper = styled.section`
   padding: 10px;
 `;
 
+export const ErrorMessage = styled.section`
+  color: red;
+  font-size: 0.8em;
+`;
+
 //------------------DASHBOARD-----------------------------
 export const DashboardWrapper = styled.section`
   margin-left: 12%;
