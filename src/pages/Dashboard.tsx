@@ -24,7 +24,7 @@ type Props = {
   mostErroredFuncs: object[];
 };
 
-const Dashboard = (props: Props) => {
+const Dashboard = (props: Props, {setCurrentView}: Props) => {
   return (
     <>
       <DashboardGrid>

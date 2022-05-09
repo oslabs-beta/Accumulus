@@ -23,7 +23,7 @@ type Props = {
   throttles: object[];
 };
 
-const Functions = (props: Props) => {
+const Functions = (props: Props, { setCurrentView }: Props) => {
   const [metricType, setMetricType] = useState('Invocations');
   const [timePeriod, setTimePeriod] = useState('7d');
   const [dataSum, setDataSum] = useState('Sum');

@@ -92,11 +92,19 @@ const App = () => {
       <div>
         <GlobalStyle />
         {currentView === 'splash' ? (
-          <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
+
+            <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
               <Switch>
+                <Route 
+                  exact
+                  path="splash"
+                  render={(props) => (
+                    <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
+                  )}
+                />
                 <Route
                   exact
                   path="/login"

@@ -49,6 +49,22 @@ const Sidebar = (props: Props) => {
     history.push('/memory');
   };
 
+  const logOutHandler = async () => {
+    console.log('log out clicked!');
+    //post request to /signout
+    const leaving = await fetch('http://localhost:3000/api/user/signout', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      method: 'POST',
+    });
+    console.log(leaving);
+
+    // setCurrentView('login');
+    history.push('/login');
+  };
+
   return (
     <>
       <BasicBtn>
@@ -57,6 +73,8 @@ const Sidebar = (props: Props) => {
       <BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn>
       <BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn>
       <BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn>
+      {/* log out button clears cookies */}
+      <button onClick={logOutHandler}>Log Out</button>
     </>
   );
 };
