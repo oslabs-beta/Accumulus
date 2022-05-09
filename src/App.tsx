@@ -91,11 +91,19 @@ const App = () => {
       <div>
         <GlobalStyle />
         {currentView === 'splash' ? (
-          <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
+
+            <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
         ) : (
           <React.Fragment>
             <div>
               <Switch>
+                <Route 
+                  exact
+                  path="splash"
+                  render={(props) => (
+                    <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
+                  )}
+                />
                 <Route
                   exact
                   path="/login"
@@ -123,6 +131,7 @@ const App = () => {
                   path="/home"
                   render={(props) => (
                     <Dashboard
+                      setCurrentView={setCurrentView}
                       totalInvocations={totalInvocations}
                       totalErrors={totalErrors}
                       totalCost={totalCost}
@@ -139,6 +148,7 @@ const App = () => {
                   path="/functions"
                   render={(props) => (
                     <Functions
+                      setCurrentView={setCurrentView}
                       {...userData}
                       invocations={invocations}
                       duration={duration}
@@ -155,7 +165,7 @@ const App = () => {
                   exact
                   path="/allocations"
                   render={(props) => (
-                    <Allocations {...userData} memUsedVsAllo={memUsedVsAllo} />
+                    <Allocations setCurrentView={setCurrentView} {...userData} memUsedVsAllo={memUsedVsAllo} />
                   )}
                 />
               </Switch>

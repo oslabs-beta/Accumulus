@@ -13,6 +13,8 @@ import {
   IconDefinition,
   findIconDefinition
 } from '@fortawesome/fontawesome-svg-core'
+import { AnySchema } from 'yup';
+import { AnyNode } from 'postcss';
 
 library.add(fas)
 
@@ -24,9 +26,11 @@ const chartIconDefinition: IconDefinition = findIconDefinition(chartLookup)
 
 // coffeeIconDefinition
 
-type Props = {};
+type Props = {
+  setCurrentView: Function;
+};
 
-const Sidebar = () => {
+const Sidebar = ({setCurrentView}: Props) => {
   let history = useHistory();
 
   const dashBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,6 +48,22 @@ const Sidebar = () => {
     history.push('/allocations');
   };
 
+  const logOutHandler = async () => {
+    console.log('log out clicked!')
+    //post request to /signout
+    const leaving = await fetch('http://localhost:3000/api/user/signout', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      method: 'POST',
+    });
+    console.log(leaving);
+
+    // setCurrentView('login');
+    history.push('/login');
+  }
+
   return (
     <>
       <BasicBtn>
@@ -53,6 +73,9 @@ const Sidebar = () => {
       <BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn>
       <BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn>
       <BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn>
+      {/* log out button clears cookies */}
+      <button onClick={logOutHandler}>Log Out</button> 
+      
     </>
   );
 };
