@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { filterProps } from 'recharts/types/util/types';
 import FnGraph from '../components/FnGraph';
 import BarFnGraph from '../components/BarFnGraph';
+import ErrorTable from '../components/ErrorTable';
 import Sidebar from '../components/Sidebar';
 import {
   DashSideBar,
@@ -74,6 +75,10 @@ const Dashboard = (props: Props) => {
               color: '#232323'}}>
                 Errors
             </h1>
+            {/* -------------IMPORT LOG TABLE HERE:-------------- */}
+            <h3>PLACEHOLDER FOR LOG CONTAINER GOES HERE</h3>
+            <ErrorTable />
+            {/* -------------IMPORT LOG TABLE HERE:-------------- */}
           </GraphContainer>
           <GraphContainer>
             <h1 style={{ 
