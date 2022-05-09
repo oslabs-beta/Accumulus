@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/AlloFunctionSelector';
 import Sidebar from '../components/Sidebar';
-import {
-  DashSideBar,
-  DashboardGrid,
-  EvenDashGraphBox,
-  GraphContainered,
+import { DashSideBar, 
+  DashboardGrid, 
+  EvenDashGraphBox, 
+  GraphContainer, 
+  GraphContainered, 
   Header,
   Selector,
   ResourcesGrid,
@@ -81,11 +81,11 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
 
   return (
     <>
-      <DashboardGrid>
-        <Header>Excess Memory</Header>
-        <DashSideBar>
-          <Sidebar />
-        </DashSideBar>
+    <DashboardGrid>
+    <Header>Excess Memory</Header>
+      <DashSideBar>
+          <Sidebar/>
+      </DashSideBar> 
         <AlloFunctionSelector
           {...functions}
           onStacked={onStacked}

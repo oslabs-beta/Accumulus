@@ -192,6 +192,25 @@ export const GraphContainer = styled.section`
     transition: box-shadow 0.5s ease;
   }
 `;
+export const GraphContainered = styled.section`
+  /* grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 3; */
+  background: #eae6f0;
+  /* padding: 0.25rem; */
+  margin-bottom: 400px;
+  margin-right: 200px;
+  margin-left: 300px;
+  width: 1600px;
+  height: 450px;
+  box-shadow: 2px 2px 2px #d8d8d8;
+
+  &:hover {
+    box-shadow: 3px 3px 7px #828282;
+    transition: box-shadow 0.5s ease;
+  }
+`;
 
 // grid-column: ${props => props.gridColumn};
 // grid-row: ${(props: Props) => props.gridRow};
@@ -343,17 +362,3 @@ export const BasicBtn = styled.button`
   cursor: pointer;
 `;
 
-export const GraphContainered = styled.section`
-  /* grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 3; */
-  background: #eae6f0;
-  /* padding: 0.25rem; */
-  margin-bottom: 400px;
-  margin-right: 200px;
-  margin-left: 300px;
-  width: 1600px;
-  height: 450px;
-  box-shadow: 2px 2px 2px #d8d8d8;
-`;
