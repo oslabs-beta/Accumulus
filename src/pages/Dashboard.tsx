@@ -27,7 +27,9 @@ const Dashboard = (props: Props) => {
   return (
     <>
       <DashboardGrid>
-        <Header>Accumulus Dashboard</Header>
+        <Header>
+          Accumulus Dashboard
+        </Header>
         <DashSideBar>
           <Sidebar />
         </DashSideBar>
