@@ -20,6 +20,7 @@ type Props = {
   setUserData: Function;
 };
 
+
 const Login = ({ setCurrentView, setUserData }: Props) => {
   const [emailLog, setEmailLog] = useState('');
   const [passLog, setPassLog] = useState('');
@@ -38,8 +39,8 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
       email: emailLog,
       password: passLog,
     });
-
-    const register = await fetch('http://localhost:3000/api/user/login', {
+        
+    const register = await fetch('https://www.accumulus.dev:3000/api/user/login', {
       headers: {
         'Content-Type': 'application/json',
       },

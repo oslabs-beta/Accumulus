@@ -1,0 +1,375 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: ./backend.Dockerfile
+    image: "070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-backend"
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./frontend.Dockerfile
+    image: "070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-frontend"
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    links:
+      - "backend:be"
+
+# AWS Overlay
+x-aws-vpc: "vpc-09f282782680b856a"
+x-aws-cluster: "accumulus"
+x-aws-cloudformation:
+  Resources:
+    BackendService:
+      DependsOn:
+      - BackendTCP3000Listener
+      Properties:
+        Cluster: arn:aws:ecs:us-east-2:070809985305:cluster/accumulus
+        DeploymentConfiguration:
+          MaximumPercent: 200
+          MinimumHealthyPercent: 100
+        DeploymentController:
+          Type: ECS
+        DesiredCount: 1
+        LoadBalancers:
+        - ContainerName: backend
+          ContainerPort: 3000
+          TargetGroupArn:
+            Ref: BackendTCP3000TargetGroup
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            AssignPublicIp: ENABLED
+            SecurityGroups:
+            - Ref: DefaultNetwork
+            Subnets:
+            - subnet-05ae56b4e64740f0e
+            - subnet-04f3316fac194ca6b
+            - subnet-0c31ac0dfddfa1e8b
+        PlatformVersion: 1.4.0
+        PropagateTags: SERVICE
+        SchedulingStrategy: REPLICA
+        ServiceRegistries:
+        - RegistryArn:
+            Fn::GetAtt:
+            - BackendServiceDiscoveryEntry
+            - Arn
+        Tags:
+        - Key: com.docker.compose.project
+          Value: accumulus
+        - Key: com.docker.compose.service
+          Value: backend
+        TaskDefinition:
+          Ref: BackendTaskDefinition
+      Type: AWS::ECS::Service
+    BackendServiceDiscoveryEntry:
+      Properties:
+        Description: '"backend" service discovery entry in Cloud Map'
+        DnsConfig:
+          DnsRecords:
+          - TTL: 60
+            Type: A
+          RoutingPolicy: MULTIVALUE
+        HealthCheckCustomConfig:
+          FailureThreshold: 1
+        Name: backend
+        NamespaceId:
+          Ref: CloudMap
+      Type: AWS::ServiceDiscovery::Service
+    BackendTCP3000Listener:
+      Properties:
+        DefaultActions:
+        - ForwardConfig:
+            TargetGroups:
+            - TargetGroupArn:
+                Ref: BackendTCP3000TargetGroup
+          Type: forward
+        LoadBalancerArn:
+          Ref: LoadBalancer
+        Port: 3000
+        Protocol: TCP
+      Type: AWS::ElasticLoadBalancingV2::Listener
+    BackendTCP3000TargetGroup:
+      Properties:
+        Port: 3000
+        Protocol: TCP
+        Tags:
+        - Key: com.docker.compose.project
+          Value: accumulus
+        TargetType: ip
+        VpcId: vpc-09f282782680b856a
+      Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    BackendTaskDefinition:
+      Properties:
+        ContainerDefinitions:
+        - Command:
+          - us-east-2.compute.internal
+          - accumulus.dev
+          Essential: false
+          Image: docker/ecs-searchdomain-sidecar:1.0
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group:
+                Ref: LogGroup
+              awslogs-region:
+                Ref: AWS::Region
+              awslogs-stream-prefix: accumulus
+          Name: Backend_ResolvConf_InitContainer
+        - DependsOn:
+          - Condition: SUCCESS
+            ContainerName: Backend_ResolvConf_InitContainer
+          Essential: true
+          Image: 070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-backend:latest@sha256:084533c164ce8b85e8881f1313be684ef4c9f4ca627bf7a003c0477e93fdf1a3
+          LinuxParameters: {}
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group:
+                Ref: LogGroup
+              awslogs-region:
+                Ref: AWS::Region
+              awslogs-stream-prefix: accumulus
+          Name: backend
+          PortMappings:
+          - ContainerPort: 3000
+            HostPort: 3000
+            Protocol: tcp
+        Cpu: "1024"
+        ExecutionRoleArn:
+          Ref: BackendTaskExecutionRole
+        Family: accumulus-backend
+        Memory: "1024"
+        NetworkMode: awsvpc
+      Type: AWS::ECS::TaskDefinition
+    BackendTaskExecutionRole:
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+          - Action:
+            - sts:AssumeRole
+            Condition: {}
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+          Version: 2012-10-17
+        ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        Tags:
+        - Key: com.docker.compose.project
+          Value: accumulus
+        - Key: com.docker.compose.service
+          Value: backend
+      Type: AWS::IAM::Role
+    CloudMap:
+      Properties:
+        Description: Service Map for Docker Compose project accumulus
+        Name: accumulus.dev
+        Vpc: vpc-09f282782680b856a
+      Type: AWS::ServiceDiscovery::PrivateDnsNamespace
+    Default3000Ingress:
+      Properties:
+        CidrIp: 0.0.0.0/0
+        Description: backend:3000/tcp on default network
+        FromPort: 3000
+        GroupId:
+          Ref: DefaultNetwork
+        IpProtocol: TCP
+        ToPort: 3000
+      Type: AWS::EC2::SecurityGroupIngress
+    Default8080Ingress:
+      Properties:
+        CidrIp: 0.0.0.0/0
+        Description: frontend:8080/tcp on default network
+        FromPort: 8080
+        GroupId:
+          Ref: DefaultNetwork
+        IpProtocol: TCP
+        ToPort: 8080
+      Type: AWS::EC2::SecurityGroupIngress
+    DefaultNetwork:
+      Properties:
+        GroupDescription: accumulus Security Group for default network
+        Tags:
+        - Key: com.docker.compose.project
+          Value: accumulus
+        - Key: com.docker.compose.network
+          Value: accumulus_default
+        VpcId: vpc-09f282782680b856a
+      Type: AWS::EC2::SecurityGroup
+    DefaultNetworkIngress:
+      Properties:
+        Description: Allow communication within network default
+        GroupId:
+          Ref: DefaultNetwork
+        IpProtocol: "-1"
+        SourceSecurityGroupId:
+          Ref: DefaultNetwork
+      Type: AWS::EC2::SecurityGroupIngress
+    FrontendService:
+      DependsOn:
+      - FrontendTCP8080Listener
+      Properties:
+        Cluster: arn:aws:ecs:us-east-2:070809985305:cluster/accumulus
+        DeploymentConfiguration:
+          MaximumPercent: 200
+          MinimumHealthyPercent: 100
+        DeploymentController:
+          Type: ECS
+        DesiredCount: 1
+        LoadBalancers:
+        - ContainerName: frontend
+          ContainerPort: 8080
+          TargetGroupArn:
+            Ref: FrontendTCP8080TargetGroup
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            AssignPublicIp: ENABLED
+            SecurityGroups:
+            - Ref: DefaultNetwork
+            Subnets:
+            - subnet-05ae56b4e64740f0e
+            - subnet-04f3316fac194ca6b
+            - subnet-0c31ac0dfddfa1e8b
+        PlatformVersion: 1.4.0
+        PropagateTags: SERVICE
+        SchedulingStrategy: REPLICA
+        ServiceRegistries:
+        - RegistryArn:
+            Fn::GetAtt:
+            - FrontendServiceDiscoveryEntry
+            - Arn
+        Tags:
+        - Key: com.docker.compose.project
+          Value: accumulus
+        - Key: com.docker.compose.service
+          Value: frontend
+        TaskDefinition:
+          Ref: FrontendTaskDefinition
+      Type: AWS::ECS::Service
+    FrontendServiceDiscoveryEntry:
+      Properties:
+        Description: '"frontend" service discovery entry in Cloud Map'
+        DnsConfig:
+          DnsRecords:
+          - TTL: 60
+            Type: A
+          RoutingPolicy: MULTIVALUE
+        HealthCheckCustomConfig:
+          FailureThreshold: 1
+        Name: frontend
+        NamespaceId:
+          Ref: CloudMap
+      Type: AWS::ServiceDiscovery::Service
+    FrontendTCP8080Listener:
+      Properties:
+        DefaultActions:
+        - ForwardConfig:
+            TargetGroups:
+            - TargetGroupArn:
+                Ref: FrontendTCP8080TargetGroup
+          Type: forward
+        LoadBalancerArn:
+          Ref: LoadBalancer
+        Port: 8080
+        Protocol: TCP
+      Type: AWS::ElasticLoadBalancingV2::Listener
+    FrontendTCP8080TargetGroup:
+      Properties:
+        Port: 8080
+        Protocol: TCP
+        Tags:
+        - Key: com.docker.compose.project
+          Value: accumulus
+        TargetType: ip
+        VpcId: vpc-09f282782680b856a
+      Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    FrontendTaskDefinition:
+      Properties:
+        ContainerDefinitions:
+        - Command:
+          - us-east-2.compute.internal
+          - accumulus.dev
+          Essential: false
+          Image: docker/ecs-searchdomain-sidecar:1.0
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group:
+                Ref: LogGroup
+              awslogs-region:
+                Ref: AWS::Region
+              awslogs-stream-prefix: accumulus
+          Name: Frontend_ResolvConf_InitContainer
+        - DependsOn:
+          - Condition: SUCCESS
+            ContainerName: Frontend_ResolvConf_InitContainer
+          Essential: true
+          Image: 070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-frontend:latest@sha256:8d3ebd525ac4fdbcc51fe052801cb388ddea50bd1c8c312807433d7e033ef8a0
+          LinuxParameters: {}
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group:
+                Ref: LogGroup
+              awslogs-region:
+                Ref: AWS::Region
+              awslogs-stream-prefix: accumulus
+          Name: frontend
+          PortMappings:
+          - ContainerPort: 8080
+            HostPort: 8080
+            Protocol: tcp
+        Cpu: "1024"
+        ExecutionRoleArn:
+          Ref: FrontendTaskExecutionRole
+        Family: accumulus-frontend
+        Memory: "1024"
+        NetworkMode: awsvpc
+      Type: AWS::ECS::TaskDefinition
+    FrontendTaskExecutionRole:
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+          - Action:
+            - sts:AssumeRole
+            Condition: {}
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+          Version: 2012-10-17
+        ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        Tags:
+        - Key: com.docker.compose.project
+          Value: accumulus
+        - Key: com.docker.compose.service
+          Value: frontend
+      Type: AWS::IAM::Role
+    LoadBalancer:
+      Properties:
+        LoadBalancerAttributes:
+        - Key: load_balancing.cross_zone.enabled
+          Value: "true"
+        Scheme: internet-facing
+        Subnets:
+            - subnet-05ae56b4e64740f0e
+            - subnet-04f3316fac194ca6b
+            - subnet-0c31ac0dfddfa1e8b
+        Tags:
+        - Key: com.docker.compose.project
+          Value: accumulus
+        Type: network
+      Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    LogGroup:
+      Properties:
+        LogGroupName: /docker-compose/accumulus
+      Type: AWS::Logs::LogGroup

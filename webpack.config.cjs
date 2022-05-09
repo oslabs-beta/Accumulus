@@ -9,13 +9,25 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({ template: '/src/index.html' })],
   devServer: {
+    allowedHosts: [
+      '.accumulus.dev', 
+      'localhost', 
+      '127.0.0.1', 
+      'www.accumulus.dev'
+    ],
     static: {
       directory: path.resolve(__dirname, '/src'),
       publicPath: '/',
     },
     compress: true,
     proxy: {
-      '/api/*': 'http://localhost:3000',
+      '/api/*': {
+        target: 'https://0.0.0.0:3000',
+        ignorePath: true,
+        changeOrigin: true,
+        secure: false
+      },
+
     },
   },
   module: {

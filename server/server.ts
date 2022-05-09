@@ -14,7 +14,6 @@ import awsRouter from './routers/awsRouter.js';
 // Declare Express server and port constant
 const app: Express = express();
 const PORT: number = 3000;
-
 // __dirname Boiler plate
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,11 +25,17 @@ mongoose.connect(`${process.env.MONGO_URI!}`);
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: [
+    'http://www.accumulus.dev',
+    'http://www.accumulus.dev:8080',
+    'https://www.accumulus.dev',
+    'https://www.accumulus.dev:8080',
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+  ],
   credentials: true,
 };
 app.use(cors(corsOptions));
-
 app.use(cookieParser());
 
 // Serve all static files in dist directory
