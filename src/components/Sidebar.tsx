@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { BasicBtn } from './../styles';
+import { BasicBtn, SideAct, MainNav } from './../styles';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
@@ -16,8 +16,8 @@ import {
 
 library.add(fas)
 
-const lambdaLookup: IconLookup = { prefix: 'fas', iconName: 'lambda' }
-const lambdaIconDefinition: IconDefinition = findIconDefinition(lambdaLookup)
+const gearLookup: IconLookup = { prefix: 'fas', iconName: 'gear' }
+const gearIconDefinition: IconDefinition = findIconDefinition(gearLookup)
 
 const chartLookup: IconLookup = { prefix: 'fas', iconName: 'chart-line' }
 const chartIconDefinition: IconDefinition = findIconDefinition(chartLookup)
@@ -46,13 +46,14 @@ const Sidebar = () => {
 
   return (
     <>
-      <BasicBtn>
-
-        <FontAwesomeIcon icon={chartIconDefinition} size='2x'/>
-      </BasicBtn>
-      <BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn>
-      <BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn>
-      <BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn>
+      <MainNav>
+      <li><FontAwesomeIcon icon={chartIconDefinition} size='2x'/></li>
+      <li><BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn></li>
+      <li><BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn></li>
+      <li><BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn></li>
+      <li><SideAct>Welcome, Christian</SideAct></li>
+      <li><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></li>
+      </MainNav>
     </>
   );
 };

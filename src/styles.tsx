@@ -186,11 +186,16 @@ export const GraphContainer = styled.section`
   width: 100%;
   height: 350px;
   box-shadow: 2px 2px 2px #d8d8d8;
-
-  &:hover {
+  transition: height 0s 10000s;
+  &:focus {
+    height: 500px;
+    color: #419e41;
+    transition: height 0s;
+  };
+  /* &:hover {
     box-shadow: 3px 3px 7px #828282;
     transition: box-shadow 0.5s ease;
-  }
+  } */
 `;
 export const GraphContainered = styled.section`
   /* grid-column-start: 2;
@@ -301,14 +306,14 @@ const Footer = styled.footer`
 
 //--------------------FUNCTIONS & ALLOCATIONS-------------------------
 
-export const ResourcesGrid = styled.div`
+export const FnGrid = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-columns: 0.1fr 0.75fr 0.75fr;
+  grid-template-columns: 0.1fr 0.1fr 0.75fr;
   /* grid-template-rows: 0.02fr 0.75fr 0.75fr 0.1fr; */
   grid-template-areas:
-    'sidebar  nav nav'
-    'sidebar content2 content2 content2';
+    'sidebar  fnbar graph'
+    'sidebar fnbar  graph';
   text-align: center;
   grid-gap: 0.25rem;
   transition: all 0.25s ease-in-out;
@@ -316,14 +321,15 @@ export const ResourcesGrid = styled.div`
   margin: 0px;
 `;
 
-export const Selector = styled.div`
-  align-items: center;
-  padding-top: 1%;
+export const FnGraphContainer = styled.section`
+  background: #eae6f0;
+  /* padding: 0.25rem; */
+  padding-top: 10px;
   width: 100%;
-  height: 100%;
-  border-right: 1px solid blue;
-  overflow-y: scroll;
+  height: 350px;
+  box-shadow: 2px 2px 2px #d8d8d8;
 `;
+
 
 export const SelectContainer = styled.div`
   display: flex;
@@ -333,32 +339,76 @@ export const SelectContainer = styled.div`
   width: 77%;
   border-radius: 0.6rem;
   cursor: pointer;
-`;
+  `;
+  
+  export const FnSideBar = styled.div`
+    padding-top: 200px;
+    display: flex;
+    flex-direction: column;
+    background: #ab71b9;
+    grid-area: fnbar;
+    padding: 0.25rem;
+  `;
+  
+  export const Scroll = styled.div`
+    overflow: scroll;
+    height: 100vh;
+  `;
 
 export const FnSelectButton = styled.button`
-  background-color: 'white';
+  border: 1px solid white;
+  height: 50px;
+  width: 120px;
+  border-radius: 5px;
+  background-color: white;
   margin: 5px;
 `;
 // HOVER??? HOW
 
 export const ContainerLabel = styled.div`
-  margin-left: 1.7rem;
+  /* margin-left: 1.7rem;
   font-size: 0.9rem;
-  color: colors.$navText;
+  color: colors.$navText; */
 `;
 
 //--------------------SIDEBAR-------------------------
+export const MainNav = styled.ul`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  align-items: center;
+  list-style: none;
+  
+  li:nth-last-child(2) {
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-top: 620%;
+  }
+
+ 
+  li:last-child {
+    margin-top: auto;
+    margin-bottom: 30px;
+  }
+`;
 export const BasicBtn = styled.button`
   height: 70px;
-  width: 150px;
-  margin: 0.5rem;
-  border-radius: 5px;
-  padding: 12px 26px;
+  width: 130px;
+  /* margin: 0.5rem; */
+  /* border-radius: 5px; */
+  /* padding: 12px 26px; */
   font-size: 20px;
   outline: none;
   background: #232323;
   color: white;
   border: 1px solid #232323;
   cursor: pointer;
+`;
+export const SideAct = styled.div`
+  /* display: flex; */
+  font-size: 20px;
+  color: white;
+  /* margin-top: auto; */
 `;
 

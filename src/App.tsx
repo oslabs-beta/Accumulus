@@ -47,7 +47,7 @@ const App = () => {
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
-  const [currentView, setCurrentView] = useState('splash');
+  const [currentView, setCurrentView] = useState('dashboard');
 
   useEffect(() => {
     // if (userData.arn !== '') {

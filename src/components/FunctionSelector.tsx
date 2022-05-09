@@ -51,7 +51,6 @@ const FunctionSelector = (props: any) => {
 
   return (
     <>
-      <h3>Select Functions:</h3>
       <SelectContainer>
         <div>{functionButtons}</div>
       </SelectContainer>

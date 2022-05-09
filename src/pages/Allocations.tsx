@@ -8,8 +8,6 @@ import { DashSideBar,
   GraphContainer, 
   GraphContainered, 
   Header,
-  Selector,
-  ResourcesGrid,
 } from '../styles';
 
 type Props = {
