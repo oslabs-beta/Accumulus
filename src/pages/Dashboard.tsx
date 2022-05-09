@@ -15,6 +15,7 @@ import {
 } from '../styles';
 
 type Props = {
+  setCurrentView: Function;
   totalInvocations: object[];
   totalErrors: object[];
   totalCost: object[];
@@ -29,7 +30,7 @@ const Dashboard = (props: Props) => {
       <DashboardGrid>
         <Header>Accumulus Dashboard</Header>
         <DashSideBar>
-          <Sidebar />
+          <Sidebar setCurrentView={props.setCurrentView}/>
         </DashSideBar>
         <Row1GraphBox>
           <GraphContainer>

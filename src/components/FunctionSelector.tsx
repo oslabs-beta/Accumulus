@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-import { SelectContainer, FnSelectButton
-} from '../styles';
+import { SelectContainer, FnSelectButton } from '../styles';
 
-interface Props {
-  names: string[];
+interface IFunctionSelector {
+  funcNames: string[];
+  onFunctions: Record<string, string>;
+  setOnFunctions: Function;
 }
 
-const FunctionSelector = (props: any) => {
+const FunctionSelector = (props: IFunctionSelector) => {
   const colors = ['red', 'blue', 'orange', 'green', 'purple'];
   const [counter, setCounter] = useState(0);
 
@@ -37,14 +38,14 @@ const FunctionSelector = (props: any) => {
   };
 
   const functionButtons = [];
-  for (let i = 0; i < props.names.length; i++) {
+  for (let i = 0; i < props.funcNames.length; i++) {
     functionButtons.push(
       <FnSelectButton
-        key={props.names[i]}
-        id={props.names[i]}
+        key={props.funcNames[i]}
+        id={props.funcNames[i]}
         onClick={handleClick}
       >
-        {props.names[i]}
+        {props.funcNames[i]}
       </FnSelectButton>
     );
   }

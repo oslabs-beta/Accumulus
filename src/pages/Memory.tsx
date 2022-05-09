@@ -13,13 +13,11 @@ import {
 } from '../styles';
 
 type Props = {
-  arn: string;
-  externalId: string;
-  region: string;
+  setCurrentView: Function;
   memUsedVsAllo: object[];
 };
 
-const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
+const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
   const [onStacked, setOnStacked] = useState([{ name: 'Select a function' }]);
 
   useEffect(() => {
@@ -72,19 +70,12 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
     ],
   };
 
-  const body = JSON.stringify({
-    arn,
-    externalId,
-    region,
-  });
-  console.log(body);
-
   return (
     <>
       <DashboardGrid>
         <Header>Excess Memory</Header>
         <DashSideBar>
-          <Sidebar />
+          <Sidebar setCurrentView={setCurrentView} />
         </DashSideBar>
         <AlloFunctionSelector
           {...functions}

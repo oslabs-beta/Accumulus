@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Register from './Register';
 import { useHistory } from 'react-router-dom';
-import { LogInWrapper, 
+import {
+  LogInWrapper,
   LogInHeader,
-  ErrorMessage, 
-  LogInFooter, 
-  LogInLeft, 
-  LogInBody, 
-  LogInButton, 
-  H1, Text, ButtonContainer, } from '../styles';
-  import { useForm } from "react-hook-form";
+  ErrorMessage,
+  LogInFooter,
+  LogInLeft,
+  LogInBody,
+  LogInButton,
+  H1,
+  Text,
+  ButtonContainer,
+} from '../styles';
+import { useForm } from 'react-hook-form';
 
 type FormData = {
-    email: string;
-    password: string;
-  };
+  email: string;
+  password: string;
+};
 
 type Props = {
   setCurrentView: Function;
@@ -22,8 +26,12 @@ type Props = {
 };
 
 const Login = ({ setCurrentView, setUserData }: Props) => {
-  
-  const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
   const [emailLog, setEmailLog] = useState('');
   const [passLog, setPassLog] = useState('');
@@ -33,13 +41,13 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
 
   let history = useHistory();
   // const onSubmit = handleSubmit(data => console.log(data, 'this is where the logBtnHandler logic should go'));
-  const onSubmit = async( data: FormData) => {
-    console.log('login button clicked')
-   
-  // const logBtnHandler = 
-  // async (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.preventDefault();
-  //   const button: HTMLButtonElement = event.currentTarget;
+  const onSubmit = async (data: FormData) => {
+    console.log('login button clicked');
+
+    // const logBtnHandler =
+    // async (event: React.MouseEvent<HTMLButtonElement>) => {
+    //   event.preventDefault();
+    //   const button: HTMLButtonElement = event.currentTarget;
 
     const body = JSON.stringify({
       email: emailLog,
@@ -73,7 +81,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
     } else {
       console.log('unsucessful');
     }
-  }
+  };
 
   const regBtnHandler = () => {
     setLoginOrRegister('register');
@@ -82,42 +90,58 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
   return (
     <>
       <LogInWrapper>
-          {loginOrRegister === 'login' ? (
+        {loginOrRegister === 'login' ? (
           <div id="login">
-            <h1>Sign In to Accumulus</h1><br/>
+            <h1>Sign In to Accumulus</h1>
+            <br />
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input {...register("email", 
-              {required: true,
-              pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              })} type="text" onChange={(e) => {
-                setEmailLog(e.target.value);
-              }}/>
-              <ErrorMessage>
-                { errors.email && <div className="errors"> Enter a valid email address</div> }
-              </ErrorMessage>
-            </div>
-            <div>
-              <label>Password</label>
-              <input {...register("password", {required: true})} onChange={(e) => {
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  {...register('email', {
+                    required: true,
+                    pattern:
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  })}
+                  type="text"
+                  onChange={(e) => {
+                    setEmailLog(e.target.value);
+                    console.log('email', emailLog);
+                  }}
+                />
+                <ErrorMessage>
+                  {errors.email && (
+                    <div className="errors"> Enter a valid email address</div>
+                  )}
+                </ErrorMessage>
+              </div>
+              <div>
+                <label>Password</label>
+                <input
+                  {...register('password', { required: true })}
+                  type="password"
+                  onChange={(e) => {
                     setPassLog(e.target.value);
-                  }}/>
-                  <ErrorMessage>
-                    { errors.password && <div className="errors"> Enter your password</div> }
-                  </ErrorMessage>
-            </div>
-            <button type="submit"> Log In</button>
-            <button onClick={regBtnHandler}>Register</button>
-          </form>
+                    console.log('password', passLog);
+                  }}
+                />
+                <ErrorMessage>
+                  {errors.password && (
+                    <div className="errors"> Enter your password</div>
+                  )}
+                </ErrorMessage>
+              </div>
+              <button type="submit"> Log In</button>
+              <button onClick={regBtnHandler}>Register</button>
+            </form>
           </div>
-          ) : (
-            <Register
-              setLoginOrRegister={setLoginOrRegister}
-              setCurrentView={setCurrentView}
-            />
-          )}
+        ) : (
+          <Register
+            setLoginOrRegister={setLoginOrRegister}
+            setCurrentView={setCurrentView}
+          />
+        )}
       </LogInWrapper>
     </>
   );

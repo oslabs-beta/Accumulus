@@ -5,13 +5,12 @@ import Splash from './pages/Splash';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
-import Allocations from './pages/Allocations';
+import Memory from './pages/Memory';
 import Register from './pages/Register';
 import Menu from './components/splash-menu';
 import styled from 'styled-components';
 import { DashSideBar } from './styles';
 import * as fetchHelper from './fetchHelper';
-
 
 interface IuserData {
   arn: string;
@@ -25,6 +24,8 @@ const App = () => {
     externalId: '',
     region: '',
   });
+
+  const [funcNames, setFuncNames] = useState([]);
 
   // --------- ALL FUNCS HOOKS
   // Dashboard
@@ -50,34 +51,34 @@ const App = () => {
   const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
-    // if (userData.arn !== '') {
-    console.log('running fetchMetricAllFunctions');
-    fetchHelper.fetchMetricAllFunctions(
-      setTotalInvocations,
-      setTotalErrors,
-      setTotalCost,
-      setSlowestFuncs,
-      setErrorMsgs,
-      setMostErroredFuncs,
-      setMemUsedVsAllo,
-      setInvocations,
-      setDuration,
-      setErrors,
-      setMemUsage,
-      setCost,
-      setThrottles
-    );
-    // }
-  }, [userData]);
+    if (currentView === 'dashboard') {
+      console.log('running fetch Metric ALL Functions');
+      fetchHelper.fetchMetricAllFunctions(
+        setFuncNames,
+        setTotalInvocations,
+        setTotalErrors,
+        setTotalCost,
+        setSlowestFuncs,
+        setErrorMsgs,
+        setMostErroredFuncs,
+        setMemUsedVsAllo
+      );
+    } else if (currentView === 'functions') {
+      console.log('running fetch Metric BY Functions');
+      fetchHelper.fetchMetricByFunctions(
+        setInvocations,
+        setDuration,
+        setErrors,
+        setMemUsage,
+        setCost,
+        setThrottles
+      );
+    }
+  }, [currentView]);
 
-  useEffect(() => {
-    console.log(invocations);
-    console.log(duration);
-    console.log(errors);
-    console.log(memUsage);
-    console.log(cost);
-    console.log(throttles);
-  }, [invocations, duration, errors, memUsage, cost, throttles]);
+  // useEffect(() => {
+  //   console.log(funcNames);
+  // }, [funcNames]);
 
   const Wrapper = styled.section`
     margin: 0;
@@ -100,10 +101,9 @@ const App = () => {
                   exact
                   path="/login"
                   render={(props) => (
-                   
-                    <Login 
-                    setCurrentView={setCurrentView}
-                    setUserData={setUserData}
+                    <Login
+                      setCurrentView={setCurrentView}
+                      setUserData={setUserData}
                     />
                   )}
                 />
@@ -123,6 +123,7 @@ const App = () => {
                   path="/home"
                   render={(props) => (
                     <Dashboard
+                      setCurrentView={setCurrentView}
                       totalInvocations={totalInvocations}
                       totalErrors={totalErrors}
                       totalCost={totalCost}
@@ -139,7 +140,8 @@ const App = () => {
                   path="/functions"
                   render={(props) => (
                     <Functions
-                      {...userData}
+                      setCurrentView={setCurrentView}
+                      funcNames={funcNames}
                       invocations={invocations}
                       duration={duration}
                       errors={errors}
@@ -153,9 +155,12 @@ const App = () => {
                 {/* ALLOCATIONS ROUTE */}
                 <Route
                   exact
-                  path="/allocations"
+                  path="/memory"
                   render={(props) => (
-                    <Allocations {...userData} memUsedVsAllo={memUsedVsAllo} />
+                    <Memory
+                      setCurrentView={setCurrentView}
+                      memUsedVsAllo={memUsedVsAllo}
+                    />
                   )}
                 />
               </Switch>
