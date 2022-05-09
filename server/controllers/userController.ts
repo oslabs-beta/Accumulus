@@ -59,6 +59,12 @@ userController.verifyUser = async (req, res, next) => {
         };
       }
       return next();
+    } else {
+      console.log('userController.verifyUser ERROR: email is not registered');
+      res.locals.confirmation = {
+        success: false,
+      };
+      return next();
     }
   } catch (err) {
     // Email not found
