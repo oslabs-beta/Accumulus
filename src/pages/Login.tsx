@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Register from './Register';
 import { useHistory } from 'react-router-dom';
 import { LogInWrapper, 
-  LogInHeader, 
+  LogInHeader,
+  ErrorMessage, 
   LogInFooter, 
   LogInLeft, 
   LogInBody, 
@@ -20,10 +21,8 @@ type Props = {
   setUserData: Function;
 };
 
-
 const Login = ({ setCurrentView, setUserData }: Props) => {
   
-
   const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
 
   const [emailLog, setEmailLog] = useState('');
@@ -32,24 +31,22 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
   const [userExternalId, setUserExternalId] = useState('1');
   const [loginOrRegister, setLoginOrRegister] = useState('login');
 
-
   let history = useHistory();
   // const onSubmit = handleSubmit(data => console.log(data, 'this is where the logBtnHandler logic should go'));
-  const onSubmit = handleSubmit( data => {
+  const onSubmit = async( data: FormData) => {
     console.log('login button clicked')
-    console.log(data);
+   
   // const logBtnHandler = 
-  async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const button: HTMLButtonElement = event.currentTarget;
-
-    setEmailLog(data.email);
-    setPassLog(data.password);
+  // async (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   event.preventDefault();
+  //   const button: HTMLButtonElement = event.currentTarget;
 
     const body = JSON.stringify({
       email: emailLog,
       password: passLog,
     });
+
+    console.log(body);
 
     const register = await fetch('http://localhost:3000/api/user/login', {
       headers: {
@@ -58,7 +55,11 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
       method: 'POST',
       body,
     });
+    console.log(register);
+    //logic for "email not found in database" isn't working correctly---async issue???
+
     const response = await register.json();
+    console.log(response);
     const arn = response.arn;
     const externalId = response.externalId;
     const region = response.region;
@@ -71,7 +72,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
     } else {
       console.log('unsucessful');
     }
-  }});
+  }
 
   const regBtnHandler = () => {
     setLoginOrRegister('register');
@@ -81,74 +82,35 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
     <>
       <LogInWrapper>
           {loginOrRegister === 'login' ? (
-            <div id="login">
-              <h1>Sign In to Accumulus</h1>
-              <br/>
+          <div id="login">
+            <h1>Sign In to Accumulus</h1><br/>
 
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label htmlFor="email">Email</label>
-              {/* <input ref={register} id="email" name="email" type="email"/> */}
               <input {...register("email", 
               {required: true,
               pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              })} type="text"/>
-              {
-                errors.email && <div className="errors"> Enter a valid email address</div>
-              }
+              })} type="text" onChange={(e) => {
+                setEmailLog(e.target.value);
+              }}/>
+              <ErrorMessage>
+                { errors.email && <div className="errors"> Enter a valid email address</div> }
+              </ErrorMessage>
             </div>
             <div>
               <label>Password</label>
-              <input {...register("password", {required: true})} />
-              {
-                errors.password && <div className="errors"> Enter your password</div>
-              }
+              <input {...register("password", {required: true})} onChange={(e) => {
+                    setPassLog(e.target.value);
+                  }}/>
+                  <ErrorMessage>
+                    { errors.password && <div className="errors"> Enter your password</div> }
+                  </ErrorMessage>
             </div>
-            <button
-              type="submit"
-              // onClick={() => {
-              //   setValue("password", "pass"); 
-              // }}
-            >
-              Log In
-            </button>
+            <button type="submit"> Log In</button>
             <button onClick={regBtnHandler}>Register</button>
           </form>
-
-              {/* <form className="registration-form">
-                <div>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  
-                  onChange={(e) => {
-                    setEmailLog(e.target.value);
-                  }}
-                />
-                </div>
-                <br></br>
-                <div>
-                <input
-                  type="password" required
-                  placeholder="Password"
-                  
-                  onChange={(e) => {
-                    setPassLog(e.target.value);
-                  }}
-                />
-                </div>
-                <br></br>
-                <ButtonContainer>
-                <LogInButton onClick={logBtnHandler} type="submit">Log In</LogInButton>
-                <br></br><br/>
-                <button onClick={regBtnHandler}>Register</button>
-              </ButtonContainer>
-            
-              </form> */}
-
-            </div>
+          </div>
           ) : (
             <Register
               setLoginOrRegister={setLoginOrRegister}
