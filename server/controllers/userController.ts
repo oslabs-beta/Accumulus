@@ -21,6 +21,7 @@ userController.createUser = async (req, res, next) => {
       userCreated: true,
       arn: newUser.arn,
       externalId: newUser.externalId,
+      region: newUser.region,
     };
     next();
   } catch (err) {

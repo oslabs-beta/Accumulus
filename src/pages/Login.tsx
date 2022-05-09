@@ -52,6 +52,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       method: 'POST',
       body,
     });

@@ -167,6 +167,7 @@ formatController.logPeriodConversion = {
   '14d': new Date(new Date().setDate(new Date().getDate() - 14)).valueOf(),
 	'30d': new Date(new Date().setDate(new Date().getDate() - 30)).valueOf(),
 }
+
 export default formatController;
 
 // const timeRangePeriod: { [key: string]: string | number } = {

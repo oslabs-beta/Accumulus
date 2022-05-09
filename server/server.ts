@@ -1,16 +1,11 @@
 // Import boilerplate
-import express, {
-  Express,
-  Response,
-  Request,
-  Router,
-  NextFunction,
-} from 'express';
+import express, { Express, Response, Request, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import path from 'path';
 import 'dotenv/config';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser'; // Possible typescript error causing this not to work
 
 // Router imports
 import userRouter from './routers/userRouter.js';
@@ -29,7 +24,14 @@ mongoose.connect(`${process.env.MONGO_URI!}`);
 
 // Parse request bodies
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+app.use(cookieParser());
 
 // Serve all static files in dist directory
 app.use(express.static(path.join(__dirname, '../')));
