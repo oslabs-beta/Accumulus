@@ -35,11 +35,6 @@ const Register = (props: any) => {
   const onSubmit = async (data: FormData) => {
     console.log('register button clicked')
 
-    // const regBtnHandler = 
-    // async (event: React.MouseEvent<HTMLButtonElement>) => {
-    //   event.preventDefault();
-    //   const button: HTMLButtonElement = event.currentTarget;
-
     const body = JSON.stringify({
       name: nameReg,
       email: emailReg,
@@ -99,7 +94,7 @@ const Register = (props: any) => {
               </div><br></br>
               <div>
                 <label>Password</label>
-                <input {...register("password", {required: true})} onChange={(e) => {
+                <input type="password" {...register("password", {required: true})} onChange={(e) => {
                     setPasswordReg(e.target.value);
                   }}/>
                   <ErrorMessage>
