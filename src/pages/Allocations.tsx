@@ -18,9 +18,10 @@ type Props = {
   externalId: string;
   region: string;
   memUsedVsAllo: object[];
+  setCurrentView: Function;
 };
 
-const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
+const Allocations = ({ arn, externalId, region, memUsedVsAllo, setCurrentView }: Props) => {
   const [onStacked, setOnStacked] = useState([{ name: 'Select a function' }]);
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
       <DashboardGrid>
         <Header>Excess Memory</Header>
         <DashSideBar>
-          <Sidebar />
+          <Sidebar setCurrentView={setCurrentView}/>
         </DashSideBar>
         <AlloFunctionSelector
           {...functions}

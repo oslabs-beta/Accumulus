@@ -30,17 +30,13 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
   const [userArn, setUserArn] = useState('1');
   const [userExternalId, setUserExternalId] = useState('1');
   const [loginOrRegister, setLoginOrRegister] = useState('login');
+  const [message, setMessage] = useState ('');
 
   let history = useHistory();
-  // const onSubmit = handleSubmit(data => console.log(data, 'this is where the logBtnHandler logic should go'));
+
   const onSubmit = async( data: FormData) => {
     console.log('login button clicked')
    
-  // const logBtnHandler = 
-  // async (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.preventDefault();
-  //   const button: HTMLButtonElement = event.currentTarget;
-
     const body = JSON.stringify({
       email: emailLog,
       password: passLog,
@@ -57,8 +53,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
       body,
     });
     console.log(register);
-    //logic for "email not found in database" isn't working correctly---async issue???
-
+ 
     const response = await register.json();
     console.log(response);
     const arn = response.arn;
@@ -72,6 +67,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
       history.push('/home');
     } else {
       console.log('unsucessful');
+      setMessage('Email not registered')
     }
   }
 
@@ -101,7 +97,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
             </div>
             <div>
               <label>Password</label>
-              <input {...register("password", {required: true})} onChange={(e) => {
+              <input type="password" {...register("password", {required: true})} onChange={(e) => {
                     setPassLog(e.target.value);
                   }}/>
                   <ErrorMessage>
@@ -110,6 +106,7 @@ const Login = ({ setCurrentView, setUserData }: Props) => {
             </div>
             <button type="submit"> Log In</button>
             <button onClick={regBtnHandler}>Register</button>
+            <ErrorMessage>{message}</ErrorMessage>
           </form>
           </div>
           ) : (

@@ -21,9 +21,10 @@ type Props = {
   slowestFuncs: object[];
   errorMsgs: object[];
   mostErroredFuncs: object[];
+  setCurrentView: Function;
 };
 
-const Dashboard = (props: Props) => {
+const Dashboard = (props: Props, {setCurrentView}: Props) => {
   return (
     <>
       <DashboardGrid>
@@ -32,7 +33,7 @@ const Dashboard = (props: Props) => {
           
         </Header>
         <DashSideBar>
-          <Sidebar />
+          <Sidebar setCurrentView={setCurrentView}/>
         </DashSideBar>
         <Row1GraphBox>
           <GraphContainer>
