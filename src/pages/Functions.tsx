@@ -17,9 +17,10 @@ type Props = {
   memUsage: object[];
   cost: object[];
   throttles: object[];
+  setCurrentView: Function;
 };
 
-const Functions = (props: Props) => {
+const Functions = (props: Props, {setCurrentView}: Props) => {
   const [metricType, setMetricType] = useState('Invocations');
   const [timePeriod, setTimePeriod] = useState('7d');
   const [dataSum, setDataSum] = useState('Sum');
@@ -61,7 +62,7 @@ const Functions = (props: Props) => {
     <DashboardGrid>
       <Header>Functions</Header>
       <DashSideBar>
-          <Sidebar />
+          <Sidebar setCurrentView={setCurrentView}/>
       </DashSideBar>
       <EvenDashGraphBox>
             <FunctionSelector

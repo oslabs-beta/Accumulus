@@ -25,45 +25,26 @@ const Splash = ({ setCurrentView, setUserData }: Props) => {
   const [loginOrRegister, setLoginOrRegister] = useState('login');
   let history = useHistory();
 
-  const logBtnHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  // const regBtnHandler = () => {
+  //   setLoginOrRegister('register');
+  // };
 
-    const button: HTMLButtonElement = event.currentTarget;
+  const startHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('Get Started was clicked');
 
-    const body = JSON.stringify({
-      email: emailLog,
-      password: passLog,
-    });
-
-    const register = await fetch('http://localhost:3000/api/user/login', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body,
-    });
-    const response = await register.json();
-    const arn = response.arn;
-    const externalId = response.externalId;
-    const region = response.region;
-
-    if (response.success === true) {
-      setUserData({ arn, externalId, region });
-      console.log('redirecting...');
-      setCurrentView('dashboard');
-      history.push('/home');
-    } else {
-      console.log('unsucessful');
-    }
-  };
-
-  const regBtnHandler = () => {
-    setLoginOrRegister('register');
-  };
-
-  const startHandler =() => {
-    setCurrentView('login');
-    history.push('/login');
+      if (document.cookie.split(';').some((item) => item.trim().startsWith('arn=')) &&
+      document.cookie.split(';').some((item) => item.trim().startsWith('externalId=')) &&
+      document.cookie.split(';').some((item) => item.trim().startsWith('region='))
+       ){
+        console.log('cookies are here, redirect to dashboard')
+        setCurrentView('dashboard')
+        history.push('/home');
+      }
+      else {
+        console.log('no cookies, redirect to log in')
+        setCurrentView('login');
+        history.push('/login');
+      }
   }
 
   return (
