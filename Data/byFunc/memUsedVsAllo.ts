@@ -1,4 +1,6 @@
-export const memUsedVsAllo = [
+import { MemUsed } from '../../server/types'
+
+export const memUsedVsAllo:MemUsed[]= [
   {
     name: 'AccumulusFunc1',
     used: 35,

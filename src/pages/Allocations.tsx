@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/AlloFunctionSelector';
+import MemReduction from '../components/MemReduction';
 import Sidebar from '../components/Sidebar';
 import {
   DashSideBar,
@@ -102,6 +103,10 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
             />
           </GraphContainered>
         </EvenDashGraphBox>
+      </DashboardGrid>
+      <DashboardGrid>
+        SOMETHING HERE
+        <MemReduction />
       </DashboardGrid>
     </>
   );
