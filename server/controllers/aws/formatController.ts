@@ -3,9 +3,10 @@ import 'dotenv/config';
 const formatController: any = {};
 
 formatController.timeRangePeriod = {
-  minutes: 60, //60 seconds
-  hours: 300, //300 secs
-  days: 3600, // 1 hour
+  // dimension is seconds (i.e. 60 is 60s)
+  minutes: 60, // 1 minute granularity
+  hours: 60 * 60, // 1 hour granularity
+  days: 60 * 60 * 24, // 1 day granularity
 };
 
 formatController.timeRoundMultiplier = {
@@ -45,6 +46,32 @@ formatController.periodDefinitions = {
   '3mo': [90, 'days'],
   '6mo': [180, 'days'],
   '1yr': [30, 'days']
+}
+formatController.aggregateFuncByPeriodConversion = (
+  period: string, 
+  curDate: Date, 
+  endDate: Date) => {
+    interface IPeriodConvert {
+      '30min'?: number[],
+      '1hr'?: number[],
+      '24hr'?: number[],
+      '7d'?: number[],
+      '14d'?: number[],
+      '30d'?: number[],
+      '3mo'?: number[],
+      '6mo'?: number[],
+      '1yr'?: number[],
+    }
+  const periodConvert: IPeriodConvert = {
+    '30d': [
+      curDate.getDate(), 
+      endDate.getDate(), 
+      curDate.getMonth(), 
+      endDate.getMonth()
+    ],
+  }
+
+  return periodConvert[period as '30d'];
 }
 
 formatController.formatCWLambdaMetricAll = (
@@ -113,11 +140,12 @@ formatController.formatCWLambdaMetricByFunc = (
 
   // Iterate over lambda funcs and format
   funcNames.forEach((func, index) => {
-    let metricDataQuery = {
+    const metricDataQuery = {
       Id: `m${index}`,
       // Label: `Lambda ${metricName} ${func}`,
       Label: `${func}`,
       Function: func,
+      ReturnData: false,
       MetricStat: {
         Metric: {
           Namespace: 'AWS/Lambda',
@@ -133,9 +161,14 @@ formatController.formatCWLambdaMetricByFunc = (
         Stat: metricStat,
       },
     };
+    const queryWithMissingFilled = {
+      Id: `m${index}fill`,
+      Label: func,
+      Expression: `FILL(m${index}, 0)`
+    }
+    metricDataQueryByFunc.push(queryWithMissingFilled);
     metricDataQueryByFunc.push(metricDataQuery);
   });
-
   const metricParamsByFunc = {
     ...lambdaMetricQueryParamsBase,
     MetricDataQueries: metricDataQueryByFunc,

@@ -132,7 +132,7 @@ cwController.getMetricsByFunc = async (
           
           return {
             month: formatController.monthConversion[timeStamp.getMonth()],
-            day: timeStamp.getDay(),
+            day: timeStamp.getDate(),
             hour: timeStamp.getHours(),
             minute: timeStamp.getMinutes(),
             [`${metricName}`]: values[index],
@@ -172,7 +172,8 @@ cwController.getMetricsByFunc = async (
         funcNames: funcNames,
       },
     };
-    console.log('FINAL DATA: ', res.locals.metricByFuncData.series[0].data)
+    console.log('FINAL DATA: ', res.locals.metricByFuncData.series[1].data)
+    // console.log('FINAL DATA: ', res.locals.metricByFuncData.series[3].data)
     console.log('FINAL DATA: ', res.locals.metricByFuncData)
     // console.log('start: ', res.locals.metricByFuncData.options.startTime)
     // console.log('start day: ', res.locals.metricByFuncData.options.startTime.getDate())
@@ -198,47 +199,57 @@ cwController.getMetricsByFunc = async (
       minute: number,
       function?: number
     }
-    while (curDate.getDate() < endDate.getDate() || curDate.getMonth() < endDate.getMonth()) {
-      const monthStr = formatController.monthConversion[curDate.getMonth()];
-      let obj: MetricDataObj = {
-        month: monthStr,
-        day: curDate.getDate(),
-        hour: 0,
-        minute: 0,
-      };
-      let dayMatches = [];
-      for (const func of res.locals.metricByFuncData.series) { // n number of functions
-        for (const record of func.data) { // m number of records
 
-          // check to see if current record's month is current month of 
-          // iteration and day is current day of iteration (in while loop) 
-          if (record.month === monthStr && record.day === curDate.getDate()) {
-            // if so, push whole record { month: 'May', ... func: 0 } to array
-            dayMatches.push(record)
-          }
-        }
-        // if length of matches is 0
-        if (dayMatches.length === 0) {
-          // set func val for day is 0
-          obj[func.name as 'function'] = 0;
-        } else {
-          // else
-          // aggregate sum of func val for all records into one
-          const summed = tidy(
-            dayMatches,
-            groupBy('day',
-              summarize({ 
-                total: sum(func.name)
-              })),
-          )
-          // set func val for day as aggregated sum
-          obj[func.name as 'function'] = summed[0].total;
-        }
-      }
-      dayRecords.push(obj)
-      curDate.setDate(curDate.getDate() + 1);
-    }
-    console.log('dayRecords: ', dayRecords);
+    // const [ 
+    //   curMicroPeriod, 
+    //   endMicroPeriod, 
+    //   curMacroPeriod, 
+    //   endMacroPeriod ] = formatController.aggregateFuncByPeriodConversion(periodSelection, curDate, endDate)
+    //   console.log(curMicroPeriod)
+    //   console.log(curMacroPeriod)
+    //   console.log(endMicroPeriod)
+    //   console.log(endMacroPeriod)
+    // while (curMicroPeriod < endMicroPeriod|| curMacroPeriod < endMacroPeriod) {
+    //   const monthStr = formatController.monthConversion[curMacroPeriod];
+    //   let obj: MetricDataObj = {
+    //     month: monthStr,
+    //     day: curMicroPeriod,
+    //     hour: 0,
+    //     minute: 0,
+    //   };
+    //   let dayMatches = [];
+    //   for (const func of res.locals.metricByFuncData.series) { // n number of functions
+    //     for (const record of func.data) { // m number of records
+
+    //       // check to see if current record's month is current month of 
+    //       // iteration and day is current day of iteration (in while loop) 
+    //       if (record.month === monthStr && record.day === curMicroPeriod) {
+    //         // if so, push whole record { month: 'May', ... func: 0 } to array
+    //         dayMatches.push(record)
+    //       }
+    //     }
+    //     // if length of matches is 0
+    //     if (dayMatches.length === 0) {
+    //       // set func val for day is 0
+    //       obj[func.name as 'function'] = 0;
+    //     } else {
+    //       // else
+    //       // aggregate sum of func val for all records into one
+    //       const summed = tidy(
+    //         dayMatches,
+    //         groupBy('day',
+    //           summarize({ 
+    //             total: sum(func.name)
+    //           })),
+    //       )
+    //       // set func val for day as aggregated sum
+    //       obj[func.name as 'function'] = summed[0].total;
+    //     }
+    //   }
+    //   dayRecords.push(obj)
+    //   curDate.setDate(curMicroPeriod + 1)
+    // }
+    // console.log('dayRecords: ', dayRecords);
 
     return next();
 
