@@ -108,7 +108,7 @@ formatController.formatCWLambdaMetricByFunc = (
     },
     //    MetricDataQueries: [],
   };
-
+  
   const metricDataQueryByFunc: object[] = [];
 
   // Iterate over lambda funcs and format

@@ -5,7 +5,7 @@ import {
   CloudWatchClient,
   GetMetricDataCommand,
 } from '@aws-sdk/client-cloudwatch';
-
+import { tidy, groupBy, summarize, sum } from "@tidyjs/tidy";
 const cwController: any = {};
 
 cwController.getLambdaMetricsAll = async (
@@ -114,7 +114,8 @@ cwController.getMetricsByFunc = async (
     funcNames
   );
 
-  console.log(metricByFuncInputParams)
+  // console.log('\nINPUT: ', metricByFuncInputParams)
+  // console.log('\nINPUT metricstat: ', metricByFuncInputParams.MetricDataQueries[0].MetricStat)
 
   try {
     const metricByFuncResult = await cwClient.send(
@@ -149,7 +150,7 @@ cwController.getMetricsByFunc = async (
         };
       }
     );
-      console.log('METRIC FUNC DATA: ', metricByFuncData[0].data)
+      // console.log('METRIC FUNC DATA: ', metricByFuncData[0].data)
     const metricMaxValueAllFunc = metricByFuncData.reduce(
       (maxValue, dataByFunc) => {
         return Math.max(maxValue, dataByFunc.maxValue);
@@ -171,9 +172,76 @@ cwController.getMetricsByFunc = async (
         funcNames: funcNames,
       },
     };
+    console.log('FINAL DATA: ', res.locals.metricByFuncData.series[0].data)
     console.log('FINAL DATA: ', res.locals.metricByFuncData)
+    // console.log('start: ', res.locals.metricByFuncData.options.startTime)
+    // console.log('start day: ', res.locals.metricByFuncData.options.startTime.getDate())
+    // console.log('start day: ', res.locals.metricByFuncData.options.startTime.getMonth() + 1)
+    // console.log('end: ', res.locals.metricByFuncData.options.endTime)
+    // console.log('period: ', res.locals.metricByFuncData.options.graphPeriod)
+    // console.log('units: ', res.locals.metricByFuncData.options.graphUnits)
+
+    let curDate = res.locals.metricByFuncData.options.startTime;
+    const endDate = res.locals.metricByFuncData.options.endTime;
+    
+    let dayRecords = [];
+    // console.log('curDate: ', curDate)
+    // console.log('curDate: ', curDate.getDate())
+    // console.log('curDate: ', curDate.getMonth())
+    // console.log('endDate: ', endDate)
+    // console.log('endDate: ', endDate.getDate())
+    // console.log('endDate: ', endDate.getMonth())
+    interface MetricDataObj {
+      month: number,
+      day: number,
+      hour: number,
+      minute: number,
+      function?: number
+    }
+    while (curDate.getDate() < endDate.getDate() || curDate.getMonth() < endDate.getMonth()) {
+      const monthStr = formatController.monthConversion[curDate.getMonth()];
+      let obj: MetricDataObj = {
+        month: monthStr,
+        day: curDate.getDate(),
+        hour: 0,
+        minute: 0,
+      };
+      let dayMatches = [];
+      for (const func of res.locals.metricByFuncData.series) { // n number of functions
+        for (const record of func.data) { // m number of records
+
+          // check to see if current record's month is current month of 
+          // iteration and day is current day of iteration (in while loop) 
+          if (record.month === monthStr && record.day === curDate.getDate()) {
+            // if so, push whole record { month: 'May', ... func: 0 } to array
+            dayMatches.push(record)
+          }
+        }
+        // if length of matches is 0
+        if (dayMatches.length === 0) {
+          // set func val for day is 0
+          obj[func.name as 'function'] = 0;
+        } else {
+          // else
+          // aggregate sum of func val for all records into one
+          const summed = tidy(
+            dayMatches,
+            groupBy('day',
+              summarize({ 
+                total: sum(func.name)
+              })),
+          )
+          // set func val for day as aggregated sum
+          obj[func.name as 'function'] = summed[0].total;
+        }
+      }
+      dayRecords.push(obj)
+      curDate.setDate(curDate.getDate() + 1);
+    }
+    console.log('dayRecords: ', dayRecords);
 
     return next();
+
   } catch (err) {
     console.error('Error in CW getMetricsData By Functions', err);
   }

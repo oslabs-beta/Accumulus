@@ -20,7 +20,6 @@ cloudformation.yml
 # AWS request & response data
 aws
 
-
 #Ignore from next
 # dependencies
 /.pnp

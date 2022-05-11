@@ -25,8 +25,8 @@ router.post(
 );
 
 router.post(
-  '/metricsAllFuncs/:metric/:period/:stat',
-  credController.getCreds, // credentials go into res.locals.credentials,
+  '/metricsTotalFuncs/:metric/:period/:stat',
+  credController.getCreds,
   cwController.getLambdaMetricsAll,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.lambdaMetricsAllFuncs);
@@ -34,8 +34,8 @@ router.post(
 );
 
 router.post(
-  '/metricsByFunc/:metric/:period/:stat',
-  credController.getCreds, // credentials go into res.locals.credentials,
+  '/metricsEachFunc/:metric/:period/:stat',
+  credController.getCreds,
   lambdaController.getFunctions,
   cwController.getMetricsByFunc,
   (req: Request, res: Response) => {
