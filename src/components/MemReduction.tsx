@@ -14,7 +14,7 @@ const MemReduction = () => {
     const funcName = objOfInterest.name
     const diff:number = Number(objOfInterest[`diff${funcName}`])
     const allocated:number = Number(fetchedData[i][`allo${funcName}`]);
-    const memRatio = Math.floor((diff/(diff + allocated))*100)
+    const memRatio = Math.floor((diff/allocated)*100)
     if( memRatio > 25){
       memRatioOrdered.push(
         [funcName, memRatio]
@@ -29,9 +29,9 @@ const MemReduction = () => {
 
   for(let i = 0; i < memRatioOrdered.length; i++) {
     eligibleFuncs.push(
-      <div>
+      <p style={{color: 'black'}}>
         Function {memRatioOrdered[i][0]} qualifies for lower memory allocation. Its memory usage ratio is {memRatioOrdered[i][1]}%.
-      </div>
+      </p>
     )
   }
 

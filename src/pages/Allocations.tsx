@@ -103,8 +103,6 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo }: Props) => {
             />
           </GraphContainered>
         </EvenDashGraphBox>
-      </DashboardGrid>
-      <DashboardGrid>
         SOMETHING HERE
         <MemReduction />
       </DashboardGrid>
