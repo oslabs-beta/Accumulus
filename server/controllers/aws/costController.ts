@@ -5,7 +5,7 @@ import * as Cost from '@aws-sdk/client-cost-explorer'; // TODO: Find funcs and r
 
 const costController: any = {};
 
-costController.calcLambdaCostAll = async (
+costController.calcCostTotalLambda = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -14,7 +14,7 @@ costController.calcLambdaCostAll = async (
   return next();
 }
 
-costController.calcLambdaCostEach = async (
+costController.calcCostEachLambda = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -23,7 +23,7 @@ costController.calcLambdaCostEach = async (
   return next();
 }
 
-costController.calcLambdaFuncCost = async (
+costController.calcCostByLambda = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction

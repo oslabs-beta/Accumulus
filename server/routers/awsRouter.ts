@@ -26,9 +26,9 @@ router.post(
   '/metricsTotalFuncs/:metric/:period/:stat',
   cookieController.getCookieCredentials, 
   credController.getCreds,
-  cwController.getLambdaMetricsAll,
+  cwController.getMetricsTotalLambda,
   (req: Request, res: Response) => {
-    res.status(200).json(res.locals.lambdaMetricsAllFuncs);
+    res.status(200).json(res.locals.data);
   }
 );
 
@@ -37,7 +37,7 @@ router.post(
   cookieController.getCookieCredentials,
   credController.getCreds,
   lambdaController.getFunctions,
-  cwController.getMetricsEachFunc,
+  cwController.getMetricsEachLambda,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
@@ -55,8 +55,8 @@ router.post(
 );
 
 router.post(
-  '/costOfFunction/:funcName/:period',
-  costController.calcLambdaFuncCost,
+  '/costByFunction/:funcName/:period',
+  costController.calcCostByLambda,
   (req: Request, res: Response) => {
     res.status(200).json();
   }
@@ -64,18 +64,18 @@ router.post(
 
 router.post(
   '/costEachFunction/:period',
-  costController.calcLambdaCostEach,
+  costController.calcCostEachLambda,
   (req: Request, res: Response) => {
     res.status(200).json();
   }
 );
 
 router.post(
-  '/costAllFunctions/:period',
+  '/costTotalFunctions/:period',
   cookieController.getCookieCredentials, // user data goes into res.locals.userData
   credController.getCreds, // credentials go into res.locals.credentials
   lambdaController.getFunctions,
-  costController.calcLambdaCostAll,
+  costController.calcCostTotalLambda,
   (req: Request, res: Response) => {
     res.status(200).json();
   }

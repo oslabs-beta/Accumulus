@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import moment from 'moment'
 
 const formatController: any = {};
 
@@ -46,6 +47,17 @@ formatController.periodDefinitions = {
   '3mo': [90, 'days'],
   '6mo': [180, 'days'],
   '1yr': [30, 'days']
+}
+
+formatController.formatXAxisLabel = (timeStamp: Date, graphUnits: string) => {
+  if (graphUnits === 'days') {
+    return moment(timeStamp).format('MMM DD')
+  } else if (graphUnits === 'hours') {
+    return moment(timeStamp).format('HH:00')
+  } else if (graphUnits === 'minutes') {
+    return moment(timeStamp).format('HH:mm')
+  }
+  return
 }
 
 formatController.aggregateFuncByPeriodConversion = (
@@ -111,9 +123,9 @@ formatController.formatCWLambdaMetricAll = (
         },
       },
       {
-        Id: `m${metricName}fill`,
+        Id: `m${metricName}`,
         Label: `Lambda ${metricName} All Functions`,
-        Expression: `FILL(m${metricName}, 0)`
+        Expression: `FILL(METRICS(), 0)`
       }
     ],
   };

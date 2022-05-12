@@ -6,9 +6,10 @@ import {
   GetMetricDataCommand,
 } from '@aws-sdk/client-cloudwatch';
 import { tidy, groupBy, summarize, sum } from "@tidyjs/tidy";
+
 const cwController: any = {};
 
-cwController.getLambdaMetricsAll = async (
+cwController.getMetricsTotalLambda = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -44,10 +45,7 @@ cwController.getLambdaMetricsAll = async (
     let metricAllFuncData = metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
         (timeStamp, index) => {
           return {
-            month: formatController.monthConversion[timeStamp.getMonth()],
-            day: timeStamp.getDate(),
-            hour: timeStamp.getHours(),
-            minute: timeStamp.getMinutes(),
+            xkey: formatController.formatXAxisLabel(timeStamp, graphUnits),
             value: metricAllFuncResult.MetricDataResults![0].Values![index],
           };
         }
@@ -65,7 +63,7 @@ cwController.getLambdaMetricsAll = async (
     };
 
     res.locals.lambdaMetricsAllFuncs = metricAllFuncOutput;
-    next();
+    return next();
   } catch (err) {
     console.log(
       'cwController.getLambdaMetricsAll failed to GetMetricDataCommand'
@@ -74,7 +72,7 @@ cwController.getLambdaMetricsAll = async (
   }
 };
 
-cwController.getMetricsEachFunc = async (
+cwController.getMetricsEachLambda = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -117,10 +115,11 @@ cwController.getMetricsEachFunc = async (
         const metricData = timeStamps.map((timeStamp, index) => {
           return {
             id: index,
-            month: formatController.monthConversion[timeStamp.getMonth()],
-            day: timeStamp.getDate(),
-            hour: timeStamp.getHours(),
-            minute: timeStamp.getMinutes(),
+            // month: formatController.monthConversion[timeStamp.getMonth()],
+            // day: timeStamp.getDate(),
+            // hour: timeStamp.getHours(),
+            // minute: timeStamp.getMinutes(),
+            xkey: formatController.formatXAxisLabel(timeStamp, graphUnits),
             [`${metricName}`]: values[index],
           };
         });
@@ -235,4 +234,5 @@ cwController.getLambdaLogs = async (
   res: express.Response,
   next: express.NextFunction
 ) => {};
+
 export default cwController;

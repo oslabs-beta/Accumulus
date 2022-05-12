@@ -30,7 +30,7 @@ export const fetchMetricAllFunctions = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        region: 'us-east-1',
+        region: 'us-east-2',
       }),
     });
     const res = await response.json();
@@ -55,7 +55,7 @@ export const fetchMetricAllFunctions = async (
 
   const fetchTotalInvocations = async (setTotalInvocations: Function) => {
     const response = await fetch(
-      '/api/aws/metricsAllFuncs/Invocations/30d/Sum',
+      '/api/aws/metricsTotalFuncs/Invocations/30d/Sum',
       {
         method: 'POST',
         headers: {
@@ -71,7 +71,7 @@ export const fetchMetricAllFunctions = async (
   };
 
   const fetchTotalErrors = async (setTotalErrors: Function) => {
-    const response = await fetch('/api/aws/metricsAllFuncs/Errors/30d/Sum', {
+    const response = await fetch('/api/aws/metricsTotalFuncs/Errors/30d/Sum', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export const fetchMetricAllFunctions = async (
   };
 
   const fetchTotalCost = async (setTotalCost: Function) => {
-    // const response = await fetch('api/aws/costAllFunctions/30d', {
+    // const response = await fetch('api/aws/costTotalFunctions/30d', {
     //   method: 'GET',
     //   headers: {
     //     'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ export const fetchMetricByFunctions = async (
   setThrottles: Function
 ) => {
   const fetchInvocations = async (setInvocations: Function) => {
-    // const response = await fetch('/api/aws/metricsByFunc/Invocations/30d/Sum', {
+    // const response = await fetch('/api/aws/metricsEachFunc/Invocations/30d/Sum', {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',

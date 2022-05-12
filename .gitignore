@@ -18,7 +18,7 @@ build
 cloudformation.yml
 
 # AWS request & response data
-aws
+/aws/
 
 #Ignore from next
 # dependencies
@@ -35,8 +35,10 @@ aws
 # production
 /build
 
-# misc
+# Mac OS
 .DS_Store
+
+# Private Keys
 *.pem
 
 # debug

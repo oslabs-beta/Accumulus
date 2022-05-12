@@ -14,6 +14,7 @@ cookieController.setCookieCredentials = (req, res, next) => {
 cookieController.getCookieCredentials = (req, res, next) => {
   console.log('entered getCookieCredentials');
   const { arn, externalId, region } = req.cookies;
+  console.log('COOKIES: ', req.cookies)
   res.locals.userData = {
     arn,
     externalId,
