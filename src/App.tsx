@@ -1,29 +1,16 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import GlobalStyle from './globals';
-import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import Splash from './pages/Splash';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
 import Memory from './pages/Memory';
-import Register from './pages/Register';
-import Menu from './components/splash-menu';
 import styled from 'styled-components';
-import { DashSideBar } from './styles';
 import * as fetchHelper from './fetchHelper';
 
-interface IuserData {
-  arn: string;
-  externalId: string;
-  region: string;
-}
-
 const App = () => {
-  const [userData, setUserData] = useState<IuserData>({
-    arn: '',
-    externalId: '',
-    region: '',
-  });
+  const [userRegion, setUserRegion] = useState('');
 
   const [funcNames, setFuncNames] = useState([]);
 
@@ -51,7 +38,7 @@ const App = () => {
   const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
-    if (currentView === 'dashboard') {
+    if (userRegion) {
       console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
@@ -63,7 +50,6 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo
       );
-    } else if (currentView === 'functions') {
       console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricByFunctions(
         setInvocations,
@@ -74,11 +60,12 @@ const App = () => {
         setThrottles
       );
     }
-  }, [currentView]);
+  }, [userRegion]);
 
-  // useEffect(() => {
-  //   console.log(funcNames);
-  // }, [funcNames]);
+  useEffect(() => {
+    console.log(funcNames);
+    console.log(totalInvocations);
+  }, [funcNames, totalInvocations]);
 
   const Wrapper = styled.section`
     margin: 0;
@@ -92,26 +79,21 @@ const App = () => {
       <div>
         <GlobalStyle />
         {currentView === 'splash' ? (
-
-            <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
+          <Splash
+            setCurrentView={setCurrentView}
+            setUserRegion={setUserRegion}
+          />
         ) : (
           <React.Fragment>
             <div>
               <Switch>
-                <Route 
-                  exact
-                  path="splash"
-                  render={(props) => (
-                    <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
-                  )}
-                />
                 <Route
                   exact
                   path="/login"
                   render={(props) => (
                     <Login
                       setCurrentView={setCurrentView}
-                      setUserData={setUserData}
+                      setUserRegion={setUserRegion}
                     />
                   )}
                 />

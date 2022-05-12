@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
-import Register from './Register';
 import { useHistory } from 'react-router-dom';
 import {
   LogInWrapper,
@@ -13,43 +11,38 @@ import {
   Text,
   ButtonContainer,
 } from '../styles';
-import Image from 'next/image';
 
 type Props = {
+  setUserRegion: Function;
   setCurrentView: Function;
-  setUserData: Function;
 };
 
-const Splash = ({ setCurrentView, setUserData }: Props) => {
-  const [emailLog, setEmailLog] = useState('');
-  const [passLog, setPassLog] = useState('');
-
-  const [userArn, setUserArn] = useState('1');
-  const [userExternalId, setUserExternalId] = useState('1');
-  const [loginOrRegister, setLoginOrRegister] = useState('login');
+const Splash = ({ setCurrentView, setUserRegion }: Props) => {
   let history = useHistory();
-
-  // const regBtnHandler = () => {
-  //   setLoginOrRegister('register');
-  // };
 
   const startHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log('Get Started was clicked');
 
-      if (document.cookie.split(';').some((item) => item.trim().startsWith('arn=')) &&
-      document.cookie.split(';').some((item) => item.trim().startsWith('externalId=')) &&
-      document.cookie.split(';').some((item) => item.trim().startsWith('region='))
-       ){
-        console.log('cookies are here, redirect to dashboard')
-        setCurrentView('dashboard')
-        history.push('/home');
-      }
-      else {
-        console.log('no cookies, redirect to log in')
-        setCurrentView('login');
-        history.push('/login');
-      }
-  }
+    if (
+      document.cookie
+        .split(';')
+        .some((item) => item.trim().startsWith('arn=')) &&
+      document.cookie
+        .split(';')
+        .some((item) => item.trim().startsWith('externalId=')) &&
+      document.cookie
+        .split(';')
+        .some((item) => item.trim().startsWith('region='))
+    ) {
+      console.log('cookies are here, redirect to dashboard');
+      setCurrentView('dashboard');
+      history.push('/home');
+    } else {
+      console.log('no cookies, redirect to log in');
+      setCurrentView('login');
+      history.push('/login');
+    }
+  };
 
   return (
     <>

@@ -61,7 +61,7 @@ export const fetchMetricAllFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-1',
+          region: 'us-east-2',
         }),
       }
     );
@@ -76,7 +76,7 @@ export const fetchMetricAllFunctions = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        region: 'us-east-1',
+        region: 'us-east-2',
       }),
     });
     const res = await response.json();
@@ -104,7 +104,7 @@ export const fetchMetricAllFunctions = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        region: 'us-east-1',
+        region: 'us-east-2',
       }),
     });
     const res = await response.json();
@@ -120,7 +120,7 @@ export const fetchMetricAllFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-1',
+          region: 'us-east-2',
         }),
       }
     );

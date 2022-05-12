@@ -9,6 +9,7 @@ interface IFunctionSelector {
 }
 
 const FunctionSelector = (props: IFunctionSelector) => {
+  console.log(props.funcNames);
   const colors = ['red', 'blue', 'orange', 'green', 'purple'];
   const [counter, setCounter] = useState(0);
 
@@ -52,7 +53,7 @@ const FunctionSelector = (props: IFunctionSelector) => {
 
   return (
     <>
-      <h3>Select Functions:</h3>
+      <h3 style={{ color: 'black' }}>Select Functions:</h3>
       <SelectContainer>
         <div>{functionButtons}</div>
       </SelectContainer>
