@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/AlloFunctionSelector';
+import MemReduction from '../components/MemReduction';
 import Sidebar from '../components/Sidebar';
 import {
   DashSideBar,
@@ -93,6 +94,8 @@ const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
             />
           </GraphContainered>
         </EvenDashGraphBox>
+        SOMETHING HERE
+        <MemReduction />
       </DashboardGrid>
     </>
   );

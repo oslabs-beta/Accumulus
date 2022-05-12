@@ -9,7 +9,7 @@ interface IFunctionSelector {
 }
 
 const FunctionSelector = (props: IFunctionSelector) => {
-  console.log(props.funcNames);
+  console.log('functionSelector props.funcNames', props.funcNames);
   const colors = ['red', 'blue', 'orange', 'green', 'purple'];
   const [counter, setCounter] = useState(0);
 

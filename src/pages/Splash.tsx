@@ -24,7 +24,7 @@ const Splash = ({ setCurrentView, setUserRegion }: Props) => {
     console.log('Get Started was clicked');
 
     if (
-      document.cookie
+      document.cookie // "arn=fhdkjashfkdh; externalId=fhdjkashf;  "
         .split(';')
         .some((item) => item.trim().startsWith('arn=')) &&
       document.cookie

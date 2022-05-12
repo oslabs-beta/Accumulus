@@ -38,28 +38,28 @@ const App = () => {
   const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
-    if (userRegion) {
-      console.log('running fetch Metric ALL Functions');
-      fetchHelper.fetchMetricAllFunctions(
-        setFuncNames,
-        setTotalInvocations,
-        setTotalErrors,
-        setTotalCost,
-        setSlowestFuncs,
-        setErrorMsgs,
-        setMostErroredFuncs,
-        setMemUsedVsAllo
-      );
-      console.log('running fetch Metric BY Functions');
-      fetchHelper.fetchMetricByFunctions(
-        setInvocations,
-        setDuration,
-        setErrors,
-        setMemUsage,
-        setCost,
-        setThrottles
-      );
-    }
+    // if (userRegion) {
+    console.log('running fetch Metric ALL Functions');
+    fetchHelper.fetchMetricAllFunctions(
+      setFuncNames,
+      setTotalInvocations,
+      setTotalErrors,
+      setTotalCost,
+      setSlowestFuncs,
+      setErrorMsgs,
+      setMostErroredFuncs,
+      setMemUsedVsAllo
+    );
+    console.log('running fetch Metric BY Functions');
+    fetchHelper.fetchMetricByFunctions(
+      setInvocations,
+      setDuration,
+      setErrors,
+      setMemUsage,
+      setCost,
+      setThrottles
+    );
+    // }
   }, [userRegion]);
 
   useEffect(() => {

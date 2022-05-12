@@ -24,7 +24,7 @@ export const fetchMetricAllFunctions = async (
   setMemUsedVsAllo: Function
 ) => {
   const fetchFuncNames = async (setFuncNames: Function) => {
-    const response = await fetch('/api/aws/lambda', {
+    const response = await fetch('/api/aws/lambda/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,6 +34,7 @@ export const fetchMetricAllFunctions = async (
       }),
     });
     const res = await response.json();
+    console.log('func names res', res);
     const names: string[] = [];
     interface IFuncName {
       name: string;

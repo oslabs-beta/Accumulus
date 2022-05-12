@@ -28,7 +28,10 @@ const Dashboard = (props: Props, {setCurrentView}: Props) => {
   return (
     <>
       <DashboardGrid>
-        <Header>Accumulus Dashboard</Header>
+        <Header>
+          Accumulus Dashboard
+          
+        </Header>
         <DashSideBar>
           <Sidebar setCurrentView={props.setCurrentView}/>
         </DashSideBar>
