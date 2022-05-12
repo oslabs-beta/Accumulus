@@ -32,8 +32,8 @@ const Dashboard = (props: Props, {setCurrentView}: Props) => {
   return (
     <>
       <DashboardGrid>
+        {/* <Header>Accumulus Dashboard</Header> */}
         <Header>
-          Accumulus Dashboard
           <TimeButtons setTimePeriod={props.setTimePeriod}/>
           {props.timePeriod}
         </Header>

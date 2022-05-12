@@ -3,14 +3,12 @@ import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/AlloFunctionSelector';
 import MemReduction from '../components/MemReduction';
 import Sidebar from '../components/Sidebar';
-import {
-  DashSideBar,
-  DashboardGrid,
-  EvenDashGraphBox,
-  GraphContainered,
+import { DashSideBar, 
+  DashboardGrid, 
+  EvenDashGraphBox, 
+  GraphContainer, 
+  GraphContainered, 
   Header,
-  Selector,
-  ResourcesGrid,
 } from '../styles';
 
 type Props = {
