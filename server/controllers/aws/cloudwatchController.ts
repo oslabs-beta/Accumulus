@@ -62,7 +62,7 @@ cwController.getMetricsTotalLambda = async (
       },
     };
 
-    res.locals.lambdaMetricsAllFuncs = metricAllFuncOutput;
+    res.locals.data = metricAllFuncOutput;
     return next();
   } catch (err) {
     console.log(
