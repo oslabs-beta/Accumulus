@@ -15,13 +15,13 @@ import {
 } from '../styles';
 
 type Props = {
+  setCurrentView: Function;
   totalInvocations: object[];
   totalErrors: object[];
   totalCost: object[];
   slowestFuncs: object[];
   errorMsgs: object[];
   mostErroredFuncs: object[];
-  setCurrentView: Function;
 };
 
 const Dashboard = (props: Props, {setCurrentView}: Props) => {
@@ -33,7 +33,7 @@ const Dashboard = (props: Props, {setCurrentView}: Props) => {
           
         </Header>
         <DashSideBar>
-          <Sidebar setCurrentView={setCurrentView}/>
+          <Sidebar setCurrentView={props.setCurrentView}/>
         </DashSideBar>
         <Row1GraphBox>
           <GraphContainer>
