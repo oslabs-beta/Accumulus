@@ -153,20 +153,20 @@ export const fetchMetricByFunctions = async (
   setThrottles: Function
 ) => {
   const fetchInvocations = async (setInvocations: Function) => {
-    // const response = await fetch('/api/aws/metricsByFunc/Invocations/30d/Sum', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     region: 'us-east-2',
-    //   }),
-    // });
-    // console.log('fetchInvocations response', response);
-    // const res = await response.json();
-    // console.log('fetchInvocations', res.data);
-    // setInvocations(res.data);
-    setInvocations(invocationsMock);
+    const response = await fetch('/api/aws/metricsByFunc/Invocations/30d/Sum', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        region: 'us-east-2',
+      }),
+    });
+    console.log('fetchInvocations response', response);
+    const res = await response.json();
+    console.log('fetchInvocations', res.data);
+    setInvocations(res.data);
+    // setInvocations(invocationsMock);
   };
 
   const fetchDurations = async (setDuration: Function) => {

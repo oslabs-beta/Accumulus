@@ -23,9 +23,9 @@ const StackedBarFuncGraph = (props: StackedBarFnGraphProps) => {
   const bars: any[] = [];
 
   props.onStacked.map((el) => {
-    console.log('onstacked', el);
+    console.log(el.color);
     bars.push(
-      // <div key={el.name}>
+      // <div key={`used${el.name}`}>
       <>
         <Bar
           key={`used${el.name}`}
