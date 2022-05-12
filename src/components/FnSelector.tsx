@@ -12,8 +12,6 @@ const FunctionSelector = (props: IFunctionSelector) => {
   const colors = ['red', 'blue', 'orange', 'green', 'purple'];
   const [counter, setCounter] = useState(0);
 
-  console.log(props.onFunctions);
-
   const handleClick = (e: React.MouseEvent) => {
     const functionClicked = (e.target as HTMLElement).id;
     const newState = { ...props.onFunctions };

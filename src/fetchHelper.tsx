@@ -35,7 +35,6 @@ export const fetchMetricAllFunctions = async (
       }),
     });
     const res = await response.json();
-    console.log('func names res', res);
     const names: string[] = [];
     interface IFuncName {
       name: string;
@@ -68,7 +67,6 @@ export const fetchMetricAllFunctions = async (
       }
     );
     const res = await response.json();
-    console.log('totalInvocations:', res);
     setTotalInvocations(res.data);
   };
 
@@ -86,7 +84,6 @@ export const fetchMetricAllFunctions = async (
       }
     );
     const res = await response.json();
-    console.log('totalInvocations:', res);
     setTotalErrors(res.data);
   };
 
@@ -175,21 +172,45 @@ export const fetchMetricByFunctions = async (
         }),
       }
     );
-    console.log('fetchInvocations response', response);
     const res = await response.json();
-    console.log('fetchInvocations', res.data);
-    setInvocations(res.data);
+    setInvocations(res.series[0].data);
     // setInvocations(invocationsMock);
   };
 
   const fetchDurations = async (setDuration: Function) => {
-    // IN THE FUTURE, FETCH FROM API
-    setDuration(durationMock);
+    const response = await fetch(
+      `/api/aws/metricsEachFunc/Duration/${timePeriod}/Sum`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+        }),
+      }
+    );
+    const res = await response.json();
+    setDuration(res.series[0].data);
+    // setDuration(durationMock);
   };
 
   const fetchErrors = async (setErrors: Function) => {
-    // IN THE FUTURE, FETCH FROM API
-    setErrors(errorsMock);
+    const response = await fetch(
+      `/api/aws/metricsEachFunc/Errors/${timePeriod}/Sum`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+        }),
+      }
+    );
+    const res = await response.json();
+    setErrors(res.series[0].data);
+    // setErrors(errorsMock);
   };
 
   const fetchMemUsage = async (setMemUsage: Function) => {
@@ -203,7 +224,6 @@ export const fetchMetricByFunctions = async (
   };
 
   const fetchThrottles = async (setThrottles: Function) => {
-    // IN THE FUTURE, FETCH FROM API
     setThrottles(throttlesMock);
   };
 
