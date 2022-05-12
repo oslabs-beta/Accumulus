@@ -5,10 +5,11 @@ import {
   CloudWatchClient,
   GetMetricDataCommand,
 } from '@aws-sdk/client-cloudwatch';
+import { tidy, groupBy, summarize, sum } from "@tidyjs/tidy";
 
 const cwController: any = {};
 
-cwController.getLambdaMetricsAll = async (
+cwController.getMetricsTotalLambda = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -35,29 +36,17 @@ cwController.getLambdaMetricsAll = async (
     graphMetricStat
   );
 
-  // console.log('metricAllFuncInputParams', metricAllFuncInputParams);
-
   // Send API req
   try {
     const metricAllFuncResult = await cwClient.send(
       new GetMetricDataCommand(metricAllFuncInputParams)
     );
-    // console.log(
-    //   'cwController.getLambdaMetricsAll METRIC ALL FUNC DATA: ',
-    //   metricAllFuncResult
-    // );
 
-    let metricAllFuncData =
-      metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
+    let metricAllFuncData = metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
         (timeStamp, index) => {
           return {
-            month: formatController.monthConversion[timeStamp.getMonth()],
-            day: timeStamp.getDay(),
-            hour: timeStamp.getHours(),
-            minute: timeStamp.getMinutes(),
+            xkey: formatController.formatXAxisLabel(timeStamp, graphUnits),
             value: metricAllFuncResult.MetricDataResults![0].Values![index],
-            // x: timeStamp,
-            // y: metricAllFuncResult.MetricDataResults![0].Values![index],
           };
         }
       );
@@ -74,11 +63,7 @@ cwController.getLambdaMetricsAll = async (
     };
 
     res.locals.lambdaMetricsAllFuncs = metricAllFuncOutput;
-    console.log(
-      'cwController.getLambdaMetricsAll FORMATTED METRIC ALL FUNC DATA',
-      metricAllFuncOutput
-    );
-    next();
+    return next();
   } catch (err) {
     console.log(
       'cwController.getLambdaMetricsAll failed to GetMetricDataCommand'
@@ -87,7 +72,7 @@ cwController.getLambdaMetricsAll = async (
   }
 };
 
-cwController.getMetricsByFunc = async (
+cwController.getMetricsEachLambda = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -115,51 +100,41 @@ cwController.getMetricsByFunc = async (
     funcNames
   );
 
-  console.log(metricByFuncInputParams);
-
   try {
+    // Make cloudwatch API request -- contains several isolated requests
     const metricByFuncResult = await cwClient.send(
       new GetMetricDataCommand(metricByFuncInputParams)
     );
-    console.log('RESULT: ', metricByFuncResult);
-
+    
+    // Format response data from querying cloudwatch metric SDK
     const metricByFuncData = metricByFuncResult!.MetricDataResults!.map(
-      (metricDataResult) => {
+      (metricDataResult, index) => {
         const metricName = metricDataResult.Label;
         const timeStamps = metricDataResult!.Timestamps!.reverse();
         const values = metricDataResult!.Values!.reverse();
         const metricData = timeStamps.map((timeStamp, index) => {
           return {
-            month: formatController.monthConversion[timeStamp.getMonth()],
-            day: timeStamp.getDay(),
-            hour: timeStamp.getHours(),
-            minute: timeStamp.getMinutes(),
+            id: index,
+            // month: formatController.monthConversion[timeStamp.getMonth()],
+            // day: timeStamp.getDate(),
+            // hour: timeStamp.getHours(),
+            // minute: timeStamp.getMinutes(),
+            xkey: formatController.formatXAxisLabel(timeStamp, graphUnits),
             [`${metricName}`]: values[index],
           };
         });
-
-        const maxValue = Math.max(0, Math.max(...values));
         const total = values.reduce((accum, curr) => accum + curr, 0);
 
         return {
           name: metricName,
           data: metricData,
-          maxValue: maxValue,
           total: total,
         };
       }
     );
-    console.log('METRIC FUNC DATA: ', metricByFuncData[0].data);
-    const metricMaxValueAllFunc = metricByFuncData.reduce(
-      (maxValue, dataByFunc) => {
-        return Math.max(maxValue, dataByFunc.maxValue);
-      },
-      0
-    );
 
-    //Request response JSON Object send to the FrontEnd
-
-    res.locals.metricByFuncData = {
+    // Format all data being returned from each iteration of cloudwatch API requests
+    const tmpData = {
       title: `Lambda ${graphMetricName}`,
       series: metricByFuncData,
       options: {
@@ -167,13 +142,25 @@ cwController.getMetricsByFunc = async (
         endTime: metricByFuncInputParams.EndTime,
         graphPeriod,
         graphUnits,
-        metricMaxValueAllFunc,
         funcNames: funcNames,
       },
     };
-    console.log('FINAL DATA: ', res.locals.metricByFuncData);
-
+    
+    // Iterate over each series starting at index=1
+    for (let i = 1; i < tmpData.series.length; i++) {
+      
+      // Iterate over each data point in series
+      for (let j = 0; j < tmpData.series[0].data.length; j++) {
+        
+        // Pushing value for given data point (data[j]) for given function (funcNames[i])
+        // into existing data point on series[0], the first function listed
+        tmpData.series[0].data[j][funcNames[i]] = tmpData.series[i].data[j][funcNames[i]];
+      }
+    }
+    
+    res.locals.data = tmpData;
     return next();
+
   } catch (err) {
     console.error('Error in CW getMetricsData By Functions', err);
   }
@@ -247,4 +234,5 @@ cwController.getLambdaLogs = async (
   res: express.Response,
   next: express.NextFunction
 ) => {};
+
 export default cwController;

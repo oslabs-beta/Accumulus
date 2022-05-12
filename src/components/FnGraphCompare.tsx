@@ -64,7 +64,7 @@ const FuncGraphCompare = (props: any) => {
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
+            <XAxis dataKey="xkey" />
             <YAxis dataKey="" />
             <Tooltip />
             {lines}

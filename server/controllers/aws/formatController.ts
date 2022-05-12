@@ -1,11 +1,13 @@
 import 'dotenv/config';
+import moment from 'moment'
 
 const formatController: any = {};
 
 formatController.timeRangePeriod = {
-  minutes: 60, //60 seconds
-  hours: 300, //300 secs
-  days: 3600, // 1 hour
+  // dimension is seconds (i.e. 60 is 60s)
+  minutes: 60, // 1 minute granularity
+  hours: 60 * 60, // 1 hour granularity
+  days: 60 * 60 * 24, // 1 day granularity --> returns 30 data points for @period='30d'
 };
 
 formatController.timeRoundMultiplier = {
@@ -47,6 +49,44 @@ formatController.periodDefinitions = {
   '1yr': [30, 'days']
 }
 
+formatController.formatXAxisLabel = (timeStamp: Date, graphUnits: string) => {
+  if (graphUnits === 'days') {
+    return moment(timeStamp).format('MMM DD')
+  } else if (graphUnits === 'hours') {
+    return moment(timeStamp).format('HH:00')
+  } else if (graphUnits === 'minutes') {
+    return moment(timeStamp).format('HH:mm')
+  }
+  return
+}
+
+formatController.aggregateFuncByPeriodConversion = (
+  period: string, 
+  curDate: Date, 
+  endDate: Date) => {
+    interface IPeriodConvert {
+      '30min'?: number[],
+      '1hr'?: number[],
+      '24hr'?: number[],
+      '7d'?: number[],
+      '14d'?: number[],
+      '30d'?: number[],
+      '3mo'?: number[],
+      '6mo'?: number[],
+      '1yr'?: number[],
+    }
+  const periodConvert: IPeriodConvert = {
+    '30d': [
+      curDate.getDate(), 
+      endDate.getDate(), 
+      curDate.getMonth(), 
+      endDate.getMonth()
+    ],
+  }
+
+  return periodConvert[period as '30d'];
+}
+
 formatController.formatCWLambdaMetricAll = (
   timeRangeNum: number,
   timeRangeUnits: string,
@@ -72,6 +112,7 @@ formatController.formatCWLambdaMetricAll = (
       {
         Id: `m${metricName}_AllLambdaFunc`,
         Label: `Lambda ${metricName} All Functions`,
+        ReturnData: false,
         MetricStat: {
           Metric: {
             Namespace: 'AWS/Lambda',
@@ -81,6 +122,11 @@ formatController.formatCWLambdaMetricAll = (
           Stat: metricStat,
         },
       },
+      {
+        Id: `m${metricName}`,
+        Label: `Lambda ${metricName} All Functions`,
+        Expression: `FILL(METRICS(), 0)`
+      }
     ],
   };
 };
@@ -108,16 +154,17 @@ formatController.formatCWLambdaMetricByFunc = (
     },
     //    MetricDataQueries: [],
   };
-
+  
   const metricDataQueryByFunc: object[] = [];
 
   // Iterate over lambda funcs and format
   funcNames.forEach((func, index) => {
-    let metricDataQuery = {
+    const metricDataQuery = {
       Id: `m${index}`,
       // Label: `Lambda ${metricName} ${func}`,
       Label: `${func}`,
       Function: func,
+      ReturnData: false,
       MetricStat: {
         Metric: {
           Namespace: 'AWS/Lambda',
@@ -133,9 +180,14 @@ formatController.formatCWLambdaMetricByFunc = (
         Stat: metricStat,
       },
     };
+    const queryWithMissingFilled = {
+      Id: `m${index}fill`,
+      Label: func,
+      Expression: `FILL(m${index}, 0)`
+    }
+    metricDataQueryByFunc.push(queryWithMissingFilled);
     metricDataQueryByFunc.push(metricDataQuery);
   });
-
   const metricParamsByFunc = {
     ...lambdaMetricQueryParamsBase,
     MetricDataQueries: metricDataQueryByFunc,
@@ -169,21 +221,3 @@ formatController.logPeriodConversion = {
 }
 
 export default formatController;
-
-// const timeRangePeriod: { [key: string]: string | number } = {
-//   minutes: 60, //60 seconds
-//   hours: 300, //300 secs
-//   days: 3600, // 1 hour
-// };
-
-// const timeRoundMultiplier: { [key: string]: string | number } = {
-//   minutes: 5, //the EndTime time stamps will be rounded to nearest 5 minutes
-//   hours: 15, //rounded to nearest 15 minutes
-//   days: 60, // rounded to nearest hour
-// };
-
-// const timeRangeMultiplier: { [key: string]: string | number } = {
-//   minutes: 60, //the EndTime time stamps will be rounded to nearest 5 minutes
-//   hours: 3600, //rounded to nearest 15 minutes
-//   days: 86400, // rounded to nearest hour
-// };

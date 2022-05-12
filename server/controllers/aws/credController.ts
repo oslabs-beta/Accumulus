@@ -18,9 +18,9 @@ credController.getCreds = async (req, res, next) => {
       const accessKeyId = assumedRole.Credentials.AccessKeyId;
       const secretAccessKey = assumedRole.Credentials.SecretAccessKey;
       const sessionToken = assumedRole.Credentials.SessionToken;
-      console.log('credController.getCreds GOT ACCESS KEY: ', accessKeyId);
+      // console.log('credController.getCreds GOT ACCESS KEY: ', accessKeyId);
       res.locals.credentials = { accessKeyId, secretAccessKey, sessionToken };
-      console.log(res.locals.credentials);
+      // console.log(res.locals.credentials);
       return next();
     } else {
       console.log(
