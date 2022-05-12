@@ -86,7 +86,7 @@ export const fetchMetricAllFunctions = async (
       }
     );
     const res = await response.json();
-    console.log('totalInvocations:', res);
+    console.log('totalErrors:', res);
     setTotalErrors(res.data);
   };
 
@@ -177,8 +177,8 @@ export const fetchMetricByFunctions = async (
     );
     console.log('fetchInvocations response', response);
     const res = await response.json();
-    console.log('fetchInvocations', res.data);
-    setInvocations(res.data);
+    console.log('fetchInvocations', res.series[0].data);
+    setInvocations(res.series[0].data);
     // setInvocations(invocationsMock);
   };
 
