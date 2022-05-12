@@ -49,7 +49,6 @@ const AlloFunctionSelector = (props: any) => {
       data: any[],
       newState: any[]
     ): void => {
-      console.log('oldState', data);
       if (newState[0].name === 'Select a function') newState.pop();
       for (let i = 0; i < data.length; i++) {
         if (data[i].name === functionName) {

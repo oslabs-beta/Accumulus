@@ -44,14 +44,10 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
   let history = useHistory();
 
   const onSubmit = async (data: FormData) => {
-    console.log('login button clicked');
-
     const body = JSON.stringify({
       email: emailLog,
       password: passLog,
     });
-
-    console.log(body);
 
     const register = await fetch('http://localhost:3000/api/user/login', {
       headers: {
@@ -61,10 +57,8 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
       method: 'POST',
       body,
     });
-    console.log(register);
 
     const response = await register.json();
-    console.log(response);
     const arn = response.arn;
     const externalId = response.externalId;
     const region = response.region;
@@ -105,7 +99,6 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
                   type="text"
                   onChange={(e) => {
                     setEmailLog(e.target.value);
-                    console.log('email', emailLog);
                   }}
                 />
                 <ErrorMessage>
@@ -121,7 +114,6 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
                   type="password"
                   onChange={(e) => {
                     setPassLog(e.target.value);
-                    console.log('password', passLog);
                   }}
                 />
                 <ErrorMessage>

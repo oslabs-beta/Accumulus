@@ -24,7 +24,6 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
 
   const startHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log('Get Started was clicked');
-    console.log('SOMETHING HERE',document.cookie)
     if (
       document.cookie // "arn=fhdkjashfkdh; externalId=fhdjkashf;  "
         .split(';')
