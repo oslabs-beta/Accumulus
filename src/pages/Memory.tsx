@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
-import AlloFunctionSelector from '../components/AlloFunctionSelector';
+import AlloFunctionSelector from '../components/MemFnSelector';
 import MemReduction from '../components/MemReduction';
 import Sidebar from '../components/Sidebar';
 import { DashSideBar, 

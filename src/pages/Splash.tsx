@@ -1,3 +1,4 @@
+import { StopMetricStreamsOutput } from '@aws-sdk/client-cloudwatch';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
@@ -15,9 +16,10 @@ import {
 type Props = {
   setUserRegion: Function;
   setCurrentView: Function;
+  setStart: Function;
 };
 
-const Splash = ({ setCurrentView, setUserRegion }: Props) => {
+const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
   let history = useHistory();
 
   const startHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,6 +38,7 @@ const Splash = ({ setCurrentView, setUserRegion }: Props) => {
     ) {
       console.log('cookies are here, redirect to dashboard');
       setCurrentView('dashboard');
+      setStart(true);
       history.push('/home');
     } else {
       console.log('no cookies, redirect to log in');

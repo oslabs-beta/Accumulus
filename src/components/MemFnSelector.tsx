@@ -36,7 +36,8 @@ const AlloFunctionSelector = (props: any) => {
             newState[i] = newState[i + 1];
           }
           newState.pop();
-          if (newState.length === 0) newState.push({name: "Select a function"})
+          if (newState.length === 0)
+            newState.push({ name: 'Select a function' });
           return;
         }
       }
@@ -49,7 +50,7 @@ const AlloFunctionSelector = (props: any) => {
       newState: any[]
     ): void => {
       console.log('oldState', data);
-      if (!newState[0].hasOwnProperty('used')) newState.pop();
+      if (newState[0].name === 'Select a function') newState.pop();
       for (let i = 0; i < data.length; i++) {
         if (data[i].name === functionName) {
           newState.push({ ...data[i], color: colors[counter] });

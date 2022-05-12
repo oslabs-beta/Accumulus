@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import FnGraphCompare from '../components/FnGraphCompare';
-import FunctionSelector from '../components/FunctionSelector';
+import FnSelector from '../components/FnSelector';
 import TimeButtons from '../components/TimeButtons';
 import Sidebar from '../components/Sidebar';
-import { 
-  DashSideBar, 
+import {
+  DashSideBar,
   FnGraphContainer,
   FnSideBar,
   FnGrid,
-  Scroll} from '../styles';
+  Scroll,
+} from '../styles';
 
 type Props = {
   setCurrentView: Function;
@@ -32,72 +33,71 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
 
   return (
     <>
-    <FnGrid>
-      <DashSideBar>
-        <Sidebar setCurrentView={props.setCurrentView} />
-      </DashSideBar>
-      <FnSideBar>
-        <FunctionSelector
+      <FnGrid>
+        <DashSideBar>
+          <Sidebar setCurrentView={props.setCurrentView} />
+        </DashSideBar>
+        <FnSideBar>
+          <FnSelector
             funcNames={props.funcNames}
             onFunctions={onFunctions}
             setOnFunctions={setOnFunctions}
-        />
-        <TimeButtons setTimePeriod={props.setTimePeriod}/>
+          />
+          <TimeButtons setTimePeriod={props.setTimePeriod} />
           {props.timePeriod}
-      </FnSideBar>
-      <Scroll>
-        <FnGraphContainer>
-          <FnGraphCompare
-            onFunctions={onFunctions}
-            name={'Invocations'}
-            width={'100%'}
-            data={props.invocations}
-          />
-        </FnGraphContainer>
-        <FnGraphContainer>
-          <FnGraphCompare
-            onFunctions={onFunctions}
-            name={'Duration'}
-            width={'100%'}
-            data={props.duration}
-          />
-        </FnGraphContainer>
-        <FnGraphContainer>
-          <FnGraphCompare
-            onFunctions={onFunctions}
-            name={'Errors'}
-            width={'100%'}
-            data={props.errors}
-          />
-        </FnGraphContainer>
-      
-      <FnGraphContainer>
-        <FnGraphCompare
-          onFunctions={onFunctions}
-          name={'Memory Usage'}
-          width={'100%'}
-          data={props.memUsage}
-        />
-      </FnGraphContainer>
-      <FnGraphContainer>
-        <FnGraphCompare
-          onFunctions={onFunctions}
-          name={'Cost'}
-          data={props.cost}
-        />
-      </FnGraphContainer>
-      <FnGraphContainer>
-        <FnGraphCompare
-          onFunctions={onFunctions}
-          name={'Throttles'}
-          width={'100%'}
-          data={props.throttles}
-        />
-      </FnGraphContainer>
-      </Scroll>
-    </FnGrid>
-   </>
+        </FnSideBar>
+        <Scroll>
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Invocations'}
+              width={'100%'}
+              data={props.invocations}
+            />
+          </FnGraphContainer>
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Duration'}
+              width={'100%'}
+              data={props.duration}
+            />
+          </FnGraphContainer>
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Errors'}
+              width={'100%'}
+              data={props.errors}
+            />
+          </FnGraphContainer>
 
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Memory Usage'}
+              width={'100%'}
+              data={props.memUsage}
+            />
+          </FnGraphContainer>
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Cost'}
+              data={props.cost}
+            />
+          </FnGraphContainer>
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Throttles'}
+              width={'100%'}
+              data={props.throttles}
+            />
+          </FnGraphContainer>
+        </Scroll>
+      </FnGrid>
+    </>
   );
 };
 

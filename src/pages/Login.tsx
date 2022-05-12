@@ -23,9 +23,10 @@ type FormData = {
 type Props = {
   setCurrentView: Function;
   setUserRegion: Function;
+  setStart: Function;
 };
 
-const Login = ({ setCurrentView, setUserRegion }: Props) => {
+const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
   const {
     register,
     setValue,
@@ -72,6 +73,7 @@ const Login = ({ setCurrentView, setUserRegion }: Props) => {
       setUserRegion({ region });
       console.log('redirecting...');
       setCurrentView('dashboard');
+      setStart(true);
       history.push('/home');
     } else {
       console.log('unsucessful');
