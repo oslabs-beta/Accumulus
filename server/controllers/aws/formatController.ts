@@ -6,7 +6,7 @@ formatController.timeRangePeriod = {
   // dimension is seconds (i.e. 60 is 60s)
   minutes: 60, // 1 minute granularity
   hours: 60 * 60, // 1 hour granularity
-  days: 60 * 60 * 24, // 1 day granularity
+  days: 60 * 60 * 24, // 1 day granularity --> returns 30 data points for @period='30d'
 };
 
 formatController.timeRoundMultiplier = {
@@ -47,6 +47,7 @@ formatController.periodDefinitions = {
   '6mo': [180, 'days'],
   '1yr': [30, 'days']
 }
+
 formatController.aggregateFuncByPeriodConversion = (
   period: string, 
   curDate: Date, 
@@ -99,6 +100,7 @@ formatController.formatCWLambdaMetricAll = (
       {
         Id: `m${metricName}_AllLambdaFunc`,
         Label: `Lambda ${metricName} All Functions`,
+        ReturnData: false,
         MetricStat: {
           Metric: {
             Namespace: 'AWS/Lambda',
@@ -108,6 +110,11 @@ formatController.formatCWLambdaMetricAll = (
           Stat: metricStat,
         },
       },
+      {
+        Id: `m${metricName}fill`,
+        Label: `Lambda ${metricName} All Functions`,
+        Expression: `FILL(m${metricName}, 0)`
+      }
     ],
   };
 };
@@ -202,21 +209,3 @@ formatController.logPeriodConversion = {
 }
 
 export default formatController;
-
-// const timeRangePeriod: { [key: string]: string | number } = {
-//   minutes: 60, //60 seconds
-//   hours: 300, //300 secs
-//   days: 3600, // 1 hour
-// };
-
-// const timeRoundMultiplier: { [key: string]: string | number } = {
-//   minutes: 5, //the EndTime time stamps will be rounded to nearest 5 minutes
-//   hours: 15, //rounded to nearest 15 minutes
-//   days: 60, // rounded to nearest hour
-// };
-
-// const timeRangeMultiplier: { [key: string]: string | number } = {
-//   minutes: 60, //the EndTime time stamps will be rounded to nearest 5 minutes
-//   hours: 3600, //rounded to nearest 15 minutes
-//   days: 86400, // rounded to nearest hour
-// };
