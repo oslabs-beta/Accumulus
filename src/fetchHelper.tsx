@@ -21,7 +21,8 @@ export const fetchMetricAllFunctions = async (
   setSlowestFuncs: Function,
   setErrorMsgs: Function,
   setMostErroredFuncs: Function,
-  setMemUsedVsAllo: Function
+  setMemUsedVsAllo: Function,
+  timePeriod: string
 ) => {
   const fetchFuncNames = async (setFuncNames: Function) => {
     const response = await fetch('/api/aws/lambda/', {
@@ -55,7 +56,7 @@ export const fetchMetricAllFunctions = async (
 
   const fetchTotalInvocations = async (setTotalInvocations: Function) => {
     const response = await fetch(
-      '/api/aws/metricsAllFuncs/Invocations/30d/Sum',
+      `/api/aws/metricsAllFuncs/Invocations/${timePeriod}/Sum`,
       {
         method: 'POST',
         headers: {
@@ -67,20 +68,25 @@ export const fetchMetricAllFunctions = async (
       }
     );
     const res = await response.json();
+    console.log('totalInvocations:', res);
     setTotalInvocations(res.data);
   };
 
   const fetchTotalErrors = async (setTotalErrors: Function) => {
-    const response = await fetch('/api/aws/metricsAllFuncs/Errors/30d/Sum', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        region: 'us-east-2',
-      }),
-    });
+    const response = await fetch(
+      `/api/aws/metricsAllFuncs/Errors/${timePeriod}/Sum`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+        }),
+      }
+    );
     const res = await response.json();
+    console.log('totalInvocations:', res);
     setTotalErrors(res.data);
   };
 
@@ -99,22 +105,25 @@ export const fetchMetricAllFunctions = async (
   const fetchErrorMessages = async (setErrorMsgs: Function) => {};
 
   const fetchMostErrors = async (setMostErroredFuncs: Function) => {
-    const response = await fetch('/api/aws/rankFuncsByMetric/Errors/30d/Sum', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        region: 'us-east-2',
-      }),
-    });
+    const response = await fetch(
+      `/api/aws/rankFuncsByMetric/Errors/${timePeriod}/Sum`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+        }),
+      }
+    );
     const res = await response.json();
     setMostErroredFuncs(res.ranking);
   };
 
   const fetchSlowestFuncs = async (setSlowestFuncs: Function) => {
     const response = await fetch(
-      '/api/aws/rankFuncsByMetric/Duration/30d/Average',
+      `/api/aws/rankFuncsByMetric/Duration/${timePeriod}/Average`,
       {
         method: 'POST',
         headers: {
@@ -150,18 +159,22 @@ export const fetchMetricByFunctions = async (
   setErrors: Function,
   setMemUsage: Function,
   setCost: Function,
-  setThrottles: Function
+  setThrottles: Function,
+  timePeriod: string
 ) => {
   const fetchInvocations = async (setInvocations: Function) => {
-    const response = await fetch('/api/aws/metricsByFunc/Invocations/30d/Sum', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        region: 'us-east-2',
-      }),
-    });
+    const response = await fetch(
+      `/api/aws/metricsByFunc/Invocations/${timePeriod}/Sum`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+        }),
+      }
+    );
     console.log('fetchInvocations response', response);
     const res = await response.json();
     console.log('fetchInvocations', res.data);

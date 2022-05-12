@@ -37,10 +37,9 @@ const App = () => {
   const [throttles, setThrottles] = useState([]);
 
   //state to manage time metric when fetching data
-  const [timePeriod, setTimePeriod] = useState('7d')
+  const [timePeriod, setTimePeriod] = useState('7d');
 
   const [currentView, setCurrentView] = useState('splash');
-  
 
   useEffect(() => {
     if (start) {
@@ -53,7 +52,8 @@ const App = () => {
         setSlowestFuncs,
         setErrorMsgs,
         setMostErroredFuncs,
-        setMemUsedVsAllo
+        setMemUsedVsAllo,
+        timePeriod
       );
       console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricByFunctions(
@@ -62,10 +62,11 @@ const App = () => {
         setErrors,
         setMemUsage,
         setCost,
-        setThrottles
+        setThrottles,
+        timePeriod
       );
     }
-  }, [start]);
+  }, [start, timePeriod]);
 
   // useEffect(() => {
   //   console.log(funcNames);
