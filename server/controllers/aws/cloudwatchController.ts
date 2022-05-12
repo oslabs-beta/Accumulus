@@ -13,14 +13,14 @@ cwController.getLambdaMetricsAll = async (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  
   // Get AWS creds for client and destructure params
   const { credentials } = res.locals;
   const { region } = req.body;
   const graphMetricName = req.params.metric;
   const graphMetricStat = req.params.stat;
   const periodSelection = req.params.period;
-  const [ graphPeriod, graphUnits ] = formatController.periodDefinitions[periodSelection];
+  const [graphPeriod, graphUnits] =
+    formatController.periodDefinitions[periodSelection];
 
   const cwClient = new CloudWatchClient({
     region,
@@ -84,7 +84,8 @@ cwController.getMetricsEachFunc = async (
   const graphMetricName = req.params.metric;
   const graphMetricStat = req.params.stat;
   const periodSelection = req.params.period;
-  const [ graphPeriod, graphUnits ] = formatController.periodDefinitions[periodSelection];
+  const [graphPeriod, graphUnits] =
+    formatController.periodDefinitions[periodSelection];
   let funcNames = res.locals.funcNames;
 
   const cwClient = new CloudWatchClient({
@@ -114,7 +115,6 @@ cwController.getMetricsEachFunc = async (
         const timeStamps = metricDataResult!.Timestamps!.reverse();
         const values = metricDataResult!.Values!.reverse();
         const metricData = timeStamps.map((timeStamp, index) => {
-          
           return {
             id: index,
             month: formatController.monthConversion[timeStamp.getMonth()],
@@ -167,7 +167,7 @@ cwController.getMetricsEachFunc = async (
   }
 };
 
-cwController.rankFuncsByMetric = async(
+cwController.rankFuncsByMetric = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -177,7 +177,8 @@ cwController.rankFuncsByMetric = async(
   const graphMetricName = req.params.metric;
   const graphMetricStat = req.params.stat;
   const periodSelection = req.params.period;
-  const [ graphPeriod, graphUnits ] = formatController.periodDefinitions[periodSelection];
+  const [graphPeriod, graphUnits] =
+    formatController.periodDefinitions[periodSelection];
   let funcNames = res.locals.funcNames;
 
   const cwClient = new CloudWatchClient({
@@ -209,10 +210,9 @@ cwController.rankFuncsByMetric = async(
           name: functionName,
           value: value,
         };
-
       }
     );
-    
+
     // Sort based on metric value for each function
     metricByFuncData.sort((a, b) => a.value - b.value);
 
@@ -228,13 +228,11 @@ cwController.rankFuncsByMetric = async(
   } catch (err) {
     console.error('Error in CW getMetricsData By Functions', err);
   }
-}
+};
 
 cwController.getLambdaLogs = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-) => {
-  
-}
+) => {};
 export default cwController;

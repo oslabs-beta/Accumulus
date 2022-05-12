@@ -13,10 +13,10 @@ const router = express.Router();
 
 router.post(
   '/lambda',
+  cookieController.getCookieCredentials,
   credController.getCreds, // credentials go into res.locals.credentials
-  // cookieController.getCookieCredentials,
   lambdaController.getFunctions, // function details go into res.locals.lambdaFunctions
-  (req:express.Request, res:express.Response) => {
+  (req: express.Request, res: express.Response) => {
     // console.log('SHOULD SHOW COOKIES HERE:', req.cookies)
     res.status(200).json(res.locals.lambdaFunctions);
   }
@@ -24,6 +24,7 @@ router.post(
 
 router.post(
   '/metricsTotalFuncs/:metric/:period/:stat',
+  cookieController.getCookieCredentials, 
   credController.getCreds,
   cwController.getLambdaMetricsAll,
   (req: Request, res: Response) => {
@@ -33,6 +34,7 @@ router.post(
 
 router.post(
   '/metricsEachFunc/:metric/:period/:stat',
+  cookieController.getCookieCredentials,
   credController.getCreds,
   lambdaController.getFunctions,
   cwController.getMetricsEachFunc,
@@ -40,9 +42,10 @@ router.post(
     res.status(200).json(res.locals.data);
   }
 );
- 
+
 router.post(
   '/rankFuncsByMetric/:metric/:period/:stat',
+  cookieController.getCookieCredentials,  
   credController.getCreds, 
   lambdaController.getFunctions, 
   cwController.rankFuncsByMetric, 
@@ -57,7 +60,7 @@ router.post(
   (req: Request, res: Response) => {
     res.status(200).json();
   }
-)
+);
 
 router.post(
   '/costEachFunction/:period',
@@ -65,16 +68,18 @@ router.post(
   (req: Request, res: Response) => {
     res.status(200).json();
   }
-)
+);
 
 router.post(
   '/costAllFunctions/:period',
+  cookieController.getCookieCredentials, // user data goes into res.locals.userData
+  credController.getCreds, // credentials go into res.locals.credentials
   lambdaController.getFunctions,
   costController.calcLambdaCostAll,
   (req: Request, res: Response) => {
     res.status(200).json();
   }
-)
+);
 
 router.post(
   '/lambdaLogs/:function/:period',
@@ -84,46 +89,46 @@ router.post(
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.logs);
   }
-)
+);
 
 router.post(
   '/lambdaErrorLogsByFunc/:function/:period',
-  credController.getCreds, 
+  credController.getCreds,
   logController.getLambdaErrorsByFunc,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.logs);
   }
-)
+);
 
 router.post(
   '/lambdaErrorLogsEachFunc/:period',
-  credController.getCreds, 
+  credController.getCreds,
   lambdaController.getFunctions,
   logController.getLambdaErrorsEachFunc,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.logs);
   }
-)
+);
 
 router.post(
   '/lambdaLogMetricsByFunc/:function/:period',
-  credController.getCreds, 
+  credController.getCreds,
   logController.getLambdaLogs,
   analysisController.calcMetrics,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
-)
+);
 
 router.post(
   '/lambdaLogMetricsByFunc/:function/:period',
-  credController.getCreds, 
+  credController.getCreds,
   logController.getLambdaLogs,
   analysisController.calcMetrics,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
-)
+);
 
 router.post(
   '/stateMetricsByFunc/:metric/:period/:stat',

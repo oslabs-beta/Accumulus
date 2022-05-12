@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/AlloFunctionSelector';
+import MemReduction from '../components/MemReduction';
 import Sidebar from '../components/Sidebar';
 import {
   DashSideBar,
@@ -13,14 +14,11 @@ import {
 } from '../styles';
 
 type Props = {
-  arn: string;
-  externalId: string;
-  region: string;
-  memUsedVsAllo: object[];
   setCurrentView: Function;
+  memUsedVsAllo: object[];
 };
 
-const Allocations = ({ arn, externalId, region, memUsedVsAllo, setCurrentView }: Props) => {
+const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
   const [onStacked, setOnStacked] = useState([{ name: 'Select a function' }]);
 
   useEffect(() => {
@@ -73,19 +71,12 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo, setCurrentView }:
     ],
   };
 
-  const body = JSON.stringify({
-    arn,
-    externalId,
-    region,
-  });
-  console.log(body);
-
   return (
     <>
       <DashboardGrid>
         <Header>Excess Memory</Header>
         <DashSideBar>
-          <Sidebar setCurrentView={setCurrentView}/>
+          <Sidebar setCurrentView={setCurrentView} />
         </DashSideBar>
         <AlloFunctionSelector
           {...functions}
@@ -103,6 +94,8 @@ const Allocations = ({ arn, externalId, region, memUsedVsAllo, setCurrentView }:
             />
           </GraphContainered>
         </EvenDashGraphBox>
+        SOMETHING HERE
+        <MemReduction />
       </DashboardGrid>
     </>
   );

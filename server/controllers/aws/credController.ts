@@ -5,7 +5,7 @@ import { AssumeRoleCommand } from '@aws-sdk/client-sts';
 const credController: Record<string, types.middlewareFunction> = {};
 
 credController.getCreds = async (req, res, next) => {
-  const { arn, externalId } = req.body;
+  const { arn, externalId } = res.locals.userData;
   const roleParams = {
     RoleArn: arn,
     RoleSessionName: 'DoesThisNotMatter',

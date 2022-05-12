@@ -7,6 +7,11 @@ export type middlewareFunction = (
   next: express.NextFunction
 ) => void;
 
+//Type for Incoming Data
+export interface MemUsed{
+  [key:string]: string | number,
+};
+
 // Types for Lambda API Response
 // export type lambdaFunctionResponse = (
 
