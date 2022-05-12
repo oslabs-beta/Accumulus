@@ -3,6 +3,8 @@ const router = express.Router();
 import userController from '../controllers/userController';
 import cookieController from '../controllers/cookieController';
 
+
+
 // Sign up requests
 router.post(
   '/signup',
@@ -22,5 +24,17 @@ router.post(
     res.status(200).json(res.locals.confirmation);
   }
 );
+
+// Sign Out requests
+router.post(
+  '/signout',
+//   userController.verifyUser,
+  cookieController.resetCookieCredentials,
+  (req: Request, res: Response) => {
+    res.status(200).json(res.locals.confirmation);
+  }
+);
+
+
 
 export default router;

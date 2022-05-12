@@ -217,6 +217,7 @@ export const GraphContainered = styled.section`
   }
 `;
 
+
 // grid-column: ${props => props.gridColumn};
 // grid-row: ${(props: Props) => props.gridRow};
 
@@ -405,6 +406,7 @@ export const BasicBtn = styled.button`
   border: 1px solid #232323;
   cursor: pointer;
 `;
+
 export const SideAct = styled.div`
   /* display: flex; */
   font-size: 20px;

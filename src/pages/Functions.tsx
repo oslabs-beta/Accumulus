@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FnGraphCompare from '../components/FnGraphCompare';
 import FunctionSelector from '../components/FunctionSelector';
+import TimeButtons from '../components/TimeButtons';
 import Sidebar from '../components/Sidebar';
 import { 
   DashSideBar, 
@@ -10,66 +11,39 @@ import {
   Scroll} from '../styles';
 
 type Props = {
-  arn: string;
-  externalId: string;
-  region: string;
+  setCurrentView: Function;
+  funcNames: string[];
   invocations: object[];
   duration: object[];
   errors: object[];
   memUsage: object[];
   cost: object[];
   throttles: object[];
+  timePeriod: string;
+  setTimePeriod: Function;
 };
 
-const Functions = (props: Props) => {
+const Functions = (props: Props, { setCurrentView }: Props) => {
   const [metricType, setMetricType] = useState('Invocations');
   const [timePeriod, setTimePeriod] = useState('7d');
   const [dataSum, setDataSum] = useState('Sum');
 
   const [onFunctions, setOnFunctions] = useState({});
 
-  const functions = {
-    names: [
-      'AccumulusFunc1',
-      'AccumulusFunc2',
-      'AccumulusFunc3',
-      'AccumulusFunc4',
-      'AccumulusFunc5',
-    ],
-  };
-  const { arn, externalId, region } = props;
-  const body = JSON.stringify({
-    arn,
-    externalId,
-    region,
-  });
-  console.log(body);
-
-  const funcMetrics = fetch(
-    `http://localhost:3000/api/aws/metricsAllFuncs/${metricType}/${timePeriod}/${dataSum}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body,
-    }
-  )
-    .then((data) => data.json())
-    .then((response) => console.log(response));
-
   return (
     <>
     <FnGrid>
       <DashSideBar>
-          <Sidebar />
+        <Sidebar setCurrentView={props.setCurrentView} />
       </DashSideBar>
       <FnSideBar>
         <FunctionSelector
-          {...functions}
-          onFunctions={onFunctions}
-          setOnFunctions={setOnFunctions}
+            funcNames={props.funcNames}
+            onFunctions={onFunctions}
+            setOnFunctions={setOnFunctions}
         />
+        <TimeButtons setTimePeriod={props.setTimePeriod}/>
+          {props.timePeriod}
       </FnSideBar>
       <Scroll>
         <FnGraphContainer>
@@ -90,10 +64,10 @@ const Functions = (props: Props) => {
         </FnGraphContainer>
         <FnGraphContainer>
           <FnGraphCompare
-          onFunctions={onFunctions}
-          name={'Errors'}
-          width={'100%'}
-          data={props.errors}
+            onFunctions={onFunctions}
+            name={'Errors'}
+            width={'100%'}
+            data={props.errors}
           />
         </FnGraphContainer>
       

@@ -1,30 +1,18 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import GlobalStyle from './globals';
-import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import Splash from './pages/Splash';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
-import Allocations from './pages/Allocations';
-import Register from './pages/Register';
-import Menu from './components/splash-menu';
+import Memory from './pages/Memory';
 import styled from 'styled-components';
-import { DashSideBar } from './styles';
 import * as fetchHelper from './fetchHelper';
 
-
-interface IuserData {
-  arn: string;
-  externalId: string;
-  region: string;
-}
-
 const App = () => {
-  const [userData, setUserData] = useState<IuserData>({
-    arn: '',
-    externalId: '',
-    region: '',
-  });
+  const [userRegion, setUserRegion] = useState('');
+
+  const [funcNames, setFuncNames] = useState([]);
 
   // --------- ALL FUNCS HOOKS
   // Dashboard
@@ -47,19 +35,27 @@ const App = () => {
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
+  //state to manage time metric when fetching data
+  const [timePeriod, setTimePeriod] = useState('7d')
+
   const [currentView, setCurrentView] = useState('splash');
+  
 
   useEffect(() => {
-    // if (userData.arn !== '') {
-    console.log('running fetchMetricAllFunctions');
+    // if (userRegion) {
+    console.log('running fetch Metric ALL Functions');
     fetchHelper.fetchMetricAllFunctions(
+      setFuncNames,
       setTotalInvocations,
       setTotalErrors,
       setTotalCost,
       setSlowestFuncs,
       setErrorMsgs,
       setMostErroredFuncs,
-      setMemUsedVsAllo,
+      setMemUsedVsAllo
+    );
+    console.log('running fetch Metric BY Functions');
+    fetchHelper.fetchMetricByFunctions(
       setInvocations,
       setDuration,
       setErrors,
@@ -68,16 +64,12 @@ const App = () => {
       setThrottles
     );
     // }
-  }, [userData]);
+  }, [userRegion]);
 
   useEffect(() => {
-    console.log(invocations);
-    console.log(duration);
-    console.log(errors);
-    console.log(memUsage);
-    console.log(cost);
-    console.log(throttles);
-  }, [invocations, duration, errors, memUsage, cost, throttles]);
+    console.log(funcNames);
+    console.log(totalInvocations);
+  }, [funcNames, totalInvocations]);
 
   const Wrapper = styled.section`
     margin: 0;
@@ -91,7 +83,10 @@ const App = () => {
       <div>
         <GlobalStyle />
         {currentView === 'splash' ? (
-          <Splash setCurrentView={setCurrentView} setUserData={setUserData} />
+          <Splash
+            setCurrentView={setCurrentView}
+            setUserRegion={setUserRegion}
+          />
         ) : (
           <React.Fragment>
             <div>
@@ -100,10 +95,9 @@ const App = () => {
                   exact
                   path="/login"
                   render={(props) => (
-                   
-                    <Login 
-                    setCurrentView={setCurrentView}
-                    setUserData={setUserData}
+                    <Login
+                      setCurrentView={setCurrentView}
+                      setUserRegion={setUserRegion}
                     />
                   )}
                 />
@@ -123,6 +117,9 @@ const App = () => {
                   path="/home"
                   render={(props) => (
                     <Dashboard
+                      setCurrentView={setCurrentView}
+                      setTimePeriod={setTimePeriod}
+                      timePeriod={timePeriod}
                       totalInvocations={totalInvocations}
                       totalErrors={totalErrors}
                       totalCost={totalCost}
@@ -139,7 +136,10 @@ const App = () => {
                   path="/functions"
                   render={(props) => (
                     <Functions
-                      {...userData}
+                      setCurrentView={setCurrentView}
+                      setTimePeriod={setTimePeriod}
+                      timePeriod={timePeriod}
+                      funcNames={funcNames}
                       invocations={invocations}
                       duration={duration}
                       errors={errors}
@@ -153,9 +153,12 @@ const App = () => {
                 {/* ALLOCATIONS ROUTE */}
                 <Route
                   exact
-                  path="/allocations"
+                  path="/memory"
                   render={(props) => (
-                    <Allocations {...userData} memUsedVsAllo={memUsedVsAllo} />
+                    <Memory
+                      setCurrentView={setCurrentView}
+                      memUsedVsAllo={memUsedVsAllo}
+                    />
                   )}
                 />
               </Switch>
