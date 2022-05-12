@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { filterProps } from 'recharts/types/util/types';
 import FnGraph from '../components/FnGraph';
 import BarFnGraph from '../components/BarFnGraph';
 import ErrorTable from '../components/ErrorTable';
 import Sidebar from '../components/Sidebar';
+import TimeButtons from '../components/TimeButtons';
 import {
   DashSideBar,
   GraphContainer,
@@ -21,15 +22,20 @@ type Props = {
   slowestFuncs: object[];
   errorMsgs: object[];
   mostErroredFuncs: object[];
+  timePeriod: string;
   setCurrentView: Function;
+  setTimePeriod: Function;
 };
 
 const Dashboard = (props: Props, {setCurrentView}: Props) => {
+
   return (
     <>
       <DashboardGrid>
         <Header>
           Accumulus Dashboard
+          <TimeButtons setTimePeriod={props.setTimePeriod}/>
+          {props.timePeriod}
         </Header>
         <DashSideBar>
           <Sidebar setCurrentView={setCurrentView}/>
