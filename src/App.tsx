@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import * as fetchHelper from './fetchHelper';
 
 const App = () => {
+  const [start, setStart] = useState(false);
   const [userRegion, setUserRegion] = useState('');
 
   const [funcNames, setFuncNames] = useState([]);
@@ -24,7 +25,7 @@ const App = () => {
   // Dashboard
   const [slowestFuncs, setSlowestFuncs] = useState([]);
   const [mostErroredFuncs, setMostErroredFuncs] = useState([]);
-  const [errorMsgs, setErrorMsgs] = useState([]); // unused currently
+  const [errorMsgs, setErrorMsgs] = useState([]);
   // Allocation
   const [memUsedVsAllo, setMemUsedVsAllo] = useState([]);
   // Functions
@@ -38,34 +39,34 @@ const App = () => {
   const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
-    // if (userRegion) {
-    console.log('running fetch Metric ALL Functions');
-    fetchHelper.fetchMetricAllFunctions(
-      setFuncNames,
-      setTotalInvocations,
-      setTotalErrors,
-      setTotalCost,
-      setSlowestFuncs,
-      setErrorMsgs,
-      setMostErroredFuncs,
-      setMemUsedVsAllo
-    );
-    console.log('running fetch Metric BY Functions');
-    fetchHelper.fetchMetricByFunctions(
-      setInvocations,
-      setDuration,
-      setErrors,
-      setMemUsage,
-      setCost,
-      setThrottles
-    );
-    // }
-  }, [userRegion]);
+    if (start) {
+      console.log('running fetch Metric ALL Functions');
+      fetchHelper.fetchMetricAllFunctions(
+        setFuncNames,
+        setTotalInvocations,
+        setTotalErrors,
+        setTotalCost,
+        setSlowestFuncs,
+        setErrorMsgs,
+        setMostErroredFuncs,
+        setMemUsedVsAllo
+      );
+      console.log('running fetch Metric BY Functions');
+      fetchHelper.fetchMetricByFunctions(
+        setInvocations,
+        setDuration,
+        setErrors,
+        setMemUsage,
+        setCost,
+        setThrottles
+      );
+    }
+  }, [start]);
 
-  useEffect(() => {
-    console.log(funcNames);
-    console.log(totalInvocations);
-  }, [funcNames, totalInvocations]);
+  // useEffect(() => {
+  //   console.log(funcNames);
+  //   console.log(invocations);
+  // }, [funcNames, invocations]);
 
   const Wrapper = styled.section`
     margin: 0;
@@ -82,6 +83,7 @@ const App = () => {
           <Splash
             setCurrentView={setCurrentView}
             setUserRegion={setUserRegion}
+            setStart={setStart}
           />
         ) : (
           <React.Fragment>
@@ -94,6 +96,7 @@ const App = () => {
                     <Login
                       setCurrentView={setCurrentView}
                       setUserRegion={setUserRegion}
+                      setStart={setStart}
                     />
                   )}
                 />
