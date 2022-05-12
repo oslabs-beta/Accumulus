@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import FnGraphCompare from '../components/FnGraphCompare';
-import FunctionSelector from '../components/FunctionSelector';
+import FnSelector from '../components/FnSelector';
+import TimeButtons from '../components/TimeButtons';
 import Sidebar from '../components/Sidebar';
 import {
   DashSideBar,
-  DashboardGrid,
-  EvenDashGraphBox,
-  GraphContainer,
-  Header,
-  SelectContainer,
-  Selector,
+  FnGraphContainer,
+  FnSideBar,
+  FnGrid,
+  Scroll,
 } from '../styles';
 
 type Props = {
@@ -21,6 +20,8 @@ type Props = {
   memUsage: object[];
   cost: object[];
   throttles: object[];
+  timePeriod: string;
+  setTimePeriod: Function;
 };
 
 const Functions = (props: Props, { setCurrentView }: Props) => {
@@ -32,66 +33,70 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
 
   return (
     <>
-      <DashboardGrid>
-        <Header>Functions</Header>
+      <FnGrid>
         <DashSideBar>
           <Sidebar setCurrentView={props.setCurrentView} />
         </DashSideBar>
-        <EvenDashGraphBox>
-          <FunctionSelector
+        <FnSideBar>
+          <FnSelector
             funcNames={props.funcNames}
             onFunctions={onFunctions}
             setOnFunctions={setOnFunctions}
           />
-          <GraphContainer>
+          <TimeButtons setTimePeriod={props.setTimePeriod} />
+          {props.timePeriod}
+        </FnSideBar>
+        <Scroll>
+          <FnGraphContainer>
             <FnGraphCompare
               onFunctions={onFunctions}
               name={'Invocations'}
               width={'100%'}
               data={props.invocations}
             />
-          </GraphContainer>
-          <GraphContainer>
+          </FnGraphContainer>
+          <FnGraphContainer>
             <FnGraphCompare
               onFunctions={onFunctions}
               name={'Duration'}
               width={'100%'}
               data={props.duration}
             />
-          </GraphContainer>
-          <GraphContainer>
+          </FnGraphContainer>
+          <FnGraphContainer>
             <FnGraphCompare
               onFunctions={onFunctions}
               name={'Errors'}
               width={'100%'}
               data={props.errors}
             />
-          </GraphContainer>
-        </EvenDashGraphBox>
-        <GraphContainer>
-          <FnGraphCompare
-            onFunctions={onFunctions}
-            name={'Memory Usage'}
-            width={'100%'}
-            data={props.memUsage}
-          />
-        </GraphContainer>
-        <GraphContainer>
-          <FnGraphCompare
-            onFunctions={onFunctions}
-            name={'Cost'}
-            data={props.cost}
-          />
-        </GraphContainer>
-        <GraphContainer>
-          <FnGraphCompare
-            onFunctions={onFunctions}
-            name={'Throttles'}
-            width={'100%'}
-            data={props.throttles}
-          />
-        </GraphContainer>
-      </DashboardGrid>
+          </FnGraphContainer>
+
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Memory Usage'}
+              width={'100%'}
+              data={props.memUsage}
+            />
+          </FnGraphContainer>
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Cost'}
+              data={props.cost}
+            />
+          </FnGraphContainer>
+          <FnGraphContainer>
+            <FnGraphCompare
+              onFunctions={onFunctions}
+              name={'Throttles'}
+              width={'100%'}
+              data={props.throttles}
+            />
+          </FnGraphContainer>
+        </Scroll>
+      </FnGrid>
     </>
   );
 };

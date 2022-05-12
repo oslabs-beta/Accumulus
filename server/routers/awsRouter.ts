@@ -45,7 +45,7 @@ router.post(
 
 router.post(
   '/rankFuncsByMetric/:metric/:period/:stat',
-  cookieController.getCookieCredentials,  
+  cookieController.getCookieCredentials,
   credController.getCreds, 
   lambdaController.getFunctions, 
   cwController.rankFuncsByMetric, 
@@ -83,6 +83,7 @@ router.post(
 
 router.post(
   '/lambdaLogs/:function/:period',
+  cookieController.getCookieCredentials,
   credController.getCreds, 
   logController.getLambdaLogs,
   analysisController.calcMetrics,
@@ -93,6 +94,7 @@ router.post(
 
 router.post(
   '/lambdaErrorLogsByFunc/:function/:period',
+  cookieController.getCookieCredentials,
   credController.getCreds,
   logController.getLambdaErrorsByFunc,
   (req: Request, res: Response) => {
@@ -102,6 +104,7 @@ router.post(
 
 router.post(
   '/lambdaErrorLogsEachFunc/:period',
+  cookieController.getCookieCredentials,
   credController.getCreds,
   lambdaController.getFunctions,
   logController.getLambdaErrorsEachFunc,
@@ -112,6 +115,7 @@ router.post(
 
 router.post(
   '/lambdaLogMetricsByFunc/:function/:period',
+  cookieController.getCookieCredentials,
   credController.getCreds,
   logController.getLambdaLogs,
   analysisController.calcMetrics,
@@ -122,6 +126,7 @@ router.post(
 
 router.post(
   '/lambdaLogMetricsByFunc/:function/:period',
+  cookieController.getCookieCredentials,
   credController.getCreds,
   logController.getLambdaLogs,
   analysisController.calcMetrics,
@@ -132,6 +137,7 @@ router.post(
 
 router.post(
   '/stateMetricsByFunc/:metric/:period/:stat',
+  cookieController.getCookieCredentials,
   credController.getCreds, 
   stepController.getStateMetricByFunc,
   (req: Request, res: Response) => {

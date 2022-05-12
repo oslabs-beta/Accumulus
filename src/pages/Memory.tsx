@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
-import AlloFunctionSelector from '../components/AlloFunctionSelector';
+import AlloFunctionSelector from '../components/MemFnSelector';
 import MemReduction from '../components/MemReduction';
 import Sidebar from '../components/Sidebar';
-import {
-  DashSideBar,
-  DashboardGrid,
-  EvenDashGraphBox,
-  GraphContainered,
+import { DashSideBar, 
+  DashboardGrid, 
+  EvenDashGraphBox, 
+  GraphContainer, 
+  GraphContainered, 
   Header,
-  Selector,
-  ResourcesGrid,
 } from '../styles';
 
 type Props = {
