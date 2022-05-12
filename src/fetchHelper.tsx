@@ -35,7 +35,6 @@ export const fetchMetricAllFunctions = async (
       }),
     });
     const res = await response.json();
-    console.log('func names res', res);
     const names: string[] = [];
     interface IFuncName {
       name: string;
@@ -68,7 +67,6 @@ export const fetchMetricAllFunctions = async (
       }
     );
     const res = await response.json();
-    console.log('totalInvocations:', res);
     setTotalInvocations(res.data);
   };
 
@@ -86,7 +84,6 @@ export const fetchMetricAllFunctions = async (
       }
     );
     const res = await response.json();
-    console.log('totalErrors:', res);
     setTotalErrors(res.data);
   };
 

@@ -3,11 +3,12 @@ import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/MemFnSelector';
 import MemReduction from '../components/MemReduction';
 import Sidebar from '../components/Sidebar';
-import { DashSideBar, 
-  DashboardGrid, 
-  EvenDashGraphBox, 
-  GraphContainer, 
-  GraphContainered, 
+import {
+  DashSideBar,
+  DashboardGrid,
+  EvenDashGraphBox,
+  GraphContainer,
+  GraphContainered,
   Header,
 } from '../styles';
 
@@ -18,10 +19,6 @@ type Props = {
 
 const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
   const [onStacked, setOnStacked] = useState([{ name: 'Select a function' }]);
-
-  useEffect(() => {
-    console.log(onStacked);
-  }, [onStacked]);
 
   /*
 
