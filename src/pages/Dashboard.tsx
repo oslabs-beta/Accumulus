@@ -16,6 +16,7 @@ import {
 } from '../styles';
 
 type Props = {
+  setCurrentView: Function;
   totalInvocations: object[];
   totalErrors: object[];
   totalCost: object[];
@@ -23,7 +24,6 @@ type Props = {
   errorMsgs: object[];
   mostErroredFuncs: object[];
   timePeriod: string;
-  setCurrentView: Function;
   setTimePeriod: Function;
 };
 
@@ -38,7 +38,7 @@ const Dashboard = (props: Props, {setCurrentView}: Props) => {
           {props.timePeriod}
         </Header>
         <DashSideBar>
-          <Sidebar setCurrentView={setCurrentView}/>
+          <Sidebar setCurrentView={props.setCurrentView}/>
         </DashSideBar>
         <Row1GraphBox>
           <GraphContainer>

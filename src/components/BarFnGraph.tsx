@@ -2,9 +2,7 @@ import * as React from 'react';
 import moment from 'moment';
 import { dummyData } from '../../Data/byFunc/dummyData';
 
-import {
-  HeaderLabel
-} from '../styles'
+import { HeaderLabel } from '../styles';
 
 import {
   BarChart,
@@ -19,7 +17,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const barColors = ["#850909", "#8e2222", "#d82e2e", "#d25757", "#e728"]
+const barColors = ['#850909', '#8e2222', '#d82e2e', '#d25757', '#e728'];
 
 interface BarFnGraphProps {
   data: Record<string, any>[];
@@ -36,10 +34,13 @@ const BarFuncGraph = (props: BarFnGraphProps) => {
 
   return (
     <>
-      <h1 style={{ 
-        fontFamily: 'Roboto, sans-serif', 
-        fontWeight: '300', 
-        color: '#232323'}}>
+      <h1
+        style={{
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '300',
+          color: '#232323',
+        }}
+      >
         {props.name}
       </h1>
       <div
@@ -50,7 +51,7 @@ const BarFuncGraph = (props: BarFnGraphProps) => {
           <BarChart
             // @ts-ignore
             data={props.data}
-            layout='vertical'
+            layout="vertical"
             margin={{
               top: 10,
               right: 30,
@@ -60,16 +61,28 @@ const BarFuncGraph = (props: BarFnGraphProps) => {
           >
             <defs></defs>
             <CartesianGrid vertical={true} strokeDasharray="5 5" />
-            <YAxis type="category" dataKey="name" interval={0} textAnchor="end" tick={{ fill: 'transparent' }} />
+            <YAxis
+              type="category"
+              dataKey="name"
+              interval={0}
+              textAnchor="end"
+              tick={{ fill: 'transparent' }}
+            />
             <XAxis type="number" dataKey="value" />
             <Tooltip />
             <Bar type="monotone" dataKey="value" fill="#613659">
-            {
-                        props.data.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={barColors[index % 20]} />
-                        ))
-                    }
-              <LabelList dataKey="name" fill="#fff" position="insideLeft" offset={5} angle={0} dx="0" dy="0" />
+              {props.data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={barColors[index % 20]} />
+              ))}
+              <LabelList
+                dataKey="name"
+                fill="#fff"
+                position="insideLeft"
+                offset={5}
+                angle={0}
+                dx="0"
+                dy="0"
+              />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
