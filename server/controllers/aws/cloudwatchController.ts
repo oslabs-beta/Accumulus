@@ -5,7 +5,7 @@ import {
   CloudWatchClient,
   GetMetricDataCommand,
 } from '@aws-sdk/client-cloudwatch';
-import { tidy, groupBy, summarize, sum } from "@tidyjs/tidy";
+import { tidy, groupBy, summarize, sum } from '@tidyjs/tidy';
 
 const cwController: any = {};
 
@@ -42,7 +42,8 @@ cwController.getMetricsTotalLambda = async (
       new GetMetricDataCommand(metricAllFuncInputParams)
     );
 
-    let metricAllFuncData = metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
+    let metricAllFuncData =
+      metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
         (timeStamp, index) => {
           return {
             xkey: formatController.formatXAxisLabel(timeStamp, graphUnits),
@@ -105,7 +106,7 @@ cwController.getMetricsEachLambda = async (
     const metricByFuncResult = await cwClient.send(
       new GetMetricDataCommand(metricByFuncInputParams)
     );
-    
+
     // Format response data from querying cloudwatch metric SDK
     const metricByFuncData = metricByFuncResult!.MetricDataResults!.map(
       (metricDataResult, index) => {
@@ -145,22 +146,20 @@ cwController.getMetricsEachLambda = async (
         funcNames: funcNames,
       },
     };
-    
+
     // Iterate over each series starting at index=1
     for (let i = 1; i < tmpData.series.length; i++) {
-      
       // Iterate over each data point in series
       for (let j = 0; j < tmpData.series[0].data.length; j++) {
-        
         // Pushing value for given data point (data[j]) for given function (funcNames[i])
         // into existing data point on series[0], the first function listed
-        tmpData.series[0].data[j][funcNames[i]] = tmpData.series[i].data[j][funcNames[i]];
+        tmpData.series[0].data[j][funcNames[i]] =
+          tmpData.series[i].data[j][funcNames[i]];
       }
     }
-    
+
     res.locals.data = tmpData;
     return next();
-
   } catch (err) {
     console.error('Error in CW getMetricsData By Functions', err);
   }
@@ -213,12 +212,12 @@ cwController.rankFuncsByMetric = async (
     );
 
     // Sort based on metric value for each function
-    metricByFuncData.sort((a, b) => a.value - b.value);
+    metricByFuncData.sort((a, b) => b.value - a.value);
 
     // Request response JSON Object send to the FrontEnd
     res.locals.functionRankings = {
       title: `Lambda-${graphMetricName}`,
-      ranking: metricByFuncData,
+      ranking: metricByFuncData.slice(1, 6),
       // functions: funcNames // ** Use if we need easy access to func names for graph axis
     };
     // console.log('FINAL DATA: ', res.locals.functionRankings)
