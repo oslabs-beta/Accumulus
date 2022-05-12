@@ -36,8 +36,8 @@ formatController.formatQueryTimes = (
 }
 
 formatController.periodDefinitions = {
-  '30min': [30, 'minutes'],
   '1hr': [60, 'minutes'],
+  '12hr': [12, 'hours'],
   '24hr': [24, 'hours'],
   '7d': [7, 'days'],
   '14d': [14, 'days'],

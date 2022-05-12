@@ -35,7 +35,11 @@ const App = () => {
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
+  //state to manage time metric when fetching data
+  const [timePeriod, setTimePeriod] = useState('7d')
+
   const [currentView, setCurrentView] = useState('splash');
+  
 
   useEffect(() => {
     // if (userRegion) {
@@ -114,6 +118,8 @@ const App = () => {
                   render={(props) => (
                     <Dashboard
                       setCurrentView={setCurrentView}
+                      setTimePeriod={setTimePeriod}
+                      timePeriod={timePeriod}
                       totalInvocations={totalInvocations}
                       totalErrors={totalErrors}
                       totalCost={totalCost}
@@ -131,6 +137,8 @@ const App = () => {
                   render={(props) => (
                     <Functions
                       setCurrentView={setCurrentView}
+                      setTimePeriod={setTimePeriod}
+                      timePeriod={timePeriod}
                       funcNames={funcNames}
                       invocations={invocations}
                       duration={duration}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FnGraphCompare from '../components/FnGraphCompare';
 import FunctionSelector from '../components/FunctionSelector';
+import TimeButtons from '../components/TimeButtons';
 import Sidebar from '../components/Sidebar';
 import {
   DashSideBar,
@@ -21,6 +22,8 @@ type Props = {
   memUsage: object[];
   cost: object[];
   throttles: object[];
+  timePeriod: string;
+  setTimePeriod: Function;
 };
 
 const Functions = (props: Props, { setCurrentView }: Props) => {
@@ -33,7 +36,11 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
   return (
     <>
       <DashboardGrid>
-        <Header>Functions</Header>
+        <Header>
+          Functions
+          <TimeButtons setTimePeriod={props.setTimePeriod}/>
+          {props.timePeriod}
+        </Header>
         <DashSideBar>
           <Sidebar setCurrentView={props.setCurrentView} />
         </DashSideBar>
