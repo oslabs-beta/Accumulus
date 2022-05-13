@@ -73,13 +73,6 @@ const App = () => {
   //   console.log(invocations);
   // }, [funcNames, invocations]);
 
-  const Wrapper = styled.section`
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
-  `;
   return (
     <HashRouter>
       <div>

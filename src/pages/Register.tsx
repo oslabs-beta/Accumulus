@@ -67,6 +67,7 @@ const Register = (props: any) => {
 
     if (register.status === 200) {
       console.log('redirecting...');
+      props.setStart(true);
       props.setCurrentView('dashboard');
       history.push('/home');
     } else {

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { errorMessagesMock } from '.././../Data/byFunc/errorMessagesMock';
+import { ErrorTableTable, ErrorTableRow, ErrorTableCell } from '../styles';
 
 interface ErrorProps {
   function: string;
@@ -15,30 +16,6 @@ interface LogInfo {
   date: string;
   message: string;
 }
-
-//MOVE TO STYLES PAGE ONCE DONE
-const Table = styled.table`
-  width: 100%;
-  background: white;
-  border: 1px solid black;
-  box-sizing: border-box;
-  border-collapse: collapse;
-  color: black;
-`;
-// how do I get it to scroll for overflow?
-// overflow: scroll;
-
-const TableHead = styled.th``;
-
-const Row = styled.tr`
-  &:nth-child(2n) {
-    background: red;
-  }
-`;
-const Cell = styled.td`
-  padding: 10px, 10px
-  overflow: hidden;
-`;
 
 //WHEN FETECHING, REMEMBER TO ADD props:ErrorProps
 const ErrorTable = () => {
@@ -69,18 +46,18 @@ const ErrorTable = () => {
   const errorDivs = [];
   for (let i = 0; i < dataArray.length; i++) {
     errorDivs.push(
-      <Row key={`${dataArray[i].date}` + `${dataArray[i].message}`}>
-        <Cell>{dataArray[i].funcName}</Cell>
-        <Cell>{dataArray[i].id}</Cell>
-        <Cell>{dataArray[i].date}</Cell>
-        <Cell>{dataArray[i].message}</Cell>
-      </Row>
+      <ErrorTableRow key={`${dataArray[i].date}` + `${dataArray[i].message}`}>
+        <ErrorTableCell>{dataArray[i].funcName}</ErrorTableCell>
+        <ErrorTableCell>{dataArray[i].id}</ErrorTableCell>
+        <ErrorTableCell>{dataArray[i].date}</ErrorTableCell>
+        <ErrorTableCell>{dataArray[i].message}</ErrorTableCell>
+      </ErrorTableRow>
     );
   }
 
   return (
     <>
-      <Table>
+      <ErrorTableTable>
         <thead>
           <tr>
             <th>Function</th>
@@ -90,7 +67,7 @@ const ErrorTable = () => {
           </tr>
         </thead>
         <tbody>{errorDivs}</tbody>
-      </Table>
+      </ErrorTableTable>
     </>
   );
 };

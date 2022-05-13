@@ -1,11 +1,8 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { render, createRoot } from 'react-dom/client';
 import App from './App.tsx';
 
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-render(
-  <div>
-    <App />
-  </div>,
-  document.getElementById('root')
-);
+root.render(<App />);
