@@ -37,7 +37,7 @@ const Row = styled.tr`
   }
 `
 const Cell = styled.td`
-  padding: 10px, 10px
+  padding: 10px, 10px;
   overflow: hidden;
 `
 
