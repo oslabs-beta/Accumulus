@@ -56,7 +56,7 @@ const App = () => {
         timePeriod
       );
       console.log('running fetch Metric BY Functions');
-      fetchHelper.fetchMetricByFunctions(
+      fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
         setErrors,

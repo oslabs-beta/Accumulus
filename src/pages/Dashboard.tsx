@@ -12,7 +12,7 @@ import {
   Header,
   Row1GraphBox,
   Row2GraphBox,
-  EvenDashGraphBox
+  EvenDashGraphBox,
 } from '../styles';
 
 type Props = {
@@ -27,18 +27,17 @@ type Props = {
   setTimePeriod: Function;
 };
 
-const Dashboard = (props: Props, {setCurrentView}: Props) => {
-
+const Dashboard = (props: Props, { setCurrentView }: Props) => {
   return (
     <>
       <DashboardGrid>
         {/* <Header>Accumulus Dashboard</Header> */}
         <Header>
-          <TimeButtons setTimePeriod={props.setTimePeriod}/>
+          <TimeButtons setTimePeriod={props.setTimePeriod} />
           {props.timePeriod}
         </Header>
         <DashSideBar>
-          <Sidebar setCurrentView={props.setCurrentView}/>
+          <Sidebar setCurrentView={props.setCurrentView} />
         </DashSideBar>
         <Row1GraphBox>
           <GraphContainer>
@@ -65,7 +64,7 @@ const Dashboard = (props: Props, {setCurrentView}: Props) => {
               name={'Total Cost'}
               width={'100%'}
               height={300}
-              />
+            />
           </GraphContainer>
           <GraphContainer>
             <BarFnGraph
@@ -73,32 +72,28 @@ const Dashboard = (props: Props, {setCurrentView}: Props) => {
               name={'Slowest Functions'}
               width={'100%'}
               height={300}
-              />
+            />
           </GraphContainer>
         </Row2GraphBox>
         <EvenDashGraphBox>
           <GraphContainer>
-            <h1 style={{ 
-              fontFamily: 'Roboto, sans-serif', 
-              fontWeight: '300', 
-              color: '#232323'}}>
-                Errors
-            </h1>
             {/* -------------IMPORT LOG TABLE HERE:-------------- */}
-            <h3>PLACEHOLDER FOR LOG CONTAINER GOES HERE</h3>
-            <ErrorTable />
+            <ErrorTable data={props.errorMsgs} />
             {/* -------------IMPORT LOG TABLE HERE:-------------- */}
           </GraphContainer>
-          <GraphContainer>
-            <h1 style={{ 
-              fontFamily: 'Roboto, sans-serif', 
-              fontWeight: '300', 
-              color: '#232323'}}>
-                Logs
+          {/* <GraphContainer>
+            <h1
+              style={{
+                fontFamily: 'Roboto, sans-serif',
+                fontWeight: '300',
+                color: '#232323',
+              }}
+            >
+              Logs
             </h1>
-          </GraphContainer>
+          </GraphContainer> */}
           <GraphContainer>
-          <BarFnGraph
+            <BarFnGraph
               data={props.mostErroredFuncs}
               name={'Most Errored Functions'}
               width={'100%'}

@@ -71,20 +71,13 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
               data={props.errors}
             />
           </FnGraphContainer>
-
-          <FnGraphContainer>
-            <FnGraphCompare
-              onFunctions={onFunctions}
-              name={'Memory Usage'}
-              width={'100%'}
-              data={props.memUsage}
-            />
-          </FnGraphContainer>
           <FnGraphContainer>
             <FnGraphCompare
               onFunctions={onFunctions}
               name={'Cost'}
+              width={'100%'}
               data={props.cost}
+              unit={'$'}
             />
           </FnGraphContainer>
           <FnGraphContainer>
