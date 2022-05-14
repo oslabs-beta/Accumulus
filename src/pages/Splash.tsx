@@ -2,15 +2,12 @@ import { StopMetricStreamsOutput } from '@aws-sdk/client-cloudwatch';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  LogInWrapper,
-  LogInHeader,
   LogInFooter,
   LogInLeft,
   LogInBody,
   StartedButton,
   H1,
   Text,
-  ButtonContainer,
 } from '../styles';
 
 type Props = {

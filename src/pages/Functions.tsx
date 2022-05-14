@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import FnGraphCompare from '../components/FnGraphCompare';
 import FnSelector from '../components/FnSelector';
 import TimeButtons from '../components/TimeButtons';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/Navbar';
 import {
-  DashSideBar,
+  SideBarDiv,
   FnGraphContainer,
-  FnSideBar,
   FnGrid,
   Scroll,
 } from '../styles';
@@ -34,10 +33,8 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
   return (
     <>
       <FnGrid>
-        <DashSideBar>
-          <Sidebar setCurrentView={props.setCurrentView} />
-        </DashSideBar>
-        <FnSideBar>
+        <SideBarDiv>
+          {/* <Sidebar setCurrentView={props.setCurrentView} /> */}
           <FnSelector
             funcNames={props.funcNames}
             onFunctions={onFunctions}
@@ -45,7 +42,9 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
           />
           <TimeButtons setTimePeriod={props.setTimePeriod} />
           {props.timePeriod}
-        </FnSideBar>
+        </SideBarDiv>
+        {/* <FnSideBar>
+        </FnSideBar> */}
         <Scroll>
           <FnGraphContainer>
             <FnGraphCompare

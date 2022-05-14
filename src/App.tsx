@@ -7,6 +7,9 @@ import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
 import Memory from './pages/Memory';
 import styled from 'styled-components';
+import { MainGrid, Nav, Pages } from './styles';
+import Sidebar from './components/Navbar';
+import TimeButtons from './components/TimeButtons';
 import * as fetchHelper from './fetchHelper';
 
 const App = () => {
@@ -39,7 +42,7 @@ const App = () => {
   //state to manage time metric when fetching data
   const [timePeriod, setTimePeriod] = useState('7d');
 
-  const [currentView, setCurrentView] = useState('splash');
+  const [currentView, setCurrentView] = useState('dashboard');
 
   useEffect(() => {
     if (start) {
@@ -116,55 +119,62 @@ const App = () => {
                 /> */}
 
                 {/* DASHBOARD ROUTE */}
-                <Route
-                  exact
-                  path="/home"
-                  render={(props) => (
-                    <Dashboard
-                      setCurrentView={setCurrentView}
-                      setTimePeriod={setTimePeriod}
-                      timePeriod={timePeriod}
-                      totalInvocations={totalInvocations}
-                      totalErrors={totalErrors}
-                      totalCost={totalCost}
-                      slowestFuncs={slowestFuncs}
-                      errorMsgs={errorMsgs}
-                      mostErroredFuncs={mostErroredFuncs}
+                <MainGrid>
+                  <Nav>
+                    <Sidebar setCurrentView={setCurrentView}/>
+                  </Nav>
+                  <Pages>
+                    <Route
+                      exact
+                      path="/home"
+                      render={(props) => (
+                        <Dashboard
+                          setCurrentView={setCurrentView}
+                          setTimePeriod={setTimePeriod}
+                          timePeriod={timePeriod}
+                          totalInvocations={totalInvocations}
+                          totalErrors={totalErrors}
+                          totalCost={totalCost}
+                          slowestFuncs={slowestFuncs}
+                          errorMsgs={errorMsgs}
+                          mostErroredFuncs={mostErroredFuncs}
+                        />
+                      )}
                     />
-                  )}
-                />
 
-                {/* FUNCTIONS ROUTE */}
-                <Route
-                  exact
-                  path="/functions"
-                  render={(props) => (
-                    <Functions
-                      setCurrentView={setCurrentView}
-                      setTimePeriod={setTimePeriod}
-                      timePeriod={timePeriod}
-                      funcNames={funcNames}
-                      invocations={invocations}
-                      duration={duration}
-                      errors={errors}
-                      memUsage={memUsage}
-                      cost={cost}
-                      throttles={throttles}
+                    {/* FUNCTIONS ROUTE */}
+                    <Route
+                      exact
+                      path="/functions"
+                      render={(props) => (
+                        <Functions
+                          setCurrentView={setCurrentView}
+                          setTimePeriod={setTimePeriod}
+                          timePeriod={timePeriod}
+                          funcNames={funcNames}
+                          invocations={invocations}
+                          duration={duration}
+                          errors={errors}
+                          memUsage={memUsage}
+                          cost={cost}
+                          throttles={throttles}
+                        />
+                      )}
                     />
-                  )}
-                />
 
-                {/* ALLOCATIONS ROUTE */}
-                <Route
-                  exact
-                  path="/memory"
-                  render={(props) => (
-                    <Memory
-                      setCurrentView={setCurrentView}
-                      memUsedVsAllo={memUsedVsAllo}
+                    {/* ALLOCATIONS ROUTE */}
+                    <Route
+                      exact
+                      path="/memory"
+                      render={(props) => (
+                        <Memory
+                          setCurrentView={setCurrentView}
+                          memUsedVsAllo={memUsedVsAllo}
+                        />
+                      )}
                     />
-                  )}
-                />
+                  </Pages>
+                </MainGrid>
               </Switch>
             </div>
           </React.Fragment>

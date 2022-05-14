@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/MemFnSelector';
 import MemReduction from '../components/MemReduction';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/Navbar';
 import {
-  DashSideBar,
+  SideBarDiv,
   DashboardGrid,
   EvenDashGraphBox,
   GraphContainer,
   GraphContainered,
-  Header,
 } from '../styles';
 
 type Props = {
@@ -69,10 +68,10 @@ const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
   return (
     <>
       <DashboardGrid>
-        <Header>Excess Memory</Header>
-        <DashSideBar>
+        {/* <Header>Excess Memory</Header> */}
+        <SideBarDiv>
           <Sidebar setCurrentView={setCurrentView} />
-        </DashSideBar>
+        </SideBarDiv>
         <AlloFunctionSelector
           {...functions}
           onStacked={onStacked}

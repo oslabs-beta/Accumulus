@@ -7,6 +7,41 @@ import myTheme from './globals';
 // LIGHT LILAC: #eae6f0
 
 //---------------------EVERY WHERE ----
+export const MainGrid = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100px 1fr;
+  grid-template-areas:
+    'nav'
+    'pages';
+  text-align: center;
+  /* grid-gap: 0.25rem; */
+  transition: all 0.25s ease-in-out;
+  color: white;
+  margin: 0px;
+`;
+
+export const Nav = styled.div`
+  display: flex;
+  flex-direction: row;
+  background: #f2dfc1;
+  grid-area: nav;
+`;
+
+export const SideBarDiv = styled.div`
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f2dfc1;
+  grid-area: sidebar;
+  /* padding: 0.25rem; */
+`;
+export const Pages = styled.div`
+  grid-area: pages;
+`;
+
 export const HeaderLabel = styled.h1`
   font-family: 'Roboto, sans-serif';
   font-weight: '300';
@@ -31,6 +66,8 @@ export const StartedButton = styled.button`
     background-color: #7a6899;
   }
 `;
+
+
 
 //---------------------LOGIN PAGE------
 export const LogRegCont = styled.section`
@@ -169,18 +206,10 @@ export const DashboardWrapper = styled.section`
   margin-left: 12%;
 `;
 
-// export const DashboardGrid = styled.section`
-//   display: grid, inline-grid;
-//   grid-template-columns:
-//     repeat(3, 1fr)
-//     auto;
-//   grid-template-rows: auto;
-//   gap: 20px;
-//   background-color: #c4e1e3;
-// `;
-
 export const GraphContainer = styled.section`
-  background: #eae6f0;
+  /* background: #fcfbf7; */
+  background: #f1eddc;
+
   /* padding: 0.25rem; */
   padding-top: 10px;
   width: 100%;
@@ -198,10 +227,6 @@ export const GraphContainer = styled.section`
   } */
 `;
 export const GraphContainered = styled.section`
-  /* grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 3; */
   background: #eae6f0;
   /* padding: 0.25rem; */
   margin-bottom: 400px;
@@ -218,55 +243,41 @@ export const GraphContainered = styled.section`
 `;
 
 
-// grid-column: ${props => props.gridColumn};
-// grid-row: ${(props: Props) => props.gridRow};
-
-// export { css, ThemeProvider };
-// export default styled;
-
 export const DashboardGrid = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-columns: 0.1fr 0.75fr 0.75fr 0.75fr;
-  grid-template-rows: 0.02fr 0.75fr 0.75fr 0.1fr;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
-    'sidebar nav nav nav'
-    'sidebar content content content'
-    'sidebar content1 content1 content1'
-    'sidebar content2 content2 content2'
-    'footer footer footer footer';
+    'sidebar content'
+    'sidebar content1'
+    'sidebar content2';
   text-align: center;
-  grid-gap: 0.25rem;
+  /* grid-gap: 0.25rem; */
   transition: all 0.25s ease-in-out;
   color: white;
   margin: 0px;
+  /* margin-top: 5px; */
 `;
-export const Header = styled.nav`
-  display: flex;
-  align-items: center;
-  background: white;
-  color: #232323;
-  grid-area: nav;
-  padding: 0.25rem;
-  font-family: 'Roboto', sans-serif;
-  font-size: 38px;
-  /* padding: 20px; */
-`;
+// export const Header = styled.nav`
+//   display: flex;
+//   align-items: center;
+//   background: white;
+//   color: #232323;
+//   grid-area: nav;
+//   padding: 0.25rem;
+//   font-family: 'Roboto', sans-serif;
+//   font-size: 38px;
+//   /* padding: 20px; */
+// `;
 
-export const DashSideBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #232323;
-  grid-area: sidebar;
-  padding: 0.25rem;
-`;
 
 export const Row1GraphBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 0.85rem;
-  padding: 0.25rem;
+  gap: 8px;
+  padding-left: 5px;
+  padding-top: 2px;
   align-items: center;
   grid-area: content;
   justify-content: center;
@@ -275,8 +286,9 @@ export const Row1GraphBox = styled.div`
 export const Row2GraphBox = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 0.85rem;
-  padding: 0.25rem;
+  gap: 8px;
+  /* padding-top: 10px; */
+  padding-left: 5px;
   align-items: center;
   grid-area: content1;
   justify-content: center;
@@ -285,62 +297,50 @@ export const Row2GraphBox = styled.div`
 export const EvenDashGraphBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.85rem;
-  padding: 0.25rem;
+  gap: 8px;
+  padding-left: 5px;
   align-items: center;
   grid-area: content2;
   justify-content: center;
 `;
 
-/* export const Content1 = styled.div`
-  background: #a6b8b9;
-  width: 100%;
-  height: 100%;
-`;
-const Content2 = styled(Content1)``;
-const Content3 = styled(Content1)``;
-const Footer = styled.footer`
-  background: #ff9637;
-  grid-area: footer;
-  padding: 0.25rem;
-`; */
 
 //--------------------FUNCTIONS & ALLOCATIONS-------------------------
 
 export const FnGrid = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-columns: 0.1fr 0.1fr 0.75fr;
+  grid-template-columns: 150px 1fr;
   /* grid-template-rows: 0.02fr 0.75fr 0.75fr 0.1fr; */
   grid-template-areas:
-    'sidebar  fnbar graph'
-    'sidebar fnbar  graph';
-  text-align: center;
-  grid-gap: 0.25rem;
+    'sidebar graph';
+  /* text-align: center; */
+  grid-gap: 10px;
   transition: all 0.25s ease-in-out;
   color: white;
   margin: 0px;
 `;
 
 export const FnGraphContainer = styled.section`
-  background: #eae6f0;
+  background: #f1eddc;
   /* padding: 0.25rem; */
-  padding-top: 10px;
+  margin-top: 10px;
+  /* margin-right: 10px; */
   width: 100%;
   height: 350px;
   box-shadow: 2px 2px 2px #d8d8d8;
 `;
 
 
-export const SelectContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 7%;
-  margin-top: 3%;
-  width: 77%;
-  border-radius: 0.6rem;
-  cursor: pointer;
-  `;
+// export const SelectContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   margin-left: 7%;
+//   margin-top: 3%;
+//   width: 77%;
+//   border-radius: 0.6rem;
+//   cursor: pointer;
+//   `;
   
   export const FnSideBar = styled.div`
     padding-top: 200px;
@@ -357,7 +357,7 @@ export const SelectContainer = styled.div`
   `;
 
 export const FnSelectButton = styled.button`
-  border: 1px solid white;
+  border: none;
   height: 50px;
   width: 120px;
   border-radius: 5px;
@@ -376,34 +376,53 @@ export const ContainerLabel = styled.div`
 export const MainNav = styled.ul`
   flex: 1;
   display: flex;
-  flex-direction: column;
-  margin-top: 20px;
+  flex-direction: row;
   align-items: center;
   list-style: none;
-  
-  li:nth-last-child(2) {
-    align-items: flex-end;
-    justify-content: flex-end;
-    margin-top: 620%;
+  /* margin:10px; */
+
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 20px;
+  margin-inline-end: 20px;
+  padding-inline-start: 0px;
+
+  li {
+    margin-right: 20px;
   }
 
- 
+  li:nth-child(1) {
+    margin-left: 2px;
+    font-size: 30px;
+  }
+
+  li:nth-child(2) {
+    margin-left: 10px;
+    font-size: 55px;
+  }
+
+  li:nth-last-child(3) {
+    margin-left: auto;
+  }
+  /* li:nth-last-child(2) {
+    margin-left: auto;
+  } */
   li:last-child {
-    margin-top: auto;
-    margin-bottom: 30px;
+    margin-right: 20px;
   }
 `;
 export const BasicBtn = styled.button`
-  height: 70px;
-  width: 130px;
+  height: 50px;
+  width: 140px;
   /* margin: 0.5rem; */
   /* border-radius: 5px; */
   /* padding: 12px 26px; */
   font-size: 20px;
   outline: none;
-  background: #232323;
-  color: white;
-  border: 1px solid #232323;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 `;
 

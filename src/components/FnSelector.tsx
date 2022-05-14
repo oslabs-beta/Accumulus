@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { SelectContainer, FnSelectButton } from '../styles';
+import { FnSelectButton } from '../styles';
 
 interface IFunctionSelector {
   funcNames: string[];
@@ -52,10 +52,10 @@ const FunctionSelector = (props: IFunctionSelector) => {
 
   return (
     <>
-      <h3 style={{ color: 'black' }}>Select Functions:</h3>
-      <SelectContainer>
+      <h3 style={{ color: 'black' }}>Functions</h3>
+      {/* <SelectContainer> */}
         <div>{functionButtons}</div>
-      </SelectContainer>
+      {/* </SelectContainer> */}
     </>
   );
 };

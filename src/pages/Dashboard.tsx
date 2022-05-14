@@ -3,13 +3,12 @@ import { filterProps } from 'recharts/types/util/types';
 import FnGraph from '../components/FnGraph';
 import BarFnGraph from '../components/BarFnGraph';
 import ErrorTable from '../components/ErrorTable';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/Navbar';
 import TimeButtons from '../components/TimeButtons';
 import {
-  DashSideBar,
+  SideBarDiv,
   GraphContainer,
   DashboardGrid,
-  Header,
   Row1GraphBox,
   Row2GraphBox,
   EvenDashGraphBox
@@ -32,14 +31,10 @@ const Dashboard = (props: Props, {setCurrentView}: Props) => {
   return (
     <>
       <DashboardGrid>
-        {/* <Header>Accumulus Dashboard</Header> */}
-        <Header>
+        <SideBarDiv>
           <TimeButtons setTimePeriod={props.setTimePeriod}/>
           {props.timePeriod}
-        </Header>
-        <DashSideBar>
-          <Sidebar setCurrentView={props.setCurrentView}/>
-        </DashSideBar>
+        </SideBarDiv>
         <Row1GraphBox>
           <GraphContainer>
             <FnGraph
