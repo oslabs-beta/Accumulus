@@ -39,6 +39,10 @@ const App = () => {
   //state to manage time metric when fetching data
   const [timePeriod, setTimePeriod] = useState('7d');
 
+
+  //state to manage resync of data -------REMEMBER TO PASS THE SYNCDATA DOWN --------------
+  const [syncData, setSyncData] = useState(false);
+
   const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
@@ -53,7 +57,7 @@ const App = () => {
         setErrorMsgs,
         setMostErroredFuncs,
         setMemUsedVsAllo,
-        timePeriod
+        timePeriod,
       );
       console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricByFunctions(
@@ -63,10 +67,10 @@ const App = () => {
         setMemUsage,
         setCost,
         setThrottles,
-        timePeriod
+        timePeriod,
       );
     }
-  }, [start, timePeriod]);
+  }, [start, timePeriod, syncData]);
 
   // useEffect(() => {
   //   console.log(funcNames);

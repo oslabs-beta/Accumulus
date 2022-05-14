@@ -46,6 +46,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "ioredis": "^5.0.4",
     "moment": "^2.29.3",
     "mongoose": "^6.3.1",
     "postcss": "^8.4.12",
