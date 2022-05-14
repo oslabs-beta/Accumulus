@@ -86,7 +86,16 @@ export const fetchMetricAllFunctions = async (
     setTotalCost(res.series[0].data);
   };
 
-  const fetchErrorMessages = async (setErrorMsgs: Function) => {};
+  const fetchErrorMessages = async (setErrorMsgs: Function) => {
+    const response = await fetch('api/aws/lambdaErrorLogsEachFunc/30d', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const res = await response.json();
+    setTotalCost(res.data);
+  };
 
   const fetchMostErrors = async (setMostErroredFuncs: Function) => {
     const response = await fetch(
@@ -123,7 +132,20 @@ export const fetchMetricAllFunctions = async (
   };
 
   const fetchMemUsedVsAllo = async (setMemUsedVsAllo: Function) => {
-    // IN THE FUTURE, FETCH FROM API
+    // const response = await fetch(
+    //   `/api/aws/memoryUsageDiff/${timePeriod}`,
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       region: 'us-east-2',
+    //     }),
+    //   }
+    // );
+    // const res = await response.json();
+    // console.log(res)
     setMemUsedVsAllo(memUsedVsAllo);
   };
 
@@ -201,7 +223,21 @@ export const fetchMetricEachFunctions = async (
   };
 
   const fetchMemUsage = async (setMemUsage: Function) => {
-    // IN THE FUTURE, FETCH FROM API
+    // const response = await fetch(
+    //   `/api/aws/memoryUsageEachLambda/${timePeriod}`,
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       region: 'us-east-2',
+    //     }),
+    //   }
+    // );
+    // const res = await response.json();
+    // console.log(res)
+    // setMemUsage(res.series[0].data);
     setMemUsage(memUsageMock);
   };
 
