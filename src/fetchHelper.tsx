@@ -87,14 +87,20 @@ export const fetchMetricAllFunctions = async (
   };
 
   const fetchErrorMessages = async (setErrorMsgs: Function) => {
-    const response = await fetch('api/aws/lambdaErrorLogsEachFunc/30d', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      `/api/aws/lambdaErrorLogsEachFunc/${timePeriod}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+        }),
+      }
+    );
     const res = await response.json();
-    setTotalCost(res.data);
+    setErrorMsgs(res);
   };
 
   const fetchMostErrors = async (setMostErroredFuncs: Function) => {
@@ -133,7 +139,7 @@ export const fetchMetricAllFunctions = async (
 
   const fetchMemUsedVsAllo = async (setMemUsedVsAllo: Function) => {
     // const response = await fetch(
-    //   `/api/aws/memoryUsageDiff/${timePeriod}`,
+    //   `/api/aws/memoryUsageDiff/1hr`, // ** Keep as 1hr - Any longer makes loading times extremely long **
     //   {
     //     method: 'POST',
     //     headers: {
@@ -145,7 +151,7 @@ export const fetchMetricAllFunctions = async (
     //   }
     // );
     // const res = await response.json();
-    // console.log(res)
+    // setMemUsedVsAllo(res);
     setMemUsedVsAllo(memUsedVsAllo);
   };
 
