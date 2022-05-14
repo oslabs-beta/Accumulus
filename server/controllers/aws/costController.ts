@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
 import formatController from './formatController';
-import * as Cost from '@aws-sdk/client-cost-explorer'; // TODO: Find funcs and refactor
 
 const costController: any = {};
 

@@ -23,7 +23,7 @@ userController.createUser = async (req, res, next) => {
       externalId: newUser.externalId,
       region: newUser.region,
     };
-    next();
+    return next();
   } catch (err) {
     // Entry field missing or Non-unique email
     console.log(

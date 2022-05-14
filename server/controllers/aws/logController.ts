@@ -5,13 +5,6 @@ import {
   CloudWatchLogsClient,
 	FilterLogEventsCommand,
 } from '@aws-sdk/client-cloudwatch-logs';
-import { 
-	tidy, 
-	sum, 
-	groupBy, 
-	summarize, 
-	distinct, 
-	mean } from "@tidyjs/tidy";
 
 import formatController from './formatController';
 
@@ -23,11 +16,12 @@ interface IEventLog {
 	message: string
 }
 
-logController.getLambdaLogs = async (
+logController.getLambdaLogsByFunc = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
+	console.log(res.locals)
   const { credentials } = res.locals;
   const { region } = req.body;
   const periodSelection = req.params.period;
@@ -40,7 +34,27 @@ logController.getLambdaLogs = async (
     credentials,
   });
 
-  // nextToken is a parameter specified by AWS CloudWatch for the FilterLogEventsCommand; 
+	try {
+
+		const logs = await logController.getLambdaLogsGeneric(cwClient, funcName, logGroupName, StartTime, periodSelection)
+		res.locals.logs = logs;
+
+		return next()
+	} catch (error) {
+		console.log(error)
+		return next(error)
+	}
+  
+}
+
+logController.getLambdaLogsGeneric = async (
+	cwClient: any, 
+	funcName: string,
+	logGroupName: string,
+	StartTime: number,
+	periodSelection: string,
+) => {
+	// nextToken is a parameter specified by AWS CloudWatch for the FilterLogEventsCommand; 
 	// this token is needed to fetch the next set of events helperFunc provides a 
 	// recursive way to get all the logs
   try {
@@ -133,9 +147,7 @@ logController.getLambdaLogs = async (
     
 		// get error logs
 		eventLog.errors = await logController.getLambdaErrorLogs(cwClient, logGroupName, StartTime)
-		res.locals.logs = eventLog;
-		console.log(eventLog)
-		return next();
+		return eventLog;
 
 	} catch (err) {
 		if (err) console.error(err);
@@ -244,7 +256,7 @@ logController.getLambdaErrorLogs = async (
 				filterPattern: 'ERROR',
 			})
 		);
-			console.log(errorEvents)
+
 		interface IErrorLog {
 			id: string,
 			date: string,
@@ -285,7 +297,7 @@ logController.getLambdaErrorsByFunc = async (
 	try {
 		
 		const errorLogs = await logController.getLambdaErrorLogs(cwClient, logGroupName, StartTime);
-		console.log('OUTER ERROR LOGS: ', errorLogs);
+
 		res.locals.logs = errorLogs;
 		return next();
 
@@ -315,11 +327,24 @@ logController.getLambdaErrorsEachFunc = async (
   });
 
 	try {
-		let errorLogs: string[] = [];
-		
+		interface IFormattedErrorLog {
+			function: string,
+			logs: string[]
+		}
+		let errorLogs: IFormattedErrorLog[] = [];
+
+		// Iterate over lambda function names
 		for (let i = 0; i < funcNamesArr.length; i++) {
+
+			// Pull error logs for each (array of objects)
 			const logs = await logController.getLambdaErrorLogs(cwClient, `/aws/lambda/${funcNamesArr[i]}`, StartTime);
-			errorLogs[funcNamesArr[i]] = logs
+			
+			// Push formatted logs to errorLogs array
+			errorLogs.push({
+				function: funcNamesArr[i],
+				logs: logs
+			})
+
 		}
 
 		res.locals.logs = errorLogs;
@@ -331,7 +356,49 @@ logController.getLambdaErrorsEachFunc = async (
 			return next({err})
 		}
 	}
+}
 
+logController.getLambdaUsageEachFunc = async (
+	req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+	const funcNamesArr = res.locals.funcNames;
+  const { credentials } = res.locals;
+  const { region } = req.body;
+  const periodSelection = req.params.period;
+  const StartTime = formatController.logPeriodConversion[periodSelection];
+
+  const cwClient = new CloudWatchLogsClient({
+    region,
+    credentials,
+  });
+
+	try {
+
+		let memoryLogs = [];
+
+		// Iterate over lambda function names
+		for (let i = 0; i < funcNamesArr.length; i++) {
+
+			// Pull error logs for each (array of objects)
+			console.log('Lambda Name: ', funcNamesArr[i])
+			const logs = await logController.getLambdaLogsGeneric(cwClient, funcNamesArr[i], `/aws/lambda/${funcNamesArr[i]}`, StartTime, periodSelection)
+			
+			// Push logs to memoryLogs array
+			memoryLogs.push(logs);
+
+		}
+
+		res.locals.logs = memoryLogs;
+		return next();
+
+	} catch (err) {
+		if (err) {
+			console.error(err);
+			return next({err})
+		}
+	}
 }
 
 export default logController;
