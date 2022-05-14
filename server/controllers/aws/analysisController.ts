@@ -151,59 +151,7 @@ analysisController.calcMeanMemoryUsageTotal = async (
 			func.streams = summary;
 			summarizedData.push(func)
 		}
-		// {
-		// 	name: 'AccumulusFunc1',
-		// 	usedAccumulusFunc1: 35,
-		// 	alloAccumulusFunc1: 128,
-		// 	diffAccumulusFunc1: 95,
-		// },
-		
-		// // Create object with lambda function names as keys, values set to 0
-		// // Initializing values for each interval so that there are no missing values
-		// // in graphs
-		// const funcNameObj: {[key:string]:number} = {};
-		// for (const func of funcNames) {
-		// 	funcNameObj[func] = 0;
-		// }
-		
-		// // Initialize output as array of objects
-		// const formattedOutput: {[key:string]:number}[] = [];
-		// let date = new Date(StartTime)
-		// let formattedStart = 0;
-
-		// // Iterate from StartTime to graphPeriod to initialize array of objects
-		// // containing appropriate period-intervals for aggregating function data
-		// for (let k = 0; k < graphPeriod; k++) {
-		// 	// Create object for each interval
-		// 	if (graphUnits === 'day') {
-		// 		formattedStart = date.getDate();
-		// 		date.setDate(date.getDate() + 1)
-		// 	} else if (graphUnits === 'hour') {
-		// 		formattedStart = date.getHours()
-		// 		date.setHours(date.getHours() + 1)
-		// 	} else if (graphUnits === 'minute') {
-		// 		formattedStart = date.getMinutes()
-		// 		date.setMinutes(date.getMinutes() + 1)
-		// 	}
-		// 	formattedOutput.push({
-		// 		xkey: formattedStart,
-		// 		...funcNameObj 
-		// 	})
-		// }
-
-		// // Iterate over each lambda function
-		// for (let i = 0; i < summarizedData.length; i++) {
-
-		// 	// Iterate over each data point for interval (i.e. hour, day) for 
-		// 	// function, where function is output[i]
-		// 	for (let j = 0; j < summarizedData[i].streams.length; j++) {
-
-		// 		// Assign memory_usage value to key of lambda function name for given 
-		// 		// period (minute, hour, day -- graphUnits)
-		// 		formattedOutput[j][`${summarizedData[i].name}`] = summarizedData[i].streams[j].memory_usage;
-		// 	}
-		// }
-		// res.locals.data = formattedOutput;
+		/* TODO if we decide to move forward with period-level totals */
 	
 		return next();
 	} catch (err) {
