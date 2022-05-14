@@ -11,17 +11,18 @@ import analysisController from '../controllers/aws/analysisController';
 
 const router = express.Router();
 
+/* Lambda Function Names and Config Settings */
 router.post(
   '/lambda',
   cookieController.getCookieCredentials,
   credController.getCreds, // credentials go into res.locals.credentials
   lambdaController.getFunctions, // function details go into res.locals.lambdaFunctions
   (req: express.Request, res: express.Response) => {
-    // console.log('SHOULD SHOW COOKIES HERE:', req.cookies)
     res.status(200).json(res.locals.lambdaFunctions);
   }
 );
 
+/* Cloudwatch Metrics */
 router.post(
   '/metricsTotalFuncs/:metric/:period/:stat',
   cookieController.getCookieCredentials, 
@@ -54,6 +55,7 @@ router.post(
   }
 );
 
+/* Lambda Costs */
 router.post(
   '/costByFunction/:funcName/:period',
   costController.calcCostByLambda,
@@ -81,17 +83,19 @@ router.post(
   }
 );
 
+/* All logs */
 router.post(
   '/lambdaLogs/:function/:period',
   cookieController.getCookieCredentials,
   credController.getCreds, 
-  logController.getLambdaLogs,
+  logController.getLambdaLogsByFunc,
   analysisController.calcMetrics,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.logs);
   }
 );
 
+/* Log Errors */
 router.post(
   '/lambdaErrorLogsByFunc/:function/:period',
   cookieController.getCookieCredentials,
@@ -113,11 +117,12 @@ router.post(
   }
 );
 
+/* Log Metrics */
 router.post(
   '/lambdaLogMetricsByFunc/:function/:period',
   cookieController.getCookieCredentials,
   credController.getCreds,
-  logController.getLambdaLogs,
+  logController.getLambdaLogsByFunc,
   analysisController.calcMetrics,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
@@ -125,16 +130,65 @@ router.post(
 );
 
 router.post(
-  '/lambdaLogMetricsByFunc/:function/:period',
+  '/lambdaLogMetricsEachFunc/:period',
   cookieController.getCookieCredentials,
   credController.getCreds,
-  logController.getLambdaLogs,
+  logController.getLambdaLogsByFunc,
   analysisController.calcMetrics,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
 );
 
+router.post(
+  '/lambdaLogMetricsTotalFunc/:function/:period',
+  cookieController.getCookieCredentials,
+  credController.getCreds,
+  logController.getLambdaLogsByFunc,
+  analysisController.calcMetrics,
+  (req: Request, res: Response) => {
+    res.status(200).json(res.locals.data);
+  }
+);
+
+/* Log Memory Usage */
+router.post(
+  '/memoryUsageEachLambda/:period',
+  cookieController.getCookieCredentials,
+  credController.getCreds,
+  lambdaController.getFunctions,
+  logController.getLambdaUsageEachFunc,
+  analysisController.calcMemoryUsage,
+  (req: Request, res: Response) => {
+    res.status(200).json(res.locals.data);
+  }
+);
+
+router.post(
+  '/memoryUsageTotalLambda/:period',
+  cookieController.getCookieCredentials,
+  credController.getCreds,
+  lambdaController.getFunctions,
+  logController.getLambdaUsageEachFunc,
+  analysisController.calcMeanMemoryUsageTotal,
+  (req: Request, res: Response) => {
+    res.status(200).json(res.locals.data);
+  }
+);
+
+router.post(
+  '/memoryUsageDiff/:period',
+  cookieController.getCookieCredentials,
+  credController.getCreds,
+  lambdaController.getFunctions,
+  logController.getLambdaUsageEachFunc,
+  analysisController.calcLambdaMemoryDiff,
+  (req: Request, res: Response) => {
+    res.status(200).json(res.locals.data);
+  }
+);
+
+/* Step Function Metrics */
 router.post(
   '/stateMetricsByFunc/:metric/:period/:stat',
   cookieController.getCookieCredentials,
