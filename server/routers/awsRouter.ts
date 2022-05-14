@@ -164,6 +164,30 @@ router.post(
   }
 );
 
+router.post(
+  '/memoryUsageTotalLambda/:period',
+  cookieController.getCookieCredentials,
+  credController.getCreds,
+  lambdaController.getFunctions,
+  logController.getLambdaUsageEachFunc,
+  analysisController.calcMeanMemoryUsageTotal,
+  (req: Request, res: Response) => {
+    res.status(200).json(res.locals.data);
+  }
+);
+
+router.post(
+  '/memoryUsageDiff/:period',
+  cookieController.getCookieCredentials,
+  credController.getCreds,
+  lambdaController.getFunctions,
+  logController.getLambdaUsageEachFunc,
+  analysisController.calcLambdaMemoryDiff,
+  (req: Request, res: Response) => {
+    res.status(200).json(res.locals.data);
+  }
+);
+
 /* Step Function Metrics */
 router.post(
   '/stateMetricsByFunc/:metric/:period/:stat',
