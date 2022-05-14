@@ -157,8 +157,7 @@ cwController.getMetricsEachLambda = async (
           tmpData.series[i].data[j][funcNames[i]];
       }
     }
-
-    res.locals.data = tmpData;
+    res.locals[graphMetricName] = tmpData;
     return next();
   } catch (err) {
     console.error('Error in CW getMetricsData By Functions', err);

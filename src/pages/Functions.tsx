@@ -84,7 +84,9 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
             <FnGraphCompare
               onFunctions={onFunctions}
               name={'Cost'}
+              width={'100%'}
               data={props.cost}
+              unit={'$'}
             />
           </FnGraphContainer>
           <FnGraphContainer>

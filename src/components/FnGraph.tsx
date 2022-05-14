@@ -17,6 +17,7 @@ interface FnGraphProps {
   name: string;
   width: string | number;
   height: string | number;
+  unit?: string;
 }
 
 const FnGraph = (props: FnGraphProps) => {
@@ -58,9 +59,10 @@ const FnGraph = (props: FnGraphProps) => {
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis dataKey="xkey" />
-            <YAxis dataKey="" />
+            <YAxis unit={props.unit} dataKey="" />
             <Tooltip />
             <Line
+              name="bob"
               type="monotone"
               dataKey={'value'}
               stroke={'#613659'}

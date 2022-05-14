@@ -13,7 +13,15 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const FuncGraphCompare = (props: any) => {
+interface FnGraphCompareProps {
+  onFunctions: Record<string, string>;
+  name: string;
+  width: string | number;
+  data: any[];
+  unit?: string;
+}
+
+const FuncGraphCompare = (props: FnGraphCompareProps) => {
   const lines = [];
   for (const func in props.onFunctions) {
     lines.push(
@@ -64,7 +72,7 @@ const FuncGraphCompare = (props: any) => {
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis dataKey="xkey" />
-            <YAxis dataKey="" />
+            <YAxis dataKey="" unit={props.unit} />
             <Tooltip />
             {lines}
           </LineChart>

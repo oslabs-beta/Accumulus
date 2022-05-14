@@ -9,6 +9,7 @@ const lambdaController: any = {};
 interface LambdaFunctionResponse {
   name: string;
   description: string;
+  architectures: string[];
   size: number;
   memoryAllocated: number;
   ephemeral: object;
@@ -41,6 +42,7 @@ lambdaController.getFunctions = (
             const formattedResponse: LambdaFunctionResponse = {
               name: data.Functions[i].FunctionName!,
               description: data.Functions[i].Description!,
+              architectures: data.Functions[i].Architectures!,
               size: data.Functions[i].CodeSize!, // (in bytes)
               memoryAllocated: data.Functions[i].MemorySize!, // (in MB)
               ephemeral: data.Functions[i].EphemeralStorage!, // (in MB)
