@@ -191,7 +191,7 @@ export const GraphContainer = styled.section`
     height: 500px;
     color: #419e41;
     transition: height 0s;
-  };
+  }
   /* &:hover {
     box-shadow: 3px 3px 7px #828282;
     transition: box-shadow 0.5s ease;
@@ -216,7 +216,6 @@ export const GraphContainered = styled.section`
     transition: box-shadow 0.5s ease;
   }
 `;
-
 
 // grid-column: ${props => props.gridColumn};
 // grid-row: ${(props: Props) => props.gridRow};
@@ -305,6 +304,27 @@ const Footer = styled.footer`
   padding: 0.25rem;
 `; */
 
+// Error table
+
+export const ErrorTableTable = styled.table`
+  width: 100%;
+  background: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  color: black;
+`;
+
+export const ErrorTableRow = styled.tr`
+  &:nth-child(2n) {
+    background: red;
+  }
+`;
+export const ErrorTableCell = styled.td`
+  padding: 10px, 10px
+  overflow: hidden;
+`;
+
 //--------------------FUNCTIONS & ALLOCATIONS-------------------------
 
 export const FnGrid = styled.div`
@@ -331,7 +351,6 @@ export const FnGraphContainer = styled.section`
   box-shadow: 2px 2px 2px #d8d8d8;
 `;
 
-
 export const SelectContainer = styled.div`
   display: flex;
   align-items: center;
@@ -340,21 +359,21 @@ export const SelectContainer = styled.div`
   width: 77%;
   border-radius: 0.6rem;
   cursor: pointer;
-  `;
-  
-  export const FnSideBar = styled.div`
-    padding-top: 200px;
-    display: flex;
-    flex-direction: column;
-    background: #ab71b9;
-    grid-area: fnbar;
-    padding: 0.25rem;
-  `;
-  
-  export const Scroll = styled.div`
-    overflow: scroll;
-    height: 100vh;
-  `;
+`;
+
+export const FnSideBar = styled.div`
+  padding-top: 200px;
+  display: flex;
+  flex-direction: column;
+  background: #ab71b9;
+  grid-area: fnbar;
+  padding: 0.25rem;
+`;
+
+export const Scroll = styled.div`
+  overflow: scroll;
+  height: 100vh;
+`;
 
 export const FnSelectButton = styled.button`
   border: 1px solid white;
@@ -380,14 +399,13 @@ export const MainNav = styled.ul`
   margin-top: 20px;
   align-items: center;
   list-style: none;
-  
+
   li:nth-last-child(2) {
     align-items: flex-end;
     justify-content: flex-end;
     margin-top: 620%;
   }
 
- 
   li:last-child {
     margin-top: auto;
     margin-bottom: 30px;
@@ -413,4 +431,3 @@ export const SideAct = styled.div`
   color: white;
   /* margin-top: auto; */
 `;
-
