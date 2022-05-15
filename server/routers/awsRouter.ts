@@ -7,6 +7,7 @@ import logController from '../controllers/aws/logController';
 import stepController from '../controllers/aws/stepFuncs/stepController';
 import cookieController from '../controllers/cookieController';
 import analysisController from '../controllers/aws/analysisController';
+import * as cacheController from '../controllers/aws/cacheController';
 // import * as types from '../types';
 
 const router = express.Router();
