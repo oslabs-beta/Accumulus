@@ -8,6 +8,7 @@ import {
   FnGraphContainer,
   FnGrid,
   Scroll,
+  FnSideBarWrapper
 } from '../styles';
 
 type Props = {
@@ -34,17 +35,16 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
     <>
       <FnGrid>
         <SideBarDiv>
-          {/* <Sidebar setCurrentView={props.setCurrentView} /> */}
+          <FnSideBarWrapper>
           <FnSelector
             funcNames={props.funcNames}
             onFunctions={onFunctions}
             setOnFunctions={setOnFunctions}
           />
           <TimeButtons setTimePeriod={props.setTimePeriod} />
-          {props.timePeriod}
+          {/* {props.timePeriod} */}
+          </FnSideBarWrapper> 
         </SideBarDiv>
-        {/* <FnSideBar>
-        </FnSideBar> */}
         <Scroll>
           <FnGraphContainer>
             <FnGraphCompare

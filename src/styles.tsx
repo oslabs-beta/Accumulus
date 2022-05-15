@@ -11,7 +11,7 @@ export const MainGrid = styled.div`
   display: grid;
   height: 100vh;
   grid-template-columns: 1fr;
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 80px 1fr;
   grid-template-areas:
     'nav'
     'pages';
@@ -25,16 +25,40 @@ export const MainGrid = styled.div`
 export const Nav = styled.div`
   display: flex;
   flex-direction: row;
-  background: #f2dfc1;
+  background: transparent;
+  border-bottom: 1px solid #dfdfdf;
+  /* background-image: linear-gradient(
+    to right,
+    rgb(208, 177, 228),
+  
+    rgb(198, 145, 200),
+    rgb(219, 149, 195)
+  ); */
+
+  /* rgb(219, 149, 195) */
   grid-area: nav;
 `;
 
 export const SideBarDiv = styled.div`
   margin-top: 4px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f2dfc1;
+  background: transparent;
+  border-right: 1px solid #dfdfdf;
+  /* background-image: linear-gradient(
+    to bottom,
+    rgb(255, 123, 106),
+    rgb(233, 143, 91),
+    rgb(255, 236, 160)
+  ); */
+  /* background-image: linear-gradient(
+    to bottom,
+    rgb(208, 177, 228),
+    rgb(198, 145, 200),
+    rgb(219, 149, 195)
+  ); */
   grid-area: sidebar;
   /* padding: 0.25rem; */
 `;
@@ -42,11 +66,6 @@ export const Pages = styled.div`
   grid-area: pages;
 `;
 
-export const HeaderLabel = styled.h1`
-  font-family: 'Roboto, sans-serif';
-  font-weight: '300';
-  color: '#232323';
-`;
 
 export const StartedButton = styled.button`
   position: fixed;
@@ -203,28 +222,16 @@ export const ErrorMessage = styled.section`
 
 //------------------DASHBOARD-----------------------------
 export const DashboardWrapper = styled.section`
-  margin-left: 12%;
+  /* margin-left: 12%; */
 `;
 
 export const GraphContainer = styled.section`
-  /* background: #fcfbf7; */
-  background: #f1eddc;
-
-  /* padding: 0.25rem; */
+  /* background: #fcf1ff; */
+  background: #d3b6e0;
   padding-top: 10px;
-  width: 100%;
-  height: 350px;
+  /* width: 100%; */
+  height: 250px;
   box-shadow: 2px 2px 2px #d8d8d8;
-  transition: height 0s 10000s;
-  &:focus {
-    height: 500px;
-    color: #419e41;
-    transition: height 0s;
-  };
-  /* &:hover {
-    box-shadow: 3px 3px 7px #828282;
-    transition: box-shadow 0.5s ease;
-  } */
 `;
 export const GraphContainered = styled.section`
   background: #eae6f0;
@@ -245,7 +252,7 @@ export const GraphContainered = styled.section`
 
 export const DashboardGrid = styled.div`
   display: grid;
-  height: 100vh;
+  /* height: 66vh; */
   grid-template-columns: 100px 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
@@ -259,17 +266,6 @@ export const DashboardGrid = styled.div`
   margin: 0px;
   /* margin-top: 5px; */
 `;
-// export const Header = styled.nav`
-//   display: flex;
-//   align-items: center;
-//   background: white;
-//   color: #232323;
-//   grid-area: nav;
-//   padding: 0.25rem;
-//   font-family: 'Roboto', sans-serif;
-//   font-size: 38px;
-//   /* padding: 20px; */
-// `;
 
 
 export const Row1GraphBox = styled.div`
@@ -277,8 +273,8 @@ export const Row1GraphBox = styled.div`
   grid-template-columns: 1fr 2fr;
   gap: 8px;
   padding-left: 5px;
-  padding-top: 2px;
-  align-items: center;
+  padding-top: 5px;
+  /* align-items: center; */
   grid-area: content;
   justify-content: center;
 `;
@@ -287,9 +283,9 @@ export const Row2GraphBox = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 8px;
-  /* padding-top: 10px; */
+  padding-top: 5px;
   padding-left: 5px;
-  align-items: center;
+  /* align-items: center; */
   grid-area: content1;
   justify-content: center;
 `;
@@ -299,22 +295,27 @@ export const EvenDashGraphBox = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
   padding-left: 5px;
-  align-items: center;
+  padding-top: 5px;
+  /* align-items: center; */
   grid-area: content2;
-  justify-content: center;
+  /* justify-content: center; */
 `;
 
+export const DashSideWrapper = styled.div`
+  margin-top: 5px;
+  margin-bottom: 0;
+  color: black;
+`;
 
 //--------------------FUNCTIONS & ALLOCATIONS-------------------------
 
 export const FnGrid = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-columns: 150px 1fr;
-  /* grid-template-rows: 0.02fr 0.75fr 0.75fr 0.1fr; */
+  grid-template-columns: 100px 1fr;
+  /* grid-template-rows: 0.02fr 0.5fr 0.75fr 0.1fr; */
   grid-template-areas:
     'sidebar graph';
-  /* text-align: center; */
   grid-gap: 10px;
   transition: all 0.25s ease-in-out;
   color: white;
@@ -322,7 +323,7 @@ export const FnGrid = styled.div`
 `;
 
 export const FnGraphContainer = styled.section`
-  background: #f1eddc;
+  background: #d3b6e0;
   /* padding: 0.25rem; */
   margin-top: 10px;
   /* margin-right: 10px; */
@@ -342,14 +343,6 @@ export const FnGraphContainer = styled.section`
 //   cursor: pointer;
 //   `;
   
-  export const FnSideBar = styled.div`
-    padding-top: 200px;
-    display: flex;
-    flex-direction: column;
-    background: #ab71b9;
-    grid-area: fnbar;
-    padding: 0.25rem;
-  `;
   
   export const Scroll = styled.div`
     overflow: scroll;
@@ -358,21 +351,60 @@ export const FnGraphContainer = styled.section`
 
 export const FnSelectButton = styled.button`
   border: none;
-  height: 50px;
-  width: 120px;
+  height: 40px;
+  width: 80px;
+  font-family: 'open sans', sans-serif; 
+  font-size: 16;
+  font-weight: 500;
   border-radius: 5px;
-  background-color: white;
+  /* border: 1px solid #9b4ac6; */
+  background-color: #a674c1;
+  color: white;
   margin: 5px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  &:hover {
+    background: #9b4ac6;
+    overflow: visible;
+  }
 `;
 // HOVER??? HOW
+export const FnSideBarWrapper = styled.div`
+  margin-top: 5px;
+  color: #000000;
+  /* font-family: 'Fira Sans', sans-serif;  */
 
-export const ContainerLabel = styled.div`
-  /* margin-left: 1.7rem;
-  font-size: 0.9rem;
-  color: colors.$navText; */
 `;
 
-//--------------------SIDEBAR-------------------------
+//------------------MEMORY-----------------------
+export const MemoryGrid = styled.div`
+  display: grid;
+  /* width: auto; */
+  height:auto;
+  grid-template-columns: 100px 1fr;
+  /* grid-template-rows: 1fr 1fr; */
+  /* grid-template-rows: 0.02fr 0.5fr 0.75fr 0.1fr; */
+  grid-template-areas:
+    'sidebar graph'
+    'sidebar reduction';
+  grid-gap: 10px;
+  /* align-items: start; */
+  transition: all 0.25s ease-in-out;
+  color: white;
+  /* margin: 0px; */
+`;
+
+export const MemoryReductionContainer = styled.ul`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: flex-start; */
+  list-style: none;
+  height: 300px;
+  grid-area: reduction;
+`;
+
+//--------------------NAV-------------------------
 export const MainNav = styled.ul`
   flex: 1;
   display: flex;
@@ -389,16 +421,21 @@ export const MainNav = styled.ul`
 
   li {
     margin-right: 20px;
+    /* font-family: 'Roboto'; */
+    color: #552a63;
   }
-
+  
   li:nth-child(1) {
     margin-left: 2px;
     font-size: 30px;
   }
 
   li:nth-child(2) {
+    font-family: 'Montserrat Alternates';
+    color: #a674c1;
     margin-left: 10px;
     font-size: 55px;
+    font-weight: 500;
   }
 
   li:nth-last-child(3) {
@@ -412,24 +449,48 @@ export const MainNav = styled.ul`
   }
 `;
 export const BasicBtn = styled.button`
-  height: 50px;
+  height: 45px;
   width: 140px;
-  /* margin: 0.5rem; */
-  /* border-radius: 5px; */
-  /* padding: 12px 26px; */
+  margin: 0.5rem;
+  margin-bottom: 2px;
   font-size: 20px;
+  /* font-family: 'Open Sans', sans-serif; */
+  font-weight: 500;
   outline: none;
-  background: #ffffff;
+  /* background: #ffffff; */
+  background: transparent;
   color: #000000;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  &:hover {
+    background: transparent;
+    border: 1px solid #9b4ac6;
+    color: #9b4ac6;
+    /* box-shadow: 2px 2px 2px #eeeeee; */
+  }
 `;
+
+export const LogoutBtn = styled.button`
+  height: 50px;
+  width: 140px;
+  font-size: 18px;
+  font-weight: 500;
+  outline: none;
+  background: #9d67ab;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  /* font-family: 'Fira Sans', sans-serif;  */
+  cursor: pointer;
+`;
+
 
 export const SideAct = styled.div`
   /* display: flex; */
   font-size: 20px;
-  color: white;
-  /* margin-top: auto; */
+  font-weight: 500;
+  color: #000000;
+  /* font-family: 'Fira Sans', sans-serif;  */
 `;
 

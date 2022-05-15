@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { FnSelectButton } from '../styles';
 interface Props {
   names: string[];
   onStacked: any[];
@@ -82,20 +82,19 @@ const AlloFunctionSelector = (props: any) => {
   const functionButtons = [];
   for (let i = 0; i < props.names.length; i++) {
     functionButtons.push(
-      <button
+      <FnSelectButton
         key={props.names[i]}
-        style={{ backgroundColor: 'white' }}
         id={props.names[i]}
         onClick={handleClick}
       >
         {props.names[i]}
-      </button>
+      </FnSelectButton>
     );
   }
 
   return (
     <>
-      <h3>Functions</h3>
+      <h3>Function</h3>
       <div>{functionButtons}</div>
     </>
   );

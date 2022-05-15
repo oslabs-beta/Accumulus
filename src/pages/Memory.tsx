@@ -5,10 +5,11 @@ import MemReduction from '../components/MemReduction';
 import Sidebar from '../components/Navbar';
 import {
   SideBarDiv,
-  DashboardGrid,
-  EvenDashGraphBox,
-  GraphContainer,
-  GraphContainered,
+  FnGrid,
+  MemoryGrid,
+  FnGraphContainer,
+  FnSideBarWrapper,
+  MemoryReductionContainer
 } from '../styles';
 
 type Props = {
@@ -67,30 +68,29 @@ const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
 
   return (
     <>
-      <DashboardGrid>
-        {/* <Header>Excess Memory</Header> */}
+      <MemoryGrid>
         <SideBarDiv>
-          <Sidebar setCurrentView={setCurrentView} />
+          <FnSideBarWrapper>
+          <AlloFunctionSelector
+            {...functions}
+            onStacked={onStacked}
+            setOnStacked={setOnStacked}
+            data={memUsedVsAllo}
+          />
+         </FnSideBarWrapper>
         </SideBarDiv>
-        <AlloFunctionSelector
-          {...functions}
-          onStacked={onStacked}
-          setOnStacked={setOnStacked}
-          data={memUsedVsAllo}
-        />
-        <EvenDashGraphBox>
-          <GraphContainered>
-            <StackedBarFnGraph
-              onStacked={onStacked}
-              name={'Excess Memory Allocated'}
-              width={'100%'}
-              height={300}
-            />
-          </GraphContainered>
-        </EvenDashGraphBox>
-        SOMETHING HERE
-        <MemReduction />
-      </DashboardGrid>
+        <FnGraphContainer>
+          <StackedBarFnGraph
+            onStacked={onStacked}
+            name={'Excess Memory Allocated'}
+            width={'100%'}
+            height={300}
+          />
+        </FnGraphContainer>
+        <MemoryReductionContainer>
+          <MemReduction />
+        </MemoryReductionContainer>
+      </MemoryGrid>
     </>
   );
 };

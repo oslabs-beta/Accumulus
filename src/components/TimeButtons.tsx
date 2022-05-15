@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FnSelectButton } from '../styles';
+import { FnSelectButton, BasicBtn } from '../styles';
 
 type Props = {
   setTimePeriod: Function;
@@ -30,6 +30,14 @@ const TimeButtons = ({setTimePeriod}: Props) =>{
       <FnSelectButton onClick={changeToHalfDay}>12 Hour</FnSelectButton>
       <FnSelectButton onClick={changeToFullDay}>24 Hour</FnSelectButton>
       <FnSelectButton onClick={changeToWeek}>1 week</FnSelectButton>
+      <h3>Regions</h3>
+      <FnSelectButton>US East (N. VA)</FnSelectButton>
+      <FnSelectButton>US East (Ohio)</FnSelectButton>
+      <FnSelectButton>GovCloud (US-East)</FnSelectButton>
+      <FnSelectButton>Canada (Central)</FnSelectButton>
+      <FnSelectButton>US West (N. CA)</FnSelectButton>
+      <FnSelectButton>US West (OR)</FnSelectButton>
+      <FnSelectButton>GovCloud (US-West)</FnSelectButton>
     </>
   )
 }

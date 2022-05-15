@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { FnSelectButton } from '../styles';
+import { FnSelectButton, FnSideBarWrapper } from '../styles';
 
 interface IFunctionSelector {
   funcNames: string[];
@@ -52,10 +52,10 @@ const FunctionSelector = (props: IFunctionSelector) => {
 
   return (
     <>
-      <h3 style={{ color: 'black' }}>Functions</h3>
-      {/* <SelectContainer> */}
+      {/* <FnSideBarWrapper> */}
+        <h3>Functions</h3>
         <div>{functionButtons}</div>
-      {/* </SelectContainer> */}
+      {/* </FnSideBarWrapper> */}
     </>
   );
 };

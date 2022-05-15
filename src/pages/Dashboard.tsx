@@ -11,7 +11,8 @@ import {
   DashboardGrid,
   Row1GraphBox,
   Row2GraphBox,
-  EvenDashGraphBox
+  EvenDashGraphBox,
+  DashSideWrapper
 } from '../styles';
 
 type Props = {
@@ -32,8 +33,10 @@ const Dashboard = (props: Props, {setCurrentView}: Props) => {
     <>
       <DashboardGrid>
         <SideBarDiv>
-          <TimeButtons setTimePeriod={props.setTimePeriod}/>
-          {props.timePeriod}
+          <DashSideWrapper>
+            <TimeButtons setTimePeriod={props.setTimePeriod}/>
+            {/* {props.timePeriod} */}
+          </DashSideWrapper>
         </SideBarDiv>
         <Row1GraphBox>
           <GraphContainer>
