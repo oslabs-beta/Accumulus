@@ -36,9 +36,11 @@ const FnGraph = (props: FnGraphProps) => {
         className="chart"
         style={{ width: props.width, height: props.height }}
       >
-        <ResponsiveContainer>
+        <ResponsiveContainer height={200}>
           <LineChart
             // @ts-ignore
+            // width={auto}
+            height={200}
             data={props.data}
             margin={{
               top: 10,
@@ -65,7 +67,7 @@ const FnGraph = (props: FnGraphProps) => {
               name="bob"
               type="monotone"
               dataKey={'value'}
-              stroke={'#613659'}
+              stroke={'#000000'}
               fillOpacity={1}
               fill="url(#colorUv)"
               activeDot={{ r: 6 }}

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/MemFnSelector';
 import MemReduction from '../components/MemReduction';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/Navbar';
 import {
-  DashSideBar,
-  DashboardGrid,
-  EvenDashGraphBox,
-  GraphContainer,
-  GraphContainered,
-  Header,
+  SideBarDiv,
+  FnGrid,
+  MemoryGrid,
+  FnGraphContainer,
+  FnSideBarWrapper,
+  MemoryReductionContainer
 } from '../styles';
 
 type Props = {
@@ -68,30 +68,29 @@ const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
 
   return (
     <>
-      <DashboardGrid>
-        <Header>Excess Memory</Header>
-        <DashSideBar>
-          <Sidebar setCurrentView={setCurrentView} />
-        </DashSideBar>
-        <AlloFunctionSelector
-          {...functions}
-          onStacked={onStacked}
-          setOnStacked={setOnStacked}
-          data={memUsedVsAllo}
-        />
-        <EvenDashGraphBox>
-          <GraphContainered>
-            <StackedBarFnGraph
-              onStacked={onStacked}
-              name={'Excess Memory Allocated'}
-              width={'100%'}
-              height={300}
-            />
-          </GraphContainered>
-        </EvenDashGraphBox>
-        SOMETHING HERE
-        <MemReduction />
-      </DashboardGrid>
+      <MemoryGrid>
+        <SideBarDiv>
+          <FnSideBarWrapper>
+          <AlloFunctionSelector
+            {...functions}
+            onStacked={onStacked}
+            setOnStacked={setOnStacked}
+            data={memUsedVsAllo}
+          />
+         </FnSideBarWrapper>
+        </SideBarDiv>
+        <FnGraphContainer>
+          <StackedBarFnGraph
+            onStacked={onStacked}
+            name={'Excess Memory Allocated'}
+            width={'100%'}
+            height={300}
+          />
+        </FnGraphContainer>
+        <MemoryReductionContainer>
+          <MemReduction />
+        </MemoryReductionContainer>
+      </MemoryGrid>
     </>
   );
 };

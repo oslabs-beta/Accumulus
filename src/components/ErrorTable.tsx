@@ -7,6 +7,37 @@ interface ErrorTableProps {
   data: any[];
 }
 
+interface LogInfo {
+  funcName: string;
+  id: string | number;
+  date: string;
+  message: string;
+}
+
+//MOVE TO STYLES PAGE ONCE DONE
+const Table = styled.table`
+  width: 100%;
+  background: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  color: black;
+`;
+// how do I get it to scroll for overflow?
+// overflow: scroll;
+
+const TableHead = styled.th``;
+
+const Row = styled.tr`
+  &:nth-child(2n) {
+    background: red;
+  }
+`;
+const Cell = styled.td`
+  padding: 10px, 10px;
+  overflow: hidden;
+`;
+
 //WHEN FETECHING, REMEMBER TO ADD props:ErrorProps
 const ErrorTable = (props: ErrorTableProps) => {
   //create result array with modified data (may need to move into backend)
