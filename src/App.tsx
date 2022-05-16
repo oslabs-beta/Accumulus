@@ -11,6 +11,8 @@ import { MainGrid, Nav, Pages } from './styles';
 import Sidebar from './components/Navbar';
 import TimeButtons from './components/TimeButtons';
 import * as fetchHelper from './fetchHelper';
+import { DataProvider } from '../context/dataContext';
+
 
 const App = () => {
   const [start, setStart] = useState(false);
@@ -81,6 +83,7 @@ const App = () => {
   // }, [funcNames, invocations]);
 
   return (
+    <DataProvider>
     <HashRouter>
       <div>
         <GlobalStyle />
@@ -178,6 +181,7 @@ const App = () => {
         )}
       </div>
     </HashRouter>
+    </DataProvider>
   );
 };
 
