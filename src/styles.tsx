@@ -307,6 +307,27 @@ export const DashSideWrapper = styled.div`
   color: black;
 `;
 
+// Error table
+
+export const ErrorTableTable = styled.table`
+  width: 100%;
+  background: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  color: black;
+`;
+
+export const ErrorTableRow = styled.tr`
+  &:nth-child(2n) {
+    background: red;
+  }
+`;
+export const ErrorTableCell = styled.td`
+  padding: 10px, 10px;
+  overflow: hidden;
+`;
+
 //--------------------FUNCTIONS & ALLOCATIONS-------------------------
 
 export const FnGrid = styled.div`
@@ -343,11 +364,30 @@ export const FnGraphContainer = styled.section`
 //   cursor: pointer;
 //   `;
   
-  
-  export const Scroll = styled.div`
-    overflow: scroll;
-    height: 100vh;
-  `;
+
+export const SelectContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 7%;
+  margin-top: 3%;
+  width: 77%;
+  border-radius: 0.6rem;
+  cursor: pointer;
+`;
+
+export const FnSideBar = styled.div`
+  padding-top: 200px;
+  display: flex;
+  flex-direction: column;
+  background: #ab71b9;
+  grid-area: fnbar;
+  padding: 0.25rem;
+`;
+
+export const Scroll = styled.div`
+  overflow: scroll;
+  height: 100vh;
+`;
 
 export const FnSelectButton = styled.button`
   border: none;
@@ -493,4 +533,3 @@ export const SideAct = styled.div`
   color: #000000;
   /* font-family: 'Fira Sans', sans-serif;  */
 `;
-

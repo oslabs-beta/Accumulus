@@ -25,7 +25,7 @@ export const fetchMetricAllFunctions = async (
   timePeriod: string
 ) => {
   const fetchFuncNames = async (setFuncNames: Function) => {
-    const response = await fetch('/api/aws/lambda/', {
+    const response = await fetch('/api/aws/lambdaNames/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,22 +35,7 @@ export const fetchMetricAllFunctions = async (
       }),
     });
     const res = await response.json();
-    const names: string[] = [];
-    interface IFuncName {
-      name: string;
-      description: string;
-      size: number;
-      memoryAllocated: number;
-      ephemeral: {
-        Size: number;
-      };
-      timeout: number;
-      lastModified: string;
-    }
-    res.forEach((el: IFuncName) => {
-      names.push(el.name);
-    });
-    setFuncNames(names);
+    setFuncNames(res);
   };
 
   const fetchTotalInvocations = async (setTotalInvocations: Function) => {
@@ -88,18 +73,35 @@ export const fetchMetricAllFunctions = async (
   };
 
   const fetchTotalCost = async (setTotalCost: Function) => {
-    // const response = await fetch('api/aws/costTotalFunctions/30d', {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
-    // const res = await response.json();
-    // setTotalCost(res.data);
-    setTotalCost(allCostMock);
+    const response = await fetch(`/api/aws/costEachFunction/${timePeriod}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        region: 'us-east-2',
+      }),
+    });
+    const res = await response.json();
+    setTotalCost(res.series[0].data);
   };
 
-  const fetchErrorMessages = async (setErrorMsgs: Function) => {};
+  const fetchErrorMessages = async (setErrorMsgs: Function) => {
+    const response = await fetch(
+      `/api/aws/lambdaErrorLogsEachFunc/${timePeriod}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+        }),
+      }
+    );
+    const res = await response.json();
+    setErrorMsgs(res);
+  };
 
   const fetchMostErrors = async (setMostErroredFuncs: Function) => {
     const response = await fetch(
@@ -120,7 +122,7 @@ export const fetchMetricAllFunctions = async (
 
   const fetchSlowestFuncs = async (setSlowestFuncs: Function) => {
     const response = await fetch(
-      `/api/aws/rankFuncsByMetric/Duration/${timePeriod}/Average`,
+      `/api/aws/rankFuncsByMetric/Duration/${timePeriod}/Sum`,
       {
         method: 'POST',
         headers: {
@@ -136,7 +138,20 @@ export const fetchMetricAllFunctions = async (
   };
 
   const fetchMemUsedVsAllo = async (setMemUsedVsAllo: Function) => {
-    // IN THE FUTURE, FETCH FROM API
+    // const response = await fetch(
+    //   `/api/aws/memoryUsageDiff/1hr`, // ** Keep as 1hr - Any longer makes loading times extremely long **
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       region: 'us-east-2',
+    //     }),
+    //   }
+    // );
+    // const res = await response.json();
+    // setMemUsedVsAllo(res);
     setMemUsedVsAllo(memUsedVsAllo);
   };
 
@@ -150,7 +165,7 @@ export const fetchMetricAllFunctions = async (
   fetchMemUsedVsAllo(setMemUsedVsAllo);
 };
 
-export const fetchMetricByFunctions = async (
+export const fetchMetricEachFunctions = async (
   setInvocations: Function,
   setDuration: Function,
   setErrors: Function,
@@ -179,7 +194,7 @@ export const fetchMetricByFunctions = async (
 
   const fetchDurations = async (setDuration: Function) => {
     const response = await fetch(
-      `/api/aws/metricsEachFunc/Duration/${timePeriod}/Sum`,
+      `/api/aws/metricsEachFunc/Duration/${timePeriod}/Average`,
       {
         method: 'POST',
         headers: {
@@ -214,17 +229,53 @@ export const fetchMetricByFunctions = async (
   };
 
   const fetchMemUsage = async (setMemUsage: Function) => {
-    // IN THE FUTURE, FETCH FROM API
+    // const response = await fetch(
+    //   `/api/aws/memoryUsageEachLambda/${timePeriod}`,
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       region: 'us-east-2',
+    //     }),
+    //   }
+    // );
+    // const res = await response.json();
+    // console.log(res)
+    // setMemUsage(res.series[0].data);
     setMemUsage(memUsageMock);
   };
 
   const fetchCost = async (setCost: Function) => {
-    // IN THE FUTURE, FETCH FROM API
-    setCost(costMock);
+    const response = await fetch(`/api/aws/costEachFunction/${timePeriod}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        region: 'us-east-2',
+      }),
+    });
+    const res = await response.json();
+    setCost(res.series[0].data);
   };
 
   const fetchThrottles = async (setThrottles: Function) => {
-    setThrottles(throttlesMock);
+    const response = await fetch(
+      `/api/aws/metricsEachFunc/Throttles/${timePeriod}/Sum`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+        }),
+      }
+    );
+    const res = await response.json();
+    setThrottles(res.series[0].data);
   };
 
   fetchInvocations(setInvocations);

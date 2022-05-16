@@ -153,12 +153,10 @@ cwController.getMetricsEachLambda = async (
       for (let j = 0; j < tmpData.series[0].data.length; j++) {
         // Pushing value for given data point (data[j]) for given function (funcNames[i])
         // into existing data point on series[0], the first function listed
-        tmpData.series[0].data[j][funcNames[i]] =
-          tmpData.series[i].data[j][funcNames[i]];
+        tmpData.series[0].data[j][funcNames[i]] = tmpData.series[i].data[j][funcNames[i]];
       }
     }
-
-    res.locals.data = tmpData;
+    res.locals[graphMetricName] = tmpData;
     return next();
   } catch (err) {
     console.error('Error in CW getMetricsData By Functions', err);
@@ -220,7 +218,6 @@ cwController.rankFuncsByMetric = async (
       ranking: metricByFuncData.slice(1, 6),
       // functions: funcNames // ** Use if we need easy access to func names for graph axis
     };
-    // console.log('FINAL DATA: ', res.locals.functionRankings)
 
     return next();
   } catch (err) {

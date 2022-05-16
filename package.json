@@ -30,9 +30,7 @@
   "dependencies": {
     "@aws-sdk/client-cloudwatch": "^3.78.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.81.0",
-    "@aws-sdk/client-cost-explorer": "^3.82.0",
     "@aws-sdk/client-lambda": "^3.78.0",
-    "@aws-sdk/client-pricing": "^3.87.0",
     "@aws-sdk/client-sts": "^3.78.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
@@ -46,6 +44,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "ioredis": "^5.0.4",
     "moment": "^2.29.3",
     "mongoose": "^6.3.1",
     "postcss": "^8.4.12",
