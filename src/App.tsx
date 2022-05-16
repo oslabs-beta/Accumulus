@@ -42,7 +42,7 @@ const App = () => {
   //state to manage time metric when fetching data
   const [timePeriod, setTimePeriod] = useState('7d');
 
-  const [currentView, setCurrentView] = useState('dashboard');
+  const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
     if (start) {

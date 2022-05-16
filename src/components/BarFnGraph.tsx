@@ -2,8 +2,6 @@ import * as React from 'react';
 import moment from 'moment';
 import { dummyData } from '../../Data/byFunc/dummyData';
 
-
-
 import {
   BarChart,
   Bar,
