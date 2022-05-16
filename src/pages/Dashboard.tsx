@@ -12,10 +12,7 @@ import {
   Row1GraphBox,
   Row2GraphBox,
   EvenDashGraphBox,
-<<<<<<< HEAD
   DashSideWrapper
-=======
->>>>>>> mergeBranch
 } from '../styles';
 
 type Props = {
