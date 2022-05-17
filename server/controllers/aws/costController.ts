@@ -83,6 +83,7 @@ costController.calcCostEachLambda = async (
     costData[i].value = total;
   }
   res.locals.costData = cost;
+  res.locals.toBeCached = res.locals.costData
   // console.log(res.locals.lambdaFunctions);
   // console.log(res.locals.Invocations);
   // console.log(res.locals.Duration);

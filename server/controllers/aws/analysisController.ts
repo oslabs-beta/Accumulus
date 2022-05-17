@@ -37,6 +37,7 @@ analysisController.calcMetrics = async (
 		)
 		
 		res.locals.data = vals
+		// res.locals.toBeCached = res.locals.data
 	
 		return next();
 	} catch (err) {
@@ -118,6 +119,7 @@ analysisController.calcMemoryUsage = async (
 			}
 		}
 		res.locals.data = formattedOutput;
+		res.locals.toBeCached = res.locals.data;
 	
 		return next();
 	} catch (err) {
@@ -191,6 +193,7 @@ analysisController.calcLambdaMemoryDiff = async (
 		}
 		
 		res.locals.data = summarizedData;
+		res.locals.toBeCached = res.locals.data
 	
 		return next();
 	} catch (err) {

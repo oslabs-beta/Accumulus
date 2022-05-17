@@ -8,7 +8,7 @@ import Functions from './pages/Functions';
 import Memory from './pages/Memory';
 import styled from 'styled-components';
 import { MainGrid, Nav, Pages } from './styles';
-import Sidebar from './components/Navbar';
+import Navbar from './components/Navbar';
 import TimeButtons from './components/TimeButtons';
 import * as fetchHelper from './fetchHelper';
 
@@ -44,11 +44,39 @@ const App = () => {
 
 
   //state to manage resync of data -------REMEMBER TO PASS THE SYNCDATA DOWN --------------
-  const [syncData, setSyncData] = useState(false);
+  const [syncData, setSyncData] = useState(true);
 
   const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
+    if (start && syncData) {
+      console.log('running fetch Metric ALL Functions');
+      fetchHelper.fetchMetricAllFunctions(
+        setFuncNames,
+        setTotalInvocations,
+        setTotalErrors,
+        setTotalCost,
+        setSlowestFuncs,
+        setErrorMsgs,
+        setMostErroredFuncs,
+        setMemUsedVsAllo,
+        timePeriod,
+      );
+      console.log('running fetch Metric BY Functions');
+      fetchHelper.fetchMetricEachFunctions(
+        setInvocations,
+        setDuration,
+        setErrors,
+        setMemUsage,
+        setCost,
+        setThrottles,
+        timePeriod,
+      );
+      setSyncData(false)
+    }
+  }, [start, timePeriod, syncData]);
+
+   useEffect(() => {
     if (start) {
       console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
@@ -72,8 +100,9 @@ const App = () => {
         setThrottles,
         timePeriod,
       );
+      setSyncData(false)
     }
-  }, [start, timePeriod, syncData]);
+  }, [start, timePeriod]);
 
   // useEffect(() => {
   //   console.log(funcNames);
@@ -118,7 +147,10 @@ const App = () => {
                 {/* DASHBOARD ROUTE */}
                 <MainGrid>
                   <Nav>
-                    <Sidebar setCurrentView={setCurrentView}/>
+                    <Navbar 
+                      setCurrentView={setCurrentView}
+                      setSyncData={setSyncData}
+                    />
                   </Nav>
                   <Pages>
                     <Route

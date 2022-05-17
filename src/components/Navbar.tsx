@@ -31,6 +31,7 @@ const BrainIconDefinition: IconDefinition = findIconDefinition(BrainLookup);
 
 type Props = {
   setCurrentView: Function;
+  setSyncData: Function;
 };
 
 const Sidebar = (props: Props) => {
@@ -53,6 +54,12 @@ const Sidebar = (props: Props) => {
     props.setCurrentView('memory');
     history.push('/memory');
   };
+
+  //Button to trigger fetching of data from AWS Cloudwatch
+  const syncBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('sync button clicked')
+    props.setSyncData(true);
+  }
 
   const logOutHandler = async () => {
     console.log('log out clicked!');
@@ -78,6 +85,7 @@ const Sidebar = (props: Props) => {
         <li><BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn></li>
         <li><BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn></li>
         <li><BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn></li>
+        <li><button onClick={syncBtnHandler}>Sync</button></li>
         <li><SideAct>Welcome, Christian</SideAct></li>
         <li><LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn></li>
         <li><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></li>
