@@ -150,6 +150,7 @@ const App = () => {
                     <Navbar 
                       setCurrentView={setCurrentView}
                       setSyncData={setSyncData}
+                      setStart={setStart}
                     />
                   </Nav>
                   <Pages>
