@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import FnGraphCompare from '../components/FnGraphCompare';
 import FnSelector from '../components/FnSelector';
 import TimeButtons from '../components/TimeButtons';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/Navbar';
 import {
-  DashSideBar,
+  SideBarDiv,
   FnGraphContainer,
-  FnSideBar,
   FnGrid,
   Scroll,
+  FnSideBarWrapper
 } from '../styles';
 
 type Props = {
@@ -34,18 +34,17 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
   return (
     <>
       <FnGrid>
-        <DashSideBar>
-          <Sidebar setCurrentView={props.setCurrentView} />
-        </DashSideBar>
-        <FnSideBar>
+        <SideBarDiv>
+          <FnSideBarWrapper>
           <FnSelector
             funcNames={props.funcNames}
             onFunctions={onFunctions}
             setOnFunctions={setOnFunctions}
           />
           <TimeButtons setTimePeriod={props.setTimePeriod} />
-          {props.timePeriod}
-        </FnSideBar>
+          {/* {props.timePeriod} */}
+          </FnSideBarWrapper> 
+        </SideBarDiv>
         <Scroll>
           <FnGraphContainer>
             <FnGraphCompare
@@ -71,20 +70,13 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
               data={props.errors}
             />
           </FnGraphContainer>
-
-          <FnGraphContainer>
-            <FnGraphCompare
-              onFunctions={onFunctions}
-              name={'Memory Usage'}
-              width={'100%'}
-              data={props.memUsage}
-            />
-          </FnGraphContainer>
           <FnGraphContainer>
             <FnGraphCompare
               onFunctions={onFunctions}
               name={'Cost'}
+              width={'100%'}
               data={props.cost}
+              unit={'$'}
             />
           </FnGraphContainer>
           <FnGraphContainer>

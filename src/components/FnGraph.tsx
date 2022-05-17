@@ -17,6 +17,7 @@ interface FnGraphProps {
   name: string;
   width: string | number;
   height: string | number;
+  unit?: string;
 }
 
 const FnGraph = (props: FnGraphProps) => {
@@ -35,9 +36,11 @@ const FnGraph = (props: FnGraphProps) => {
         className="chart"
         style={{ width: props.width, height: props.height }}
       >
-        <ResponsiveContainer>
+        <ResponsiveContainer height={200}>
           <LineChart
             // @ts-ignore
+            // width={auto}
+            height={200}
             data={props.data}
             margin={{
               top: 10,
@@ -58,12 +61,13 @@ const FnGraph = (props: FnGraphProps) => {
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis dataKey="xkey" />
-            <YAxis dataKey="" />
+            <YAxis unit={props.unit} dataKey="" />
             <Tooltip />
             <Line
+              name="bob"
               type="monotone"
               dataKey={'value'}
-              stroke={'#613659'}
+              stroke={'#000000'}
               fillOpacity={1}
               fill="url(#colorUv)"
               activeDot={{ r: 6 }}

@@ -27,11 +27,11 @@ const MemReduction = () => {
 
   for (let i = 0; i < memRatioOrdered.length; i++) {
     eligibleFuncs.push(
-      <p style={{ color: 'black' }} key={`${memRatioOrdered[i]}`}>
+      <li style={{ color: 'black' }} key={`${memRatioOrdered[i]}`}>
         Function {memRatioOrdered[i][0]} qualifies for lower memory allocation.
         <br />
         There is {memRatioOrdered[i][1]}% of free memory space.
-      </p>
+      </li>
     );
   }
 
