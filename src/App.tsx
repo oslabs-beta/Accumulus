@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, FC } from 'react';
 import GlobalStyle from './globals';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Splash from './pages/Splash';
@@ -11,8 +11,12 @@ import { MainGrid, Nav, Pages } from './styles';
 import Navbar from './components/Navbar';
 import TimeButtons from './components/TimeButtons';
 import * as fetchHelper from './fetchHelper';
+import { DataProvider } from '../context/dataContext';
+import { UserProvider } from '../context/userContext';
+
 
 const App = () => {
+
   const [start, setStart] = useState(false);
   const [userRegion, setUserRegion] = useState('');
 
@@ -105,12 +109,9 @@ const App = () => {
     }
   }, [start, timePeriod]);
 
-  // useEffect(() => {
-  //   console.log(funcNames);
-  //   console.log(invocations);
-  // }, [funcNames, invocations]);
-
   return (
+    <DataProvider>
+    <UserProvider>
     <HashRouter>
       <div>
         <GlobalStyle />
@@ -135,15 +136,6 @@ const App = () => {
                     />
                   )}
                 />
-                {/* <Route 
-                  exact
-                  path="/register"
-                  render={(props) => (
-                    <Register
-                    setCurrentView={setCurrentView}
-                    setUserData={setUserData}/>
-                  )}
-                /> */}
 
                 {/* DASHBOARD ROUTE */}
                 <MainGrid>
@@ -205,6 +197,7 @@ const App = () => {
                         />
                       )}
                     />
+    
                   </Pages>
                 </MainGrid>
               </Switch>
@@ -213,6 +206,8 @@ const App = () => {
         )}
       </div>
     </HashRouter>
+    </UserProvider>
+    </DataProvider>
   );
 };
 

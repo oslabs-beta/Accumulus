@@ -21,6 +21,6 @@
     "incremental": true,
     "noEmit": false
   },
-  "include": ["./server", "./src"],
+  "include": ["./server", "./src", "context/@types"],
   "exclude": ["node_modules", "./src/__tests__", "./dist"]
 }
