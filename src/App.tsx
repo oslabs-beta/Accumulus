@@ -17,16 +17,6 @@ import { UserProvider } from '../context/userContext';
 
 const App = () => {
 
-  //testing global context
- 
-  // const [globalName, setGlobalName ] = useState('mark test');
-
-  // const val: FC = useMemo(
-  //   ()=>({globalName, setGlobalName}),
-  //   [globalName]
-  // )
-
-
   const [start, setStart] = useState(false);
   const [userRegion, setUserRegion] = useState('');
 
