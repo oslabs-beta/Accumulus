@@ -65,7 +65,13 @@ const Register = (props: any) => {
     });
     console.log(register);
 
+    const response = await register.json();
+    const arn = response.arn;
+    const externalId = response.externalId;
+    const region = response.region;
+
     if (register.status === 200) {
+      props.setUserRegion(region);
       console.log('redirecting...');
       props.setStart(true);
       props.setCurrentView('dashboard');

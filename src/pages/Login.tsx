@@ -131,6 +131,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
             setLoginOrRegister={setLoginOrRegister}
             setCurrentView={setCurrentView}
             setStart={setStart}
+            setUserRegion={setUserRegion}
           />
         )}
       </LogInWrapper>
