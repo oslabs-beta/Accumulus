@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BasicBtn, LogoutBtn, SideAct, MainNav } from '../styles';
@@ -35,6 +36,8 @@ type Props = {
 };
 
 const Sidebar = (props: Props) => {
+  const { name } = useContext(UserContext)
+
   let history = useHistory();
 
   const dashBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,6 +81,8 @@ const Sidebar = (props: Props) => {
     history.push('/login');
   };
 
+  
+
   return (
     <>
       <MainNav>
@@ -85,57 +90,14 @@ const Sidebar = (props: Props) => {
           <FontAwesomeIcon icon={BrainIconDefinition} size="2x" />
         </li>
         <li>Accumulus</li>
-        <li>
-          <BasicBtn
-            onClick={dashBtnHandler}
-            style={{
-              borderBottom:
-                props.currentView === 'dashboard'
-                  ? '1px solid black'
-                  : 'transparent',
-            }}
-          >
-            Dashboard
-          </BasicBtn>
-        </li>
-        <li>
-          <BasicBtn
-            onClick={funcBtnHandler}
-            style={{
-              borderBottom:
-                props.currentView === 'functions'
-                  ? '1px solid black'
-                  : 'transparent',
-            }}
-          >
-            Functions
-          </BasicBtn>
-        </li>
-        <li>
-          <BasicBtn
-            onClick={alloBtnHandler}
-            style={{
-              borderBottom:
-                props.currentView === 'memory'
-                  ? '1px solid black'
-                  : 'transparent',
-            }}
-          >
-            Memory
-          </BasicBtn>
-        </li>
-        <li>
-          <button onClick={syncBtnHandler}>Sync</button>
-        </li>
-        <li>
-          <SideAct>Welcome, Christian</SideAct>
-        </li>
-        <li>
-          <LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn>
-        </li>
-        <li>
-          <FontAwesomeIcon icon={gearIconDefinition} size="2x" />
-        </li>
+        <li><BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn></li>
+        <li><BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn></li>
+        <li><BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn></li>
+        <li><button onClick={syncBtnHandler}>Sync</button></li>
+        <li><SideAct>Welcome</SideAct>{`${name}`}</li>
+        <li><LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn></li>
+        <li><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></li>
+       
       </MainNav>
     </>
   );

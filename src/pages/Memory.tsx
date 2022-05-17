@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/MemFnSelector';
 import MemReduction from '../components/MemReduction';
@@ -19,6 +19,9 @@ type Props = {
 
 const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
   const [onStacked, setOnStacked] = useState([{ name: 'Select a function' }]);
+
+
+
 
   /*
 

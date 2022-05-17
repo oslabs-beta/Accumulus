@@ -47,6 +47,7 @@ userController.verifyUser = async (req, res, next) => {
         // Correct password
         console.log('userController.verifyUser correct password YAY!!');
         res.locals.confirmation = {
+          name: user.name,
           success: true,
           arn: user.arn,
           externalId: user.externalId,
