@@ -37,6 +37,7 @@ lambdaController.getFunctions = (
       .then((data) => {
         if (typeof data.Functions === 'object') {
           res.locals.funcNames = data.Functions.map((el) => el.FunctionName);
+          res.locals.toBeCached = res.locals.funcNames;
           let funcData = [];
           for (let i = 0; i < data.Functions.length; i++) {
             const formattedResponse: LambdaFunctionResponse = {

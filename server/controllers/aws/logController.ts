@@ -38,6 +38,7 @@ logController.getLambdaLogsByFunc = async (
 
 		const logs = await logController.getLambdaLogsGeneric(cwClient, funcName, logGroupName, StartTime, periodSelection)
 		res.locals.logs = logs;
+		res.locals.toBeCached = res.locals.logs
 
 		return next()
 	} catch (error) {
@@ -348,6 +349,7 @@ logController.getLambdaErrorsEachFunc = async (
 		}
 
 		res.locals.logs = errorLogs;
+		res.locals.toBeCached = res.locals.logs;
 		return next();
 
 	} catch (err) {

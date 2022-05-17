@@ -62,8 +62,8 @@ cwController.getMetricsTotalLambda = async (
         graphUnits,
       },
     };
-
     res.locals.data = metricAllFuncOutput;
+    res.locals.toBeCached = res.locals.data
     return next();
   } catch (err) {
     console.log(
@@ -157,6 +157,7 @@ cwController.getMetricsEachLambda = async (
       }
     }
     res.locals[graphMetricName] = tmpData;
+    res.locals.toBeCached = res.locals[graphMetricName]
     return next();
   } catch (err) {
     console.error('Error in CW getMetricsData By Functions', err);
@@ -218,6 +219,7 @@ cwController.rankFuncsByMetric = async (
       ranking: metricByFuncData.slice(1, 6),
       // functions: funcNames // ** Use if we need easy access to func names for graph axis
     };
+    res.locals.toBeCached = res.locals.functionRankings
 
     return next();
   } catch (err) {
