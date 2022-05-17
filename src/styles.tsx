@@ -4,12 +4,12 @@ import myTheme from './globals';
 
 // PALETTE
 // DARK GREY: #232323
-// LIGHT LILAC: #eae6f0
+// LIGHT LILAC: #d3b6e0
 
 //---------------------EVERY WHERE ----
 export const MainGrid = styled.div`
   display: grid;
-  height: 100vh;
+  // height: 100vh;
   grid-template-columns: 1fr;
   grid-template-rows: 80px 1fr;
   grid-template-areas:
@@ -18,6 +18,7 @@ export const MainGrid = styled.div`
   text-align: center;
   /* grid-gap: 0.25rem; */
   transition: all 0.25s ease-in-out;
+  // color: #141414;
   color: white;
   margin: 0px;
 `;
@@ -26,7 +27,8 @@ export const Nav = styled.div`
   display: flex;
   flex-direction: row;
   background: transparent;
-  border-bottom: 1px solid #dfdfdf;
+  // background: #444444;
+  // border-bottom: 1px solid #dfdfdf;
   /* background-image: linear-gradient(
     to right,
     rgb(208, 177, 228),
@@ -41,11 +43,13 @@ export const Nav = styled.div`
 
 export const SideBarDiv = styled.div`
   margin-top: 4px;
+  // padding-top: 15px;
   height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: transparent;
+  // background: #444444;
   border-right: 1px solid #dfdfdf;
   /* background-image: linear-gradient(
     to bottom,
@@ -227,16 +231,17 @@ export const DashboardWrapper = styled.section`
 
 export const GraphContainer = styled.section`
   /* background: #fcf1ff; */
-  background: #d3b6e0;
+  background: #ededed;
   padding-top: 10px;
   /* width: 100%; */
-  height: 250px;
+  height: 275px;
   box-shadow: 2px 2px 2px #d8d8d8;
 `;
 export const GraphContainered = styled.section`
   background: #eae6f0;
+  // background: #ededed;
   /* padding: 0.25rem; */
-  margin-bottom: 400px;
+  // margin-bottom: 400px;
   margin-right: 200px;
   margin-left: 300px;
   width: 1600px;
@@ -252,10 +257,11 @@ export const GraphContainered = styled.section`
 
 export const DashboardGrid = styled.div`
   display: grid;
-  /* height: 66vh; */
+  height: auto;
   grid-template-columns: 100px 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 2rem 1fr 1fr 1fr;
   grid-template-areas:
+    'sidebar selector'
     'sidebar content'
     'sidebar content1'
     'sidebar content2';
@@ -265,6 +271,21 @@ export const DashboardGrid = styled.div`
   color: white;
   margin: 0px;
   /* margin-top: 5px; */
+`;
+
+export const SelectorBox = styled.div`
+  padding-left: 5px;
+  padding-top: 5px;
+  grid-area: selector;
+  justify-content: center;
+`;
+
+export const PeriodSelect = styled.div`
+  float: left;
+`;
+
+export const RegionSelect = styled.div`
+  float: right
 `;
 
 
@@ -292,7 +313,7 @@ export const Row2GraphBox = styled.div`
 
 export const EvenDashGraphBox = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 8px;
   padding-left: 5px;
   padding-top: 5px;
@@ -302,29 +323,48 @@ export const EvenDashGraphBox = styled.div`
 `;
 
 export const DashSideWrapper = styled.div`
-  margin-top: 5px;
+  // margin-top: 5px;
   margin-bottom: 0;
   color: black;
 `;
 
 // Error table
 
+export const ErrorTableDiv = styled.div`
+  overflow: auto;
+  height: 82%;
+  width: 98%;
+  margin: 10px;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    background: black;
+  }
+`;
+
 export const ErrorTableTable = styled.table`
   width: 100%;
-  background: white;
-  border: 1px solid black;
+  background: transparent;
   box-sizing: border-box;
   border-collapse: collapse;
   color: black;
+
 `;
 
 export const ErrorTableRow = styled.tr`
   &:nth-child(2n) {
-    background: red;
+    // background: #e8e8e8;
   }
 `;
 export const ErrorTableCell = styled.td`
-  padding: 10px, 10px;
+  padding: 10px;
   overflow: hidden;
 `;
 
@@ -332,7 +372,7 @@ export const ErrorTableCell = styled.td`
 
 export const FnGrid = styled.div`
   display: grid;
-  height: 100vh;
+  height: auto;
   grid-template-columns: 100px 1fr;
   /* grid-template-rows: 0.02fr 0.5fr 0.75fr 0.1fr; */
   grid-template-areas:
@@ -344,7 +384,7 @@ export const FnGrid = styled.div`
 `;
 
 export const FnGraphContainer = styled.section`
-  background: #d3b6e0;
+  background: #ededed;
   /* padding: 0.25rem; */
   margin-top: 10px;
   /* margin-right: 10px; */
@@ -463,8 +503,9 @@ export const MainNav = styled.ul`
     margin-right: 20px;
     /* font-family: 'Roboto'; */
     color: #552a63;
+    // color: #efefef;
   }
-  
+
   li:nth-child(1) {
     margin-left: 2px;
     font-size: 30px;
@@ -473,6 +514,7 @@ export const MainNav = styled.ul`
   li:nth-child(2) {
     font-family: 'Montserrat Alternates';
     color: #a674c1;
+    // color: #efefef;
     margin-left: 10px;
     font-size: 55px;
     font-weight: 500;
@@ -500,14 +542,17 @@ export const BasicBtn = styled.button`
   /* background: #ffffff; */
   background: transparent;
   color: #000000;
+  // color: #efefef;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   &:hover {
     background: transparent;
-    border: 1px solid #9b4ac6;
+    border-bottom: 1px solid #9b4ac6;
     color: #9b4ac6;
     /* box-shadow: 2px 2px 2px #eeeeee; */
+  }
+  & selected {
+    border-bottom: 1px solid #efefef;
   }
 `;
 
@@ -531,5 +576,6 @@ export const SideAct = styled.div`
   font-size: 20px;
   font-weight: 500;
   color: #000000;
+  // color: #efefef;
   /* font-family: 'Fira Sans', sans-serif;  */
 `;

@@ -42,14 +42,13 @@ const App = () => {
   //state to manage time metric when fetching data
   const [timePeriod, setTimePeriod] = useState('7d');
 
-
   //state to manage resync of data -------REMEMBER TO PASS THE SYNCDATA DOWN --------------
-  const [syncData, setSyncData] = useState(true);
+  const [syncData, setSyncData] = useState(false);
 
   const [currentView, setCurrentView] = useState('splash');
 
   useEffect(() => {
-    if (start && syncData) {
+    if (syncData) {
       console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
@@ -61,6 +60,7 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
+        syncData
       );
       console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
@@ -71,12 +71,13 @@ const App = () => {
         setCost,
         setThrottles,
         timePeriod,
+        syncData
       );
-      setSyncData(false)
+      setSyncData(false);
     }
-  }, [start, timePeriod, syncData]);
+  }, [timePeriod, syncData, userRegion]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (start) {
       console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
@@ -100,7 +101,7 @@ const App = () => {
         setThrottles,
         timePeriod,
       );
-      setSyncData(false)
+      setSyncData(false);
     }
   }, [start, timePeriod]);
 
@@ -147,7 +148,8 @@ const App = () => {
                 {/* DASHBOARD ROUTE */}
                 <MainGrid>
                   <Nav>
-                    <Navbar 
+                    <Navbar
+                      currentView={currentView}
                       setCurrentView={setCurrentView}
                       setSyncData={setSyncData}
                       setStart={setStart}

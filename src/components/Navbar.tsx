@@ -28,6 +28,7 @@ const BrainIconDefinition: IconDefinition = findIconDefinition(BrainLookup);
 // coffeeIconDefinition
 
 type Props = {
+  currentView: string;
   setCurrentView: Function;
   setSyncData: Function;
   setStart: Function;
@@ -85,13 +86,43 @@ const Sidebar = (props: Props) => {
         </li>
         <li>Accumulus</li>
         <li>
-          <BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn>
+          <BasicBtn
+            onClick={dashBtnHandler}
+            style={{
+              borderBottom:
+                props.currentView === 'dashboard'
+                  ? '1px solid black'
+                  : 'transparent',
+            }}
+          >
+            Dashboard
+          </BasicBtn>
         </li>
         <li>
-          <BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn>
+          <BasicBtn
+            onClick={funcBtnHandler}
+            style={{
+              borderBottom:
+                props.currentView === 'functions'
+                  ? '1px solid black'
+                  : 'transparent',
+            }}
+          >
+            Functions
+          </BasicBtn>
         </li>
         <li>
-          <BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn>
+          <BasicBtn
+            onClick={alloBtnHandler}
+            style={{
+              borderBottom:
+                props.currentView === 'memory'
+                  ? '1px solid black'
+                  : 'transparent',
+            }}
+          >
+            Memory
+          </BasicBtn>
         </li>
         <li>
           <button onClick={syncBtnHandler}>Sync</button>
