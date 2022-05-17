@@ -12,7 +12,10 @@ import {
   Row1GraphBox,
   Row2GraphBox,
   EvenDashGraphBox,
-  DashSideWrapper
+  DashSideWrapper,
+  SelectorBox,
+  RegionSelect,
+  PeriodSelect,
 } from '../styles';
 
 type Props = {
@@ -33,17 +36,24 @@ const Dashboard = (props: Props, { setCurrentView }: Props) => {
       <DashboardGrid>
         <SideBarDiv>
           <DashSideWrapper>
-            <TimeButtons setTimePeriod={props.setTimePeriod}/>
+            <TimeButtons setTimePeriod={props.setTimePeriod} />
             {/* {props.timePeriod} */}
           </DashSideWrapper>
         </SideBarDiv>
+        <SelectorBox>
+          <RegionSelect>
+            <select>
+              <option value="us-east-1">Ohio (US-East-1)</option>
+            </select>
+          </RegionSelect>
+        </SelectorBox>
         <Row1GraphBox>
           <GraphContainer>
             <FnGraph
               data={props.totalInvocations}
               name={'Total Invocations'}
               width={'100%'}
-              height={300}
+              height={350}
             />
           </GraphContainer>
           <GraphContainer>
@@ -51,7 +61,7 @@ const Dashboard = (props: Props, { setCurrentView }: Props) => {
               data={props.totalErrors}
               name={'Total Errors'}
               width={'100%'}
-              height={300}
+              height={350}
             />
           </GraphContainer>
         </Row1GraphBox>
@@ -61,7 +71,7 @@ const Dashboard = (props: Props, { setCurrentView }: Props) => {
               data={props.totalCost}
               name={'Total Cost'}
               width={'100%'}
-              height={300}
+              height={350}
             />
           </GraphContainer>
           <GraphContainer>
@@ -69,7 +79,7 @@ const Dashboard = (props: Props, { setCurrentView }: Props) => {
               data={props.slowestFuncs}
               name={'Slowest Functions'}
               width={'100%'}
-              height={300}
+              height={350}
             />
           </GraphContainer>
         </Row2GraphBox>
@@ -95,7 +105,7 @@ const Dashboard = (props: Props, { setCurrentView }: Props) => {
               data={props.mostErroredFuncs}
               name={'Most Errored Functions'}
               width={'100%'}
-              height={300}
+              height={350}
             />
           </GraphContainer>
         </EvenDashGraphBox>

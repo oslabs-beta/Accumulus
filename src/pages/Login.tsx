@@ -49,7 +49,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
       password: passLog,
     });
 
-    const register = await fetch('http://localhost:3000/api/user/login', {
+    const register = await fetch('/api/user/login', {
       headers: {
         'Content-Type': 'application/json',
       },

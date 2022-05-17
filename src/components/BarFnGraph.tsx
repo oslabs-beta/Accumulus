@@ -25,10 +25,6 @@ interface BarFnGraphProps {
 }
 
 const BarFuncGraph = (props: BarFnGraphProps) => {
-  const bars: any[] = [];
-  props.data.map((el) => {
-    bars.push(<Bar type="monotone" dataKey="value" fill="#8884d8" />);
-  });
 
   return (
     <>

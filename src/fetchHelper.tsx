@@ -22,7 +22,8 @@ export const fetchMetricAllFunctions = async (
   setErrorMsgs: Function,
   setMostErroredFuncs: Function,
   setMemUsedVsAllo: Function,
-  timePeriod: string
+  timePeriod: string,
+  syncData: boolean = false,
 ) => {
   const fetchFuncNames = async (setFuncNames: Function) => {
     const response = await fetch('/api/aws/lambdaNames/', {
@@ -32,7 +33,7 @@ export const fetchMetricAllFunctions = async (
       },
       body: JSON.stringify({
         region: 'us-east-2',
-        
+        sync: syncData,
       }),
     });
     const res = await response.json();
@@ -49,6 +50,7 @@ export const fetchMetricAllFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
@@ -66,6 +68,7 @@ export const fetchMetricAllFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
@@ -81,6 +84,7 @@ export const fetchMetricAllFunctions = async (
       },
       body: JSON.stringify({
         region: 'us-east-2',
+        sync: syncData,
       }),
     });
     const res = await response.json();
@@ -97,6 +101,7 @@ export const fetchMetricAllFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
@@ -114,6 +119,7 @@ export const fetchMetricAllFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
@@ -131,6 +137,7 @@ export const fetchMetricAllFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
@@ -173,7 +180,8 @@ export const fetchMetricEachFunctions = async (
   setMemUsage: Function,
   setCost: Function,
   setThrottles: Function,
-  timePeriod: string
+  timePeriod: string,
+  syncData: boolean = false
 ) => {
   const fetchInvocations = async (setInvocations: Function) => {
     const response = await fetch(
@@ -185,6 +193,7 @@ export const fetchMetricEachFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
@@ -203,6 +212,7 @@ export const fetchMetricEachFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
@@ -221,31 +231,13 @@ export const fetchMetricEachFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
     const res = await response.json();
     setErrors(res.series[0].data);
     // setErrors(errorsMock);
-  };
-
-  const fetchMemUsage = async (setMemUsage: Function) => {
-    // const response = await fetch(
-    //   `/api/aws/memoryUsageEachLambda/${timePeriod}`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       region: 'us-east-2',
-    //     }),
-    //   }
-    // );
-    // const res = await response.json();
-    // console.log(res)
-    // setMemUsage(res.series[0].data);
-    setMemUsage(memUsageMock);
   };
 
   const fetchCost = async (setCost: Function) => {
@@ -256,6 +248,7 @@ export const fetchMetricEachFunctions = async (
       },
       body: JSON.stringify({
         region: 'us-east-2',
+        sync: syncData,
       }),
     });
     const res = await response.json();
@@ -272,6 +265,7 @@ export const fetchMetricEachFunctions = async (
         },
         body: JSON.stringify({
           region: 'us-east-2',
+          sync: syncData,
         }),
       }
     );
@@ -282,7 +276,6 @@ export const fetchMetricEachFunctions = async (
   fetchInvocations(setInvocations);
   fetchDurations(setDuration);
   fetchErrors(setErrors);
-  fetchMemUsage(setMemUsage);
   fetchCost(setCost);
   fetchThrottles(setThrottles);
 };
