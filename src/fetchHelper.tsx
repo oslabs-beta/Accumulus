@@ -32,6 +32,7 @@ export const fetchMetricAllFunctions = async (
       },
       body: JSON.stringify({
         region: 'us-east-2',
+        
       }),
     });
     const res = await response.json();
