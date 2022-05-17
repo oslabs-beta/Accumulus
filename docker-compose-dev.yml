@@ -1,7 +1,7 @@
 version: "3"
 services:
   dev:
-    image: "070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-webpack:latest"
+    image: "070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-redis:latest"
     container_name: "accumulus-production"
     ports: 
       - "8080:8080"

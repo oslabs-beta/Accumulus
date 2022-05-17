@@ -11,7 +11,8 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     port: 8080,
-
+    hot: true,
+    historyApiFallback: true,
     static: {
       directory: path.resolve(__dirname, '/src'),
       publicPath: '/',

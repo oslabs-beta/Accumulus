@@ -1,7 +1,10 @@
 FROM node:16.13
 WORKDIR /usr/src/app
 COPY . /usr/src/app
-WORKDIR /usr/src/app/dist
 RUN npm install
+RUN ["npm", "run", "compile-prod"]
+RUN ["npm", "run", "build-dev"]
+WORKDIR /usr/src/app/dist/
+EXPOSE 8080
 EXPOSE 3000
-CMD ["node", "./server/server.js"]
+CMD ["npm", "run", "dev:hot"]

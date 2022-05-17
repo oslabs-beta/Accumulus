@@ -1,6 +1,6 @@
 import express, { Response, Request, NextFunction } from 'express';
 const router = express.Router();
-import userController from '../controllers/userController.js';
+import userController from '../controllers/userController';
 import cookieController from '../controllers/cookieController';
 
 

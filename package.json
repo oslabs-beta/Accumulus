@@ -24,7 +24,7 @@
     "push-docker-app": "aws ecr get-login-password --region us-east-2 --profile accumulus | docker login --username AWS --password-stdin 070809985305.dkr.ecr.us-east-2.amazonaws.com & docker build -f app.Dockerfile -t accumulus-app . & docker tag accumulus-backend:latest 070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-frontend:latest & docker push 070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-app:latest",
     "build": "webpack --config ./webpack.config.cjs",
     "production": "NODE_ENV=development nodemon ./server/server.js & webpack-dev-server --open --hot",
-    "dev:hot": "NODE_ENV=development nodemon --es-module-specifier-resolution=node ./dist/server/server.js & webpack-dev-server --open --hot --mode development",
+    "dev:hot": "NODE_ENV=development nodemon --es-module-specifier-resolution=node ./dist/server/server.js & webpack-dev-server --open --mode development",
     "docker-dev:hot": "docker-compose -f docker-compose-dev.yml up"
   },
   "keywords": [],
@@ -54,7 +54,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "ioredis": "^5.0.4",
+    "ioredis": "^5.0.5",
     "moment": "^2.29.3",
     "mongoose": "^6.3.1",
     "postcss": "^8.4.12",
