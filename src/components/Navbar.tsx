@@ -93,6 +93,7 @@ const Sidebar = (props: Props) => {
         <li><BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn></li>
         <li><BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn></li>
         <li><BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn></li>
+        <li><button onClick={syncBtnHandler}>Sync</button></li>
         <li><SideAct>Welcome</SideAct>{`${name}`}</li>
         <li><LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn></li>
         <li><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></li>
