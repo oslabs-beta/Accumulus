@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, FC } from 'react';
 import GlobalStyle from './globals';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Splash from './pages/Splash';
@@ -12,9 +12,21 @@ import Sidebar from './components/Navbar';
 import TimeButtons from './components/TimeButtons';
 import * as fetchHelper from './fetchHelper';
 import { DataProvider } from '../context/dataContext';
+import { UserProvider } from '../context/userContext';
 
 
 const App = () => {
+
+  //testing global context
+ 
+  // const [globalName, setGlobalName ] = useState('mark test');
+
+  // const val: FC = useMemo(
+  //   ()=>({globalName, setGlobalName}),
+  //   [globalName]
+  // )
+
+
   const [start, setStart] = useState(false);
   const [userRegion, setUserRegion] = useState('');
 
@@ -79,6 +91,7 @@ const App = () => {
 
   return (
     <DataProvider>
+    <UserProvider>
     <HashRouter>
       <div>
         <GlobalStyle />
@@ -159,6 +172,7 @@ const App = () => {
                         />
                       )}
                     />
+    
                   </Pages>
                 </MainGrid>
               </Switch>
@@ -167,6 +181,7 @@ const App = () => {
         )}
       </div>
     </HashRouter>
+    </UserProvider>
     </DataProvider>
   );
 };

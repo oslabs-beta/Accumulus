@@ -1,42 +1,50 @@
-import React, { useState, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 
-interface IUserData {
-  arn: string;
-  externalId: string;
-  region: string;
-}
+// interface IUserData {
+//   name?: string,
+//   email?: string,
+//   arn?: string;
+//   externalId?: string;
+//   region?: string;
+// }
 
 interface IUserContext {
-  user: IUserData;
-  setUser?: (arg: IUserData) => void;
+  name?: string;
+  setName?: () => void;
+  storeName: Function;
+  email?: string;
+  setEmail?: () => void;
+  storeEmail: Function;
 }
 
-const defaultUser: IUserContext = {
-  user: {
-    arn: 'default',
-    externalId: 'default',
-    region: 'default',
-  },
+const defaultUser = {
+  name: 'defaultUser',
+  storeName: () => {},
+  email: 'defaultEmail',
+  storeEmail: () => {},
 };
 
-const UserContext = React.createContext<IUserContext>(defaultUser);
+export const UserContext = React.createContext<IUserContext>(defaultUser);
 
 interface Props {
   children: React.ReactNode;
 }
 
-export const UserWrapper = ({ children }: Props) => {
-  const [user, setUser] = useState(defaultUser.user);
+export const UserProvider = ({ children }: Props) => {
+  const [name, setName] = useState(defaultUser.name);
+  const [email, setEmail] = useState(defaultUser.email);
 
   // const confirmedUser = (arg: any): any => setUser(user);
-  const storeDetails = (arg: IUserData) => {
-    setUser(arg);
-    console.log(`Data inside setUser: ${user}`);
+  const storeName = (val: string) => {
+    setName(val);
+  };
+  const storeEmail = (val: string) => {
+    setEmail(val);
   };
 
   return (
     <>
-      <UserContext.Provider value={{ user, setUser }}>
+      <UserContext.Provider value={{ name, storeName, email, storeEmail }}>
         {children}
       </UserContext.Provider>
     </>
@@ -46,3 +54,5 @@ export const UserWrapper = ({ children }: Props) => {
 export function useUserContext() {
   return React.useContext(UserContext);
 }
+
+

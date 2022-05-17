@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 import { useHistory } from 'react-router-dom';
 import {
   LogInButton,
@@ -20,6 +21,10 @@ type FormData = {
 };
 
 const Register = (props: any) => {
+  const { name, storeName } = useContext(UserContext)
+  //console.log(name);
+
+
   const {
     register,
     setValue,
@@ -44,6 +49,8 @@ const Register = (props: any) => {
 
   const onSubmit = async (data: FormData) => {
     console.log('register button clicked');
+
+    storeName(nameReg);
 
     const body = JSON.stringify({
       name: nameReg,

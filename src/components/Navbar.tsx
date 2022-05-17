@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BasicBtn, LogoutBtn, SideAct, MainNav } from '../styles';
@@ -34,6 +35,8 @@ type Props = {
 };
 
 const Sidebar = (props: Props) => {
+  const { name } = useContext(UserContext)
+
   let history = useHistory();
 
   const dashBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -70,6 +73,8 @@ const Sidebar = (props: Props) => {
     history.push('/login');
   };
 
+  
+
   return (
     <>
       <MainNav>
@@ -78,7 +83,7 @@ const Sidebar = (props: Props) => {
         <li><BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn></li>
         <li><BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn></li>
         <li><BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn></li>
-        <li><SideAct>Welcome, Christian</SideAct></li>
+        <li><SideAct>Welcome</SideAct>{`${name}`}</li>
         <li><LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn></li>
         <li><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></li>
       </MainNav>

@@ -36,7 +36,10 @@ export type DataContextState = {
   email?: string,
   password?: string,
 
-  changeView?: function,
+  //testing global name
+  globalName?: string,
+  setGlobalName?: function,
+  
 
 }
 

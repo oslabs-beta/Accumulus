@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { DataContext } from '../../context/dataContext';
+import { UserContext } from '../../context/userContext';
 import { filterProps } from 'recharts/types/util/types';
 import FnGraph from '../components/FnGraph';
 import BarFnGraph from '../components/BarFnGraph';
@@ -29,11 +30,10 @@ type Props = {
 };
 
 const Dashboard = (props: Props, { setCurrentView }: Props) => {
-  const { funcNames, changeView, currentView, userRegion } = useContext(DataContext);
-  console.log(funcNames)
-  console.log(userRegion)
-  console.log(currentView)
-  console.log(changeView('splash'))
+  const { name, storeName, email, storeEmail } = useContext(UserContext)
+  //console.log(name);
+  //console.log(email);
+
 
 
   return (

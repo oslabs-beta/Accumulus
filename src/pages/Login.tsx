@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Register from './Register';
+import { UserContext } from '../../context/userContext';
 import { useHistory } from 'react-router-dom';
 import {
   LogInWrapper,
@@ -27,6 +28,8 @@ type Props = {
 };
 
 const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
+  const { name, storeName, email, storeEmail } = useContext(UserContext);
+  
   const {
     register,
     setValue,
@@ -44,6 +47,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
   let history = useHistory();
 
   const onSubmit = async (data: FormData) => {
+
     const body = JSON.stringify({
       email: emailLog,
       password: passLog,
@@ -62,8 +66,10 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     const arn = response.arn;
     const externalId = response.externalId;
     const region = response.region;
+    const name = response.name;
 
     if (response.success === true) {
+      storeName(name);
       setUserRegion({ region });
       console.log('redirecting...');
       setCurrentView('dashboard');

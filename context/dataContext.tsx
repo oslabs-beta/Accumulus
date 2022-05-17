@@ -1,4 +1,4 @@
-import React, { useState, FC, createContext, useContext, useReducer } from 'react';
+import React, { useMemo, useState, FC, createContext, useContext, useReducer } from 'react';
 import { DataContextState, DataProviderProps } from './@types/data';
 import { AppReducer } from './AppReducer';
 
@@ -38,8 +38,13 @@ const defaultState = {
   email: '',
   password: '',
 
-  changeView: ()=>{},
+  //testing global name
+  globalName: '',
+  setGlobalName: ()=>{},
+  
+
 }
+
 
 export const DataContext = createContext<DataContextState>(defaultState);
 
@@ -47,24 +52,31 @@ export const DataContext = createContext<DataContextState>(defaultState);
 export const DataProvider: FC<{children: any}> = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, defaultState);
 
-  // const [funcNames, setFuncNames] = useState<string[]>(contextDefaultValues.functionNames)
-
 //add actions here?
-function changeView(view: string){
-  dispatch({
-    type: 'CHANGE_VIEW',
-    payload: view
-  })
-}
+// function changeView(view: string){
+//   console.log('entered changeView')
+//   dispatch({
+//     type: 'CHANGE_VIEW',
+//     payload: view
+//   })
+// }
 
-  //const receivedData = (data: string)=> {};
+const [globalName, setGlobalName ] = useState('mark test');
+
+const val:any = useMemo(
+  ()=>({globalName, setGlobalName}),
+  [globalName]
+)
+
+
+ 
   return (
-    <DataContext.Provider value={{ 
-      funcNames: state.funcNames,
-      userRegion: state.userRegion,
-      currentView: state.currentView,
-      changeView
+    <DataContext.Provider 
+    value={{ 
+      globalName: state.globalName,
+      setGlobalName: state.setGlobalName,
      }}>
+    
       { children }
     </DataContext.Provider>
   );
