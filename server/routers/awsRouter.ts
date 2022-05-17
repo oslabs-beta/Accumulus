@@ -91,7 +91,7 @@ router.post(
   logController.getLambdaLogsByFunc,
   analysisController.calcMetrics,
   (req: Request, res: Response) => {
-    res.status(200).json(res.locals.logs);
+    res.status(200).json(res.locals.data);
   }
 );
 

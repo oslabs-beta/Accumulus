@@ -15,7 +15,17 @@
     "dev": "NODE_ENV=development webpack-dev-server --open & nodemon --es-module-specifier-resolution=node dist/server/server.js",
     "shep-build": "webpack --watch --mode development",
     "shep-dev": "NODE_ENV=development webpack server --open & nodemon server/server.js",
-    "chal-start": "nodemon ./server/server.ts & webpack-dev-server"
+    "chal-start": "nodemon ./server/server.ts & webpack-dev-server",
+    "start-docker-webpack": "NODE_ENV=production REACT_APP_DOMAIN_PROXY=https://www.accumulus.dev webpack serve",
+    "start-docker-app": "NODE_ENV=production DOMAIN_PROXY=https://www.accumulus.dev node --es-module-specifier-resolution=node ./dist/server/server.js",
+    "build-docker-webpack": "docker build -f webpack.Dockerfile . -t webpack",
+    "build-docker-app": "docker build -f app.Dockerfile . -t app",
+    "push-docker-webpack": "aws ecr get-login-password --region us-east-2 --profile accumulus | docker login --username AWS --password-stdin 070809985305.dkr.ecr.us-east-2.amazonaws.com & docker build -f webpack.Dockerfile -t accumulus-webpack . & docker tag accumulus-frontend:latest 070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-frontend:latest & docker push 070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-webpack:latest",
+    "push-docker-app": "aws ecr get-login-password --region us-east-2 --profile accumulus | docker login --username AWS --password-stdin 070809985305.dkr.ecr.us-east-2.amazonaws.com & docker build -f app.Dockerfile -t accumulus-app . & docker tag accumulus-backend:latest 070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-frontend:latest & docker push 070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-app:latest",
+    "build": "webpack --config ./webpack.config.cjs",
+    "production": "NODE_ENV=development nodemon ./server/server.js & webpack-dev-server --open --hot",
+    "dev:hot": "NODE_ENV=development nodemon --es-module-specifier-resolution=node ./dist/server/server.js & webpack-dev-server --open --hot --mode development",
+    "docker-dev:hot": "docker-compose -f docker-compose-dev.yml up"
   },
   "keywords": [],
   "license": "ISC",
@@ -56,7 +66,8 @@
     "sass": "^1.51.0",
     "styled-components": "^5.3.5",
     "uuid": "^8.3.2",
-    "webpack": "^5.72.0"
+    "webpack": "^5.72.0",
+    "webpack-hot-middleware": "^2.25.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

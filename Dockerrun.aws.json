@@ -1,0 +1,10 @@
+{
+  "AWSEBDockerrunVersion": "1",
+      "Image": {
+          "Name": "070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-production:<VERSION>",
+          "Update": "true"
+      },
+      "Ports": [{
+          "ContainerPort": "3000"
+      }]
+}

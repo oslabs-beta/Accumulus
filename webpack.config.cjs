@@ -9,13 +9,18 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({ template: '/src/index.html' })],
   devServer: {
+    host: '0.0.0.0',
+    port: 8080,
+
     static: {
       directory: path.resolve(__dirname, '/src'),
       publicPath: '/',
     },
     compress: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
       '/api/*': 'http://localhost:3000',
+      secure: false,
     },
   },
   module: {
