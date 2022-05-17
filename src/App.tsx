@@ -11,7 +11,6 @@ import { MainGrid, Nav, Pages } from './styles';
 import Navbar from './components/Navbar';
 import TimeButtons from './components/TimeButtons';
 import * as fetchHelper from './fetchHelper';
-import { DataProvider } from '../context/dataContext';
 import { UserProvider } from '../context/userContext';
 
 
@@ -110,7 +109,6 @@ const App = () => {
   }, [start, timePeriod]);
 
   return (
-    <DataProvider>
     <UserProvider>
     <HashRouter>
       <div>
@@ -207,7 +205,6 @@ const App = () => {
       </div>
     </HashRouter>
     </UserProvider>
-    </DataProvider>
   );
 };
 

@@ -1,13 +1,5 @@
 import React, { useState, useEffect, FC } from 'react';
 
-// interface IUserData {
-//   name?: string,
-//   email?: string,
-//   arn?: string;
-//   externalId?: string;
-//   region?: string;
-// }
-
 interface IUserContext {
   name?: string;
   setName?: () => void;
