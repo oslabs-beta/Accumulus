@@ -42,7 +42,6 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
             setOnFunctions={setOnFunctions}
           />
           <TimeButtons setTimePeriod={props.setTimePeriod} />
-          {/* {props.timePeriod} */}
           </FnSideBarWrapper> 
         </SideBarDiv>
         <Scroll>

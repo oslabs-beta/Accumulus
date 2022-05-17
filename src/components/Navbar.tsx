@@ -3,8 +3,8 @@ import { UserContext } from '../../context/userContext';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BasicBtn, LogoutBtn, SideAct, MainNav } from '../styles';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { fa-solid, fa-chart-line } from '@fortawesome/free-solid-svg-icons';
@@ -17,8 +17,8 @@ import {
 
 library.add(fas);
 
-const gearLookup: IconLookup = { prefix: 'fas', iconName: 'gear' }
-const gearIconDefinition: IconDefinition = findIconDefinition(gearLookup)
+const gearLookup: IconLookup = { prefix: 'fas', iconName: 'gear' };
+const gearIconDefinition: IconDefinition = findIconDefinition(gearLookup);
 
 const chartLookup: IconLookup = { prefix: 'fas', iconName: 'chart-line' };
 const chartIconDefinition: IconDefinition = findIconDefinition(chartLookup);
@@ -26,12 +26,13 @@ const chartIconDefinition: IconDefinition = findIconDefinition(chartLookup);
 const BrainLookup: IconLookup = { prefix: 'fas', iconName: 'brain' };
 const BrainIconDefinition: IconDefinition = findIconDefinition(BrainLookup);
 
-
-
 // coffeeIconDefinition
 
 type Props = {
+  currentView: string;
   setCurrentView: Function;
+  setSyncData: Function;
+  setStart: Function;
 };
 
 const Sidebar = (props: Props) => {
@@ -57,6 +58,12 @@ const Sidebar = (props: Props) => {
     history.push('/memory');
   };
 
+  //Button to trigger fetching of data from AWS Cloudwatch
+  const syncBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('sync button clicked');
+    props.setSyncData(true);
+  };
+
   const logOutHandler = async () => {
     console.log('log out clicked!');
     //post request to /signout
@@ -69,7 +76,8 @@ const Sidebar = (props: Props) => {
     });
     console.log(leaving);
 
-    // setCurrentView('login');
+    props.setCurrentView('login');
+    props.setStart(false);
     history.push('/login');
   };
 
@@ -78,7 +86,9 @@ const Sidebar = (props: Props) => {
   return (
     <>
       <MainNav>
-        <li><FontAwesomeIcon icon={BrainIconDefinition} size='2x'/></li>
+        <li>
+          <FontAwesomeIcon icon={BrainIconDefinition} size="2x" />
+        </li>
         <li>Accumulus</li>
         <li><BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn></li>
         <li><BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn></li>
@@ -86,6 +96,57 @@ const Sidebar = (props: Props) => {
         <li><SideAct>Welcome</SideAct>{`${name}`}</li>
         <li><LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn></li>
         <li><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></li>
+        <li>
+          <BasicBtn
+            onClick={dashBtnHandler}
+            style={{
+              borderBottom:
+                props.currentView === 'dashboard'
+                  ? '1px solid black'
+                  : 'transparent',
+            }}
+          >
+            Dashboard
+          </BasicBtn>
+        </li>
+        <li>
+          <BasicBtn
+            onClick={funcBtnHandler}
+            style={{
+              borderBottom:
+                props.currentView === 'functions'
+                  ? '1px solid black'
+                  : 'transparent',
+            }}
+          >
+            Functions
+          </BasicBtn>
+        </li>
+        <li>
+          <BasicBtn
+            onClick={alloBtnHandler}
+            style={{
+              borderBottom:
+                props.currentView === 'memory'
+                  ? '1px solid black'
+                  : 'transparent',
+            }}
+          >
+            Memory
+          </BasicBtn>
+        </li>
+        <li>
+          <button onClick={syncBtnHandler}>Sync</button>
+        </li>
+        <li>
+          <SideAct>Welcome, Christian</SideAct>
+        </li>
+        <li>
+          <LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn>
+        </li>
+        <li>
+          <FontAwesomeIcon icon={gearIconDefinition} size="2x" />
+        </li>
       </MainNav>
     </>
   );

@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { errorMessagesMock } from '.././../Data/byFunc/errorMessagesMock';
-import { ErrorTableTable, ErrorTableRow, ErrorTableCell } from '../styles';
+import {
+  ErrorTableTable,
+  ErrorTableRow,
+  ErrorTableCell,
+  ErrorTableDiv,
+} from '../styles';
 
 interface ErrorTableProps {
   data: any[];
@@ -42,17 +47,17 @@ const Cell = styled.td`
 const ErrorTable = (props: ErrorTableProps) => {
   //create result array with modified data (may need to move into backend)
   const dataArray: { [key: string]: string | number }[] = [];
-  props.data;
+
   //iterate through array of objects
-  for (let i = 0; i < props.data.length; i++) {
-    for (let j = 0; j < props.data[i]['logs'].length; j++) {
+  for (let i = 0; i < errorMessagesMock.length; i++) {
+    for (let j = 0; j < errorMessagesMock[i]['logs'].length; j++) {
       //take function, and then individual logs
       const logInfo: { [key: string]: string | number } = {};
-      logInfo['funcName'] = props.data[i]['function'];
+      logInfo['funcName'] = errorMessagesMock[i]['function'];
       //should ids be unique? think about how this would look? is it unique per function? should we due object literals?
-      logInfo['id'] = props.data[i]['logs'][j]['id'];
-      logInfo['date'] = props.data[i]['logs'][j]['date'];
-      logInfo['message'] = props.data[i]['logs'][j]['message'];
+      logInfo['id'] = errorMessagesMock[i]['logs'][j]['id'];
+      logInfo['date'] = errorMessagesMock[i]['logs'][j]['date'];
+      logInfo['message'] = errorMessagesMock[i]['logs'][j]['message'];
       dataArray.push(logInfo);
     }
   }
@@ -88,12 +93,7 @@ const ErrorTable = (props: ErrorTableProps) => {
       >
         Error Logs
       </h1>
-      <div
-        style={{
-          overflow: 'scroll',
-          height: '75%',
-        }}
-      >
+      <ErrorTableDiv>
         <ErrorTableTable>
           <thead>
             <tr>
@@ -105,7 +105,7 @@ const ErrorTable = (props: ErrorTableProps) => {
           </thead>
           <tbody>{errorDivs}</tbody>
         </ErrorTableTable>
-      </div>
+      </ErrorTableDiv>
     </>
   );
 };

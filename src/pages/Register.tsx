@@ -63,7 +63,7 @@ const Register = (props: any) => {
 
     console.log(body);
 
-    const register = await fetch('http://localhost:3000/api/user/signup', {
+    const register = await fetch('/api/user/signup', {
       headers: {
         'Content-Type': 'application/json',
       },
