@@ -1,5 +1,5 @@
 
-//type definitions for Context
+//type definitions for DataContext - not being used
 
 
 export type DataContextState = {

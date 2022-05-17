@@ -1,3 +1,5 @@
+// dataContext is not being used, but is here for a future iteration
+
 import React, { useMemo, useState, FC, createContext, useContext, useReducer } from 'react';
 import { DataContextState, DataProviderProps } from './@types/data';
 import { AppReducer } from './AppReducer';
@@ -27,7 +29,6 @@ const defaultState = {
   currentView: 'splash',
   metricType: 'Invocations',
   dataSum: 'Sum',
-
   //user state
   nameReg: '',
   emailReg: '',
@@ -37,56 +38,55 @@ const defaultState = {
   EXTERNAL_ID: '',
   email: '',
   password: '',
-
   //testing global name
   globalName: '',
   setGlobalName: ()=>{},
-  
-
 }
-
 
 export const DataContext = createContext<DataContextState>(defaultState);
 
+// export const DataProvider: FC<{children: any}> = ({ children }) => {
+//   const [state, dispatch] = useReducer(AppReducer, defaultState);
 
-export const DataProvider: FC<{children: any}> = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer, defaultState);
+//   //add actions here?
+//   // function changeView(view: string){
+//   //   console.log('entered changeView')
+//   //   dispatch({
+//   //     type: 'CHANGE_VIEW',
+//   //     payload: view
+//   //   })
+//   // }
 
-//add actions here?
-// function changeView(view: string){
-//   console.log('entered changeView')
-//   dispatch({
-//     type: 'CHANGE_VIEW',
-//     payload: view
-//   })
-// }
+//   const [globalName, setGlobalName ] = useState('mark test');
 
-const [globalName, setGlobalName ] = useState('mark test');
-
-const val:any = useMemo(
-  ()=>({globalName, setGlobalName}),
-  [globalName]
-)
-
-
+//   const val:any = useMemo(
+//     ()=>({globalName, setGlobalName}),
+//     [globalName]
+//   )
  
-  return (
-    <DataContext.Provider 
-    value={{ 
-      globalName: state.globalName,
-      setGlobalName: state.setGlobalName,
-     }}>
+//   return (
+//     <DataContext.Provider 
+//     value={{ 
+//       globalName: state.globalName,
+//       setGlobalName: state.setGlobalName,
+//      }}>
     
-      { children }
-    </DataContext.Provider>
-  );
-};
+//       { children }
+//     </DataContext.Provider>
+//   );
+// };
 
 
 
 
 
 
+
+
+
+
+
+//------------GRAVEYARD------
 
 
 // // interface IData {
