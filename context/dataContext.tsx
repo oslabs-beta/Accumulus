@@ -3,9 +3,9 @@ import { DataContextState, DataProviderProps } from './@types/data';
 import { AppReducer } from './AppReducer';
 
 const defaultState = {
-  funcNames: [],
+  funcNames: ['func1', 'func2', 'func3'],
   start: false, 
-  userRegoin: '',
+  userRegion: 'us-east-2',
   //dashboard- all funcs hooks
   totalInvocations: [],
   totalErrors: [],
@@ -25,10 +25,23 @@ const defaultState = {
   timePeriod: '7d',
   syncData: false, 
   currentView: 'splash',
+  metricType: 'Invocations',
+  dataSum: 'Sum',
 
+  //user state
+  nameReg: '',
+  emailReg: '',
+  passwordReg: '',
+  arnReg: '',
+  //userRegion is above
+  EXTERNAL_ID: '',
+  email: '',
+  password: '',
+
+  changeView: ()=>{},
 }
 
-export const DataContext = createContext({defaultState});
+export const DataContext = createContext<DataContextState>(defaultState);
 
 
 export const DataProvider: FC<{children: any}> = ({ children }) => {
@@ -36,9 +49,22 @@ export const DataProvider: FC<{children: any}> = ({ children }) => {
 
   // const [funcNames, setFuncNames] = useState<string[]>(contextDefaultValues.functionNames)
 
+//add actions here?
+function changeView(view: string){
+  dispatch({
+    type: 'CHANGE_VIEW',
+    payload: view
+  })
+}
+
   //const receivedData = (data: string)=> {};
   return (
-    <DataContext.Provider value={{ defaultState }}>
+    <DataContext.Provider value={{ 
+      funcNames: state.funcNames,
+      userRegion: state.userRegion,
+      currentView: state.currentView,
+      changeView
+     }}>
       { children }
     </DataContext.Provider>
   );

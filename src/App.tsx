@@ -77,11 +77,6 @@ const App = () => {
     }
   }, [start, timePeriod, syncData]);
 
-  // useEffect(() => {
-  //   console.log(funcNames);
-  //   console.log(invocations);
-  // }, [funcNames, invocations]);
-
   return (
     <DataProvider>
     <HashRouter>
@@ -108,15 +103,6 @@ const App = () => {
                     />
                   )}
                 />
-                {/* <Route 
-                  exact
-                  path="/register"
-                  render={(props) => (
-                    <Register
-                    setCurrentView={setCurrentView}
-                    setUserData={setUserData}/>
-                  )}
-                /> */}
 
                 {/* DASHBOARD ROUTE */}
                 <MainGrid>

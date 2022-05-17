@@ -4,24 +4,39 @@
 
 export type DataContextState = {
   funcNames?: string[];
-  start: boolean;
+  start?: boolean;
   userRegion?: string;
-  totalInvocations?: number[];
-  totalErrors?: number[];
-  totalCost?: number[];
-  slowestFuncs: string[],
-  mostErroredFuncs: string[],
-  errorMsgs: string[],
-  memUsedVsAllo: string[],
-  invocations: number[],
-  duration: number[],
-  errors: number[],
-  memUsage: number[],
-  cost: number[],
-  throttles: number[],
-  timePeriod: string,
-  syncData: boolean, 
-  currentView: string,
+  totalInvocations?: object[];
+  totalErrors?: object[];
+  totalCost?: object[];
+  slowestFuncs?: object[],
+  mostErroredFuncs?: object[],
+  errorMsgs?: object[],
+  memUsedVsAllo?: object[],
+  invocations?: object[],
+  duration?: object[],
+  errors?: object[],
+  memUsage?: object[],
+  cost?: object[],
+  throttles?: object[],
+  timePeriod?: string,
+  syncData?: boolean, 
+  currentView?: string,
+
+  metricType?: string,
+  dataSum?: string,
+
+  //user state
+  nameReg?: string,
+  emailReg?: string,
+  passwordReg?: string,
+  arnReg?: string,
+  //userRegion is above
+  EXTERNAL_ID?: string,
+  email?: string,
+  password?: string,
+
+  changeView?: function,
 
 }
 

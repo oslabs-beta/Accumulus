@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { DataContext } from '../../context/dataContext';
 import { filterProps } from 'recharts/types/util/types';
 import FnGraph from '../components/FnGraph';
 import BarFnGraph from '../components/BarFnGraph';
@@ -28,6 +29,13 @@ type Props = {
 };
 
 const Dashboard = (props: Props, { setCurrentView }: Props) => {
+  const { funcNames, changeView, currentView, userRegion } = useContext(DataContext);
+  console.log(funcNames)
+  console.log(userRegion)
+  console.log(currentView)
+  console.log(changeView('splash'))
+
+
   return (
     <>
       <DashboardGrid>
