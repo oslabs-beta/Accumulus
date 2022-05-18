@@ -38,7 +38,7 @@ const App = () => {
   const [invocations, setInvocations] = useState([]);
   const [duration, setDuration] = useState([]);
   const [errors, setErrors] = useState([]);
-  const [memUsage, setMemUsage] = useState([]);
+
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
@@ -72,7 +72,6 @@ const App = () => {
         setInvocations,
         setDuration,
         setErrors,
-        setMemUsage,
         setCost,
         setThrottles,
         timePeriod,
@@ -106,7 +105,6 @@ const App = () => {
         setInvocations,
         setDuration,
         setErrors,
-        setMemUsage,
         setCost,
         setThrottles,
         timePeriod,
@@ -189,7 +187,6 @@ const App = () => {
                           invocations={invocations}
                           duration={duration}
                           errors={errors}
-                          memUsage={memUsage}
                           cost={cost}
                           throttles={throttles}
                         />

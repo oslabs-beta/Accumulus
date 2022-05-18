@@ -17,7 +17,6 @@ type Props = {
   invocations: object[];
   duration: object[];
   errors: object[];
-  memUsage: object[];
   cost: object[];
   throttles: object[];
   timePeriod: string;
