@@ -234,7 +234,7 @@ export const SplashBody = styled.section`
     rgba(94, 193, 211, 0.904) 99%
   ); */
   width: 100vw;
-  height: 90vh;
+  height: 95vh;
   left: 0;
 `;
 export const H1 = styled.h1`
@@ -253,9 +253,10 @@ export const Text = styled.section`
 
 export const SplashFooter = styled.section`
   width: 100vw;
-  height: 10vh;
+  height: 5vh;
   padding-left: 20px;
-  padding-bottom: 100px;
+  padding-top: 10px;
+  /* padding-bottom: 100px; */
   bottom: 0;
   left: 0;
   background-color: #c1b2d8;

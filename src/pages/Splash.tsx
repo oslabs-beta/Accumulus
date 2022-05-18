@@ -1,6 +1,10 @@
 import { StopMetricStreamsOutput } from '@aws-sdk/client-cloudwatch';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import * as THREE from 'three';
+import { Canvas, useFrame } from '@react-three/fiber'
+
+
 import {
   SplashFooter,
   SplashLeft,
@@ -15,6 +19,8 @@ type Props = {
   setCurrentView: Function;
   setStart: Function;
 };
+
+
 
 const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
   let history = useHistory();
@@ -43,6 +49,29 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     }
   };
 
+
+
+  function Box(props: JSX.IntrinsicElements['mesh']) {
+    const mesh = useRef<THREE.Mesh>(null!)
+    const [hovered, setHover] = useState(false)
+    const [active, setActive] = useState(false)
+    useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
+    return (
+      <mesh
+        {...props}
+        ref={mesh}
+        scale={active ? 1.5 : 1}
+        onClick={(event) => setActive(!active)}
+        onPointerOver={(event) => setHover(true)}
+        onPointerOut={(event) => setHover(false)}>
+        <boxGeometry args={[1, 1, 2]} />
+        <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+      </mesh>
+    )
+  }
+
+
+
   return (
     <>
       <SplashBody>
@@ -53,6 +82,14 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
         </Text>
         {/* <Image src={'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftaberextrusions.com%2F2015-marks-six-consecutive-years-of-growth-for-domestic-aluminum-extrusion-market%2Fgraph-up%2F&psig=AOvVaw0okZ_YAp4_2R-S_JS9b6So&ust=1651841042994000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOC2pcixyPcCFQAAAAAdAAAAABAD'} alt={'Image of Graph'}></Image> */}
         <StartedButton onClick={startHandler}>Get Started</StartedButton>
+        <Canvas>
+          {/* <ambientLight /> */}
+          <ambientLight intensity={0.5} />
+          {/* <directionalLight position={[0, 0, 5]} /> */}
+          <pointLight position={[10, 10, 10]} />
+          <Box position={[-1.2, 1, 1]} />
+          <Box position={[1.2, 2, 0]} />
+        </Canvas>,
       </SplashBody>
       <SplashFooter>
         <footer>
