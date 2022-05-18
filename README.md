@@ -10,7 +10,7 @@ In Progress
 AWS Lambda functions are the central components of AWS serverless application architecture.
 It is intimidating to navigate the extensive AWS docs and hundreds of services, and can be challenging to visualize the metrics for serverless applications.</p>
 
-<p>Currently, monitoring tools for Lambda make it difficult to directly compare two Lambda functions side by side. Our solution is a web application that provides comprehensive charts for direct comparison of functions while presenting bottlenecks and resource improvements. </p>
+<p>Currently, monitoring tools for Lambda make it difficult to directly compare two Lambda functions side by side. Our solution is a web application that provides comprehensive charts for direct comparison of functions while presenting bottlenecks and resource allocation adjustments.</p>
 
 Project Links: [Github](https://github.com/oslabs-beta/Accumulus) | [Linkedin](https://www.linkedin.com/addThisSoon) | [Press](https://medium.com/addThisSoon)
 
