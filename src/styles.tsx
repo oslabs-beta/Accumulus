@@ -115,7 +115,7 @@ export const LoginPageContainer = styled.section`
 export const LoginFormContainer = styled.div`
   background: white;
   border-radius: 5px;
-  height: 320px;
+  height: auto;
   width: 350px;
   text-align: left;
   padding: 20px;
