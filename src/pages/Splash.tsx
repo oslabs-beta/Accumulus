@@ -20,7 +20,7 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
   let history = useHistory();
 
   const startHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('Get Started was clicked');
+    // console.log('Get Started was clicked');
     if (
       document.cookie // "arn=fhdkjashfkdh; externalId=fhdjkashf;  "
         .split(';')
@@ -32,12 +32,12 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
         .split(';')
         .some((item) => item.trim().startsWith('region='))
     ) {
-      console.log('cookies are here, redirect to dashboard');
+      // console.log('cookies are here, redirect to dashboard');
       setCurrentView('dashboard');
       setStart(true);
       history.push('/home');
     } else {
-      console.log('no cookies, redirect to log in');
+      // console.log('no cookies, redirect to log in');
       setCurrentView('login');
       history.push('/login');
     }

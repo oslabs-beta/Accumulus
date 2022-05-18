@@ -17,8 +17,8 @@ import { UserProvider } from '../context/userContext';
 const App = () => {
 
   const [start, setStart] = useState(false);
-  const [userRegion, setUserRegion] = useState('');
-
+  const [userRegion, setUserRegion] = useState('us-east-1');
+  // console.log(userRegion, 'from App.tsx state hook');
   const [funcNames, setFuncNames] = useState([]);
 
   // --------- ALL FUNCS HOOKS
@@ -52,7 +52,7 @@ const App = () => {
 
   useEffect(() => {
     if (syncData) {
-      console.log('running fetch Metric ALL Functions');
+      // console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -63,9 +63,11 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
-        syncData
+        syncData,
+        setUserRegion,
+        userRegion
       );
-      console.log('running fetch Metric BY Functions');
+      // console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
@@ -74,7 +76,9 @@ const App = () => {
         setCost,
         setThrottles,
         timePeriod,
-        syncData
+        syncData,
+        setUserRegion,
+        userRegion
       );
       setSyncData(false);
     }
@@ -82,7 +86,7 @@ const App = () => {
 
   useEffect(() => {
     if (start) {
-      console.log('running fetch Metric ALL Functions');
+      // console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -93,8 +97,11 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
+        syncData,
+        setUserRegion,
+        userRegion
       );
-      console.log('running fetch Metric BY Functions');
+      // console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
@@ -103,10 +110,13 @@ const App = () => {
         setCost,
         setThrottles,
         timePeriod,
+        syncData,
+        setUserRegion,
+        userRegion
       );
       setSyncData(false);
     }
-  }, [start, timePeriod]);
+  }, [start, timePeriod, setUserRegion]);
 
   return (
     <UserProvider>
@@ -143,6 +153,7 @@ const App = () => {
                       setCurrentView={setCurrentView}
                       setSyncData={setSyncData}
                       setStart={setStart}
+                      setUserRegion={setUserRegion}
                     />
                   </Nav>
                   <Pages>
@@ -151,6 +162,7 @@ const App = () => {
                       path="/home"
                       render={(props) => (
                         <Dashboard
+                          setUserRegion={setUserRegion}
                           setCurrentView={setCurrentView}
                           setTimePeriod={setTimePeriod}
                           timePeriod={timePeriod}

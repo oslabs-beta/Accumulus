@@ -33,6 +33,7 @@ type Props = {
   setCurrentView: Function;
   setSyncData: Function;
   setStart: Function;
+  setUserRegion: Function;
 };
 
 const Sidebar = (props: Props) => {
@@ -60,12 +61,12 @@ const Sidebar = (props: Props) => {
 
   //Button to trigger fetching of data from AWS Cloudwatch
   const syncBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('sync button clicked');
+    // console.log('sync button clicked');
     props.setSyncData(true);
   };
 
   const logOutHandler = async () => {
-    console.log('log out clicked!');
+    // console.log('log out clicked!');
     //post request to /signout
     const leaving = await fetch('http://localhost:3000/api/user/signout', {
       headers: {
@@ -74,7 +75,7 @@ const Sidebar = (props: Props) => {
       credentials: 'include',
       method: 'POST',
     });
-    console.log(leaving);
+    // console.log(leaving);
 
     props.setCurrentView('login');
     props.setStart(false);

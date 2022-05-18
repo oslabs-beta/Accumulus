@@ -70,9 +70,16 @@ const Register = (props: any) => {
       method: 'POST',
       body,
     });
-    console.log(register);
+    // console.log(register);
+
+    const response = await register.json();
+    const arn = response.arn;
+    const externalId = response.externalId;
+    const region = response.region;
+    // console.log(region, 'from register fetch')
 
     if (register.status === 200) {
+      props.setUserRegion(region);
       console.log('redirecting...');
       props.setStart(true);
       props.setCurrentView('dashboard');
