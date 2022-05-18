@@ -531,6 +531,7 @@ export const MemoryReductionContainer = styled.ul`
   list-style: none;
   height: auto;
   grid-area: reduction;
+  overflow:auto;
 
   li {
     padding-right: 20px;
@@ -538,9 +539,6 @@ export const MemoryReductionContainer = styled.ul`
     width: 300px;
     text-align: left;
   }
-  li:nth-child() {
-
-  };
 `;
 
 //--------------------NAV-------------------------
