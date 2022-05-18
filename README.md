@@ -1,15 +1,22 @@
 In Progress
-<h1 align="center" id="title">Accumulus</h1>
+
 <div  align="center">
-<img src="https://socialify.git.ci/oslabs-beta/Accumulus/image?description=1&font=Raleway&language=1&name=1&owner=1&stargazers=1&theme=Dark" alt="Accumulus" width="640" height="320" />
+<img src="https://socialify.git.ci/oslabs-beta/Accumulus/image?description=1&font=Raleway&issues=1&language=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Dark" alt="Accumulus" width="640" height="320" />
 </div>
 
-<p>Currently, monitoring tools for Lambda make it difficult to directly compare two Lambda functions side by side. This leads to unaddressed bottlenecks in function chains. Our solution is a web application that provides charts for direct comparison of functions while presenting bottlenecks and resource improvements. </p>
+<h2>About Accumulus</h2>
+<p>
+AWS Lambda functions are the central components of AWS serverless application architecture.
+It is intimidating to navigate the extensive AWS docs and hundreds of services, and can be challenging to visualize the metrics for serverless applications.</p>
+
+<p>Currently, monitoring tools for Lambda make it difficult to directly compare two Lambda functions side by side. Our solution is a web application that provides comprehensive charts for direct comparison of functions while presenting bottlenecks and resource improvements. </p>
 
 
 
 
-<h2>🛠️ Installation Steps:</h2>
+<h2>🛠️ Getting Started:</h2>
+
+<p>Visit www.accumulus.dev</p>
 
 <p>1. Existing user? You can log in using your email and password!</p>
 
@@ -32,7 +39,7 @@ In Progress
 
   <h2>Contributing</h2>
 <p> Have a suggestion? Found a bug? Want to make Accumulus better?</p>
-  <p>Please submit issues/pull requests if you have feedback or message the Accumuls team to be added as a contributor: <a>accmulusdev@gmail.com</a></p>
+<p>Please submit issues/pull requests if you have feedback or message the Accumuls team to be added as a contributor: <a>accmulusdev@gmail.com</a></p>
 
 
 <h2>💻 Built with</h2>
