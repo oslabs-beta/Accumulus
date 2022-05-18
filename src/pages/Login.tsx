@@ -66,7 +66,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     const arn = response.arn;
     const externalId = response.externalId;
     const region = response.region;
-    console.log(region, 'from login fetch')
+    // console.log(region, 'from login fetch')
     const name = response.name;
 
     if (response.success === true) {

@@ -18,7 +18,7 @@ const App = () => {
 
   const [start, setStart] = useState(false);
   const [userRegion, setUserRegion] = useState('us-east-1');
-  console.log(userRegion, 'from App.tsx state hook');
+  // console.log(userRegion, 'from App.tsx state hook');
   const [funcNames, setFuncNames] = useState([]);
 
   // --------- ALL FUNCS HOOKS
@@ -52,7 +52,7 @@ const App = () => {
 
   useEffect(() => {
     if (syncData) {
-      console.log('running fetch Metric ALL Functions');
+      // console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -67,7 +67,7 @@ const App = () => {
         setUserRegion,
         userRegion
       );
-      console.log('running fetch Metric BY Functions');
+      // console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
@@ -86,7 +86,7 @@ const App = () => {
 
   useEffect(() => {
     if (start) {
-      console.log('running fetch Metric ALL Functions');
+      // console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -101,7 +101,7 @@ const App = () => {
         setUserRegion,
         userRegion
       );
-      console.log('running fetch Metric BY Functions');
+      // console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,

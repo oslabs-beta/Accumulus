@@ -32,12 +32,12 @@ costController.calcCost = (
 };
 
 costController.calcCostEachLambda = async (
+ 
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
   const { region } = req.body;
-
   // Data[i] signature
   // interface IData {
   //   id: number,
@@ -64,7 +64,8 @@ costController.calcCostEachLambda = async (
     let total = 0;
     for (let j = 0; j < lambdaFuncs.length; j++) {
       const name = lambdaFuncs[j].name;
-      const architectures = lambdaFuncs[j].architectures[0];
+      // const architectures = lambdaFuncs[j].architectures[0];
+      const architectures = 'x86_64'; // we hard coded this because architectures was coming back as 'undefined' for us-west-1
       const memory = lambdaFuncs[j].memoryAllocated;
       const ephemeral = lambdaFuncs[j].ephemeral.Size;
       let calcCost = costController.calcCost(
