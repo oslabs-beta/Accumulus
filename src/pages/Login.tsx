@@ -80,7 +80,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
         {loginOrRegister === 'login' ? (
         <LoginFormContainer>
           <>
-            <h1 style={{marginBottom: '10px'}}>Sign In</h1>
+            <h1 style={{marginBottom: '10px', marginLeft: '120px'}}>Sign In</h1>
             
 
             <form onSubmit={handleSubmit(onSubmit)}>

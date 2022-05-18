@@ -115,8 +115,8 @@ export const LoginPageContainer = styled.section`
 export const LoginFormContainer = styled.div`
   background: white;
   border-radius: 5px;
-  height: 300px;
-  width: 250px;
+  height: 320px;
+  width: 350px;
   text-align: left;
   padding: 20px;
   margin-top: 300px;
@@ -126,7 +126,7 @@ export const LoginButton = styled.button`
 
   /* margin: 30px; */
   margin-top: 15px;
-  width: 200px;
+  width: 300px;
   height: 40px;
   border-radius: 5px;
   border: none;
@@ -146,8 +146,8 @@ export const LoginButton = styled.button`
 `;
 
 export const LoginInput = styled.input`
-  width: 200px;
-  height: 30px;
+  width: 300px;
+  height: 40px;
   border: none;
   border-radius: 2px;
   background: #fcf7ff;
@@ -161,11 +161,10 @@ export const LoginInput = styled.input`
 
 //---------------------Registration PAGE------
 export const RegFormContainer = styled.section`
-  position: fixed;
   background: white;
   border-radius: 5px;
-  height: 800px;
-  width: 400px;
+  height: auto;
+  width: 350px;
   text-align: left;
   padding: 20px;
   margin-top: 200px;
@@ -177,6 +176,41 @@ export const ErrorMessage = styled.section`
   font-size: 0.8em;
 `;
 
+export const RegButton = styled.button`
+  /* margin: 30px; */
+  margin-top: 15px;
+  width: 300px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: #a48fc5;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  &:hover {
+    background-color: #7a6899;
+  }
+
+  button:nth-child() {
+
+  }
+`;
+
+export const RegInput = styled.input`
+  width: 300px;
+  height: 40px;
+  border: none;
+  font-size:15px;
+  border-radius: 2px;
+  background: #fcf7ff;
+  /* margin-top: 15px; */
+  /* &:nth-child(1) {
+    margin-bottom: 10px;
+    width: 300px;
+  } */
+`;
 
 //---------------------Splash PAGE------
 
