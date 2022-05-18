@@ -60,7 +60,7 @@ const ErrorTable = (props: ErrorTableProps) => {
   const errorDivs = [];
   for (let i = 0; i < dataArray.length; i++) {
     errorDivs.push(
-      <ErrorTableRow key={`${dataArray[i].date}` + `${dataArray[i].message}`}>
+      <ErrorTableRow key={`${dataArray[i].date}` + `${dataArray[i].message}` + `${i}`}>
         <ErrorTableCell>{dataArray[i].funcName}</ErrorTableCell>
         <ErrorTableCell>{dataArray[i].id}</ErrorTableCell>
         <ErrorTableCell>{dataArray[i].date}</ErrorTableCell>
