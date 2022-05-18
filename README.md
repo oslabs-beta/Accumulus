@@ -1,17 +1,13 @@
 In Progress
 <h1 align="center" id="title">Accumulus</h1>
-
+<div  align="center">
 <img src="https://socialify.git.ci/oslabs-beta/Accumulus/image?description=1&font=Raleway&language=1&name=1&owner=1&stargazers=1&theme=Dark" alt="Accumulus" width="640" height="320" />
-  
+</div>
 
 <p>Currently, monitoring tools for Lambda make it difficult to directly compare two Lambda functions side by side. This leads to unaddressed bottlenecks in function chains. Our solution is a web application that provides charts for direct comparison of functions while presenting bottlenecks and resource improvements. </p>
 
 
-<h2>🧐 Features</h2>
 
-Here're some of the project's best features:
-
-*   Lambda Metrics
 
 <h2>🛠️ Installation Steps:</h2>
 
@@ -28,11 +24,11 @@ Here're some of the project's best features:
 <p>6. Done!</p>
 
 <h2>Authors</h2>
-<p>Matt Femia (<a>https://github.com/mattfemia</a>)</p>
-<p>Dan Teng (<a>https://github.com/danwteng</a>)</p>
-<p>Christian Sansovich (<a>https://github.com/christiansansovich</a>)</p>
-<p>Eric Wu (<a>https://github.com/EZW1</a>)</p>
-<p>Mark Yencheske (<a>https://github.com/markyencheske</a>)</p>
+<p>Matt Femia - [Github] (https://github.com/mattfemia)</p>
+<p>Dan Teng - [Github] (https://github.com/danwteng)</p>
+<p>Christian Sansovich - [Github] (https://github.com/christiansansovich)</p>
+<p>Eric Wu - [Github] (https://github.com/EZW1)</p>
+<p>Mark Yencheske - [Github] (https://github.com/markyencheske)</p>
 
   <h2>Contributing</h2>
 <p> Have a suggestion? Found a bug? Want to make Accumulus better?</p>
