@@ -10,7 +10,7 @@ interface IUserContext {
 }
 
 const defaultUser = {
-  name: 'defaultUser',
+  name: 'Back!',
   storeName: () => {},
   email: 'defaultEmail',
   storeEmail: () => {},
