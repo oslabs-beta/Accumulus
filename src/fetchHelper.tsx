@@ -24,6 +24,8 @@ export const fetchMetricAllFunctions = async (
   setMemUsedVsAllo: Function,
   timePeriod: string,
   syncData: boolean = false,
+  setUserRegion: Function,
+  userRegion: string,
 ) => {
   const fetchFuncNames = async (setFuncNames: Function) => {
     const response = await fetch('/api/aws/lambdaNames/', {
@@ -32,12 +34,13 @@ export const fetchMetricAllFunctions = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        region: 'us-east-2',
+        region: userRegion,
         sync: syncData,
       }),
     });
     const res = await response.json();
     setFuncNames(res);
+    console.log(userRegion);
   };
 
   const fetchTotalInvocations = async (setTotalInvocations: Function) => {
@@ -49,7 +52,7 @@ export const fetchMetricAllFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }
@@ -67,7 +70,7 @@ export const fetchMetricAllFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }
@@ -83,7 +86,7 @@ export const fetchMetricAllFunctions = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        region: 'us-east-2',
+        region: userRegion,
         sync: syncData,
       }),
     });
@@ -100,7 +103,7 @@ export const fetchMetricAllFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }
@@ -118,7 +121,7 @@ export const fetchMetricAllFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }
@@ -136,7 +139,7 @@ export const fetchMetricAllFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }
@@ -154,7 +157,7 @@ export const fetchMetricAllFunctions = async (
     //       'Content-Type': 'application/json',
     //     },
     //     body: JSON.stringify({
-    //       region: 'us-east-2',
+    //       region: userRegion,
     //     }),
     //   }
     // );
@@ -181,7 +184,9 @@ export const fetchMetricEachFunctions = async (
   setCost: Function,
   setThrottles: Function,
   timePeriod: string,
-  syncData: boolean = false
+  syncData: boolean = false,
+  setUserRegion: Function,
+  userRegion: string,
 ) => {
   const fetchInvocations = async (setInvocations: Function) => {
     const response = await fetch(
@@ -192,7 +197,7 @@ export const fetchMetricEachFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }
@@ -211,7 +216,7 @@ export const fetchMetricEachFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }
@@ -230,7 +235,7 @@ export const fetchMetricEachFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }
@@ -247,7 +252,7 @@ export const fetchMetricEachFunctions = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        region: 'us-east-2',
+        region: userRegion,
         sync: syncData,
       }),
     });
@@ -264,7 +269,7 @@ export const fetchMetricEachFunctions = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          region: 'us-east-2',
+          region: userRegion,
           sync: syncData,
         }),
       }

@@ -15,11 +15,12 @@ export const cacheGet: middlewareFunction = async (req, res, next) => {
     // take user specific information and the endpoint they are accessing as keys for redis
     const { arn } = res.locals.userData;
     const queryString = req.originalUrl;
+    const { region } = req.body
   
     // variable to check whether user wants to bypass retrieving from cache and get fresh data
     let { sync } = req.body
   
-    const cachedData = await cache.get(`${arn}${queryString}`)
+    const cachedData = await cache.get(`${arn}${queryString}${region}`)
 
     // bypass if cached data is found and sync is true
     if(typeof cachedData ==='string' && !sync) {
@@ -44,7 +45,7 @@ export const cacheSet:middlewareFunction = async (req, res, next) => {
 
   if (!req.params.period) req.params.period = '24hr' // default to 1 for 
   console.log('setting into cache')
-  cache.set(`${res.locals.userData.arn}${req.originalUrl}`, JSON.stringify(res.locals.toBeCached), 'EX', timeScale[req.params.period])
+  cache.set(`${res.locals.userData.arn}${req.originalUrl}${req.body.region}`, JSON.stringify(res.locals.toBeCached), 'EX', timeScale[req.params.period])
   console.log('cache is set')
   next()
 }

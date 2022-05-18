@@ -76,6 +76,7 @@ const Register = (props: any) => {
     const arn = response.arn;
     const externalId = response.externalId;
     const region = response.region;
+    console.log(region, 'from register fetch')
 
     if (register.status === 200) {
       props.setUserRegion(region);

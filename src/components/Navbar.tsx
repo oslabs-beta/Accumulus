@@ -33,6 +33,7 @@ type Props = {
   setCurrentView: Function;
   setSyncData: Function;
   setStart: Function;
+  setUserRegion: Function;
 };
 
 const Sidebar = (props: Props) => {
