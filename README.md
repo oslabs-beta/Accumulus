@@ -21,7 +21,7 @@ It is intimidating to navigate the extensive AWS docs and hundreds of services, 
 
 <p>1. Existing user? You can log in using your email and password!</p>
 
-<p>2. For new users, click "Signup" to create a new user account.</p>
+<p>2. For new users, click "Register" to create a new user account.</p>
 
 <p>3. Follow the link and instructions on the Registration page to assign a Cloud Formation Stack.</p>
 
@@ -33,18 +33,24 @@ It is intimidating to navigate the extensive AWS docs and hundreds of services, 
 
 <h2>Monitoring Features:</h2>
 
-1. Add screen shot or gif of Dashboard and it's functionality with region and time selectors
-2. Add screen shot or gif of Functions Page and it's functionality with side by side comparisons and time selectors
-3. Add screen shot or gif of Memory Page and it's functionality for cost optimization
+*Add screen shot or gif of Dashboard and it's functionality with region and time selectors*
+1. At the Dashboard, users can select different time increments for a broad overview of their Lambda funtions, as well as select from different AWS regions. 
+ 
+*Add screen shot or gif of Functions Page and it's functionality with side by side comparisons and time selectors*
+2. Once on the Functions Page, users can select the functions that they would like to view, as well as changing the time increments displayed on the graphs. 
+
+*Add screen shot or gif of Memory Page and it's functionality for cost optimization*
+3. On the Memory Page, users can select the functions that they would like to view, and are presented with information for memory allocation adjustments
+
 4. Any other screen shots or gifs?
 
 <h2>Authors:</h2>
 
 Matt Femia - [Github] (https://github.com/mattfemia) || [Linkedin] (https://www.linkedin.com/in/mattfemia/)
 
-Dan Teng - [Github] (https://github.com/danwteng) || [Linkedin] (https://www.linkedin.com/in/danwteng/)
-
 Christian Sansovich - [Github] (https://github.com/christiansansovich) || [Linkedin] (https://www.linkedin.com/in/christian-sansovich/)
+
+Dan Teng - [Github] (https://github.com/danwteng) || [Linkedin] (https://www.linkedin.com/in/danwteng/)
 
 Eric Wu - [Github] (https://github.com/EZW1) || [Linkedin] (https://www.linkedin.com/in/ericzfwu/)
 
