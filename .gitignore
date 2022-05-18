@@ -52,3 +52,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Elastic Beanstalk Builds
+zip

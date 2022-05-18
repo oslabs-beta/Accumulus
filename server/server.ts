@@ -26,7 +26,7 @@ mongoose.connect(`${process.env.MONGO_URI!}`);
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: 'http://0.0.0.0:8080',
   credentials: true,
 };
 app.use(cors(corsOptions));
