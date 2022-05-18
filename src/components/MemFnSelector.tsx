@@ -2,26 +2,27 @@ import React, { useState } from 'react';
 import { FnSelectButton } from '../styles';
 interface Props {
   names: string[];
-  onStacked: any[];
+  onStacked: {[key:string]: string | number}[];
   setOnStacked: Function;
   data: object[];
 }
 
-const AlloFunctionSelector = (props: any) => {
+const AlloFunctionSelector = (props: Props) => {
   const colors = ['red', 'blue', 'orange', 'green', 'purple'];
+  const [ colorArr, setColorArr ] = useState(colors)
   const [counter, setCounter] = useState(0);
 
   const handleClick = (e: React.MouseEvent) => {
     const functionClicked = (e.target as HTMLElement).id;
 
     // 2 level shallow clone of current state
-    const newState: any[] = [];
-    props.onStacked.map((func: any) => {
+    const newState: {[key:string]: string | number}[] = [];
+    props.onStacked.map((func: {[key:string]: string | number}) => {
       newState.push({ ...func });
     });
 
     // Helper Function: Does onStacked hook have clicked function?
-    const hasFunction = (functionName: string, newState: any[]): boolean => {
+    const hasFunction = (functionName: string, newState: {[key:string]: string | number}[]): boolean => {
       for (let i = 0; i < newState.length; i++) {
         if (newState[i].name === functionName) return true;
       }
@@ -29,7 +30,7 @@ const AlloFunctionSelector = (props: any) => {
     };
 
     // Helper Function: Delete clicked function entry from onStacked hook
-    const deleteFunction = (functionName: string, newState: any[]): void => {
+    const deleteFunction = (functionName: string, newState: {[key:string]: string | number}[]): void => {
       for (let i = 0; i < newState.length; i++) {
         if (newState[i].name === functionName) {
           for (let j = i; j < newState.length; j++) {
@@ -52,11 +53,16 @@ const AlloFunctionSelector = (props: any) => {
       if (newState[0].name === 'Select a function') newState.pop();
       for (let i = 0; i < data.length; i++) {
         if (data[i].name === functionName) {
-          newState.push({ ...data[i], color: colors[counter] });
+          newState.push({ ...data[i], color: colorArr[counter] });
           return;
         }
       }
     };
+
+    const newColor = '#' + Math.floor(Math.random()*16777215).toString(16)
+    colorArr.push(newColor);
+    colorArr.shift();
+    setColorArr(colorArr);
 
     if (hasFunction(functionClicked, newState)) {
       // Function button already clicked
@@ -64,17 +70,18 @@ const AlloFunctionSelector = (props: any) => {
       props.setOnStacked(newState);
       (e.target as HTMLElement).setAttribute(
         'style',
-        'background-color: white'
+        'background-color: #a674c1'
       );
     } else {
       // Function button not yet clicked
       // Make new property on onFunctions
       addFunction(functionClicked, props.data, newState);
       setCounter(counter + 1);
+      if(counter > 3) setCounter(0);
       props.setOnStacked(newState);
       (e.target as HTMLElement).setAttribute(
         'style',
-        `background-color: ${colors[counter]}`
+        `background-color: ${colorArr[counter]}`
       );
     }
   };

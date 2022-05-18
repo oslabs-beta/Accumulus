@@ -526,10 +526,19 @@ export const MemoryReductionContainer = styled.ul`
   flex: 1;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   /* justify-content: flex-start; */
   list-style: none;
-  height: 300px;
+  height: auto;
   grid-area: reduction;
+  overflow:auto;
+
+  li {
+    padding-right: 20px;
+    padding-bottom: 30px;
+    width: 300px;
+    text-align: left;
+  }
 `;
 
 //--------------------NAV-------------------------
