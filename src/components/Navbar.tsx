@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BasicBtn, LogoutBtn, SideAct, MainNav } from '../styles';
@@ -32,9 +33,12 @@ type Props = {
   setCurrentView: Function;
   setSyncData: Function;
   setStart: Function;
+  setUserRegion: Function;
 };
 
 const Sidebar = (props: Props) => {
+  const { name } = useContext(UserContext)
+
   let history = useHistory();
 
   const dashBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,12 +61,12 @@ const Sidebar = (props: Props) => {
 
   //Button to trigger fetching of data from AWS Cloudwatch
   const syncBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('sync button clicked');
+    // console.log('sync button clicked');
     props.setSyncData(true);
   };
 
   const logOutHandler = async () => {
-    console.log('log out clicked!');
+    // console.log('log out clicked!');
     //post request to /signout
     const leaving = await fetch('http://localhost:3000/api/user/signout', {
       headers: {
@@ -71,12 +75,14 @@ const Sidebar = (props: Props) => {
       credentials: 'include',
       method: 'POST',
     });
-    console.log(leaving);
+    // console.log(leaving);
 
     props.setCurrentView('login');
     props.setStart(false);
     history.push('/login');
   };
+
+  
 
   return (
     <>
@@ -85,57 +91,14 @@ const Sidebar = (props: Props) => {
           <FontAwesomeIcon icon={BrainIconDefinition} size="2x" />
         </li>
         <li>Accumulus</li>
-        <li>
-          <BasicBtn
-            onClick={dashBtnHandler}
-            style={{
-              borderBottom:
-                props.currentView === 'dashboard'
-                  ? '1px solid black'
-                  : 'transparent',
-            }}
-          >
-            Dashboard
-          </BasicBtn>
-        </li>
-        <li>
-          <BasicBtn
-            onClick={funcBtnHandler}
-            style={{
-              borderBottom:
-                props.currentView === 'functions'
-                  ? '1px solid black'
-                  : 'transparent',
-            }}
-          >
-            Functions
-          </BasicBtn>
-        </li>
-        <li>
-          <BasicBtn
-            onClick={alloBtnHandler}
-            style={{
-              borderBottom:
-                props.currentView === 'memory'
-                  ? '1px solid black'
-                  : 'transparent',
-            }}
-          >
-            Memory
-          </BasicBtn>
-        </li>
-        <li>
-          <button onClick={syncBtnHandler}>Sync</button>
-        </li>
-        <li>
-          <SideAct>Welcome, Christian</SideAct>
-        </li>
-        <li>
-          <LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn>
-        </li>
-        <li>
-          <FontAwesomeIcon icon={gearIconDefinition} size="2x" />
-        </li>
+        <li><BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn></li>
+        <li><BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn></li>
+        <li><BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn></li>
+        <li><button onClick={syncBtnHandler}>Sync</button></li>
+        <li><SideAct>Welcome</SideAct>{`${name}`}</li>
+        <li><LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn></li>
+        <li><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></li>
+       
       </MainNav>
     </>
   );

@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 import { useHistory } from 'react-router-dom';
 import {
   RegButton,
@@ -20,6 +21,10 @@ type FormData = {
 };
 
 const Register = (props: any) => {
+  const { name, storeName } = useContext(UserContext)
+  //console.log(name);
+
+
   const {
     register,
     setValue,
@@ -45,6 +50,8 @@ const Register = (props: any) => {
   const onSubmit = async (data: FormData) => {
     console.log('register button clicked');
 
+    storeName(nameReg);
+
     const body = JSON.stringify({
       name: nameReg,
       email: emailReg,
@@ -63,9 +70,16 @@ const Register = (props: any) => {
       method: 'POST',
       body,
     });
-    console.log(register);
+    // console.log(register);
+
+    const response = await register.json();
+    const arn = response.arn;
+    const externalId = response.externalId;
+    const region = response.region;
+    // console.log(region, 'from register fetch')
 
     if (register.status === 200) {
+      props.setUserRegion(region);
       console.log('redirecting...');
       props.setStart(true);
       props.setCurrentView('dashboard');

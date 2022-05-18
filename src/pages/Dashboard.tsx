@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { DataContext } from '../../context/dataContext';
+import { UserContext } from '../../context/userContext';
 import { filterProps } from 'recharts/types/util/types';
 import FnGraph from '../components/FnGraph';
 import BarFnGraph from '../components/BarFnGraph';
@@ -28,9 +30,18 @@ type Props = {
   mostErroredFuncs: object[];
   timePeriod: string;
   setTimePeriod: Function;
+  setUserRegion: Function;
 };
 
-const Dashboard = (props: Props, { setCurrentView }: Props) => {
+const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
+  const { name, storeName, email, storeEmail } = useContext(UserContext)
+  //console.log(name);
+  //console.log(email);
+
+  const updateRegion = (e: React.ChangeEvent<HTMLSelectElement>): void =>{
+    props.setUserRegion(e.target.value);
+  }
+
   return (
     <>
       <DashboardGrid>
@@ -42,8 +53,11 @@ const Dashboard = (props: Props, { setCurrentView }: Props) => {
         </SideBarDiv>
         <SelectorBox>
           <RegionSelect>
-            <select>
-              <option value="us-east-1">Ohio (US-East-1)</option>
+            <select onChange={updateRegion}>
+              <option value='us-east-1'>Virginia (US-East-1)</option>
+              <option value='us-east-2'>Ohio (US-East-2)</option>
+              <option value='us-west-1'>California (US-West-1)</option>
+              <option value='us-west-2'>Oregon (US-West-2)</option>
             </select>
           </RegionSelect>
         </SelectorBox>

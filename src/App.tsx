@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, FC } from 'react';
 import GlobalStyle from './globals';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Splash from './pages/Splash';
@@ -11,11 +11,14 @@ import { MainGrid, Nav, Pages } from './styles';
 import Navbar from './components/Navbar';
 import TimeButtons from './components/TimeButtons';
 import * as fetchHelper from './fetchHelper';
+import { UserProvider } from '../context/userContext';
+
 
 const App = () => {
-  const [start, setStart] = useState(false);
-  const [userRegion, setUserRegion] = useState('');
 
+  const [start, setStart] = useState(false);
+  const [userRegion, setUserRegion] = useState('us-east-1');
+  // console.log(userRegion, 'from App.tsx state hook');
   const [funcNames, setFuncNames] = useState([]);
 
   // --------- ALL FUNCS HOOKS
@@ -49,7 +52,7 @@ const App = () => {
 
   useEffect(() => {
     if (syncData) {
-      console.log('running fetch Metric ALL Functions');
+      // console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -60,9 +63,11 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
-        syncData
+        syncData,
+        setUserRegion,
+        userRegion
       );
-      console.log('running fetch Metric BY Functions');
+      // console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
@@ -71,7 +76,9 @@ const App = () => {
         setCost,
         setThrottles,
         timePeriod,
-        syncData
+        syncData,
+        setUserRegion,
+        userRegion
       );
       setSyncData(false);
     }
@@ -79,7 +86,7 @@ const App = () => {
 
   useEffect(() => {
     if (start) {
-      console.log('running fetch Metric ALL Functions');
+      // console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -90,8 +97,11 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
+        syncData,
+        setUserRegion,
+        userRegion
       );
-      console.log('running fetch Metric BY Functions');
+      // console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
@@ -100,17 +110,16 @@ const App = () => {
         setCost,
         setThrottles,
         timePeriod,
+        syncData,
+        setUserRegion,
+        userRegion
       );
       setSyncData(false);
     }
-  }, [start, timePeriod]);
-
-  // useEffect(() => {
-  //   console.log(funcNames);
-  //   console.log(invocations);
-  // }, [funcNames, invocations]);
+  }, [start, timePeriod, setUserRegion]);
 
   return (
+    <UserProvider>
     <HashRouter>
       <div>
         <GlobalStyle />
@@ -135,15 +144,6 @@ const App = () => {
                     />
                   )}
                 />
-                {/* <Route 
-                  exact
-                  path="/register"
-                  render={(props) => (
-                    <Register
-                    setCurrentView={setCurrentView}
-                    setUserData={setUserData}/>
-                  )}
-                /> */}
 
                 {/* DASHBOARD ROUTE */}
                 <MainGrid>
@@ -153,6 +153,7 @@ const App = () => {
                       setCurrentView={setCurrentView}
                       setSyncData={setSyncData}
                       setStart={setStart}
+                      setUserRegion={setUserRegion}
                     />
                   </Nav>
                   <Pages>
@@ -161,6 +162,7 @@ const App = () => {
                       path="/home"
                       render={(props) => (
                         <Dashboard
+                          setUserRegion={setUserRegion}
                           setCurrentView={setCurrentView}
                           setTimePeriod={setTimePeriod}
                           timePeriod={timePeriod}
@@ -205,6 +207,7 @@ const App = () => {
                         />
                       )}
                     />
+    
                   </Pages>
                 </MainGrid>
               </Switch>
@@ -213,6 +216,7 @@ const App = () => {
         )}
       </div>
     </HashRouter>
+    </UserProvider>
   );
 };
 
