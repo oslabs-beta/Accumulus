@@ -45,7 +45,7 @@ const App = () => {
   //state to manage resync of data -------REMEMBER TO PASS THE SYNCDATA DOWN --------------
   const [syncData, setSyncData] = useState(false);
 
-  const [currentView, setCurrentView] = useState('splash');
+  const [currentView, setCurrentView] = useState('login');
 
   useEffect(() => {
     if (syncData) {

@@ -93,44 +93,99 @@ export const StartedButton = styled.button`
 
 
 //---------------------LOGIN PAGE------
-export const LogRegCont = styled.section`
-  background-image: linear-gradient(
-    to bottom right,
-    white,
-    rgb(208, 177, 228),
-    rgba(190, 146, 212, 0.964),
-    rgb(198, 145, 200),
-    rgb(219, 149, 195)
-  );
-`;
-export const LogInWrapper = styled.section`
-  border: 1px solid black;
-  width: 70%;
-  height: 70%;
-  border-radius: 7px;
-  margin: auto;
-  margin-top: 130px;
+
+export const LoginPageContainer = styled.section`
   display: flex;
   flex-direction: column;
+  border: none;
+  width: auto;
+  height: 100vh;
+  border-radius: 0;
+  margin: 0;
+  margin-top: 0;
+  /* display: flex;
+  flex-direction: column; */
   background-color: #eae6f0;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
+  justify-content: flex-start;
+  /* text-align: center; */
+  padding: 0;
 `;
 
-export const LogInLeft = styled.section`
+export const LoginFormContainer = styled.div`
+  background: white;
+  border-radius: 5px;
+  height: 300px;
+  width: 250px;
+  text-align: left;
+  padding: 20px;
+  margin-top: 300px;
+`;
+
+export const LoginButton = styled.button`
+
+  /* margin: 30px; */
+  margin-top: 15px;
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: #a48fc5;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  &:hover {
+    background-color: #7a6899;
+  }
+
+  button:nth-child() {
+
+  }
+`;
+
+export const LoginInput = styled.input`
+  width: 200px;
+  height: 30px;
+  border: none;
+  border-radius: 2px;
+  background: #fcf7ff;
+  /* margin-top: 15px; */
+  &:nth-child(1) {
+    margin-bottom: 10px;
+    width: 300px;
+  }
+`;
+
+
+//---------------------Registration PAGE------
+export const RegFormContainer = styled.section`
+  position: fixed;
+  background: white;
+  border-radius: 5px;
+  height: 800px;
+  width: 400px;
+  text-align: left;
+  padding: 20px;
+  margin-top: 200px;
+`;
+
+
+export const ErrorMessage = styled.section`
+  color: red;
+  font-size: 0.8em;
+`;
+
+
+//---------------------Splash PAGE------
+
+export const SplashLeft = styled.section`
   align-self: flex-start;
 `;
 
-export const LogInHeader = styled.section`
-  width: 100vw;
-  top: 0;
-  left: 0;
-  background-color: white;
-  text-align: center;
-`;
-export const LogInBody = styled.section`
+
+export const SplashBody = styled.section`
   background-image: linear-gradient(
     to bottom right,
     white,
@@ -162,7 +217,7 @@ export const Text = styled.section`
   font-size: 1.4em;
 `;
 
-export const LogInFooter = styled.section`
+export const SplashFooter = styled.section`
   width: 100vw;
   height: 10vh;
   padding-left: 20px;
@@ -173,21 +228,7 @@ export const LogInFooter = styled.section`
   align-self: flex-start;
 `;
 
-export const LogInButton = styled.button`
-  margin: 30px;
-  width: 170px;
-  height: 70px;
-  border-radius: 7px;
-  border: none;
-  background-color: #a48fc5;
-  color: white;
-  font-weight: 500;
-  font-size: 27px;
 
-  &:hover {
-    background-color: #7a6899;
-  }
-`;
 
 export const ButtonContainer = styled.section`
   position: relative;
@@ -195,34 +236,7 @@ export const ButtonContainer = styled.section`
   top: 5;
 `;
 
-// const {
-//   default: styled,
-//   css,
-//   ThemeProvider
-// } = styledComponents as styledComponents.ReactNativeThemedStyledComponentsModule<ThemeInterface>;
 
-// export const Button = styled.button`
-//   width: 200px;
-//   height: 50px;
-//   background-color: ${(props) => props.backgroundColor ? props.backgroundColor : '#ffffff'};
-// `;
-
-//------------------Registration-----------------------------
-export const RegistrationWrapper = styled.section`
-  /* background-image: linear-gradient(to bottom right, white, rgb(208, 177, 228), rgba(190, 146, 212, 0.964), rgb(198, 145, 200), rgb(219, 149, 195)); */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  text-align: center;
-  padding: 10px;
-`;
-
-export const ErrorMessage = styled.section`
-  color: red;
-  font-size: 0.8em;
-`;
 
 //------------------DASHBOARD-----------------------------
 export const DashboardWrapper = styled.section`

@@ -2,10 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  LogInButton,
+  LoginButton,
   ButtonContainer,
-  RegistrationWrapper,
-  LogRegCont,
+  RegFormContainer,
   ErrorMessage,
 } from '../styles';
 import { useForm } from 'react-hook-form';
@@ -77,14 +76,13 @@ const Register = (props: any) => {
 
   return (
     <>
-      <LogRegCont>
-        <RegistrationWrapper>
-          <h3>Sign Up for Accumulus!</h3>
+      <RegFormContainer>
+          <h3>Sign Up</h3>
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div id="regInfo">
               <div>
-                <label>Name</label>
+                <label>Name</label><br />
                 <input
                   {...register('name', { required: true })}
                   onChange={(e) => {
@@ -99,7 +97,7 @@ const Register = (props: any) => {
               </div>
               <br></br>
               <div>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Email</label><br />
                 <input
                   {...register('email', {
                     required: true,
@@ -119,7 +117,7 @@ const Register = (props: any) => {
               </div>
               <br></br>
               <div>
-                <label>Password</label>
+                <label>Password</label><br />
                 <input
                   type="password"
                   {...register('password', { required: true })}
@@ -202,8 +200,7 @@ const Register = (props: any) => {
               Login
             </button>
           </form>
-        </RegistrationWrapper>
-      </LogRegCont>
+      </RegFormContainer>
     </>
   );
 };
