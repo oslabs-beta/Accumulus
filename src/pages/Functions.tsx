@@ -17,7 +17,6 @@ type Props = {
   invocations: object[];
   duration: object[];
   errors: object[];
-  memUsage: object[];
   cost: object[];
   throttles: object[];
   timePeriod: string;
@@ -42,7 +41,6 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
             setOnFunctions={setOnFunctions}
           />
           <TimeButtons setTimePeriod={props.setTimePeriod} />
-          {/* {props.timePeriod} */}
           </FnSideBarWrapper> 
         </SideBarDiv>
         <Scroll>

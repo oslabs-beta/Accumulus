@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/MemFnSelector';
 import MemReduction from '../components/MemReduction';
@@ -14,7 +14,7 @@ import {
 
 type Props = {
   setCurrentView: Function;
-  memUsedVsAllo: object[];
+  memUsedVsAllo: {[key: string]: string | number}[];
 };
 
 const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
@@ -56,15 +56,24 @@ const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
 
   */
 
-  const functions = {
-    names: [
-      'AccumulusFunc1',
-      'AccumulusFunc2',
-      'AccumulusFunc3',
-      'AccumulusFunc4',
-      'AccumulusFunc5',
-    ],
-  };
+  //need to bring in names from initial app fetch for mem
+
+  // const functions = {
+  //   names: [
+  //     'AccumulusFunc1',
+  //     'AccumulusFunc2',
+  //     'AccumulusFunc3',
+  //     'AccumulusFunc4',
+  //     'AccumulusFunc5',
+  //   ],
+  // };
+
+  const functions:{[key: string]: string | string[]} = {};
+  const names:string[] = [];
+  for(let i = 0; i < memUsedVsAllo.length; i++){
+    names.push(String(memUsedVsAllo[i]['name']))
+  }
+  functions['names'] = names
 
   return (
     <>
@@ -72,7 +81,7 @@ const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
         <SideBarDiv>
           <FnSideBarWrapper>
           <AlloFunctionSelector
-            {...functions}
+            names={functions.names}
             onStacked={onStacked}
             setOnStacked={setOnStacked}
             data={memUsedVsAllo}
@@ -88,7 +97,7 @@ const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
           />
         </FnGraphContainer>
         <MemoryReductionContainer>
-          <MemReduction />
+          <MemReduction memUsedVsAllo={memUsedVsAllo}/>
         </MemoryReductionContainer>
       </MemoryGrid>
     </>

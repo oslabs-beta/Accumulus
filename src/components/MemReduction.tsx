@@ -2,18 +2,23 @@ import React from 'react';
 import { memUsedVsAllo } from '../../Data/byFunc/memUsedVsAllo';
 import { MemUsed } from '../../server/types';
 
-const fetchedData = memUsedVsAllo;
+// const fetchedData = memUsedVsAllo;
 
-const MemReduction = () => {
+interface IMemReduction{
+  memUsedVsAllo: {[key: string]: string | number}[]
+}
+
+const MemReduction = (props:IMemReduction) => {
   //declare var to hold all divs
+  // const fetchedData = props.memUsedVsAllo
   const eligibleFuncs = [];
   const memRatioOrdered = [];
 
-  for (let i = 0; i < fetchedData.length; i++) {
-    const objOfInterest = fetchedData[i];
+  for (let i = 0; i < props.memUsedVsAllo.length; i++) {
+    const objOfInterest = props.memUsedVsAllo[i];
     const funcName = objOfInterest.name;
     const diff: number = Number(objOfInterest[`diff${funcName}`]);
-    const allocated: number = Number(fetchedData[i][`allo${funcName}`]);
+    const allocated: number = Number(props.memUsedVsAllo[i][`allo${funcName}`]);
     const memRatio = Math.floor((diff / allocated) * 100);
     if (memRatio > 25) {
       memRatioOrdered.push([funcName, memRatio]);

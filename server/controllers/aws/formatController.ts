@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import moment from 'moment'
+import moment from 'moment';
 
 const formatController: any = {};
 
@@ -23,19 +23,22 @@ formatController.timeRangeMultiplier = {
 };
 
 formatController.formatQueryTimes = (
-  timeRangeUnits: number, 
+  timeRangeUnits: number,
   timeRangeNum: string
-  ) => {
+) => {
   // Format start and end time for sdk query func
-  const timeRound = formatController.timeRoundMultiplier[timeRangeUnits.toString()];
+  const timeRound =
+    formatController.timeRoundMultiplier[timeRangeUnits.toString()];
   const EndTime =
     Math.round(new Date().getTime() / 1000 / 60 / +timeRound) * 60 * +timeRound; //current time in Unix TimeStamp
   const StartTime =
-    EndTime - +timeRangeNum * +formatController.timeRangeMultiplier[timeRangeUnits.toString()];
+    EndTime -
+    +timeRangeNum *
+      +formatController.timeRangeMultiplier[timeRangeUnits.toString()];
   const period = formatController.timeRangePeriod[timeRangeUnits.toString()];
 
   return [StartTime, EndTime, period];
-}
+};
 
 formatController.periodDefinitions = {
   '1hr': [60, 'minutes'],
@@ -46,46 +49,47 @@ formatController.periodDefinitions = {
   '30d': [30, 'days'],
   '3mo': [90, 'days'],
   '6mo': [180, 'days'],
-  '1yr': [30, 'days']
-}
+  '1yr': [30, 'days'],
+};
 
 formatController.formatXAxisLabel = (timeStamp: Date, graphUnits: string) => {
   if (graphUnits === 'days') {
-    return moment(timeStamp).format('MMM DD')
+    return moment(timeStamp).format('MMM DD');
   } else if (graphUnits === 'hours') {
-    return moment(timeStamp).format('HH:00')
+    return moment(timeStamp).format('HH:00');
   } else if (graphUnits === 'minutes') {
-    return moment(timeStamp).format('HH:mm')
+    return moment(timeStamp).format('HH:mm');
   }
-  return
-}
+  return;
+};
 
 formatController.aggregateFuncByPeriodConversion = (
-  period: string, 
-  curDate: Date, 
-  endDate: Date) => {
-    interface IPeriodConvert {
-      '30min'?: number[],
-      '1hr'?: number[],
-      '24hr'?: number[],
-      '7d'?: number[],
-      '14d'?: number[],
-      '30d'?: number[],
-      '3mo'?: number[],
-      '6mo'?: number[],
-      '1yr'?: number[],
-    }
+  period: string,
+  curDate: Date,
+  endDate: Date
+) => {
+  interface IPeriodConvert {
+    '30min'?: number[];
+    '1hr'?: number[];
+    '24hr'?: number[];
+    '7d'?: number[];
+    '14d'?: number[];
+    '30d'?: number[];
+    '3mo'?: number[];
+    '6mo'?: number[];
+    '1yr'?: number[];
+  }
   const periodConvert: IPeriodConvert = {
     '30d': [
-      curDate.getDate(), 
-      endDate.getDate(), 
-      curDate.getMonth(), 
-      endDate.getMonth()
+      curDate.getDate(),
+      endDate.getDate(),
+      curDate.getMonth(),
+      endDate.getMonth(),
     ],
-  }
+  };
 
   return periodConvert[period as '30d'];
-}
+};
 
 formatController.formatCWLambdaMetricAll = (
   timeRangeNum: number,
@@ -93,14 +97,12 @@ formatController.formatCWLambdaMetricAll = (
   metricName: string,
   metricStat: string
 ) => {
-  
   // Formatting & defining the start-end times that the AWS-query pulls metric data from
-  const [
-    StartTime, 
-    EndTime, 
-    period
-  ] = formatController.formatQueryTimes(timeRangeUnits, timeRangeNum)
-  
+  const [StartTime, EndTime, period] = formatController.formatQueryTimes(
+    timeRangeUnits,
+    timeRangeNum
+  );
+
   // Format Query
   return {
     StartTime: new Date(StartTime * 1000),
@@ -125,8 +127,8 @@ formatController.formatCWLambdaMetricAll = (
       {
         Id: `m${metricName}`,
         Label: `Lambda ${metricName} All Functions`,
-        Expression: `FILL(METRICS(), 0)`
-      }
+        Expression: `FILL(METRICS(), 0)`,
+      },
     ],
   };
 };
@@ -138,13 +140,11 @@ formatController.formatCWLambdaMetricByFunc = (
   metricStat: string,
   funcNames: []
 ) => {
-  
-  const [
-    StartTime, 
-    EndTime, 
-    period
-  ] = formatController.formatQueryTimes(timeRangeUnits, timeRangeNum)
-  
+  const [StartTime, EndTime, period] = formatController.formatQueryTimes(
+    timeRangeUnits,
+    timeRangeNum
+  );
+
   // Init the baseline object params
   const lambdaMetricQueryParamsBase = {
     StartTime: new Date(StartTime * 1000),
@@ -154,7 +154,7 @@ formatController.formatCWLambdaMetricByFunc = (
     },
     //    MetricDataQueries: [],
   };
-  
+
   const metricDataQueryByFunc: object[] = [];
 
   // Iterate over lambda funcs and format
@@ -183,8 +183,8 @@ formatController.formatCWLambdaMetricByFunc = (
     const queryWithMissingFilled = {
       Id: `m${index}fill`,
       Label: func,
-      Expression: `FILL(m${index}, 0)`
-    }
+      Expression: `FILL(m${index}, 0)`,
+    };
     metricDataQueryByFunc.push(queryWithMissingFilled);
     metricDataQueryByFunc.push(metricDataQuery);
   });
@@ -197,27 +197,28 @@ formatController.formatCWLambdaMetricByFunc = (
 };
 
 formatController.monthConversion = {
-    0: 'January',
-    1: 'February',
-    2: 'March',
-    3: 'April',
-    4: 'May',
-    5: 'June',
-    6: 'July',
-    7: 'August',
-    8: 'September',
-    9: 'October',
-    10: 'November',
-    11: 'December'
+  0: 'January',
+  1: 'February',
+  2: 'March',
+  3: 'April',
+  4: 'May',
+  5: 'June',
+  6: 'July',
+  7: 'August',
+  8: 'September',
+  9: 'October',
+  10: 'November',
+  11: 'December',
 };
 
 formatController.logPeriodConversion = {
   '30min': new Date(new Date().setMinutes(new Date().getMinutes() - 30)).valueOf(),
   '1hr': new Date(new Date().setMinutes(new Date().getMinutes() - 60)).valueOf(),
+  '12hr': new Date(new Date().setMinutes(new Date().getMinutes() - 720)).valueOf(),
   '24hr': new Date(new Date().setDate(new Date().getDate() - 1)).valueOf(),
   '7d': new Date(new Date().setDate(new Date().getDate() - 7)).valueOf(),
   '14d': new Date(new Date().setDate(new Date().getDate() - 14)).valueOf(),
-	'30d': new Date(new Date().setDate(new Date().getDate() - 30)).valueOf(),
-}
+  '30d': new Date(new Date().setDate(new Date().getDate() - 30)).valueOf(),
+};
 
 export default formatController;

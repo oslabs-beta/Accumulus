@@ -16,21 +16,13 @@ const router = express.Router();
 router.post(
   '/lambdaNames',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet,
   credController.getCreds, // credentials go into res.locals.credentials
   lambdaController.getFunctions, // function details go into res.locals.lambdaFunctions
+  cacheController.cacheSet,
   (req: express.Request, res: express.Response) => {
     // console.log('SHOULD SHOW COOKIES HERE:', req.cookies)
     res.status(200).json(res.locals.funcNames);
-  }
-);
-
-router.post(
-  '/lambda',
-  cookieController.getCookieCredentials,
-  credController.getCreds, // credentials go into res.locals.credentials
-  lambdaController.getFunctions, // function details go into res.locals.lambdaFunctions
-  (req: express.Request, res: express.Response) => {
-    res.status(200).json(res.locals.lambdaFunctions);
   }
 );
 
@@ -38,8 +30,10 @@ router.post(
 router.post(
   '/metricsTotalFuncs/:metric/:period/:stat',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet,
   credController.getCreds,
   cwController.getMetricsTotalLambda,
+  cacheController.cacheSet,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
@@ -48,9 +42,11 @@ router.post(
 router.post(
   '/metricsEachFunc/:metric/:period/:stat',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet,  
   credController.getCreds,
   lambdaController.getFunctions,
   cwController.getMetricsEachLambda,
+  cacheController.cacheSet,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals[req.params.metric]);
   }
@@ -59,9 +55,11 @@ router.post(
 router.post(
   '/rankFuncsByMetric/:metric/:period/:stat',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet, 
   credController.getCreds,
   lambdaController.getFunctions,
   cwController.rankFuncsByMetric,
+  cacheController.cacheSet, 
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.functionRankings);
   }
@@ -71,6 +69,7 @@ router.post(
 router.post(
   '/costEachFunction/:period',
   cookieController.getCookieCredentials, // user data goes into res.locals.userData
+  cacheController.cacheGet, 
   credController.getCreds,
   lambdaController.getFunctions, // res.locals.funcNames & res.locals.lambdaFunctions
   (req: Request, res: Response, next: NextFunction) => {
@@ -86,63 +85,62 @@ router.post(
   },
   cwController.getMetricsEachLambda,
   costController.calcCostEachLambda,
+  cacheController.cacheSet, 
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.costData);
   }
 );
 
 /* All logs */
-router.post(
-  '/lambdaLogs/:function/:period',
-  cookieController.getCookieCredentials,
-  credController.getCreds,
-  logController.getLambdaLogsByFunc,
-  analysisController.calcMetrics,
-  (req: Request, res: Response) => {
-    res.status(200).json(res.locals.data);
-  }
-);
-
-/* Log Errors */
-router.post(
-  '/lambdaErrorLogsByFunc/:function/:period',
-  cookieController.getCookieCredentials,
-  credController.getCreds,
-  logController.getLambdaErrorsByFunc,
-  (req: Request, res: Response) => {
-    res.status(200).json(res.locals.logs);
-  }
-);
+/* For Debugging One Function */
+// router.post(
+//   '/lambdaLogs/:function/:period',
+//   cookieController.getCookieCredentials,
+//   cacheController.cacheGet, 
+//   credController.getCreds,
+//   logController.getLambdaLogsByFunc,
+//   analysisController.calcMetrics 
+//   cacheController.cacheSet, 
+//   (req: Request, res: Response) => {
+//     res.status(200).json(res.locals.data);
+//   }
+// );
 
 router.post(
   '/lambdaErrorLogsEachFunc/:period',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet,
   credController.getCreds,
   lambdaController.getFunctions,
   logController.getLambdaErrorsEachFunc,
+  cacheController.cacheSet,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.logs);
   }
 );
 
-/* Log Metrics */
-router.post(
-  '/lambdaLogMetricsByFunc/:function/:period',
-  cookieController.getCookieCredentials,
-  credController.getCreds,
-  logController.getLambdaLogsByFunc,
-  analysisController.calcMetrics,
-  (req: Request, res: Response) => {
-    res.status(200).json(res.locals.data);
-  }
-);
+// /* Log Metrics for debugging */
+// router.post(
+//   '/lambdaLogMetricsByFunc/:function/:period',
+//   cookieController.getCookieCredentials,
+//   cacheController.cacheGet,
+//   credController.getCreds,
+//   logController.getLambdaLogsByFunc,
+//   analysisController.calcMetrics,
+//   cacheController.cacheSet,
+//   (req: Request, res: Response) => {
+//     res.status(200).json(res.locals.data);
+//   }
+// );
 
 router.post(
   '/lambdaLogMetricsEachFunc/:period',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet,
   credController.getCreds,
   logController.getLambdaLogsByFunc,
   analysisController.calcMetrics,
+  cacheController.cacheSet,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
@@ -151,9 +149,11 @@ router.post(
 router.post(
   '/lambdaLogMetricsTotalFunc/:function/:period',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet,
   credController.getCreds,
   logController.getLambdaLogsByFunc,
   analysisController.calcMetrics,
+  cacheController.cacheSet,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
@@ -163,34 +163,41 @@ router.post(
 router.post(
   '/memoryUsageEachLambda/:period',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet,
   credController.getCreds,
   lambdaController.getFunctions,
   logController.getLambdaUsageEachFunc,
   analysisController.calcMemoryUsage,
+  cacheController.cacheSet,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
 );
 
-router.post(
-  '/memoryUsageTotalLambda/:period',
-  cookieController.getCookieCredentials,
-  credController.getCreds,
-  lambdaController.getFunctions,
-  logController.getLambdaUsageEachFunc,
-  analysisController.calcMeanMemoryUsageTotal,
-  (req: Request, res: Response) => {
-    res.status(200).json(res.locals.data);
-  }
-);
+/* Takes a long time to fetch on first try! */
+// router.post(
+//   '/memoryUsageTotalLambda/:period',
+//   cookieController.getCookieCredentials,
+//   cacheController.cacheGet,
+//   credController.getCreds,
+//   lambdaController.getFunctions,
+//   logController.getLambdaUsageEachFunc,
+//   analysisController.calcMeanMemoryUsageTotal,
+//   cacheController.cacheSet,
+//   (req: Request, res: Response) => {
+//     res.status(200).json(res.locals.data);
+//   }
+// );
 
 router.post(
   '/memoryUsageDiff/:period',
   cookieController.getCookieCredentials,
+  cacheController.cacheGet,
   credController.getCreds,
   lambdaController.getFunctions,
   logController.getLambdaUsageEachFunc,
   analysisController.calcLambdaMemoryDiff,
+  cacheController.cacheSet,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.data);
   }
@@ -201,7 +208,9 @@ router.post(
   '/stateMetricsByFunc/:metric/:period/:stat',
   cookieController.getCookieCredentials,
   credController.getCreds,
+  // cacheController.cacheGet,
   stepController.getStateMetricByFunc,
+  // cacheController.cacheSet,
   (req: Request, res: Response) => {
     res.status(200).json(res.locals.lambdaMetricsAllFuncs);
   }

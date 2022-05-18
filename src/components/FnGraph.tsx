@@ -36,7 +36,7 @@ const FnGraph = (props: FnGraphProps) => {
         className="chart"
         style={{ width: props.width, height: props.height }}
       >
-        <ResponsiveContainer height={200}>
+        <ResponsiveContainer height={225}>
           <LineChart
             // @ts-ignore
             // width={auto}
