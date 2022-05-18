@@ -26,7 +26,7 @@
     "production": "NODE_ENV=development nodemon ./server/server.js & webpack-dev-server --open --hot",
     "dev:hot": "NODE_ENV=development nodemon --es-module-specifier-resolution=node ./dist/server/server.js & webpack-dev-server --open --mode development",
     "docker-dev:hot": "docker-compose -f docker-compose-dev.yml up",
-    "kcascade": "NODE_ENV=production; webpack & node ./dist/server/server.js"
+    "accumulus": "NODE_ENV=production node --es-module-specifier-resolution=node ./dist/server/server.js"
   },
   "keywords": [],
   "license": "ISC",
