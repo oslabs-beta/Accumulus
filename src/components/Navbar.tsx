@@ -90,9 +90,45 @@ const Sidebar = (props: Props) => {
           <FontAwesomeIcon icon={BrainIconDefinition} size="2x" />
         </li>
         <li>Accumulus</li>
-        <li><BasicBtn onClick={dashBtnHandler}>Dashboard</BasicBtn></li>
-        <li><BasicBtn onClick={funcBtnHandler}>Functions</BasicBtn></li>
-        <li><BasicBtn onClick={alloBtnHandler}>Memory</BasicBtn></li>
+        <li>
+           <BasicBtn
+             onClick={dashBtnHandler}
+             style={{
+               borderBottom:
+                 props.currentView === 'dashboard'
+                   ? '1px solid black'
+                   : 'transparent',
+             }}
+           >
+             Dashboard
+           </BasicBtn>
+         </li>
+         <li>
+           <BasicBtn
+             onClick={funcBtnHandler}
+             style={{
+               borderBottom:
+                 props.currentView === 'functions'
+                   ? '1px solid black'
+                   : 'transparent',
+             }}
+           >
+             Functions
+           </BasicBtn>
+         </li>
+         <li>
+           <BasicBtn
+             onClick={alloBtnHandler}
+             style={{
+               borderBottom:
+                 props.currentView === 'memory'
+                   ? '1px solid black'
+                   : 'transparent',
+             }}
+           >
+             Memory
+           </BasicBtn>
+         </li>
         <li><button onClick={syncBtnHandler}>Sync</button></li>
         <li><SideAct>Welcome</SideAct>{`${name}`}</li>
         <li><LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn></li>

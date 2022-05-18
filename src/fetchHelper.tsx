@@ -146,21 +146,22 @@ export const fetchMetricAllFunctions = async (
   };
 
   const fetchMemUsedVsAllo = async (setMemUsedVsAllo: Function) => {
-    // const response = await fetch(
-    //   `/api/aws/memoryUsageDiff/1hr`, // ** Keep as 1hr - Any longer makes loading times extremely long **
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       region: 'us-east-2',
-    //     }),
-    //   }
-    // );
-    // const res = await response.json();
-    // setMemUsedVsAllo(res);
-    setMemUsedVsAllo(memUsedVsAllo);
+    const response = await fetch(
+      `/api/aws/memoryUsageDiff/1hr`, // ** Keep as 1hr - Any longer makes loading times extremely long **
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          region: 'us-east-2',
+          sync: syncData,
+        }),
+      }
+    );
+    const res = await response.json();
+    setMemUsedVsAllo(res);
+    // setMemUsedVsAllo(memUsedVsAllo);
   };
 
   fetchFuncNames(setFuncNames);
@@ -177,7 +178,6 @@ export const fetchMetricEachFunctions = async (
   setInvocations: Function,
   setDuration: Function,
   setErrors: Function,
-  setMemUsage: Function,
   setCost: Function,
   setThrottles: Function,
   timePeriod: string,
