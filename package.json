@@ -26,7 +26,8 @@
     "production": "NODE_ENV=development nodemon ./server/server.js & webpack-dev-server --open --hot",
     "dev:hot": "NODE_ENV=development nodemon --es-module-specifier-resolution=node ./dist/server/server.js & webpack-dev-server --open --mode development",
     "docker-dev:hot": "docker-compose -f docker-compose-dev.yml up",
-    "accumulus": "NODE_ENV=production node --es-module-specifier-resolution=node ./dist/server/server.js"
+    "accumulus": "NODE_ENV=production node --es-module-specifier-resolution=node ./dist/server/server.js",
+    "test": "jest"
   },
   "keywords": [],
   "license": "ISC",
@@ -66,6 +67,7 @@
     "recharts": "^2.1.9",
     "sass": "^1.51.0",
     "styled-components": "^5.3.5",
+    "supertest": "^6.2.3",
     "uuid": "^8.3.2",
     "webpack": "^5.72.0",
     "webpack-hot-middleware": "^2.25.1"
@@ -95,7 +97,7 @@
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.5",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^28.0.0",
+    "jest": "^28.1.0",
     "nodemon": "^2.0.15",
     "sass-loader": "^12.6.0",
     "source-map-loader": "^1.0.0",

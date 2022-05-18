@@ -1,0 +1,14 @@
+version: "3"
+services:
+  test:
+    image: "070809985305.dkr.ecr.us-east-2.amazonaws.com/accumulus-deploy:latest"
+    container_name: "accumulus-test"
+    ports: 
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    command: npm run test
+volumes:
+  node_modules: {}
+  test-db-volume: {}

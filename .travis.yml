@@ -7,15 +7,14 @@ script:
   - pip install --upgrade pip
   - pip -V 
 before_deploy:
-  # install the aws cli
   - python3 -m pip install --user awscli
-  # Append exe location to our PATH
+  - python3 -m pip install --user awsebcli
   - export PATH=$PATH:$HOME/.local/bin
 env:
   global: PATH=/opt/python/3.7.1/bin:$PATH
 deploy:
   provider: script
-  script: sh $TRAVIS_BUILD_DIR/scripts/deploy.sh
   skip_cleanup: true
   on:
-    branch: main
+    branch: master
+  script: sh $TRAVIS_BUILD_DIR/scripts/deploy-eb.sh
