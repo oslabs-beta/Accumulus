@@ -40,7 +40,7 @@ export const fetchMetricAllFunctions = async (
     });
     const res = await response.json();
     setFuncNames(res);
-    console.log(userRegion);
+    // console.log(userRegion);
   };
 
   const fetchTotalInvocations = async (setTotalInvocations: Function) => {
