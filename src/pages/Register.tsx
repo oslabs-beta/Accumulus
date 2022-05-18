@@ -3,10 +3,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../context/userContext';
 import { useHistory } from 'react-router-dom';
 import {
-  LogInButton,
+  RegButton,
+  RegInput,
   ButtonContainer,
-  RegistrationWrapper,
-  LogRegCont,
+  RegFormContainer,
   ErrorMessage,
 } from '../styles';
 import { useForm } from 'react-hook-form';
@@ -91,15 +91,15 @@ const Register = (props: any) => {
 
   return (
     <>
-      <LogRegCont>
-        <RegistrationWrapper>
-          <h3>Sign Up for Accumulus!</h3>
+      <RegFormContainer>
+          <h3 style={{marginLeft: '120px'}}>Sign Up</h3>
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
             <div id="regInfo">
               <div>
-                <label>Name</label>
-                <input
+                {/* <label>Name</label><br /> */}
+                <RegInput
+                  placeholder='Name'
                   {...register('name', { required: true })}
                   onChange={(e) => {
                     setNameReg(e.target.value);
@@ -113,8 +113,9 @@ const Register = (props: any) => {
               </div>
               <br></br>
               <div>
-                <label htmlFor="email">Email</label>
-                <input
+                {/* <label htmlFor="email">Email</label><br /> */}
+                <RegInput
+                  placeholder='Email Address'
                   {...register('email', {
                     required: true,
                     pattern:
@@ -133,8 +134,10 @@ const Register = (props: any) => {
               </div>
               <br></br>
               <div>
-                <label>Password</label>
-                <input
+                {/* <label>Password</label><br /> */}
+
+                <RegInput
+                placeholder='Password'
                   type="password"
                   {...register('password', { required: true })}
                   onChange={(e) => {
@@ -154,7 +157,7 @@ const Register = (props: any) => {
               Connection your AWS account to Accumulus by following the steps
               below:
               <br />
-              <ul style={{ listStyle: 'none' }}>
+              <ul style={{ paddingInlineStart: 20 }}>
                 <li>
                   <a
                     href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}
@@ -180,8 +183,10 @@ const Register = (props: any) => {
             <br />
 
             <div>
-              <label>ARN</label>
-              <input
+              {/* <label>ARN</label><br/> */}
+              <RegInput
+                placeholder='ARN'
+
                 {...register('arn', { required: true })}
                 onChange={(e) => {
                   setArnReg(e.target.value);
@@ -194,7 +199,7 @@ const Register = (props: any) => {
             <br></br>
 
             <label htmlFor="region">Choose your region:</label>
-            <br></br>
+            <br/>
             <select
               required
               id="region"
@@ -211,13 +216,12 @@ const Register = (props: any) => {
               <option value="us-west-2">US West (Oregon) us-west-2</option>
             </select>
             <br />
-            <button type="submit">Sign me up!</button>
-            <button onClick={() => props.setLoginOrRegister('login')}>
+            <RegButton type="submit">Sign me up!</RegButton>
+            <RegButton onClick={() => props.setLoginOrRegister('login')}>
               Login
-            </button>
+            </RegButton>
           </form>
-        </RegistrationWrapper>
-      </LogRegCont>
+      </RegFormContainer>
     </>
   );
 };

@@ -3,16 +3,11 @@ import Register from './Register';
 import { UserContext } from '../../context/userContext';
 import { useHistory } from 'react-router-dom';
 import {
-  LogInWrapper,
-  LogInHeader,
-  ErrorMessage,
-  LogInFooter,
-  LogInLeft,
-  LogInBody,
-  LogInButton,
-  H1,
-  Text,
-  ButtonContainer,
+  LoginPageContainer,
+  LoginFormContainer,
+  LoginButton,
+  LoginInput,
+  ErrorMessage
 } from '../styles';
 import { useForm } from 'react-hook-form';
 
@@ -88,16 +83,17 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
 
   return (
     <>
-      <LogInWrapper>
+      <LoginPageContainer>
         {loginOrRegister === 'login' ? (
-          <div id="login">
-            <h1>Sign In to Accumulus</h1>
-            <br />
+        <LoginFormContainer>
+          <>
+            <h1 style={{marginBottom: '10px', marginLeft: '120px'}}>Sign In</h1>
+            
 
             <form onSubmit={handleSubmit(onSubmit)}>
               <div>
-                <label htmlFor="email">Email</label>
-                <input
+                <label >Email</label><br/>
+                <LoginInput
                   {...register('email', {
                     required: true,
                     pattern:
@@ -115,8 +111,8 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
                 </ErrorMessage>
               </div>
               <div>
-                <label>Password</label>
-                <input
+                <label style={{marginTop: '10px'}}>Password</label><br/>
+                <LoginInput
                   {...register('password', { required: true })}
                   type="password"
                   onChange={(e) => {
@@ -129,11 +125,13 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
                   )}
                 </ErrorMessage>
               </div>
-              <button type="submit"> Log In</button>
-              <button onClick={regBtnHandler}>Register</button>
+              <LoginButton type="submit"> Log In</LoginButton>
+              <LoginButton onClick={regBtnHandler}>Register</LoginButton>
             </form>
-          </div>
-        ) : (
+          </>
+          </LoginFormContainer>
+        ) 
+        : (
           <Register
             setLoginOrRegister={setLoginOrRegister}
             setCurrentView={setCurrentView}
@@ -141,7 +139,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
             setUserRegion={setUserRegion}
           />
         )}
-      </LogInWrapper>
+      </LoginPageContainer>
     </>
   );
 };
