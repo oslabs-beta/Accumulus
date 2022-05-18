@@ -15,7 +15,8 @@
     "dev": "NODE_ENV=development webpack-dev-server --open & nodemon --es-module-specifier-resolution=node dist/server/server.js",
     "shep-build": "webpack --watch --mode development",
     "shep-dev": "NODE_ENV=development webpack server --open & nodemon server/server.js",
-    "chal-start": "nodemon ./server/server.ts & webpack-dev-server"
+    "chal-start": "nodemon ./server/server.ts & webpack-dev-server",
+    "test": "jest"
   },
   "keywords": [],
   "license": "ISC",
