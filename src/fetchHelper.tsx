@@ -23,9 +23,9 @@ export const fetchMetricAllFunctions = async (
   setMostErroredFuncs: Function,
   setMemUsedVsAllo: Function,
   timePeriod: string,
-  syncData: boolean = false,
   setUserRegion: Function,
   userRegion: string,
+  syncData: boolean = false,
 ) => {
   const fetchFuncNames = async (setFuncNames: Function) => {
     const response = await fetch('/api/aws/lambdaNames/', {
@@ -184,9 +184,9 @@ export const fetchMetricEachFunctions = async (
   setCost: Function,
   setThrottles: Function,
   timePeriod: string,
-  syncData: boolean = false,
   setUserRegion: Function,
   userRegion: string,
+  syncData: boolean = false,
 ) => {
   const fetchInvocations = async (setInvocations: Function) => {
     const response = await fetch(
