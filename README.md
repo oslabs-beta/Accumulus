@@ -12,6 +12,7 @@ It is intimidating to navigate the extensive AWS docs and hundreds of services, 
 
 <p>Currently, monitoring tools for Lambda make it difficult to directly compare two Lambda functions side by side. Our solution is a web application that provides comprehensive charts for direct comparison of functions while presenting bottlenecks and resource improvements. </p>
 
+Project Links: [Github](https://github.com/oslabs-beta/Accumulus) | [Linkedin](https://www.linkedin.com/addThisSoon) | [Press](https://medium.com/addThisSoon)
 
 
 
@@ -49,36 +50,38 @@ It is intimidating to navigate the extensive AWS docs and hundreds of services, 
 
 <h2>Authors:</h2>
 
-Matt Femia - [Github] (https://github.com/mattfemia) || [Linkedin] (https://www.linkedin.com/in/mattfemia/)
+Matt Femia - [Github](https://github.com/mattfemia) || [Linkedin](https://www.linkedin.com/in/mattfemia/)
 
-Christian Sansovich - [Github] (https://github.com/christiansansovich) || [Linkedin] (https://www.linkedin.com/in/christian-sansovich/)
+Christian Sansovich - [Github](https://github.com/christiansansovich) || [Linkedin](https://www.linkedin.com/in/christian-sansovich/)
 
-Dan Teng - [Github] (https://github.com/danwteng) || [Linkedin] (https://www.linkedin.com/in/danwteng/)
+Dan Teng - [Github](https://github.com/danwteng) || [Linkedin](https://www.linkedin.com/in/danwteng/)
 
-Eric Wu - [Github] (https://github.com/EZW1) || [Linkedin] (https://www.linkedin.com/in/ericzfwu/)
+Eric Wu - [Github](https://github.com/EZW1) || [Linkedin](https://www.linkedin.com/in/ericzfwu/)
 
-Mark Yencheske - [Github] (https://github.com/markyencheske) || [Linkedin] (https://www.linkedin.com/in/mark-yencheske-62698122b/)
+Mark Yencheske - [Github](https://github.com/markyencheske) || [Linkedin](https://www.linkedin.com/in/mark-yencheske-62698122b/)
+
+
 
 
 <h2>Contributing:</h2>
 
 <p> Have a suggestion? Found a bug? Want to make Accumulus better?</p>
-<p>Please submit issues/pull requests if you have feedback or message the Accumuls team to be added as a contributor: <a>accmulusdev@gmail.com</a></p>
+<p>Please submit issues/pull requests if you have feedback or message the Accumuls team to be added as a contributor: accmulusdev@gmail.com</p>
 
 
 <h2>💻 Built with:</h2>
 
 
-* Typescript (https://www.typescriptlang.org/)
-* React (https://reactjs.org/)
-* ReactRouter (https://reactrouter.com/)
-* NodeJS (https://nodejs.org/en/)
-* Express (https://expressjs.com/)
-* MongoDB (https://www.mongodb.com/)
-* Mongoose (https://mongoosejs.com/)
-* Styled Components (https://styled-components.com)
-* ReCharts (https://recharts.org/)
-* Redis (https://redis.io)
+* [Typescript](https://www.typescriptlang.org/)
+* [React](https://reactjs.org/)
+* [ReactRouter](https://reactrouter.com/)
+* [NodeJS](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [MongoDB](https://www.mongodb.com/)
+* [Mongoose](https://mongoosejs.com/)
+* [Styled Components](https://styled-components.com)
+* [ReCharts](https://recharts.org/)
+* [Redis](https://redis.io)
 
 <h2>License</h2>
 
