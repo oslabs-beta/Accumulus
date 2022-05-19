@@ -24,7 +24,7 @@ export const cacheGet: middlewareFunction = async (req, res, next) => {
 
     // bypass if cached data is found and sync is true
     if(typeof cachedData ==='string' && !sync) {
-      console.log('found cached data for ', req.originalUrl)
+      // console.log('found cached data for ', req.originalUrl)
       res.status(200).send(JSON.parse(cachedData))
     } else next();    
   } catch (error) {

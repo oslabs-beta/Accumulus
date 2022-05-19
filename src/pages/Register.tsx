@@ -48,8 +48,6 @@ const Register = (props: any) => {
   const YML = `https://accumulus.s3.us-east-2.amazonaws.com/cloudformation.yml`;
 
   const onSubmit = async (data: FormData) => {
-    console.log('register button clicked');
-
     storeName(nameReg);
 
     const body = JSON.stringify({
@@ -61,8 +59,6 @@ const Register = (props: any) => {
       externalId: EXTERNAL_ID,
     });
 
-    console.log(body);
-
     const register = await fetch('/api/user/signup', {
       headers: {
         'Content-Type': 'application/json',
@@ -70,13 +66,11 @@ const Register = (props: any) => {
       method: 'POST',
       body,
     });
-    // console.log(register);
 
     const response = await register.json();
     const arn = response.arn;
     const externalId = response.externalId;
     const region = response.region;
-    // console.log(region, 'from register fetch')
 
     if (register.status === 200) {
       props.setUserRegion(region);
@@ -97,7 +91,6 @@ const Register = (props: any) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div id="regInfo">
               <div>
-                {/* <label>Name</label><br /> */}
                 <RegInput
                   placeholder='Name'
                   {...register('name', { required: true })}
@@ -113,7 +106,6 @@ const Register = (props: any) => {
               </div>
               <br></br>
               <div>
-                {/* <label htmlFor="email">Email</label><br /> */}
                 <RegInput
                   placeholder='Email Address'
                   {...register('email', {
@@ -134,8 +126,6 @@ const Register = (props: any) => {
               </div>
               <br></br>
               <div>
-                {/* <label>Password</label><br /> */}
-
                 <RegInput
                 placeholder='Password'
                   type="password"
@@ -152,7 +142,6 @@ const Register = (props: any) => {
               </div>
               <br />
             </div>
-
             <div className="arnInstructions">
               Connection your AWS account to Accumulus by following the steps
               below:
@@ -183,7 +172,6 @@ const Register = (props: any) => {
             <br />
 
             <div>
-              {/* <label>ARN</label><br/> */}
               <RegInput
                 placeholder='ARN'
 

@@ -15,7 +15,9 @@
     "dev": "NODE_ENV=development webpack-dev-server --open & nodemon --es-module-specifier-resolution=node dist/server/server.js",
     "shep-build": "webpack --watch --mode development",
     "shep-dev": "NODE_ENV=development webpack server --open & nodemon server/server.js",
-    "chal-start": "nodemon ./server/server.ts & webpack-dev-server"
+    "chal-start": "nodemon ./server/server.ts & webpack-dev-server",
+    "test": "jest",
+    "build": "tsc -p tsconfig.build.json"
   },
   "keywords": [],
   "license": "ISC",
@@ -55,6 +57,7 @@
     "recharts": "^2.1.9",
     "sass": "^1.51.0",
     "styled-components": "^5.3.5",
+    "supertest": "^6.2.3",
     "uuid": "^8.3.2",
     "webpack": "^5.72.0"
   },
@@ -67,7 +70,7 @@
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^27.5.1",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^17.0.31",
     "@types/react": "^18.0.0",
@@ -76,6 +79,7 @@
     "@types/recharts": "^1.8.23",
     "@types/regenerator-runtime": "^0.13.1",
     "@types/styled-components": "^5.1.25",
+    "@types/supertest": "^2.0.12",
     "@types/uuid": "^8.3.4",
     "babel-loader": "^8.2.5",
     "babel-plugin-styled-components": "^2.0.7",
@@ -88,6 +92,7 @@
     "sass-loader": "^12.6.0",
     "source-map-loader": "^1.0.0",
     "style-loader": "^3.3.1",
+    "ts-jest": "^28.0.2",
     "ts-loader": "^9.2.8",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3",

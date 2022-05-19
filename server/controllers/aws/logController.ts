@@ -21,7 +21,6 @@ logController.getLambdaLogsByFunc = async (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  console.log(res.locals);
   const { credentials } = res.locals;
   const { region } = req.body;
   const periodSelection = req.params.period;
@@ -393,7 +392,6 @@ logController.getLambdaUsageEachFunc = async (
     // Iterate over lambda function names
     for (let i = 0; i < funcNamesArr.length; i++) {
       // Pull error logs for each (array of objects)
-      console.log('Lambda Name: ', funcNamesArr[i]);
       const logs = await logController.getLambdaLogsGeneric(
         cwClient,
         funcNamesArr[i],

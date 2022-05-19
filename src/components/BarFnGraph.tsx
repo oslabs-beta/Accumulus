@@ -25,7 +25,6 @@ interface BarFnGraphProps {
 }
 
 const BarFuncGraph = (props: BarFnGraphProps) => {
-  console.log(props.data, ' ');
   return (
     <>
       <h1

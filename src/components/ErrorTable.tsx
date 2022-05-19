@@ -35,7 +35,8 @@ const Table = styled.table`
 const ErrorTable = (props: ErrorTableProps) => {
   //create result array with modified data (may need to move into backend)
   const dataArray: { [key: string]: string | number }[] = [];
-
+  let numLogs = 0;
+  if (props.data)
   //iterate through array of objects
   for (let i = 0; i < props.data.length; i++) {
     for (let j = 0; j < props.data[i]['logs'].length; j++) {
@@ -46,7 +47,16 @@ const ErrorTable = (props: ErrorTableProps) => {
       logInfo['date'] = props.data[i]['logs'][j]['date'];
       logInfo['message'] = props.data[i]['logs'][j]['message'];
       dataArray.push(logInfo);
+      numLogs++;
     }
+  }
+  if (numLogs === 0) {
+    const logInfo: { [key: string]: string | number } = {};
+    logInfo['funcName'] = 'No error logs recently';
+    logInfo['id'] = '';
+    logInfo['date'] = '';
+    logInfo['message'] = '';
+    dataArray.push(logInfo);
   }
   //Ideal result:
   // [...{

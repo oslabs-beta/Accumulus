@@ -477,16 +477,16 @@ export const Scroll = styled.div`
   height: 100vh;
 `;
 
-export const FnSelectButton = styled.button`
+export const FnSelectButton = styled.button<{ selected?: boolean }>`
   border: none;
   height: 40px;
   width: 80px;
-  font-family: 'open sans', sans-serif; 
+  font-family: 'open sans', sans-serif;
   font-size: 16;
   font-weight: 500;
   border-radius: 5px;
   /* border: 1px solid #9b4ac6; */
-  background-color: #a674c1;
+  background-color: ${(props: any) => (props.selected ? '#9b4ac6' : '#a674c1')};
   color: white;
   margin: 5px;
   overflow-wrap: break-word;
@@ -625,6 +625,9 @@ export const LogoutBtn = styled.button`
   border-radius: 5px;
   /* font-family: 'Fira Sans', sans-serif;  */
   cursor: pointer;
+  &:hover {
+    background: #9b4ac6;
+  }
 `;
 
 

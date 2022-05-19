@@ -33,6 +33,7 @@ const FuncGraphCompare = (props: FnGraphCompareProps) => {
         fillOpacity={1}
         fill="url(#colorUv)"
         activeDot={{ r: 6 }}
+        strokeWidth={2}
       />
     );
   }
@@ -55,8 +56,8 @@ const FuncGraphCompare = (props: FnGraphCompareProps) => {
             data={props.data}
             margin={{
               top: 10,
-              right: 30,
-              left: 0,
+              right: 50,
+              left: 30,
               bottom: 0,
             }}
           >
@@ -72,7 +73,7 @@ const FuncGraphCompare = (props: FnGraphCompareProps) => {
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis dataKey="xkey" />
-            <YAxis dataKey="" unit={props.unit} />
+            <YAxis dataKey="" unit={props.unit} tickCount={10} domain={['dataMin', 'dataMax']}/>
             <Tooltip />
             {lines}
           </LineChart>

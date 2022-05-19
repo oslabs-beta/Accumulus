@@ -76,18 +76,15 @@ costController.calcCostEachLambda = async (
         architectures,
         region
       );
-      costData[i][name] = calcCost;
+      const roundedCost = calcCost.toPrecision(4)
+      costData[i][name] = roundedCost;
       total += calcCost;
-      // console.log(total);
     }
 
-    costData[i].value = total;
+    costData[i].value = total.toPrecision(4);
   }
   res.locals.costData = cost;
   res.locals.toBeCached = res.locals.costData
-  // console.log(res.locals.lambdaFunctions);
-  // console.log(res.locals.Invocations);
-  // console.log(res.locals.Duration);
   next();
 };
 

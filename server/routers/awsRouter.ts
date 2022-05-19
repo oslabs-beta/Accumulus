@@ -13,6 +13,14 @@ import * as cacheController from '../controllers/aws/cacheController';
 const router = express.Router();
 
 /* Lambda Function Names and Config Settings */
+router.get(
+  '/',
+  (req: express.Request, res: express.Response) => {
+    console.log('SHOULD SHOW COOKIES HERE:')
+    res.status(200).json({})
+  }
+);
+
 router.post(
   '/lambdaNames',
   cookieController.getCookieCredentials,

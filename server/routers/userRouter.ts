@@ -35,6 +35,14 @@ router.post(
   }
 );
 
+router.get(
+  '/checkCoookies',
+  cookieController.getCookieCredentials,
+  (req: Request, res: Response): void => {
+    res.status(200).json(res.locals.userData);
+  }
+);
+
 
 
 export default router;

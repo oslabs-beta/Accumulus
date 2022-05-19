@@ -19,6 +19,7 @@ userController.createUser = async (req, res, next) => {
     console.log('userController.createUser user created yay');
     res.locals.confirmation = {
       userCreated: true,
+      name: newUser.name,
       arn: newUser.arn,
       externalId: newUser.externalId,
       region: newUser.region,
@@ -45,10 +46,10 @@ userController.verifyUser = async (req, res, next) => {
     if (user !== null) {
       if (await user.validatePassword(password)) {
         // Correct password
-        console.log('userController.verifyUser correct password YAY!!');
+        console.log('userController.verifyUser correct password');
         res.locals.confirmation = {
-          name: user.name,
           success: true,
+          name: user.name,
           arn: user.arn,
           externalId: user.externalId,
           region: user.region,
@@ -75,4 +76,12 @@ userController.verifyUser = async (req, res, next) => {
   }
 };
 
+// userController.printTwo = (req, res, next) => {
+//   return 'two';
+// }
+
 export default userController;
+
+export const printTwo: Function = () => {
+  return 'two';
+}

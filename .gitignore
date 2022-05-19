@@ -52,3 +52,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# tests
+/__tests__/cacheController.test.ts 
+/__tests__/user.test.ts 

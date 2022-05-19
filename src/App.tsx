@@ -63,7 +63,6 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
-        setUserRegion,
         userRegion,
         syncData,
       );
@@ -75,7 +74,6 @@ const App = () => {
         setCost,
         setThrottles,
         timePeriod,
-        setUserRegion,
         userRegion,
         syncData,
       );
@@ -96,7 +94,6 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
-        setUserRegion,
         userRegion
       );
       console.log('running fetch Metric BY Functions');
@@ -107,7 +104,6 @@ const App = () => {
         setCost,
         setThrottles,
         timePeriod,
-        setUserRegion,
         userRegion
       );
       setSyncData(false);
