@@ -71,24 +71,7 @@ export const Pages = styled.div`
 `;
 
 
-export const StartedButton = styled.button`
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin: 60px;
-  width: 170px;
-  height: 70px;
-  border-radius: 7px;
-  border: none;
-  background-color: #a48fc5;
-  color: white;
-  font-weight: 500;
-  font-size: 27px;
 
-  &:hover {
-    background-color: #7a6899;
-  }
-`;
 
 
 
@@ -220,6 +203,9 @@ export const SplashLeft = styled.section`
 
 
 export const SplashBody = styled.section`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   background-image: linear-gradient(
     to bottom right,
     white,
@@ -228,11 +214,6 @@ export const SplashBody = styled.section`
     rgb(198, 145, 200),
     rgb(219, 149, 195)
   );
-  /* background: linear-gradient(
-    120deg,
-    rgb(228, 215, 248) 0%,
-    rgba(94, 193, 211, 0.904) 99%
-  ); */
   width: 100vw;
   height: 95vh;
   left: 0;
@@ -243,11 +224,17 @@ export const H1 = styled.h1`
   padding-left: 50px;
   padding-top: 50px;
 `;
+
 export const Text = styled.section`
-  width: 400px;
+  /* position: absolute;
+  top: 0;
+  left: 0;  */
+  width: 300px;
   /* border: 1px solid white; */
   /* padding: 20px; */
-  margin: 50px;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 0;
   font-size: 1.4em;
 `;
 
@@ -263,15 +250,24 @@ export const SplashFooter = styled.section`
   align-self: flex-start;
 `;
 
-
-
-export const ButtonContainer = styled.section`
-  position: relative;
+export const StartedButton = styled.button`
+  position: fixed;
+  top: 0;
   right: 0;
-  top: 5;
+  margin: 60px;
+  width: 170px;
+  height: 70px;
+  border-radius: 7px;
+  border: none;
+  background-color: #a48fc5;
+  color: white;
+  font-weight: 500;
+  font-size: 27px;
+
+  &:hover {
+    background-color: #7a6899;
+  }
 `;
-
-
 
 //------------------DASHBOARD-----------------------------
 export const DashboardWrapper = styled.section`

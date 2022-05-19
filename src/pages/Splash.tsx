@@ -1,10 +1,6 @@
 import { StopMetricStreamsOutput } from '@aws-sdk/client-cloudwatch';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
-import * as THREE from 'three';
-import { Canvas, useFrame } from '@react-three/fiber'
-
-
 import {
   SplashFooter,
   SplashLeft,
@@ -13,6 +9,14 @@ import {
   H1,
   Text,
 } from '../styles';
+import { stat } from 'fs';
+
+import * as THREE from 'three';
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
+import { Environment, OrbitControls, Sky, Cloud, useGLTF } from '@react-three/drei'
+
+
+
 
 type Props = {
   setUserRegion: Function;
@@ -49,25 +53,21 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     }
   };
 
+  function Model() {
+    const { scene } = useGLTF('/tree.glb');
+    return <primitive object={scene} />;
+  }
 
+  function Rig() {
+    const camera = useThree((state) => state.camera)
+    // state.clock.elapsedTime = 
+    return useFrame((state) => {
+      camera.position.z = Math.sin(state.clock.elapsedTime) * 50
+      camera.position.x = Math.sin(state.clock.elapsedTime) * -10
 
-  function Box(props: JSX.IntrinsicElements['mesh']) {
-    const mesh = useRef<THREE.Mesh>(null!)
-    const [hovered, setHover] = useState(false)
-    const [active, setActive] = useState(false)
-    useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
-    return (
-      <mesh
-        {...props}
-        ref={mesh}
-        scale={active ? 1.5 : 1}
-        onClick={(event) => setActive(!active)}
-        onPointerOver={(event) => setHover(true)}
-        onPointerOut={(event) => setHover(false)}>
-        <boxGeometry args={[1, 1, 2]} />
-        <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-      </mesh>
-    )
+      // camera.position.z = Math.sin(100) * 10
+
+    })
   }
 
 
@@ -76,20 +76,42 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     <>
       <SplashBody>
         <H1>Lambda Monitoring Made Easy</H1>
+        <StartedButton onClick={startHandler}>Get Started</StartedButton>
         <Text>
           Accumulus is an open source application for AWS Lambda data
           visualization and cost optimization
         </Text>
-        {/* <Image src={'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftaberextrusions.com%2F2015-marks-six-consecutive-years-of-growth-for-domestic-aluminum-extrusion-market%2Fgraph-up%2F&psig=AOvVaw0okZ_YAp4_2R-S_JS9b6So&ust=1651841042994000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOC2pcixyPcCFQAAAAAdAAAAABAD'} alt={'Image of Graph'}></Image> */}
-        <StartedButton onClick={startHandler}>Get Started</StartedButton>
-        <Canvas>
-          {/* <ambientLight /> */}
-          <ambientLight intensity={0.5} />
-          {/* <directionalLight position={[0, 0, 5]} /> */}
-          <pointLight position={[10, 10, 10]} />
-          <Box position={[-1.2, 1, 1]} />
-          <Box position={[1.2, 2, 0]} />
-        </Canvas>,
+
+   
+
+        <Canvas camera={{ position: [0, 0, 10], fov: 85 }} style={{position:'absolute'}}>
+          <ambientLight intensity={0.8} />
+          <pointLight intensity={2} position={[0, 0, -1000]} />
+          <Suspense fallback={null}>
+            <Cloud position={[-15, 0, 20]} speed={0.0} opacity={.3} />
+            <Cloud position={[-20, 0, 30]} speed={0.0} opacity={.3} />
+            <Cloud position={[4, 2, 25]} speed={0.0} opacity={0.3} />
+
+            <Cloud position={[0, 0, 10]} speed={0.0} opacity={.3} />
+
+
+            <Cloud position={[-4, -2, -15]} speed={0.0} opacity={.5} />
+            <Cloud position={[4, 2, -15]} speed={0.0} opacity={0.5} />
+            <Cloud position={[-4, 2, -10]} speed={0.0} opacity={.3} />
+            <Cloud position={[4, -2, -5]} speed={0.0} opacity={0.5} />
+            <Cloud position={[10, 2, 0]} speed={0.0} opacity={0.3} />
+            <Cloud position={[0, 0, -25]} speed={0.0} opacity={0.5} />
+            <Cloud position={[-4, 13, -30]} speed={0.0} opacity={.5} />
+            <Cloud position={[10, -2, -50]} speed={0.0} opacity={0.5} />
+            <Cloud position={[0, 0, -75]} speed={0.01} opacity={0.5} />
+            <Cloud position={[-4, 13, -90]} speed={0.01} opacity={.5} />
+            <Cloud position={[4, -2, -100]} speed={0.01} opacity={0.5} />
+            <Cloud position={[4, 2, -80]} speed={0.01} opacity={0.3} />
+            <Rig />
+            {/* <Model /> */}
+          </Suspense>
+         
+       </Canvas>
       </SplashBody>
       <SplashFooter>
         <footer>
