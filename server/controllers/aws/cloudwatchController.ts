@@ -205,10 +205,10 @@ cwController.rankFuncsByMetric = async (
     const metricByFuncData = filteredMetricDataResults.map(
       (metricDataResult) => {
         const functionName = metricDataResult.Label;
-        const value = metricDataResult!.Values!.reduce(
+        const value = Number(metricDataResult!.Values!.reduce(
           (accum, curr) => accum + curr,
           0
-        );
+        ).toPrecision(4));
 
         return {
           name: functionName,
