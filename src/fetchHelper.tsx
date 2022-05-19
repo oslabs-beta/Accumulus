@@ -23,9 +23,8 @@ export const fetchMetricAllFunctions = async (
   setMostErroredFuncs: Function,
   setMemUsedVsAllo: Function,
   timePeriod: string,
-  syncData: boolean = false,
-  setUserRegion: Function,
   userRegion: string,
+  syncData: boolean = false,
 ) => {
   const fetchFuncNames = async (setFuncNames: Function) => {
     const response = await fetch('/api/aws/lambdaNames/', {
@@ -40,7 +39,6 @@ export const fetchMetricAllFunctions = async (
     });
     const res = await response.json();
     setFuncNames(res);
-    // console.log(userRegion);
   };
 
   const fetchTotalInvocations = async (setTotalInvocations: Function) => {
@@ -184,9 +182,8 @@ export const fetchMetricEachFunctions = async (
   setCost: Function,
   setThrottles: Function,
   timePeriod: string,
-  syncData: boolean = false,
-  setUserRegion: Function,
   userRegion: string,
+  syncData: boolean = false,
 ) => {
   const fetchInvocations = async (setInvocations: Function) => {
     const response = await fetch(
@@ -209,7 +206,7 @@ export const fetchMetricEachFunctions = async (
 
   const fetchDurations = async (setDuration: Function) => {
     const response = await fetch(
-      `/api/aws/metricsEachFunc/Duration/${timePeriod}/Average`,
+      `/api/aws/metricsEachFunc/Duration/${timePeriod}/Sum`,
       {
         method: 'POST',
         headers: {
@@ -228,7 +225,7 @@ export const fetchMetricEachFunctions = async (
 
   const fetchErrors = async (setErrors: Function) => {
     const response = await fetch(
-      `/api/aws/metricsEachFunc/Errors/${timePeriod}/Sum`,
+      `/api/aws/metricsEachFunc/Errors/${timePeriod}/Average`,
       {
         method: 'POST',
         headers: {

@@ -47,7 +47,10 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
       <DashboardGrid>
         <SideBarDiv>
           <DashSideWrapper>
-            <TimeButtons setTimePeriod={props.setTimePeriod} />
+            <TimeButtons
+              timePeriod={props.timePeriod} 
+              setTimePeriod={props.setTimePeriod} 
+            />
             {/* {props.timePeriod} */}
           </DashSideWrapper>
         </SideBarDiv>
@@ -64,6 +67,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
         <Row1GraphBox>
           <GraphContainer>
             <FnGraph
+              tooltip={'Invocations'}
               data={props.totalInvocations}
               name={'Total Invocations'}
               width={'100%'}
@@ -72,6 +76,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
           </GraphContainer>
           <GraphContainer>
             <FnGraph
+              tooltip={'Errors'}
               data={props.totalErrors}
               name={'Total Errors'}
               width={'100%'}
@@ -82,6 +87,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
         <Row2GraphBox>
           <GraphContainer>
             <FnGraph
+              tooltip={'Cost'}
               data={props.totalCost}
               name={'Total Cost'}
               width={'100%'}

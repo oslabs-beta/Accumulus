@@ -41,7 +41,6 @@ cwController.getMetricsTotalLambda = async (
     const metricAllFuncResult = await cwClient.send(
       new GetMetricDataCommand(metricAllFuncInputParams)
     );
-
     let metricAllFuncData =
       metricAllFuncResult.MetricDataResults![0].Timestamps!.map(
         (timeStamp, index) => {
@@ -148,12 +147,12 @@ cwController.getMetricsEachLambda = async (
     };
 
     // Iterate over each series starting at index=1
-    for (let i = 1; i < tmpData.series.length; i++) {
+    for (let i = 0; i < tmpData.series.length; i++) {
       // Iterate over each data point in series
       for (let j = 0; j < tmpData.series[0].data.length; j++) {
         // Pushing value for given data point (data[j]) for given function (funcNames[i])
         // into existing data point on series[0], the first function listed
-        tmpData.series[0].data[j][funcNames[i]] = tmpData.series[i].data[j][funcNames[i]];
+        tmpData.series[0].data[j][funcNames[i]] = Number(tmpData.series[i].data[j][funcNames[i]].toPrecision(4));
       }
     }
     res.locals[graphMetricName] = tmpData;
@@ -196,12 +195,20 @@ cwController.rankFuncsByMetric = async (
     const metricByFuncResult = await cwClient.send(
       new GetMetricDataCommand(metricByFuncInputParams)
     );
-
-    const metricByFuncData = metricByFuncResult!.MetricDataResults!.map(
+    const filteredMetricDataResults = metricByFuncResult!.MetricDataResults!.filter((metricDataResult) => {
+      console
+      for (let i = 0; i < metricDataResult!.Values!.length; i++) {
+        if (metricDataResult!.Values![i]) return true
+      }
+      return false
+    })
+    const metricByFuncData = filteredMetricDataResults.map(
       (metricDataResult) => {
         const functionName = metricDataResult.Label;
-        const values = metricDataResult!.Values!.reverse();
-        const value = values.reduce((accum, curr) => accum + curr, 0);
+        const value = metricDataResult!.Values!.reduce(
+          (accum, curr) => accum + curr,
+          0
+        );
 
         return {
           name: functionName,
@@ -216,11 +223,10 @@ cwController.rankFuncsByMetric = async (
     // Request response JSON Object send to the FrontEnd
     res.locals.functionRankings = {
       title: `Lambda-${graphMetricName}`,
-      ranking: metricByFuncData.slice(1, 6),
+      ranking: metricByFuncData,
       // functions: funcNames // ** Use if we need easy access to func names for graph axis
     };
     res.locals.toBeCached = res.locals.functionRankings
-
     return next();
   } catch (err) {
     console.error('Error in CW getMetricsData By Functions', err);

@@ -13,6 +13,7 @@ import {
 } from 'recharts';
 
 interface FnGraphProps {
+  tooltip: string;
   data: object[];
   name: string;
   width: string | number;
@@ -64,7 +65,7 @@ const FnGraph = (props: FnGraphProps) => {
             <YAxis unit={props.unit} dataKey="" />
             <Tooltip />
             <Line
-              name="bob"
+              name={props.tooltip}
               type="monotone"
               dataKey={'value'}
               stroke={'#000000'}

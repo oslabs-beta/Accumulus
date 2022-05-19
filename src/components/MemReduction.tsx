@@ -20,7 +20,7 @@ const MemReduction = (props:IMemReduction) => {
     const diff: number = Number(objOfInterest[`diff${funcName}`]);
     const allocated: number = Number(props.memUsedVsAllo[i][`allo${funcName}`]);
     const memRatio = Math.floor((diff / allocated) * 100);
-    if (memRatio > 25) {
+    if (memRatio > 80) {
       memRatioOrdered.push([funcName, memRatio]);
     }
   }

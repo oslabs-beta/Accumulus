@@ -3,7 +3,17 @@
  * https://jestjs.io/docs/configuration
  */
 
-export default {
+import type { Config } from "@jest/types"
+
+const config: Config.InitialOptions = {
+  preset: "ts-jest",
+  testEnvironment: "node",
+  verbose: true,
+  // automock: true,
+}
+export default config;
+
+// **** export default {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -14,7 +24,7 @@ export default {
   // cacheDirectory: "/private/var/folders/sx/wrgqkkvn3lscsqq05000r43w0000gn/T/jest_dx",
 
   // Automatically clear mock calls, instances and results before every test
-  clearMocks: true,
+  //**** */ clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -31,7 +41,7 @@ export default {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  // *** coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -191,4 +201,4 @@ export default {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+// };

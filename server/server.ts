@@ -5,7 +5,7 @@ import path from 'path';
 import 'dotenv/config';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
-import cookieParser from 'cookie-parser'; // Possible typescript error causing this not to work
+import cookieParser from 'cookie-parser';
 
 // Router imports
 import userRouter from './routers/userRouter.js';

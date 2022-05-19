@@ -1,0 +1,7 @@
+// This configuration tells TypeScript to exclude files that look like tests. 
+// It has to be separate otherwise ts-jest won't see your test files 
+
+{
+  "extends": "./tsconfig",
+  "exclude": ["**/*.test.*", "**/__mocks__/*", "**/__tests__/*"]
+}

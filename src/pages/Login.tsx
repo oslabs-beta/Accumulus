@@ -48,7 +48,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
       password: passLog,
     });
 
-    const register = await fetch('/api/user/login', {
+    const login = await fetch('/api/user/login', {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -57,7 +57,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
       body,
     });
 
-    const response = await register.json();
+    const response = await login.json();
     const arn = response.arn;
     const externalId = response.externalId;
     const region = response.region;
