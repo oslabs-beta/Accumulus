@@ -83,17 +83,14 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
 
    
 
-        <Canvas camera={{ position: [40, 0, 10], fov: 45 }} style={{position:'absolute'}}>
+        <Canvas camera={{ position: [40, 12, 0], fov: 45 }} style={{position:'absolute'}}>
           <ambientLight intensity={0.8} />
           <pointLight intensity={2} position={[0, 0, -1000]} />
           <Suspense fallback={null}>
             <Cloud position={[-15, 0, 20]} speed={0.0} opacity={.3} />
             <Cloud position={[-20, 0, 30]} speed={0.0} opacity={.3} />
             <Cloud position={[4, 2, 25]} speed={0.0} opacity={0.3} />
-
             <Cloud position={[0, 0, 10]} speed={0.0} opacity={.3} />
-
-
             <Cloud position={[-4, -2, -15]} speed={0.0} opacity={.5} />
             <Cloud position={[4, 2, -15]} speed={0.0} opacity={0.5} />
             <Cloud position={[-4, 2, -10]} speed={0.0} opacity={.3} />
@@ -107,7 +104,6 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
             <Cloud position={[4, -2, -100]} speed={0.01} opacity={0.5} />
             <Cloud position={[4, 2, -80]} speed={0.01} opacity={0.3} />
             <Rig />
-            {/* <Model /> */}
           </Suspense>
          <OrbitControls/>
        </Canvas>

@@ -27,17 +27,6 @@ export const Nav = styled.div`
   display: flex;
   flex-direction: row;
   background: transparent;
-  // background: #444444;
-  // border-bottom: 1px solid #dfdfdf;
-  /* background-image: linear-gradient(
-    to right,
-    rgb(208, 177, 228),
-  
-    rgb(198, 145, 200),
-    rgb(219, 149, 195)
-  ); */
-
-  /* rgb(219, 149, 195) */
   grid-area: nav;
 `;
 
@@ -49,22 +38,8 @@ export const SideBarDiv = styled.div`
   flex-direction: column;
   align-items: center;
   background: transparent;
-  // background: #444444;
   border-right: 1px solid #dfdfdf;
-  /* background-image: linear-gradient(
-    to bottom,
-    rgb(255, 123, 106),
-    rgb(233, 143, 91),
-    rgb(255, 236, 160)
-  ); */
-  /* background-image: linear-gradient(
-    to bottom,
-    rgb(208, 177, 228),
-    rgb(198, 145, 200),
-    rgb(219, 149, 195)
-  ); */
   grid-area: sidebar;
-  /* padding: 0.25rem; */
 `;
 export const Pages = styled.div`
   grid-area: pages;
@@ -575,7 +550,7 @@ export const MainNav = styled.ul`
     font-weight: 500;
   }
 
-  li:nth-last-child(3) {
+  li:nth-last-child(4) {
     margin-left: auto;
   }
   /* li:nth-last-child(2) {
@@ -591,22 +566,18 @@ export const BasicBtn = styled.button`
   margin: 0.5rem;
   margin-bottom: 2px;
   font-size: 20px;
-  /* font-family: 'Open Sans', sans-serif; */
   font-weight: 500;
   outline: none;
-  /* background: #ffffff; */
   background: transparent;
   color: #000000;
-  // color: #efefef;
   border: none;
   cursor: pointer;
   &:hover {
     background: transparent;
     border-bottom: 1px solid #9b4ac6;
     color: #9b4ac6;
-    /* box-shadow: 2px 2px 2px #eeeeee; */
   }
-  & selected {
+  &:selected {
     border-bottom: 1px solid #efefef;
   }
 `;
@@ -628,6 +599,30 @@ export const LogoutBtn = styled.button`
   }
 `;
 
+export const SpinBtn = styled.button`
+  height: 45px;
+  margin-top: 0px;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+  background: transparent;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  data-toggle
+  &:hover {
+    background: transparent;
+    color: #9b4ac6;
+  }
+  
+ &:focus {
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+  transition: transform 0.5s;
+}  
+
+`;
 
 export const SideAct = styled.div`
   /* display: flex; */

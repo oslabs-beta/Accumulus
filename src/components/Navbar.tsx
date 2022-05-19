@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/userContext';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { BasicBtn, LogoutBtn, SideAct, MainNav } from '../styles';
+import { BasicBtn, LogoutBtn, SideAct, MainNav, SpinBtn, SelectorBox, RegionSelect } from '../styles';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
@@ -20,8 +20,8 @@ library.add(fas);
 const gearLookup: IconLookup = { prefix: 'fas', iconName: 'gear' };
 const gearIconDefinition: IconDefinition = findIconDefinition(gearLookup);
 
-const chartLookup: IconLookup = { prefix: 'fas', iconName: 'chart-line' };
-const chartIconDefinition: IconDefinition = findIconDefinition(chartLookup);
+const RotateLookup: IconLookup = { prefix: 'fas', iconName: 'rotate' };
+const RotateIconDefinition: IconDefinition = findIconDefinition(RotateLookup);
 
 const BrainLookup: IconLookup = { prefix: 'fas', iconName: 'brain' };
 const BrainIconDefinition: IconDefinition = findIconDefinition(BrainLookup);
@@ -83,7 +83,9 @@ const Sidebar = (props: Props) => {
   };
 
   
-
+  const updateRegion = (e: React.ChangeEvent<HTMLSelectElement>): void =>{
+    props.setUserRegion(e.target.value);
+  }
   return (
     <>
       <MainNav>
@@ -130,14 +132,26 @@ const Sidebar = (props: Props) => {
              Memory
            </BasicBtn>
          </li>
-        <li><button onClick={syncBtnHandler}>Sync</button></li>
         <li><SideAct>Welcome</SideAct>{`${name}`}</li>
+        <li><SpinBtn onClick={syncBtnHandler}><FontAwesomeIcon icon={RotateIconDefinition} size='2x'/></SpinBtn></li>
+        <li><SpinBtn onClick={syncBtnHandler}><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></SpinBtn>
+           <ul>
+           {/* <SelectorBox> */}
+            {/* <RegionSelect> */}
+              {/* <select onChange={updateRegion}>
+                <option value='us-east-2'>Ohio (US-East-2)</option>
+                <option value='us-east-1'>Virginia (US-East-1)</option>
+                <option value='us-west-1'>California (US-West-1)</option>
+               <option value='us-west-2'>Oregon (US-West-2)</option>
+              </select> */}
+            {/* </RegionSelect> */}
+          {/* </SelectorBox> */}
+          </ul>
+        </li>
         <li><LogoutBtn onClick={logOutHandler}>Log Out</LogoutBtn></li>
-        <li><FontAwesomeIcon icon={gearIconDefinition} size='2x'/></li>
-       
       </MainNav>
     </>
   );
 };
-
+//<FontAwesomeIcon icon={RotateIconDefinition} size='2x'/>
 export default Sidebar;
