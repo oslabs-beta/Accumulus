@@ -23,8 +23,8 @@ const gearIconDefinition: IconDefinition = findIconDefinition(gearLookup);
 const RotateLookup: IconLookup = { prefix: 'fas', iconName: 'rotate' };
 const RotateIconDefinition: IconDefinition = findIconDefinition(RotateLookup);
 
-const BrainLookup: IconLookup = { prefix: 'fas', iconName: 'brain' };
-const BrainIconDefinition: IconDefinition = findIconDefinition(BrainLookup);
+const CloudLookup: IconLookup = { prefix: 'fas', iconName: 'cloud' };
+const CloudIconDefinition: IconDefinition = findIconDefinition(CloudLookup);
 
 // coffeeIconDefinition
 
@@ -86,13 +86,15 @@ const Sidebar = (props: Props) => {
   const updateRegion = (e: React.ChangeEvent<HTMLSelectElement>): void =>{
     props.setUserRegion(e.target.value);
   }
+
+
   return (
     <>
       <MainNav>
         <li>
-          <FontAwesomeIcon icon={BrainIconDefinition} size="2x" />
+          <FontAwesomeIcon icon={CloudIconDefinition} />
         </li>
-        <li>Accumulus</li>
+        <li>accumulus</li>
         <li>
            <BasicBtn
              onClick={dashBtnHandler}

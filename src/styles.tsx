@@ -538,14 +538,14 @@ export const MainNav = styled.ul`
 
   li:nth-child(1) {
     margin-left: 2px;
-    font-size: 30px;
+    font-size: 45px;
   }
 
   li:nth-child(2) {
     font-family: 'Montserrat Alternates';
     color: #a674c1;
     // color: #efefef;
-    margin-left: 10px;
+    margin-left: 2px;
     font-size: 55px;
     font-weight: 500;
   }
