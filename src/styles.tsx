@@ -27,17 +27,6 @@ export const Nav = styled.div`
   display: flex;
   flex-direction: row;
   background: transparent;
-  // background: #444444;
-  // border-bottom: 1px solid #dfdfdf;
-  /* background-image: linear-gradient(
-    to right,
-    rgb(208, 177, 228),
-  
-    rgb(198, 145, 200),
-    rgb(219, 149, 195)
-  ); */
-
-  /* rgb(219, 149, 195) */
   grid-area: nav;
 `;
 
@@ -49,46 +38,15 @@ export const SideBarDiv = styled.div`
   flex-direction: column;
   align-items: center;
   background: transparent;
-  // background: #444444;
   border-right: 1px solid #dfdfdf;
-  /* background-image: linear-gradient(
-    to bottom,
-    rgb(255, 123, 106),
-    rgb(233, 143, 91),
-    rgb(255, 236, 160)
-  ); */
-  /* background-image: linear-gradient(
-    to bottom,
-    rgb(208, 177, 228),
-    rgb(198, 145, 200),
-    rgb(219, 149, 195)
-  ); */
   grid-area: sidebar;
-  /* padding: 0.25rem; */
 `;
 export const Pages = styled.div`
   grid-area: pages;
 `;
 
 
-export const StartedButton = styled.button`
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin: 60px;
-  width: 170px;
-  height: 70px;
-  border-radius: 7px;
-  border: none;
-  background-color: #a48fc5;
-  color: white;
-  font-weight: 500;
-  font-size: 27px;
 
-  &:hover {
-    background-color: #7a6899;
-  }
-`;
 
 
 
@@ -220,21 +178,19 @@ export const SplashLeft = styled.section`
 
 
 export const SplashBody = styled.section`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   background-image: linear-gradient(
     to bottom right,
-    white,
+    #fdefff,
     rgb(208, 177, 228),
     rgba(190, 146, 212, 0.964),
     rgb(198, 145, 200),
     rgb(219, 149, 195)
   );
-  /* background: linear-gradient(
-    120deg,
-    rgb(228, 215, 248) 0%,
-    rgba(94, 193, 211, 0.904) 99%
-  ); */
   width: 100vw;
-  height: 90vh;
+  height: 95vh;
   left: 0;
 `;
 export const H1 = styled.h1`
@@ -243,34 +199,51 @@ export const H1 = styled.h1`
   padding-left: 50px;
   padding-top: 50px;
 `;
+
 export const Text = styled.section`
-  width: 400px;
+  /* position: absolute;
+  top: 0;
+  left: 0;  */
+  width: 300px;
   /* border: 1px solid white; */
   /* padding: 20px; */
-  margin: 50px;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 0;
   font-size: 1.4em;
 `;
 
 export const SplashFooter = styled.section`
   width: 100vw;
-  height: 10vh;
+  height: 5vh;
   padding-left: 20px;
-  padding-bottom: 100px;
+  padding-top: 10px;
+  /* padding-bottom: 100px; */
   bottom: 0;
   left: 0;
   background-color: #c1b2d8;
   align-self: flex-start;
 `;
 
-
-
-export const ButtonContainer = styled.section`
-  position: relative;
+export const StartedButton = styled.button`
+  z-index: 1;
+  position: fixed;
+  top: 0;
   right: 0;
-  top: 5;
+  margin: 60px;
+  width: 170px;
+  height: 70px;
+  border-radius: 7px;
+  border: none;
+  background-color: #a48fc5;
+  color: white;
+  font-weight: 500;
+  font-size: 27px;
+
+  &:hover {
+    background-color: #7a6899;
+  }
 `;
-
-
 
 //------------------DASHBOARD-----------------------------
 export const DashboardWrapper = styled.section`
@@ -577,7 +550,7 @@ export const MainNav = styled.ul`
     font-weight: 500;
   }
 
-  li:nth-last-child(3) {
+  li:nth-last-child(4) {
     margin-left: auto;
   }
   /* li:nth-last-child(2) {
@@ -593,22 +566,18 @@ export const BasicBtn = styled.button`
   margin: 0.5rem;
   margin-bottom: 2px;
   font-size: 20px;
-  /* font-family: 'Open Sans', sans-serif; */
   font-weight: 500;
   outline: none;
-  /* background: #ffffff; */
   background: transparent;
   color: #000000;
-  // color: #efefef;
   border: none;
   cursor: pointer;
   &:hover {
     background: transparent;
     border-bottom: 1px solid #9b4ac6;
     color: #9b4ac6;
-    /* box-shadow: 2px 2px 2px #eeeeee; */
   }
-  & selected {
+  &:selected {
     border-bottom: 1px solid #efefef;
   }
 `;
@@ -630,6 +599,30 @@ export const LogoutBtn = styled.button`
   }
 `;
 
+export const SpinBtn = styled.button`
+  height: 45px;
+  margin-top: 0px;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+  background: transparent;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  data-toggle
+  &:hover {
+    background: transparent;
+    color: #9b4ac6;
+  }
+  
+ &:focus {
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+  transition: transform 0.5s;
+}  
+
+`;
 
 export const SideAct = styled.div`
   /* display: flex; */

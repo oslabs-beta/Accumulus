@@ -1,5 +1,5 @@
 import { StopMetricStreamsOutput } from '@aws-sdk/client-cloudwatch';
-import React, { useState, useContext } from 'react';
+import React, { useRef, useState, useContext, Suspense } from 'react';
 import { UserContext } from '../../context/userContext';
 import { useHistory } from 'react-router-dom';
 import {
@@ -10,12 +10,22 @@ import {
   H1,
   Text,
 } from '../styles';
+import { stat } from 'fs';
+
+import * as THREE from 'three';
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
+import { Environment, OrbitControls, Sky, Cloud, useGLTF } from '@react-three/drei'
+
+
+
 
 type Props = {
   setUserRegion: Function;
   setCurrentView: Function;
   setStart: Function;
 };
+
+
 
 const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
   const { name, storeName, email, storeEmail } = useContext(UserContext);
@@ -42,16 +52,61 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     }
   };
 
+  function Model(props:any) {
+    const { scene } = useGLTF('/tree.glb');
+    return <primitive object={scene} />;
+  }
+
+  function Rig() {
+    const camera = useThree((state) => state.camera)
+    // state.clock.elapsedTime = 
+    return useFrame((state) => {
+      camera.position.z = Math.sin(state.clock.elapsedTime) * 10
+      // camera.position.x = Math.sin(state.clock.elapsedTime) * -10
+
+      // camera.position.z = Math.sin(100) * 10
+
+    })
+  }
+
+
+
   return (
     <>
       <SplashBody>
         <H1>Lambda Monitoring Made Easy</H1>
+        <StartedButton onClick={startHandler}>Get Started</StartedButton>
         <Text>
           Accumulus is an open source application for AWS Lambda data
           visualization and cost optimization
         </Text>
-        {/* <Image src={'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftaberextrusions.com%2F2015-marks-six-consecutive-years-of-growth-for-domestic-aluminum-extrusion-market%2Fgraph-up%2F&psig=AOvVaw0okZ_YAp4_2R-S_JS9b6So&ust=1651841042994000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOC2pcixyPcCFQAAAAAdAAAAABAD'} alt={'Image of Graph'}></Image> */}
-        <StartedButton onClick={startHandler}>Get Started</StartedButton>
+
+   
+
+        <Canvas camera={{ position: [40, 12, 0], fov: 45 }} style={{position:'absolute'}}>
+          <ambientLight intensity={0.8} />
+          <pointLight intensity={2} position={[0, 0, -1000]} />
+          <Suspense fallback={null}>
+            <Cloud position={[-15, 0, 20]} speed={0.0} opacity={.3} />
+            <Cloud position={[-20, 0, 30]} speed={0.0} opacity={.3} />
+            <Cloud position={[4, 2, 25]} speed={0.0} opacity={0.3} />
+            <Cloud position={[0, 0, 10]} speed={0.0} opacity={.3} />
+            <Cloud position={[-4, -2, -15]} speed={0.0} opacity={.5} />
+            <Cloud position={[4, 2, -15]} speed={0.0} opacity={0.5} />
+            <Cloud position={[-4, 2, -10]} speed={0.0} opacity={.3} />
+            <Cloud position={[4, -2, -5]} speed={0.0} opacity={0.5} />
+            <Cloud position={[10, 2, 0]} speed={0.0} opacity={0.3} />
+            <Cloud position={[0, 0, -25]} speed={0.0} opacity={0.5} />
+            <Cloud position={[-4, 13, -30]} speed={0.0} opacity={.5} />
+            <Cloud position={[10, -2, -50]} speed={0.0} opacity={0.5} />
+            <Cloud position={[0, 0, -75]} speed={0.01} opacity={0.5} />
+            <Cloud position={[-4, 13, -90]} speed={0.01} opacity={.5} />
+            <Cloud position={[4, -2, -100]} speed={0.01} opacity={0.5} />
+            <Cloud position={[4, 2, -80]} speed={0.01} opacity={0.3} />
+            <Rig />
+          </Suspense>
+         <OrbitControls/>
+       </Canvas>
       </SplashBody>
       <SplashFooter>
         <footer>

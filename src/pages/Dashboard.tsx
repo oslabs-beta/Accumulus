@@ -56,7 +56,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
         </SideBarDiv>
         <SelectorBox>
           <RegionSelect>
-            <select onChange={updateRegion}>
+          <select onChange={updateRegion}>
               <option value='us-east-2'>Ohio (US-East-2)</option>
               <option value='us-east-1'>Virginia (US-East-1)</option>
               <option value='us-west-1'>California (US-West-1)</option>
