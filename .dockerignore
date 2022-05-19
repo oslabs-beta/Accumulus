@@ -1,0 +1,10 @@
+.next
+eslintrc.json
+.gitattributes
+.gitignore
+cloudformation.yml
+README.md
+
+zip/
+aws/
+containers/

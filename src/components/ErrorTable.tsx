@@ -31,35 +31,32 @@ const Table = styled.table`
 // how do I get it to scroll for overflow?
 // overflow: scroll;
 
-const TableHead = styled.th``;
-
-const Row = styled.tr`
-  &:nth-child(2n) {
-    background: red;
-  }
-`;
-const Cell = styled.td`
-  padding: 10px, 10px;
-  overflow: hidden;
-`;
-
 //WHEN FETECHING, REMEMBER TO ADD props:ErrorProps
 const ErrorTable = (props: ErrorTableProps) => {
   //create result array with modified data (may need to move into backend)
   const dataArray: { [key: string]: string | number }[] = [];
-
+  let numLogs = 0;
+  if (props.data)
   //iterate through array of objects
-  for (let i = 0; i < errorMessagesMock.length; i++) {
-    for (let j = 0; j < errorMessagesMock[i]['logs'].length; j++) {
+  for (let i = 0; i < props.data.length; i++) {
+    for (let j = 0; j < props.data[i]['logs'].length; j++) {
       //take function, and then individual logs
       const logInfo: { [key: string]: string | number } = {};
-      logInfo['funcName'] = errorMessagesMock[i]['function'];
-      //should ids be unique? think about how this would look? is it unique per function? should we due object literals?
-      logInfo['id'] = errorMessagesMock[i]['logs'][j]['id'];
-      logInfo['date'] = errorMessagesMock[i]['logs'][j]['date'];
-      logInfo['message'] = errorMessagesMock[i]['logs'][j]['message'];
+      logInfo['funcName'] = props.data[i]['function'];
+      logInfo['id'] = props.data[i]['logs'][j]['id'];
+      logInfo['date'] = props.data[i]['logs'][j]['date'];
+      logInfo['message'] = props.data[i]['logs'][j]['message'];
       dataArray.push(logInfo);
+      numLogs++;
     }
+  }
+  if (numLogs === 0) {
+    const logInfo: { [key: string]: string | number } = {};
+    logInfo['funcName'] = 'No error logs recently';
+    logInfo['id'] = '';
+    logInfo['date'] = '';
+    logInfo['message'] = '';
+    dataArray.push(logInfo);
   }
   //Ideal result:
   // [...{
@@ -73,7 +70,7 @@ const ErrorTable = (props: ErrorTableProps) => {
   const errorDivs = [];
   for (let i = 0; i < dataArray.length; i++) {
     errorDivs.push(
-      <ErrorTableRow key={`${dataArray[i].date}` + `${dataArray[i].message}`}>
+      <ErrorTableRow key={`${dataArray[i].date}` + `${dataArray[i].message}` + `${i}`}>
         <ErrorTableCell>{dataArray[i].funcName}</ErrorTableCell>
         <ErrorTableCell>{dataArray[i].id}</ErrorTableCell>
         <ErrorTableCell>{dataArray[i].date}</ErrorTableCell>

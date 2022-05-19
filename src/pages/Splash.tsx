@@ -1,5 +1,6 @@
 import { StopMetricStreamsOutput } from '@aws-sdk/client-cloudwatch';
-import React, { useRef, useState, Suspense } from 'react';
+import React, { useRef, useState, useContext, Suspense } from 'react';
+import { UserContext } from '../../context/userContext';
 import { useHistory } from 'react-router-dom';
 import {
   SplashFooter,
@@ -27,27 +28,25 @@ type Props = {
 
 
 const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
+  const { name, storeName, email, storeEmail } = useContext(UserContext);
   let history = useHistory();
 
   const startHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    // console.log('Get Started was clicked');
-    if (
-      document.cookie // "arn=fhdkjashfkdh; externalId=fhdjkashf;  "
-        .split(';')
-        .some((item) => item.trim().startsWith('arn=')) &&
-      document.cookie
-        .split(';')
-        .some((item) => item.trim().startsWith('externalId=')) &&
-      document.cookie
-        .split(';')
-        .some((item) => item.trim().startsWith('region='))
-    ) {
-      // console.log('cookies are here, redirect to dashboard');
+    const cookieCheck = await fetch('/api/user/checkCoookies', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      method: 'GET',
+    });
+    const response = await cookieCheck.json();
+    if (response.name && response.arn && response.externalId && response.region) {
+      setUserRegion(response.region)
+      storeName(response.name)
       setCurrentView('dashboard');
       setStart(true);
       history.push('/home');
     } else {
-      // console.log('no cookies, redirect to log in');
       setCurrentView('login');
       history.push('/login');
     }

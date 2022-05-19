@@ -138,7 +138,6 @@ analysisController.calcMeanMemoryUsageTotal = async (
 	graphUnits = graphUnits.slice(0, -1);
 
 	const summarizedData = [];
-	console.log('\nLOGS: ', logs[0].streams);
 
 	// Vectorize calculation to find the average memory_usage for each function
 	// at each interval
@@ -172,7 +171,6 @@ analysisController.calcLambdaMemoryDiff = async (
 	graphUnits = graphUnits.slice(0, -1);
 
 	const summarizedData = [];
-	console.log('\nLOGS: ', logs[0].streams);
 
 	// Vectorize calculation to find the average memory_usage for each function
 	// at each interval

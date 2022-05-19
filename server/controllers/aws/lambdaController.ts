@@ -36,19 +36,20 @@ lambdaController.getFunctions = (
       .send(new lambda.ListFunctionsCommand(iam))
       .then((data) => {
         if (typeof data.Functions === 'object') {
-          res.locals.funcNames = data.Functions.map((el) => el.FunctionName);
+          const filteredFunctions = data.Functions.filter((el) => el.FunctionName !== 'InvokeLambdaFuncs')
+          res.locals.funcNames = filteredFunctions.map((el) => el.FunctionName);
           res.locals.toBeCached = res.locals.funcNames;
           let funcData = [];
-          for (let i = 0; i < data.Functions.length; i++) {
+          for (let i = 0; i < filteredFunctions.length; i++) {
             const formattedResponse: LambdaFunctionResponse = {
-              name: data.Functions[i].FunctionName!,
-              description: data.Functions[i].Description!,
-              architectures: data.Functions[i].Architectures!,
-              size: data.Functions[i].CodeSize!, // (in bytes)
-              memoryAllocated: data.Functions[i].MemorySize!, // (in MB)
-              ephemeral: data.Functions[i].EphemeralStorage!, // (in MB)
-              timeout: data.Functions[i].Timeout!,
-              lastModified: data.Functions[i].LastModified!,
+              name: filteredFunctions[i].FunctionName!,
+              description: filteredFunctions[i].Description!,
+              architectures: filteredFunctions[i].Architectures!,
+              size: filteredFunctions[i].CodeSize!, // (in bytes)
+              memoryAllocated: filteredFunctions[i].MemorySize!, // (in MB)
+              ephemeral: filteredFunctions[i].EphemeralStorage!, // (in MB)
+              timeout: filteredFunctions[i].Timeout!,
+              lastModified: filteredFunctions[i].LastModified!,
             };
             funcData.push(formattedResponse);
           }

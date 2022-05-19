@@ -47,15 +47,18 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
       <DashboardGrid>
         <SideBarDiv>
           <DashSideWrapper>
-            <TimeButtons setTimePeriod={props.setTimePeriod} />
+            <TimeButtons
+              timePeriod={props.timePeriod} 
+              setTimePeriod={props.setTimePeriod} 
+            />
             {/* {props.timePeriod} */}
           </DashSideWrapper>
         </SideBarDiv>
         <SelectorBox>
           <RegionSelect>
             <select onChange={updateRegion}>
-              <option value='us-east-1'>Virginia (US-East-1)</option>
               <option value='us-east-2'>Ohio (US-East-2)</option>
+              <option value='us-east-1'>Virginia (US-East-1)</option>
               <option value='us-west-1'>California (US-West-1)</option>
               <option value='us-west-2'>Oregon (US-West-2)</option>
             </select>
@@ -64,6 +67,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
         <Row1GraphBox>
           <GraphContainer>
             <FnGraph
+              tooltip={'Invocations'}
               data={props.totalInvocations}
               name={'Total Invocations'}
               width={'100%'}
@@ -72,6 +76,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
           </GraphContainer>
           <GraphContainer>
             <FnGraph
+              tooltip={'Errors'}
               data={props.totalErrors}
               name={'Total Errors'}
               width={'100%'}
@@ -82,6 +87,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
         <Row2GraphBox>
           <GraphContainer>
             <FnGraph
+              tooltip={'Cost'}
               data={props.totalCost}
               name={'Total Cost'}
               width={'100%'}

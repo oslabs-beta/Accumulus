@@ -9,14 +9,17 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({ template: '/src/index.html' })],
   devServer: {
+    port: 8080,
+    historyApiFallback: true,
     static: {
-      directory: path.resolve(__dirname, '/src'),
+      directory: path.resolve(__dirname, '/dist'),
       publicPath: '/',
     },
     compress: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
-      '/api/*': 'http://localhost:3000',
-    },
+      '/api/*': "http://localhost:3000"
+    }
   },
   module: {
     rules: [

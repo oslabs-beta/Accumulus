@@ -5,7 +5,7 @@ import path from 'path';
 import 'dotenv/config';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
-import cookieParser from 'cookie-parser'; // Possible typescript error causing this not to work
+import cookieParser from 'cookie-parser';
 
 // Router imports
 import userRouter from './routers/userRouter.js';
@@ -26,7 +26,7 @@ mongoose.connect(`${process.env.MONGO_URI!}`);
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: 'http://0.0.0.0:8080',
   credentials: true,
 };
 app.use(cors(corsOptions));

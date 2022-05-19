@@ -38,7 +38,7 @@ const App = () => {
   const [invocations, setInvocations] = useState([]);
   const [duration, setDuration] = useState([]);
   const [errors, setErrors] = useState([]);
-  const [memUsage, setMemUsage] = useState([]);
+
   const [cost, setCost] = useState([]);
   const [throttles, setThrottles] = useState([]);
 
@@ -52,7 +52,7 @@ const App = () => {
 
   useEffect(() => {
     if (syncData) {
-      // console.log('running fetch Metric ALL Functions');
+      console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -63,22 +63,19 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
+        userRegion,
         syncData,
-        setUserRegion,
-        userRegion
       );
-      // console.log('running fetch Metric BY Functions');
+      console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
         setErrors,
-        setMemUsage,
         setCost,
         setThrottles,
         timePeriod,
+        userRegion,
         syncData,
-        setUserRegion,
-        userRegion
       );
       setSyncData(false);
     }
@@ -86,7 +83,7 @@ const App = () => {
 
   useEffect(() => {
     if (start) {
-      // console.log('running fetch Metric ALL Functions');
+      console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -97,26 +94,21 @@ const App = () => {
         setMostErroredFuncs,
         setMemUsedVsAllo,
         timePeriod,
-        syncData,
-        setUserRegion,
         userRegion
       );
-      // console.log('running fetch Metric BY Functions');
+      console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
         setErrors,
-        setMemUsage,
         setCost,
         setThrottles,
         timePeriod,
-        syncData,
-        setUserRegion,
         userRegion
       );
       setSyncData(false);
     }
-  }, [start, timePeriod, setUserRegion]);
+  }, [start, timePeriod, userRegion]);
 
   return (
     <UserProvider>
@@ -189,7 +181,6 @@ const App = () => {
                           invocations={invocations}
                           duration={duration}
                           errors={errors}
-                          memUsage={memUsage}
                           cost={cost}
                           throttles={throttles}
                         />
