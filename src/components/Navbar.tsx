@@ -68,7 +68,7 @@ const Sidebar = (props: Props) => {
   const logOutHandler = async () => {
     // console.log('log out clicked!');
     //post request to /signout
-    const leaving = await fetch('http://localhost:3000/api/user/signout', {
+    const leaving = await fetch('/api/user/signout', {
       headers: {
         'Content-Type': 'application/json',
       },
