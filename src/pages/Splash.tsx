@@ -53,7 +53,7 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     }
   };
 
-  function Model() {
+  function Model(props:any) {
     const { scene } = useGLTF('/tree.glb');
     return <primitive object={scene} />;
   }
@@ -62,8 +62,8 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     const camera = useThree((state) => state.camera)
     // state.clock.elapsedTime = 
     return useFrame((state) => {
-      camera.position.z = Math.sin(state.clock.elapsedTime) * 50
-      camera.position.x = Math.sin(state.clock.elapsedTime) * -10
+      camera.position.z = Math.sin(state.clock.elapsedTime) * 10
+      // camera.position.x = Math.sin(state.clock.elapsedTime) * -10
 
       // camera.position.z = Math.sin(100) * 10
 
@@ -84,7 +84,7 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
 
    
 
-        <Canvas camera={{ position: [0, 0, 10], fov: 85 }} style={{position:'absolute'}}>
+        <Canvas camera={{ position: [40, 0, 10], fov: 45 }} style={{position:'absolute'}}>
           <ambientLight intensity={0.8} />
           <pointLight intensity={2} position={[0, 0, -1000]} />
           <Suspense fallback={null}>
@@ -110,7 +110,7 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
             <Rig />
             {/* <Model /> */}
           </Suspense>
-         
+         <OrbitControls/>
        </Canvas>
       </SplashBody>
       <SplashFooter>

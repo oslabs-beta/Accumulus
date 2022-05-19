@@ -208,7 +208,7 @@ export const SplashBody = styled.section`
   flex-wrap: wrap;
   background-image: linear-gradient(
     to bottom right,
-    white,
+    #fdefff,
     rgb(208, 177, 228),
     rgba(190, 146, 212, 0.964),
     rgb(198, 145, 200),
@@ -251,6 +251,7 @@ export const SplashFooter = styled.section`
 `;
 
 export const StartedButton = styled.button`
+  z-index: 1;
   position: fixed;
   top: 0;
   right: 0;
