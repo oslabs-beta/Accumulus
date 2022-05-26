@@ -34,7 +34,9 @@ Project Links: [Github](https://github.com/oslabs-beta/Accumulus) | [Linkedin](h
 
 <h2>Monitoring Features:</h2>
 
-<div style="width:100%;height:0;padding-bottom:48%;position:relative;"><iframe src="https://giphy.com/embed/XJpb6PqiHtYEt1xgDN" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+<p align="center">
+<img src="./assets/dashboard.gif" />
+</p>
 
 1. At the Dashboard, users can select different time increments for a broad overview of their Lambda funtions, as well as select from different AWS regions. 
  
