@@ -135,7 +135,7 @@ export const RegFormContainer = styled.section`
   width: 350px;
   text-align: left;
   padding: 20px;
-  margin-top: 120px;
+  margin-top: 60px;
 `;
 
 export const ErrorMessage = styled.section`

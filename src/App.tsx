@@ -112,95 +112,96 @@ const App = () => {
       <HashRouter>
         <div>
           <GlobalStyle />
-          {currentView === 'splash' ? (
-            <Splash
-              setCurrentView={setCurrentView}
-              setUserRegion={setUserRegion}
-              setStart={setStart}
-            />
-          ) : (
-            <React.Fragment>
-              <div>
-                <Switch>
+          <React.Fragment>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <Splash
+                    setCurrentView={setCurrentView}
+                    setUserRegion={setUserRegion}
+                    setStart={setStart}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/login"
+                render={(props) => (
+                  <Login
+                    setCurrentView={setCurrentView}
+                    setUserRegion={setUserRegion}
+                    setStart={setStart}
+                  />
+                )}
+              />
+
+              {/* DASHBOARD ROUTE */}
+              <MainGrid>
+                <Nav>
+                  <Navbar
+                    currentView={currentView}
+                    setCurrentView={setCurrentView}
+                    setSyncData={setSyncData}
+                    setStart={setStart}
+                    setUserRegion={setUserRegion}
+                  />
+                </Nav>
+                <Pages>
                   <Route
                     exact
-                    path="/login"
+                    path="/home"
                     render={(props) => (
-                      <Login
-                        setCurrentView={setCurrentView}
+                      <Dashboard
                         setUserRegion={setUserRegion}
-                        setStart={setStart}
+                        setCurrentView={setCurrentView}
+                        setTimePeriod={setTimePeriod}
+                        timePeriod={timePeriod}
+                        totalInvocations={totalInvocations}
+                        totalErrors={totalErrors}
+                        totalCost={totalCost}
+                        slowestFuncs={slowestFuncs}
+                        errorMsgs={errorMsgs}
+                        mostErroredFuncs={mostErroredFuncs}
                       />
                     )}
                   />
 
-                  {/* DASHBOARD ROUTE */}
-                  <MainGrid>
-                    <Nav>
-                      <Navbar
-                        currentView={currentView}
+                  {/* FUNCTIONS ROUTE */}
+                  <Route
+                    exact
+                    path="/functions"
+                    render={(props) => (
+                      <Functions
                         setCurrentView={setCurrentView}
-                        setSyncData={setSyncData}
-                        setStart={setStart}
-                        setUserRegion={setUserRegion}
+                        setTimePeriod={setTimePeriod}
+                        timePeriod={timePeriod}
+                        funcNames={funcNames}
+                        invocations={invocations}
+                        duration={duration}
+                        errors={errors}
+                        cost={cost}
+                        throttles={throttles}
                       />
-                    </Nav>
-                    <Pages>
-                      <Route
-                        exact
-                        path="/home"
-                        render={(props) => (
-                          <Dashboard
-                            setUserRegion={setUserRegion}
-                            setCurrentView={setCurrentView}
-                            setTimePeriod={setTimePeriod}
-                            timePeriod={timePeriod}
-                            totalInvocations={totalInvocations}
-                            totalErrors={totalErrors}
-                            totalCost={totalCost}
-                            slowestFuncs={slowestFuncs}
-                            errorMsgs={errorMsgs}
-                            mostErroredFuncs={mostErroredFuncs}
-                          />
-                        )}
-                      />
+                    )}
+                  />
 
-                      {/* FUNCTIONS ROUTE */}
-                      <Route
-                        exact
-                        path="/functions"
-                        render={(props) => (
-                          <Functions
-                            setCurrentView={setCurrentView}
-                            setTimePeriod={setTimePeriod}
-                            timePeriod={timePeriod}
-                            funcNames={funcNames}
-                            invocations={invocations}
-                            duration={duration}
-                            errors={errors}
-                            cost={cost}
-                            throttles={throttles}
-                          />
-                        )}
+                  {/* ALLOCATIONS ROUTE */}
+                  <Route
+                    exact
+                    path="/memory"
+                    render={(props) => (
+                      <Memory
+                        setCurrentView={setCurrentView}
+                        memUsedVsAllo={memUsedVsAllo}
                       />
-
-                      {/* ALLOCATIONS ROUTE */}
-                      <Route
-                        exact
-                        path="/memory"
-                        render={(props) => (
-                          <Memory
-                            setCurrentView={setCurrentView}
-                            memUsedVsAllo={memUsedVsAllo}
-                          />
-                        )}
-                      />
-                    </Pages>
-                  </MainGrid>
-                </Switch>
-              </div>
-            </React.Fragment>
-          )}
+                    )}
+                  />
+                </Pages>
+              </MainGrid>
+            </Switch>
+          </React.Fragment>
         </div>
       </HashRouter>
     </UserProvider>
