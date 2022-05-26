@@ -34,7 +34,12 @@ Project Links: [Github](https://github.com/oslabs-beta/Accumulus) | [Linkedin](h
 
 <h2>Monitoring Features:</h2>
 
-*Add screen shot or gif of Dashboard and it's functionality with region and time selectors*
+<div>
+  <video width="320" height="240" autoplay>
+    <source src="https://i.gyazo.com/852e6999899a7ae1d3382e0195cff3d8.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 1. At the Dashboard, users can select different time increments for a broad overview of their Lambda funtions, as well as select from different AWS regions. 
  
