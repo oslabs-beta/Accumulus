@@ -7,6 +7,7 @@ import {
   RegInput,
   RegFormContainer,
   ErrorMessage,
+  BackButton,
 } from '../styles';
 import { useForm } from 'react-hook-form';
 
@@ -20,7 +21,7 @@ type FormData = {
 };
 
 const Register = (props: any) => {
-  const { name, storeName } = useContext(UserContext)
+  const { name, storeName } = useContext(UserContext);
 
   const {
     register,
@@ -81,108 +82,103 @@ const Register = (props: any) => {
   return (
     <>
       <RegFormContainer>
-          <h3 style={{marginLeft: '120px'}}>Sign Up</h3>
-          <br />
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div id="regInfo">
-              <div>
-                <RegInput
-                  placeholder='Name'
-                  {...register('name', { required: true })}
-                  onChange={(e) => {
-                    setNameReg(e.target.value);
-                  }}
-                />
-                <ErrorMessage>
-                  {errors.name && (
-                    <div className="errors"> Enter your name</div>
-                  )}
-                </ErrorMessage>
-              </div>
-              <br></br>
-              <div>
-                <RegInput
-                  placeholder='Email Address'
-                  {...register('email', {
-                    required: true,
-                    pattern:
-                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  })}
-                  type="text"
-                  onChange={(e) => {
-                    setEmailReg(e.target.value);
-                  }}
-                />
-                <ErrorMessage>
-                  {errors.email && (
-                    <div className="errors"> Enter a valid email address</div>
-                  )}
-                </ErrorMessage>
-              </div>
-              <br></br>
-              <div>
-                <RegInput
-                placeholder='Password'
-                  type="password"
-                  {...register('password', { required: true })}
-                  onChange={(e) => {
-                    setPasswordReg(e.target.value);
-                  }}
-                />
-                <ErrorMessage>
-                  {errors.password && (
-                    <div className="errors"> Enter your password</div>
-                  )}
-                </ErrorMessage>
-              </div>
-              <br />
-            </div>
-            <div className="arnInstructions">
-              Connection your AWS account to Accumulus by following the steps
-              below:
-              <br />
-              <ul style={{ paddingInlineStart: 20 }}>
-                <li>
-                  <a
-                    href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Add Accumulus CloudFormation stack to AWS.
-                  </a>
-                </li>
-                <li>
-                  Make sure you check &quot;I acknowledge that AWS
-                  CloudFormation might create IAM resource.&quot;
-                </li>
-                <li>Click &quot;Create&quot;</li>
-                <li>
-                  Once stack create has completed, head to the
-                  &quot;Outputs&quot; tab and look for your &quot;ARN&quot;
-                  string. Copy the &quot;ARN&quot; and paste into the field
-                  below.
-                </li>
-              </ul>
-            </div>
-            <br />
-
+        <h3 style={{ marginLeft: '120px' }}>Sign Up</h3>
+        <br />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div id="regInfo">
             <div>
               <RegInput
-                placeholder='ARN'
-
-                {...register('arn', { required: true })}
+                placeholder="Name"
+                {...register('name', { required: true })}
                 onChange={(e) => {
-                  setArnReg(e.target.value);
+                  setNameReg(e.target.value);
                 }}
               />
               <ErrorMessage>
-                {errors.arn && <div className="errors"> Enter your ARN</div>}
+                {errors.name && <div className="errors"> Enter your name</div>}
               </ErrorMessage>
             </div>
             <br></br>
+            <div>
+              <RegInput
+                placeholder="Email Address"
+                {...register('email', {
+                  required: true,
+                  pattern:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                })}
+                type="text"
+                onChange={(e) => {
+                  setEmailReg(e.target.value);
+                }}
+              />
+              <ErrorMessage>
+                {errors.email && (
+                  <div className="errors"> Enter a valid email address</div>
+                )}
+              </ErrorMessage>
+            </div>
+            <br></br>
+            <div>
+              <RegInput
+                placeholder="Password"
+                type="password"
+                {...register('password', { required: true })}
+                onChange={(e) => {
+                  setPasswordReg(e.target.value);
+                }}
+              />
+              <ErrorMessage>
+                {errors.password && (
+                  <div className="errors"> Enter your password</div>
+                )}
+              </ErrorMessage>
+            </div>
+            <br />
+          </div>
+          <div className="arnInstructions">
+            Connect your AWS account to Accumulus by following the steps below:
+            <br />
+            <ul style={{ paddingInlineStart: 20 }}>
+              <li>
+                <a
+                  href={`https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=accumulus-delegation&param_ExternalId=${EXTERNAL_ID}&templateURL=${YML}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Add Accumulus CloudFormation stack to AWS.
+                </a>
+              </li>
+              <li>
+                Make sure you check &quot;I acknowledge that AWS CloudFormation
+                might create IAM resource.&quot;
+              </li>
+              <li>Click &quot;Create&quot;</li>
+              <li>
+                Once stack create has completed, head to the &quot;Outputs&quot;
+                tab and look for your &quot;ARN&quot; string. Copy the
+                &quot;ARN&quot; and paste into the field below.
+              </li>
+            </ul>
+          </div>
+          <br />
 
+          <div>
+            <RegInput
+              placeholder="ARN"
+              {...register('arn', { required: true })}
+              onChange={(e) => {
+                setArnReg(e.target.value);
+              }}
+            />
+            <ErrorMessage>
+              {errors.arn && <div className="errors"> Enter your ARN</div>}
+            </ErrorMessage>
+          </div>
+          <br />
+          <div style={{ textAlign: 'center' }}>
             <label htmlFor="region">Choose your region:</label>
-            <br/>
+            <br />
             <select
               required
               id="region"
@@ -198,12 +194,20 @@ const Register = (props: any) => {
               </option>
               <option value="us-west-2">US West (Oregon) us-west-2</option>
             </select>
+          </div>
+          <br />
+          <RegButton type="submit">Sign me up!</RegButton>
+          <div style={{ textAlign: 'center' }}>
             <br />
-            <RegButton type="submit">Sign me up!</RegButton>
-            <RegButton onClick={() => props.setLoginOrRegister('login')}>
-              Login
-            </RegButton>
-          </form>
+            <u
+              style={{ cursor: 'pointer' }}
+              onClick={() => props.setLoginOrRegister('login')}
+            >
+              Already have an account?
+            </u>
+            <BackButton onClick={props.backBtnHandler}>Back</BackButton>
+          </div>
+        </form>
       </RegFormContainer>
     </>
   );

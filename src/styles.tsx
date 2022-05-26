@@ -45,11 +45,6 @@ export const Pages = styled.div`
   grid-area: pages;
 `;
 
-
-
-
-
-
 //---------------------LOGIN PAGE------
 
 export const LoginPageContainer = styled.section`
@@ -81,8 +76,6 @@ export const LoginFormContainer = styled.div`
 `;
 
 export const LoginButton = styled.button`
-
-  /* margin: 30px; */
   margin-top: 15px;
   width: 300px;
   height: 40px;
@@ -92,14 +85,29 @@ export const LoginButton = styled.button`
   color: white;
   font-weight: 500;
   font-size: 20px;
-  /* justify-content: center; */
-  /* align-items: center; */
   &:hover {
     background-color: #7a6899;
   }
 
   button:nth-child() {
+  }
+`;
 
+export const BackButton = styled.button`
+  margin-top: 15px;
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: #e6e1ef;
+  color: 72618e;
+  font-weight: 500;
+  font-size: 20px;
+  &:hover {
+    background-color: #c9bedd;
+  }
+
+  button:nth-child() {
   }
 `;
 
@@ -114,8 +122,10 @@ export const LoginInput = styled.input`
     margin-bottom: 10px;
     width: 300px;
   }
+  &::-webkit-input-placeholder {
+    text-align: center;
+  }
 `;
-
 
 //---------------------Registration PAGE------
 export const RegFormContainer = styled.section`
@@ -125,9 +135,8 @@ export const RegFormContainer = styled.section`
   width: 350px;
   text-align: left;
   padding: 20px;
-  margin-top: 200px;
+  margin-top: 120px;
 `;
-
 
 export const ErrorMessage = styled.section`
   color: red;
@@ -152,7 +161,6 @@ export const RegButton = styled.button`
   }
 
   button:nth-child() {
-
   }
 `;
 
@@ -160,14 +168,12 @@ export const RegInput = styled.input`
   width: 300px;
   height: 40px;
   border: none;
-  font-size:15px;
+  font-size: 15px;
   border-radius: 2px;
   background: #fcf7ff;
-  /* margin-top: 15px; */
-  /* &:nth-child(1) {
-    margin-bottom: 10px;
-    width: 300px;
-  } */
+  &::-webkit-input-placeholder {
+    text-align: center;
+  }
 `;
 
 //---------------------Splash PAGE------
@@ -175,7 +181,6 @@ export const RegInput = styled.input`
 export const SplashLeft = styled.section`
   align-self: flex-start;
 `;
-
 
 export const SplashBody = styled.section`
   display: flex;
@@ -245,6 +250,26 @@ export const StartedButton = styled.button`
   }
 `;
 
+export const DemoButton = styled.button`
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 60px;
+  width: 170px;
+  height: 70px;
+  border-radius: 7px;
+  border: none;
+  background-color: #a48fc5;
+  color: white;
+  font-weight: 500;
+  font-size: 27px;
+
+  &:hover {
+    background-color: #7a6899;
+  }
+`;
+
 //------------------DASHBOARD-----------------------------
 export const DashboardWrapper = styled.section`
   /* margin-left: 12%; */
@@ -274,7 +299,6 @@ export const GraphContainered = styled.section`
     transition: box-shadow 0.5s ease;
   }
 `;
-
 
 export const DashboardGrid = styled.div`
   display: grid;
@@ -306,9 +330,8 @@ export const PeriodSelect = styled.div`
 `;
 
 export const RegionSelect = styled.div`
-  float: right
+  float: right;
 `;
-
 
 export const Row1GraphBox = styled.div`
   display: grid;
@@ -376,7 +399,6 @@ export const ErrorTableTable = styled.table`
   box-sizing: border-box;
   border-collapse: collapse;
   color: black;
-
 `;
 
 export const ErrorTableRow = styled.tr`
@@ -396,8 +418,7 @@ export const FnGrid = styled.div`
   height: auto;
   grid-template-columns: 100px 1fr;
   /* grid-template-rows: 0.02fr 0.5fr 0.75fr 0.1fr; */
-  grid-template-areas:
-    'sidebar graph';
+  grid-template-areas: 'sidebar graph';
   grid-gap: 10px;
   transition: all 0.25s ease-in-out;
   color: white;
@@ -414,7 +435,6 @@ export const FnGraphContainer = styled.section`
   box-shadow: 2px 2px 2px #d8d8d8;
 `;
 
-
 // export const SelectContainer = styled.div`
 //   display: flex;
 //   align-items: center;
@@ -424,7 +444,6 @@ export const FnGraphContainer = styled.section`
 //   border-radius: 0.6rem;
 //   cursor: pointer;
 //   `;
-  
 
 export const SelectContainer = styled.div`
   display: flex;
@@ -474,14 +493,13 @@ export const FnSideBarWrapper = styled.div`
   margin-top: 5px;
   color: #000000;
   /* font-family: 'Fira Sans', sans-serif;  */
-
 `;
 
 //------------------MEMORY-----------------------
 export const MemoryGrid = styled.div`
   display: grid;
   /* width: auto; */
-  height:auto;
+  height: auto;
   grid-template-columns: 100px 1fr;
   /* grid-template-rows: 1fr 1fr; */
   /* grid-template-rows: 0.02fr 0.5fr 0.75fr 0.1fr; */
@@ -504,7 +522,7 @@ export const MemoryReductionContainer = styled.ul`
   list-style: none;
   height: auto;
   grid-area: reduction;
-  overflow:auto;
+  overflow: auto;
 
   li {
     padding-right: 20px;
@@ -609,19 +627,17 @@ export const SpinBtn = styled.button`
   color: #000000;
   border: none;
   cursor: pointer;
-  data-toggle
-  &:hover {
+  data-toggle &:hover {
     background: transparent;
     color: #9b4ac6;
   }
-  
- &:focus {
-  -webkit-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
-  transition: transform 0.5s;
-}  
 
+  &:focus {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    transition: transform 0.5s;
+  }
 `;
 
 export const SideAct = styled.div`

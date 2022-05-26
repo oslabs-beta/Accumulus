@@ -11,9 +11,7 @@ import Navbar from './components/Navbar';
 import * as fetchHelper from './fetchHelper';
 import { UserProvider } from '../context/userContext';
 
-
 const App = () => {
-
   const [start, setStart] = useState(false);
   const [userRegion, setUserRegion] = useState('us-east-1');
   const [funcNames, setFuncNames] = useState([]);
@@ -62,7 +60,7 @@ const App = () => {
         setMemUsedVsAllo,
         timePeriod,
         userRegion,
-        syncData,
+        syncData
       );
       console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
@@ -73,7 +71,7 @@ const App = () => {
         setThrottles,
         timePeriod,
         userRegion,
-        syncData,
+        syncData
       );
       setSyncData(false);
     }
@@ -111,101 +109,100 @@ const App = () => {
 
   return (
     <UserProvider>
-    <HashRouter>
-      <div>
-        <GlobalStyle />
-        {currentView === 'splash' ? (
-          <Splash
-            setCurrentView={setCurrentView}
-            setUserRegion={setUserRegion}
-            setStart={setStart}
-          />
-        ) : (
-          <React.Fragment>
-            <div>
-              <Switch>
-                <Route
-                  exact
-                  path="/login"
-                  render={(props) => (
-                    <Login
-                      setCurrentView={setCurrentView}
-                      setUserRegion={setUserRegion}
-                      setStart={setStart}
-                    />
-                  )}
-                />
+      <HashRouter>
+        <div>
+          <GlobalStyle />
+          {currentView === 'splash' ? (
+            <Splash
+              setCurrentView={setCurrentView}
+              setUserRegion={setUserRegion}
+              setStart={setStart}
+            />
+          ) : (
+            <React.Fragment>
+              <div>
+                <Switch>
+                  <Route
+                    exact
+                    path="/login"
+                    render={(props) => (
+                      <Login
+                        setCurrentView={setCurrentView}
+                        setUserRegion={setUserRegion}
+                        setStart={setStart}
+                      />
+                    )}
+                  />
 
-                {/* DASHBOARD ROUTE */}
-                <MainGrid>
-                  <Nav>
-                    <Navbar
-                      currentView={currentView}
-                      setCurrentView={setCurrentView}
-                      setSyncData={setSyncData}
-                      setStart={setStart}
-                      setUserRegion={setUserRegion}
-                    />
-                  </Nav>
-                  <Pages>
-                    <Route
-                      exact
-                      path="/home"
-                      render={(props) => (
-                        <Dashboard
-                          setUserRegion={setUserRegion}
-                          setCurrentView={setCurrentView}
-                          setTimePeriod={setTimePeriod}
-                          timePeriod={timePeriod}
-                          totalInvocations={totalInvocations}
-                          totalErrors={totalErrors}
-                          totalCost={totalCost}
-                          slowestFuncs={slowestFuncs}
-                          errorMsgs={errorMsgs}
-                          mostErroredFuncs={mostErroredFuncs}
-                        />
-                      )}
-                    />
+                  {/* DASHBOARD ROUTE */}
+                  <MainGrid>
+                    <Nav>
+                      <Navbar
+                        currentView={currentView}
+                        setCurrentView={setCurrentView}
+                        setSyncData={setSyncData}
+                        setStart={setStart}
+                        setUserRegion={setUserRegion}
+                      />
+                    </Nav>
+                    <Pages>
+                      <Route
+                        exact
+                        path="/home"
+                        render={(props) => (
+                          <Dashboard
+                            setUserRegion={setUserRegion}
+                            setCurrentView={setCurrentView}
+                            setTimePeriod={setTimePeriod}
+                            timePeriod={timePeriod}
+                            totalInvocations={totalInvocations}
+                            totalErrors={totalErrors}
+                            totalCost={totalCost}
+                            slowestFuncs={slowestFuncs}
+                            errorMsgs={errorMsgs}
+                            mostErroredFuncs={mostErroredFuncs}
+                          />
+                        )}
+                      />
 
-                    {/* FUNCTIONS ROUTE */}
-                    <Route
-                      exact
-                      path="/functions"
-                      render={(props) => (
-                        <Functions
-                          setCurrentView={setCurrentView}
-                          setTimePeriod={setTimePeriod}
-                          timePeriod={timePeriod}
-                          funcNames={funcNames}
-                          invocations={invocations}
-                          duration={duration}
-                          errors={errors}
-                          cost={cost}
-                          throttles={throttles}
-                        />
-                      )}
-                    />
+                      {/* FUNCTIONS ROUTE */}
+                      <Route
+                        exact
+                        path="/functions"
+                        render={(props) => (
+                          <Functions
+                            setCurrentView={setCurrentView}
+                            setTimePeriod={setTimePeriod}
+                            timePeriod={timePeriod}
+                            funcNames={funcNames}
+                            invocations={invocations}
+                            duration={duration}
+                            errors={errors}
+                            cost={cost}
+                            throttles={throttles}
+                          />
+                        )}
+                      />
 
-                    {/* ALLOCATIONS ROUTE */}
-                    <Route
-                      exact
-                      path="/memory"
-                      render={(props) => (
-                        <Memory
-                          setCurrentView={setCurrentView}
-                          memUsedVsAllo={memUsedVsAllo}
-                        />
-                      )}
-                    />
-    
-                  </Pages>
-                </MainGrid>
-              </Switch>
-            </div>
-          </React.Fragment>
-        )}
-      </div>
-    </HashRouter>
+                      {/* ALLOCATIONS ROUTE */}
+                      <Route
+                        exact
+                        path="/memory"
+                        render={(props) => (
+                          <Memory
+                            setCurrentView={setCurrentView}
+                            memUsedVsAllo={memUsedVsAllo}
+                          />
+                        )}
+                      />
+                    </Pages>
+                  </MainGrid>
+                </Switch>
+              </div>
+            </React.Fragment>
+          )}
+        </div>
+      </HashRouter>
     </UserProvider>
   );
 };

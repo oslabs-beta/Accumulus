@@ -8,6 +8,7 @@ import {
   LoginButton,
   LoginInput,
   ErrorMessage,
+  BackButton,
 } from '../styles';
 import { useForm } from 'react-hook-form';
 
@@ -74,55 +75,76 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     setLoginOrRegister('register');
   };
 
+  const backBtnHandler = () => {
+    setCurrentView('splash');
+    history.push('/');
+  };
+
   return (
     <>
       <LoginPageContainer>
         {loginOrRegister === 'login' ? (
           <LoginFormContainer>
             <>
-              <h1 style={{ marginBottom: '10px', marginLeft: '120px' }}>
-                Sign In
-              </h1>
+              <div style={{ textAlign: 'center' }}>
+                <h1 style={{ marginBottom: '10px' }}>Sign In</h1>
+              </div>
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                  <label>Email</label>
+                  {/* <label>Email</label> */}
                   <br />
-                  <LoginInput
-                    {...register('email', {
-                      required: true,
-                      pattern:
-                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    })}
-                    type="text"
-                    onChange={(e) => {
-                      setEmailLog(e.target.value);
-                    }}
-                  />
-                  <ErrorMessage>
-                    {errors.email && (
-                      <div className="errors"> Enter a valid email address</div>
-                    )}
-                  </ErrorMessage>
+                  <div style={{ textAlign: 'center' }}>
+                    <LoginInput
+                      placeholder="Email Address"
+                      {...register('email', {
+                        required: true,
+                        pattern:
+                          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      })}
+                      type="text"
+                      onChange={(e) => {
+                        setEmailLog(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage>
+                      {errors.email && (
+                        <div className="errors">
+                          Enter a valid email address
+                        </div>
+                      )}
+                    </ErrorMessage>
+                  </div>
                 </div>
                 <div>
-                  <label style={{ marginTop: '10px' }}>Password</label>
+                  {/* <label style={{ marginTop: '10px' }}>Password</label> */}
                   <br />
-                  <LoginInput
-                    {...register('password', { required: true })}
-                    type="password"
-                    onChange={(e) => {
-                      setPassLog(e.target.value);
-                    }}
-                  />
-                  <ErrorMessage>
-                    {errors.password && (
-                      <div className="errors"> Enter your password</div>
-                    )}
-                  </ErrorMessage>
+                  <div style={{ textAlign: 'center' }}>
+                    <LoginInput
+                      placeholder="Password"
+                      {...register('password', { required: true })}
+                      type="password"
+                      onChange={(e) => {
+                        setPassLog(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage>
+                      {errors.password && (
+                        <div className="errors">Enter your password</div>
+                      )}
+                    </ErrorMessage>
+                  </div>
                 </div>
-                <LoginButton type="submit"> Log In</LoginButton>
-                <LoginButton onClick={regBtnHandler}>Register</LoginButton>
+
+                <div style={{ textAlign: 'center' }}>
+                  <LoginButton type="submit">Log In</LoginButton>
+                  <br />
+                  <br />
+                  <u style={{ cursor: 'pointer' }} onClick={regBtnHandler}>
+                    Don&apos;t have an account?
+                  </u>
+                  <BackButton onClick={backBtnHandler}>Back</BackButton>
+                </div>
               </form>
             </>
           </LoginFormContainer>
@@ -132,6 +154,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
             setCurrentView={setCurrentView}
             setStart={setStart}
             setUserRegion={setUserRegion}
+            backBtnHandler={backBtnHandler}
           />
         )}
       </LoginPageContainer>

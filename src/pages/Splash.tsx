@@ -6,6 +6,7 @@ import {
   SplashLeft,
   SplashBody,
   StartedButton,
+  DemoButton,
   H1,
   Text,
 } from '../styles';
@@ -54,6 +55,35 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     }
   };
 
+  const demoHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const body = JSON.stringify({
+      email: 'email@gmail.com',
+      password: 'password',
+    });
+
+    const login = await fetch('/api/user/login', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      method: 'POST',
+      body,
+    });
+    const response = await login.json();
+    const { region, name } = response;
+
+    if (response.success === true) {
+      storeName(name);
+      setUserRegion(region);
+      console.log('redirecting...');
+      setCurrentView('dashboard');
+      setStart(true);
+      history.push('/home');
+    } else {
+      console.log('unsucessful');
+    }
+  };
+
   function Model(props: any) {
     const { scene } = useGLTF('/tree.glb');
     return <primitive object={scene} />;
@@ -75,6 +105,7 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
       <SplashBody>
         <H1>Lambda Monitoring Made Easy</H1>
         <StartedButton onClick={startHandler}>Get Started</StartedButton>
+        <DemoButton onClick={demoHandler}>Demo</DemoButton>
         <Text>
           Accumulus is an open source application for AWS Lambda data
           visualization and cost optimization
@@ -111,8 +142,8 @@ const Splash = ({ setCurrentView, setUserRegion, setStart }: Props) => {
         <footer>
           <SplashLeft>
             <a href="www.github.com">Github</a>
+            <p>Copyright 2022</p>
           </SplashLeft>
-          <p>Copyright 2022</p>
         </footer>
       </SplashFooter>
     </>
