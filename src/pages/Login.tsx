@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Register from './Register';
 import { UserContext } from '../../context/userContext';
 import { useHistory } from 'react-router-dom';
@@ -7,7 +7,7 @@ import {
   LoginFormContainer,
   LoginButton,
   LoginInput,
-  ErrorMessage
+  ErrorMessage,
 } from '../styles';
 import { useForm } from 'react-hook-form';
 
@@ -24,25 +24,21 @@ type Props = {
 
 const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
   const { name, storeName, email, storeEmail } = useContext(UserContext);
-  
+
   const {
     register,
-    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
   const [emailLog, setEmailLog] = useState('');
   const [passLog, setPassLog] = useState('');
-  const [userArn, setUserArn] = useState('1');
-  const [userExternalId, setUserExternalId] = useState('1');
   const [loginOrRegister, setLoginOrRegister] = useState('login');
   const [message, setMessage] = useState('');
 
   let history = useHistory();
 
   const onSubmit = async (data: FormData) => {
-
     const body = JSON.stringify({
       email: emailLog,
       password: passLog,
@@ -58,10 +54,7 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     });
 
     const response = await login.json();
-    const arn = response.arn;
-    const externalId = response.externalId;
     const region = response.region;
-    // console.log(region, 'from login fetch')
     const name = response.name;
 
     if (response.success === true) {
@@ -85,53 +78,55 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     <>
       <LoginPageContainer>
         {loginOrRegister === 'login' ? (
-        <LoginFormContainer>
-          <>
-            <h1 style={{marginBottom: '10px', marginLeft: '120px'}}>Sign In</h1>
-            
+          <LoginFormContainer>
+            <>
+              <h1 style={{ marginBottom: '10px', marginLeft: '120px' }}>
+                Sign In
+              </h1>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label >Email</label><br/>
-                <LoginInput
-                  {...register('email', {
-                    required: true,
-                    pattern:
-                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  })}
-                  type="text"
-                  onChange={(e) => {
-                    setEmailLog(e.target.value);
-                  }}
-                />
-                <ErrorMessage>
-                  {errors.email && (
-                    <div className="errors"> Enter a valid email address</div>
-                  )}
-                </ErrorMessage>
-              </div>
-              <div>
-                <label style={{marginTop: '10px'}}>Password</label><br/>
-                <LoginInput
-                  {...register('password', { required: true })}
-                  type="password"
-                  onChange={(e) => {
-                    setPassLog(e.target.value);
-                  }}
-                />
-                <ErrorMessage>
-                  {errors.password && (
-                    <div className="errors"> Enter your password</div>
-                  )}
-                </ErrorMessage>
-              </div>
-              <LoginButton type="submit"> Log In</LoginButton>
-              <LoginButton onClick={regBtnHandler}>Register</LoginButton>
-            </form>
-          </>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                  <label>Email</label>
+                  <br />
+                  <LoginInput
+                    {...register('email', {
+                      required: true,
+                      pattern:
+                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    })}
+                    type="text"
+                    onChange={(e) => {
+                      setEmailLog(e.target.value);
+                    }}
+                  />
+                  <ErrorMessage>
+                    {errors.email && (
+                      <div className="errors"> Enter a valid email address</div>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <div>
+                  <label style={{ marginTop: '10px' }}>Password</label>
+                  <br />
+                  <LoginInput
+                    {...register('password', { required: true })}
+                    type="password"
+                    onChange={(e) => {
+                      setPassLog(e.target.value);
+                    }}
+                  />
+                  <ErrorMessage>
+                    {errors.password && (
+                      <div className="errors"> Enter your password</div>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <LoginButton type="submit"> Log In</LoginButton>
+                <LoginButton onClick={regBtnHandler}>Register</LoginButton>
+              </form>
+            </>
           </LoginFormContainer>
-        ) 
-        : (
+        ) : (
           <Register
             setLoginOrRegister={setLoginOrRegister}
             setCurrentView={setCurrentView}

@@ -21,8 +21,6 @@ type FormData = {
 
 const Register = (props: any) => {
   const { name, storeName } = useContext(UserContext)
-  //console.log(name);
-
 
   const {
     register,
@@ -67,8 +65,6 @@ const Register = (props: any) => {
     });
 
     const response = await register.json();
-    const arn = response.arn;
-    const externalId = response.externalId;
     const region = response.region;
 
     if (register.status === 200) {

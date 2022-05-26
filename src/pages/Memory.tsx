@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState } from 'react';
 import StackedBarFnGraph from '../components/StackedBarFnGraph';
 import AlloFunctionSelector from '../components/MemFnSelector';
 import MemReduction from '../components/MemReduction';
@@ -19,54 +19,6 @@ type Props = {
 
 const Allocations = ({ setCurrentView, memUsedVsAllo }: Props) => {
   const [onStacked, setOnStacked] = useState([{ name: 'Select a function' }]);
-
-  /*
-
-  onFunction signature
-  {
-    funcName: color,
-    funcName: color,
-    ...
-  }
-
-  onMemories signature
-  [
-    {
-      name: 'AccumulusFunc1',
-      used: 35,
-      allocated1: 128,
-      difference1: 95,
-    },
-    {
-      name: 'AccumulusFunc2',
-      used: 192,
-      allocated2: 256,
-      difference2: 64,
-    },
-  ]
-
-  iterate through onMemories
-  look for name value = function you're deleting
-  copy value at index+1
-  loop until end
-  pop last element 
-
-  }
-
-
-  */
-
-  //need to bring in names from initial app fetch for mem
-
-  // const functions = {
-  //   names: [
-  //     'AccumulusFunc1',
-  //     'AccumulusFunc2',
-  //     'AccumulusFunc3',
-  //     'AccumulusFunc4',
-  //     'AccumulusFunc5',
-  //   ],
-  // };
 
   const functions:{[key: string]: string | string[]} = {};
   const names:string[] = [];

@@ -6,10 +6,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Functions from './pages/Functions';
 import Memory from './pages/Memory';
-import styled from 'styled-components';
 import { MainGrid, Nav, Pages } from './styles';
 import Navbar from './components/Navbar';
-import TimeButtons from './components/TimeButtons';
 import * as fetchHelper from './fetchHelper';
 import { UserProvider } from '../context/userContext';
 
@@ -18,7 +16,6 @@ const App = () => {
 
   const [start, setStart] = useState(false);
   const [userRegion, setUserRegion] = useState('us-east-1');
-  // console.log(userRegion, 'from App.tsx state hook');
   const [funcNames, setFuncNames] = useState([]);
 
   // --------- ALL FUNCS HOOKS
@@ -50,6 +47,7 @@ const App = () => {
 
   const [currentView, setCurrentView] = useState('splash');
 
+  // Fires when sync button is pressed
   useEffect(() => {
     if (syncData) {
       console.log('running fetch Metric ALL Functions');
@@ -81,6 +79,7 @@ const App = () => {
     }
   }, [timePeriod, syncData, userRegion]);
 
+  // Initial firing of data request upon Get Started or Login
   useEffect(() => {
     if (start) {
       console.log('running fetch Metric ALL Functions');

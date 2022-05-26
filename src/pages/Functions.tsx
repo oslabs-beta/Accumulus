@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import FnGraphCompare from '../components/FnGraphCompare';
 import FnSelector from '../components/FnSelector';
 import TimeButtons from '../components/TimeButtons';
-import Sidebar from '../components/Navbar';
 import {
   SideBarDiv,
   FnGraphContainer,
   FnGrid,
   Scroll,
-  FnSideBarWrapper
+  FnSideBarWrapper,
 } from '../styles';
 
 type Props = {
@@ -24,10 +23,6 @@ type Props = {
 };
 
 const Functions = (props: Props, { setCurrentView }: Props) => {
-  const [metricType, setMetricType] = useState('Invocations');
-  const [timePeriod, setTimePeriod] = useState('7d');
-  const [dataSum, setDataSum] = useState('Sum');
-
   const [onFunctions, setOnFunctions] = useState({});
 
   return (
@@ -35,16 +30,16 @@ const Functions = (props: Props, { setCurrentView }: Props) => {
       <FnGrid>
         <SideBarDiv>
           <FnSideBarWrapper>
-          <FnSelector
-            funcNames={props.funcNames}
-            onFunctions={onFunctions}
-            setOnFunctions={setOnFunctions}
-          />
-          <TimeButtons 
-            timePeriod={props.timePeriod}
-            setTimePeriod={props.setTimePeriod} 
-          />
-          </FnSideBarWrapper> 
+            <FnSelector
+              funcNames={props.funcNames}
+              onFunctions={onFunctions}
+              setOnFunctions={setOnFunctions}
+            />
+            <TimeButtons
+              timePeriod={props.timePeriod}
+              setTimePeriod={props.setTimePeriod}
+            />
+          </FnSideBarWrapper>
         </SideBarDiv>
         <Scroll>
           <FnGraphContainer>
