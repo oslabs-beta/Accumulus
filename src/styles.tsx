@@ -280,7 +280,7 @@ export const GraphContainer = styled.section`
   background: #ededed;
   padding-top: 10px;
   /* width: 100%; */
-  height: 275px;
+  height: 270px;
   box-shadow: 2px 2px 2px #d8d8d8;
 `;
 export const GraphContainered = styled.section`
@@ -466,7 +466,7 @@ export const FnSideBar = styled.div`
 
 export const Scroll = styled.div`
   overflow: scroll;
-  height: 100vh;
+  height: 91vh;
 `;
 
 export const FnSelectButton = styled.button<{ selected?: boolean }>`

@@ -51,9 +51,17 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
           <RegionSelect>
             <select onChange={updateRegion}>
               <option value="us-east-2">Ohio (US-East-2)</option>
-              <option value="us-east-1">Virginia (US-East-1)</option>
+              {name !== 'Beff Jezos' ? (
+                <option value="us-east-1">Virginia (US-East-1)</option>
+              ) : (
+                <></>
+              )}
               <option value="us-west-1">California (US-West-1)</option>
-              <option value="us-west-2">Oregon (US-West-2)</option>
+              {name !== 'Beff Jezos' ? (
+                <option value="us-west-2">Oregon (US-West-2)</option>
+              ) : (
+                <></>
+              )}
             </select>
           </RegionSelect>
         </SelectorBox>
@@ -64,7 +72,6 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
               data={props.totalInvocations}
               name={'Total Invocations'}
               width={'100%'}
-              height={350}
             />
           </GraphContainer>
           <GraphContainer>
@@ -73,7 +80,6 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
               data={props.totalErrors}
               name={'Total Errors'}
               width={'100%'}
-              height={350}
             />
           </GraphContainer>
         </Row1GraphBox>
@@ -84,7 +90,6 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
               data={props.totalCost}
               name={'Total Cost'}
               width={'100%'}
-              height={350}
             />
           </GraphContainer>
           <GraphContainer>
@@ -92,7 +97,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
               data={props.slowestFuncs}
               name={'Slowest Functions'}
               width={'100%'}
-              height={350}
+              tooltip={'Total Duration'}
             />
           </GraphContainer>
         </Row2GraphBox>
@@ -105,7 +110,7 @@ const Dashboard = (props: Props, { setCurrentView, setUserRegion }: Props) => {
               data={props.mostErroredFuncs}
               name={'Most Errored Functions'}
               width={'100%'}
-              height={350}
+              tooltip={'Total Errors'}
             />
           </GraphContainer>
         </EvenDashGraphBox>

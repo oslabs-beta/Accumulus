@@ -17,7 +17,6 @@ interface FnGraphProps {
   data: object[];
   name: string;
   width: string | number;
-  height: string | number;
   unit?: string;
 }
 
@@ -33,10 +32,7 @@ const FnGraph = (props: FnGraphProps) => {
       >
         {props.name}
       </h1>
-      <div
-        className="chart"
-        style={{ width: props.width, height: props.height }}
-      >
+      <div className="chart" style={{ width: props.width }}>
         <ResponsiveContainer height={225}>
           <LineChart
             // @ts-ignore

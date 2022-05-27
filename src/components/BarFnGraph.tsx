@@ -21,7 +21,7 @@ interface BarFnGraphProps {
   data: Record<string, any>[];
   name: string;
   width: string | number;
-  height: string | number;
+  tooltip: string;
 }
 
 const BarFuncGraph = (props: BarFnGraphProps) => {
@@ -36,10 +36,7 @@ const BarFuncGraph = (props: BarFnGraphProps) => {
       >
         {props.name}
       </h1>
-      <div
-        className="chart"
-        style={{ width: props.width, height: props.height }}
-      >
+      <div className="chart" style={{ width: props.width }}>
         <ResponsiveContainer height={200}>
           <BarChart
             // @ts-ignore
@@ -63,7 +60,12 @@ const BarFuncGraph = (props: BarFnGraphProps) => {
             />
             <XAxis type="number" dataKey="value" />
             <Tooltip />
-            <Bar type="monotone" dataKey="value" fill="#613659">
+            <Bar
+              type="monotone"
+              dataKey="value"
+              fill="#613659"
+              name={props.tooltip}
+            >
               {props.data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={barColors[index % 20]} />
               ))}
