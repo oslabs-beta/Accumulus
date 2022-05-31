@@ -73,7 +73,7 @@ const FuncGraphCompare = (props: FnGraphCompareProps) => {
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis dataKey="xkey" />
-            <YAxis dataKey="" unit={props.unit} tickCount={10} domain={['dataMin', 'dataMax']}/>
+            <YAxis dataKey="" unit={props.unit} tickCount={10} />
             <Tooltip />
             {lines}
           </LineChart>
