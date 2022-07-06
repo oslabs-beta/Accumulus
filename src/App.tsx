@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, FC } from 'react';
+import React, { useState, useEffect } from 'react';
 import GlobalStyle from './globals';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Splash from './pages/Splash';
@@ -48,7 +48,7 @@ const App = () => {
   // Fires when sync button is pressed
   useEffect(() => {
     if (syncData) {
-      console.log('running fetch Metric ALL Functions');
+      // console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -62,7 +62,7 @@ const App = () => {
         userRegion,
         syncData
       );
-      console.log('running fetch Metric BY Functions');
+      // console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,
@@ -80,7 +80,7 @@ const App = () => {
   // Initial firing of data request upon Get Started or Login
   useEffect(() => {
     if (start) {
-      console.log('running fetch Metric ALL Functions');
+      // console.log('running fetch Metric ALL Functions');
       fetchHelper.fetchMetricAllFunctions(
         setFuncNames,
         setTotalInvocations,
@@ -93,7 +93,7 @@ const App = () => {
         timePeriod,
         userRegion
       );
-      console.log('running fetch Metric BY Functions');
+      // console.log('running fetch Metric BY Functions');
       fetchHelper.fetchMetricEachFunctions(
         setInvocations,
         setDuration,

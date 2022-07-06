@@ -61,18 +61,17 @@ const Login = ({ setCurrentView, setUserRegion, setStart }: Props) => {
     if (response.success === true) {
       storeName(name);
       setUserRegion(region);
-      console.log('redirecting...');
       setCurrentView('dashboard');
       setStart(true);
       history.push('/home');
     } else {
-      console.log('unsucessful');
-      setMessage('Email not registered');
+      setMessage('Email not registered'); // todo: render something to show incorrect email/password
     }
   };
 
   const regBtnHandler = () => {
     setLoginOrRegister('register');
+    history.push('/register'); // check if this sends user back to login with browser's back button
   };
 
   const backBtnHandler = () => {
