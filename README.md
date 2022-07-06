@@ -11,7 +11,7 @@ It is intimidating to navigate the extensive AWS docs and hundreds of services, 
 
 <p>Currently, monitoring tools for Lambda make it difficult to directly compare two Lambda functions. Our solution is a web application that provides comprehensive charts for direct comparison of functions while presenting bottlenecks and potential areas for resource allocation adjustments.</p>
 
-Project Links: [Github](https://github.com/oslabs-beta/Accumulus) | [Linkedin](https://www.linkedin.com/addThisSoon) | [Press](https://medium.com/addThisSoon)
+Project Links: [Github](https://github.com/oslabs-beta/Accumulus) | [Linkedin](https://www.linkedin.com/addThisSoon) | [Press](https://medium.com/@ericzfwu/simplify-your-aws-lambda-view-7ebb7dbaac4b)
 
 <h2>🛠️ Getting Started:</h2>
 
